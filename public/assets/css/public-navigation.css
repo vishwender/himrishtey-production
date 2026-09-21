@@ -1,0 +1,68 @@
+/* Shared navigation positioning for both public page layouts. */
+body.public-site {
+    --public-header-height: 86px;
+    padding-top: var(--public-header-height);
+}
+
+body.public-site .public-header {
+    position: fixed;
+    inset: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+body.public-site .public-mobile-nav {
+    position: fixed;
+    inset: var(--public-header-height) 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: calc(100vh - var(--public-header-height));
+    max-height: calc(100dvh - var(--public-header-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    z-index: 999;
+}
+
+body.public-site .public-menu {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--text, #211d1c);
+    background: var(--surface, #fff);
+}
+
+body.public-site .public-menu .public-menu-icon {
+    display: block;
+    flex: none;
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 1050px) {
+    body.public-site .public-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+    }
+    body.public-site .public-logo { min-width: 0; flex-shrink: 1; }
+    body.public-site .public-logo img { max-width: 100%; }
+    body.public-site .public-actions { flex-shrink: 0; }
+    body.public-site .public-header nav { display: none; }
+    body.public-site .public-menu { display: inline-flex; align-items: center; justify-content: center; }
+    body.public-site .public-mobile-nav.open { display: flex !important; flex-direction: column; }
+}
+
+@media (max-width: 600px) {
+    body.public-site { --public-header-height: 68px; }
+    body.public-site .public-header { height: 68px; min-height: 68px; padding-inline: 16px; }
+    body.public-site .public-header .header-register-link { display: none; }
+    body.public-site .public-logo img { width: 140px; height: 44px; }
+    body.public-site .public-actions { gap: 8px; justify-self: end; }
+}
+
+@media (min-width: 1051px) {
+    body.public-site .public-menu,
+    body.public-site .public-mobile-nav { display: none !important; }
+}

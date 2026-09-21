@@ -1,7 +1,7 @@
 export function initializeRevealAnimations() {
-    const revealElements = document.querySelectorAll(
+    const revealElements = Array.from(document.querySelectorAll(
         'section, .profile-card, .story-grid article, .community-grid a, .app-cta, .trust-strip article, .finder'
-    );
+    )).filter((element) => !element.closest('[data-profile-slider]'));
 
     revealElements.forEach((element) => {
         element.classList.add('reveal');

@@ -1,0 +1,43 @@
+/* Keep the wide banner artwork separate from the copy on small screens. */
+@media (max-width: 600px) {
+    .public-site .hero {
+        height: auto;
+        background-image: none;
+        background-color: var(--surface, #fff);
+    }
+
+    .public-site .hero::before {
+        display: none;
+    }
+
+    .hero .hero-mobile-image {
+        display: block;
+        width: 100%;
+        height: clamp(200px, 56vw, 300px);
+        object-fit: cover;
+        object-position: right center;
+    }
+
+    .hero .hero-copy {
+        width: calc(100% - 32px);
+        height: auto;
+        padding: 28px 0 32px;
+        min-width: 0;
+    }
+
+    .hero .hero-copy h1 {
+        font-size: clamp(32px, 8.5vw, 42px);
+        line-height: 1.12;
+        overflow-wrap: break-word;
+    }
+
+    .hero .hero-copy > p {
+        margin: 18px 0;
+        font-size: 15px;
+    }
+
+    .hero-copy > p br { display: none; }
+    .hero .hero-buttons { flex-flow: row wrap; gap: 12px; }
+    .hero .hero-buttons a { max-width: 100%; padding: 13px 18px; font-size: 14px; }
+    .hero .trusted { margin-top: 24px; }
+}

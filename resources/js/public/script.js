@@ -393,9 +393,9 @@
 
 
   /* ---- SCROLL REVEAL ANIMATION ---- */
-  const revealEls = document.querySelectorAll(
+  const revealEls = Array.from(document.querySelectorAll(
     '.stat-card, .profile-card, .pc-card, .upgrade-banner, .section-header'
-  );
+  )).filter((element) => !element.closest('[data-profile-slider]'));
 
   if ('IntersectionObserver' in window && revealEls.length) {
     // Add initial hidden state via JS (not CSS) so it doesn't flash on slow loads

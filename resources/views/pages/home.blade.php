@@ -52,10 +52,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
      @include('partials.public-header')
      <main>
-         <section class="hero" style="background-image: url('{{ asset($siteHeroBackground) }}');">
+         <section class="hero" style="--hero-image: url('{{ asset($siteHeroBackground) }}');">
+             <img class="hero-mobile-image" src="{{ asset($siteHeroBackground) }}" alt="" fetchpriority="high">
              <div class="hero-copy">
                  <h1>Find someone<br><em>who feels like home.</em></h1>
-                 <p>Meaningful connections. Genuine profiles.<br>A simple way to find your life partner.</p>
+                 <p>Meaningful connections. Genuine profiles.<br> A simple way to find your life partner.</p>
                  <div class="hero-buttons">
                      <a class="solid public-cta public-cta-primary" href="#featured">
                          <i data-lucide="heart" aria-hidden="true"></i>Find Matches

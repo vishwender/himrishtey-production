@@ -2,6 +2,8 @@
 .matches.carousel-ready .profile-slider-track {
     display: flex;
     gap: 20px;
+    overflow: visible;
+    scroll-snap-type: none;
     transition: transform .55s ease;
     padding: 4px 0 12px;
 }

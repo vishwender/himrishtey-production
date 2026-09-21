@@ -16,3 +16,7 @@
 @import './public-pages.css';
 @import './dark-theme.css';
 @import './profile-slider.css';
+
+@import '../../../public/assets/css/public-navigation.css';
+
+@import "./hero-mobile.css";

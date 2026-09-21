@@ -69,7 +69,7 @@
         </a>
 
         <a
-            class="solid public-solid public-cta public-cta-primary"
+            class="solid public-solid public-cta public-cta-primary header-register-link"
             href="{{ route('login-form') }}#register">
             Register Free
         </a>
@@ -97,9 +97,11 @@
             aria-label="Open navigation"
             aria-expanded="false"
             aria-controls="public-mobile-navigation">
-            <i
-                data-lucide="menu"
-                aria-hidden="true"></i>
+            <svg class="public-menu-icon" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
         </button>
 
     </div>
@@ -114,7 +116,7 @@
     data-public-mobile
     aria-label="Mobile navigation">
 
-    <a href="{{ route('welcome') }}#matches">
+    <a href="{{ route('welcome') }}#featured">
         Matches
     </a>
 

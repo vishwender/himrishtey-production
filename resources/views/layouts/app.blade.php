@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/public-shell.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/public-footer.css') }}?v={{ filemtime(public_path('assets/css/public-footer.css')) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/public-cta.css') }}?v=20260903">
+    <link rel="stylesheet" href="{{ asset('assets/css/public-navigation.css') }}?v={{ filemtime(public_path('assets/css/public-navigation.css')) }}">
     <style>
         :root {
             --site-primary: {
@@ -99,8 +100,11 @@
             document.documentElement.dataset.theme = n;
             localStorage.setItem('public-theme', n)
         });
-        document.querySelector('[data-public-menu]')?.addEventListener('click', () => document.querySelector('[data-public-mobile]')?.classList.toggle('open'));
         window.lucide?.createIcons();
+    </script>
+    <script type="module">
+        import { initializeNavigation } from '{{ asset('assets/js/public-navigation.js') }}?v={{ filemtime(public_path('assets/js/public-navigation.js')) }}';
+        initializeNavigation();
     </script>
     @yield('scripts')
 </body>

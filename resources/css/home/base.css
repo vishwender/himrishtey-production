@@ -227,10 +227,15 @@ textarea {
 .hero {
     height: 440px;
     position: relative;
+    background-image: var(--hero-image);
 
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.hero-mobile-image {
+    display: none;
 }
 
 .hero-copy {
