@@ -1,0 +1,410 @@
+/*
+|--------------------------------------------------------------------------
+| Public Footer
+|--------------------------------------------------------------------------
+*/
+
+.public-footer {
+    padding: 42px 0 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--brand) 88%,
+                #000000
+            ) 0%,
+            var(--deep) 100%
+        );
+
+    color: #ffffff;
+
+    border-top:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--gold) 30%,
+            transparent
+        );
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.08);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer Layout
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .public-footer-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 1.5fr)
+        repeat(3, minmax(150px, 1fr));
+
+    gap: 48px;
+}
+
+.public-footer .public-footer-grid > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    min-width: 0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer Headings
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .public-footer-grid > div > b {
+    margin-bottom: 6px;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer Links
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .public-footer-grid a {
+    color:
+        rgba(255, 255, 255, 0.80);
+
+    font-size: 14px;
+    line-height: 1.75;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.public-footer .public-footer-grid a:hover {
+    color: #ffffff;
+
+    transform: translateX(2px);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer Paragraphs
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .public-footer-grid p {
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.78);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Social Links
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.public-footer .footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 9999px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.public-footer .footer-social a:hover {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.95);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.public-footer .footer-social svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.public-footer .footer-social svg.social-facebook,
+.public-footer .footer-social svg.social-youtube {
+    fill: currentColor;
+    stroke: none;
+}
+
+.public-footer .footer-social a:hover svg.social-facebook {
+    color: #1877f2;
+}
+
+.public-footer .footer-social a:hover svg.social-x {
+    color: #000000;
+}
+
+.public-footer .footer-social a:hover svg.social-instagram {
+    color: #e4405f;
+}
+
+.public-footer .footer-social a:hover svg.social-youtube {
+    color: #ff0000;
+}
+
+.public-footer .footer-social a:hover svg.social-youtube path:last-child {
+    fill: #ffffff;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer Logo
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .public-logo,
+.public-footer .logo {
+    color: #ffffff;
+}
+
+.public-footer .public-logo img,
+.public-footer .logo img {
+    max-width: 220px;
+    height: 58px;
+
+    object-fit: contain;
+    object-position: left center;
+
+    filter:
+        drop-shadow(
+            0 2px 5px
+            rgba(0, 0, 0, 0.12)
+        );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Newsletter / Form
+|--------------------------------------------------------------------------
+*/
+
+.public-footer form {
+    display: flex;
+
+    width: 100%;
+    max-width: 260px;
+
+    margin-top: 4px;
+}
+
+.public-footer input {
+    min-width: 0;
+    flex: 1;
+
+    padding: 10px 12px;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.32);
+
+    border-right: 0;
+
+    border-radius:
+        5px 0 0 5px;
+
+    outline: none;
+}
+
+.public-footer input::placeholder {
+    color:
+        rgba(255, 255, 255, 0.55);
+}
+
+.public-footer input:focus {
+    border-color:
+        rgba(255, 255, 255, 0.70);
+}
+
+.public-footer form button {
+    width: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: #ffffff;
+    color: var(--brand);
+
+    border: 0;
+
+    border-radius:
+        0 5px 5px 0;
+
+    cursor: pointer;
+}
+
+.public-footer form button svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Copyright
+|--------------------------------------------------------------------------
+*/
+
+.public-footer .copyright {
+    display: block;
+
+    margin-top: 34px;
+    padding-top: 16px;
+
+    color:
+        rgba(255, 255, 255, 0.62);
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    text-align: center;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Tablet
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 900px) {
+
+    .public-footer .public-footer-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 32px;
+    }
+
+    .public-footer .public-footer-grid > div:first-child {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 600px) {
+
+    .public-footer {
+        padding:
+            34px 0
+            14px;
+    }
+
+    .public-footer .public-footer-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap:
+            26px 20px;
+    }
+
+    .public-footer .public-footer-grid > div:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .public-footer .public-footer-grid a {
+        font-size: 13.5px;
+        line-height: 1.7;
+    }
+
+    .public-footer .public-footer-grid > div > b {
+        font-size: 14px;
+    }
+
+    .public-footer .public-footer-grid p {
+        font-size: 12.5px;
+    }
+
+    .public-footer .public-logo img,
+    .public-footer .logo img {
+        max-width: 180px;
+        height: 50px;
+    }
+
+    .public-footer .copyright {
+        margin-top: 28px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Very Small Screens
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 420px) {
+
+    .public-footer .public-footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .public-footer .public-footer-grid > div:first-child {
+        grid-column: auto;
+    }
+
+}

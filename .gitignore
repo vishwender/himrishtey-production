@@ -1,0 +1,53 @@
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local / AI development tools
+/.claude/
+/.ddev/
+/.codex/
+/.cursor/
+/.idea/
+/.nova/
+/.vscode/
+/.zed/
+/.mcp.json
+/AGENTS.md
+/CLAUDE.md
+/boost.json
+
+# PHP / Laravel
+/.phpunit.cache/
+.phpunit.result.cache
+.phpactor.json
+/auth.json
+/vendor/
+/storage/*.key
+/storage/pail/
+/public/storage
+/public/hot
+
+# Node / Vite
+/node_modules/
+/public/build/
+/public/fonts-manifest.dev.json
+
+# IDE helpers
+_ide_helper.php
+
+# Legacy/local development
+Homestead.json
+Homestead.yaml
+
+/public/photos/
+/photos/photo/
+/apis/application/config/firebase-service-account.json
+/.well-known/

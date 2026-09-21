@@ -1,0 +1,83 @@
+/* Keep the promise feature aligned with the current tenant-aware public theme. */
+.public-site .about-story {
+    position: relative;
+    width: min(1180px, calc(100% - 48px));
+    min-height: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 2rem;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow);
+}
+
+.public-site .about-story::after {
+    content: "♥";
+    position: absolute;
+    right: -1.25rem;
+    bottom: -4rem;
+    color: var(--brand);
+    font: 13rem/1 "Playfair Display", serif;
+    opacity: .035;
+    pointer-events: none;
+}
+
+.public-site .about-story-visual { position: relative; min-height: 500px; }
+.public-site .about-story-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 65%, color-mix(in srgb, var(--surface) 22%, transparent));
+    pointer-events: none;
+}
+.public-site .about-story-visual img { object-position: 82% 42%; }
+
+.public-site .about-story > .about-story-copy {
+    position: relative;
+    z-index: 1;
+    padding: clamp(2.5rem, 6vw, 5rem);
+}
+
+.public-site .about-story .editorial-kicker { color: var(--brand); }
+.public-site .about-story h2 { color: var(--text); }
+.public-site .about-story h2 em { color: var(--brand); }
+.public-site .about-story p {
+    max-width: 56ch;
+    margin: 1.5rem 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.public-site .about-promise-points { display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 1.8rem; }
+.public-site .about-promise-points span {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .55rem .8rem;
+    border: 1px solid color-mix(in srgb, var(--brand) 18%, var(--line));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--brand) 7%, var(--surface));
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+}
+.public-site .about-promise-points svg { color: var(--brand); }
+.public-site .about-story .editorial-button { background: var(--brand); color: #fff !important; border-radius: 999px; }
+.public-site .about-story .editorial-button:hover { filter: brightness(.92); transform: translateY(-1px); }
+
+@media (max-width: 850px) {
+    .public-site .about-story { width: min(100% - 36px, 1180px); min-height: 0; }
+    .public-site .about-story-visual { min-height: 0; height: 340px; }
+    .public-site .about-story-visual img { object-position: 78% 35%; }
+    .public-site .about-story-visual::after { background: linear-gradient(0deg, color-mix(in srgb, var(--surface) 15%, transparent), transparent 42%); }
+}
+
+@media (max-width: 600px) {
+    .public-site .about-story { border-radius: 1.25rem; }
+    .public-site .about-story-visual { height: 260px; }
+    .public-site .about-story-visual img { object-position: 76% 34%; }
+    .public-site .about-story > .about-story-copy { padding: 2.25rem 1.5rem 2.5rem; }
+    .public-site .about-story p { font-size: 15px; }
+}

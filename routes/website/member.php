@@ -1,0 +1,76 @@
+<?php
+
+use App\Website\Http\Controllers\HomeController;
+use App\Website\Http\Controllers\MemberController;
+use App\Website\Http\Controllers\MembershipController;
+use App\Website\Http\Controllers\MyMemberController;
+use App\Website\Http\Controllers\PagesController;
+use App\Website\Http\Controllers\ProfileController;
+use App\Website\Http\Controllers\PushSubscriptionController;
+use App\Website\Http\Controllers\WalletController;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:member')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('search-home-member', [MyMemberController::class, 'search_home_member'])->name('search-home-member');
+    Route::get('search-home-profile', [MyMemberController::class, 'search_home_profile'])->name('search-home-profile');
+    Route::get('quick-search', [HomeController::class, 'quick_search'])->name('quick-search');
+    Route::get('search-results', [HomeController::class, 'searchResults'])->name('search-results');
+    Route::get('search-by-profile-id', [HomeController::class, 'search_by_profile_id'])->name('search-by-profile-id');
+    Route::get('api/search-by-profile-id/{profile_id}', [HomeController::class, 'searchByProfileIdApi'])->name('api.search-by-profile-id');
+    Route::get('advance-search', [MyMemberController::class, 'advance_search'])->name('advance-search');
+    Route::post('/unlock-contact/{profileId}', [HomeController::class, 'unlock_contact'])->name('unlock.contact');
+    Route::get('memberships', [MembershipController::class, 'index'])->name('memberships');
+    Route::get('referral', [HomeController::class, 'referral'])->name('referral');
+    Route::get('members/terms-and-conditions', [PagesController::class, 'terms_conditions'])->name('member.terms-and-conditions');
+    Route::get('user-rating', [HomeController::class, 'rating'])->name('user-rating');
+    Route::post('user-rate', [HomeController::class, 'rating_store'])->name('user-rate');
+    Route::get('member/success-stories', [HomeController::class, 'success_stories'])->name('member.success-stories');
+    Route::get('/success-stories/data', [HomeController::class, 'successStories'])->name('success-stories.data');
+    Route::post('stories_store', [HomeController::class, 'stories_store'])->name('stories_store');
+    Route::put('/success-stories/{id}', [HomeController::class, 'update'])->name('stories_update');
+    Route::delete('/success-stories/{id}', [HomeController::class, 'destroy'])->name('stories_delete');
+    Route::post('callback', [MembershipController::class, 'sendSms'])->name('callback');
+    Route::get('plans/{id}', [MembershipController::class, 'plans'])->name('plans');
+    Route::get('profile', [MyMemberController::class, 'myProfile'])->name('profile');
+    Route::get('interest-box', [HomeController::class, 'interest_box'])->name('interest-box');
+    Route::get('view-my-profile', [HomeController::class, 'view_my_profile'])->name('view-my-profile');
+    Route::get('viewed-contacts', [HomeController::class, 'viewed_contacts'])->name('viewed-contacts');
+    Route::get('view-profile/{id}', [HomeController::class, 'view_profile'])->name('view-profile');
+    Route::get('edit-profile', [MyMemberController::class, 'edit_profile'])->name('edit-profile');
+    Route::get('delete-profile', [MyMemberController::class, 'delete_profile'])->name('delete-profile');
+    Route::post('/destroy', [MyMemberController::class, 'destroy'])->name('destroy');
+    Route::get('change-password', [MemberController::class, 'changePassword'])->name('change-password');
+    Route::post('update-password', [MemberController::class, 'updatePassword'])->name('update-password');
+    Route::post('send-interest/{id}', [HomeController::class, 'send_interest'])->name('send-interest');
+    Route::post('like-profile', [HomeController::class, 'like_profile'])->name('like-profile');
+    Route::get('check-profile-like/{id}', [HomeController::class, 'check_profile_like'])->name('check-profile-like');
+    Route::get('/membership/checkout/{planId}', [MembershipController::class, 'buyPlan'])->name('membership.checkout');
+    Route::post('/membership/verify', [MembershipController::class, 'verifyPayment'])->name('membership.verify');
+    Route::get('recent-profiles', [ProfileController::class, 'recent_profiles'])->name('recent-profiles');
+    Route::get('all-recent-profiles', [ProfileController::class, 'all_recent_profiles'])->name('all-recent-profiles');
+    Route::post('update-profile', [MyMemberController::class, 'update_profile'])->name('update-profile');
+    Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
+    Route::post('/wallet/create-order', [WalletController::class, 'createOrder'])->name('wallet.createOrder');
+    Route::post('/wallet/callback', [WalletController::class, 'paymentCallback'])->name('wallet.callback');
+    Route::post('/wallet/buy-offer', [WalletController::class, 'buyOffer'])->name('wallet.buy-offer');
+    Route::get('/stats-profiles', [ProfileController::class, 'stats_profiles'])->name('stats-profiles');
+    Route::get('/all-stats-profiles', [ProfileController::class, 'all_stats_profiles'])->name('all-stats-profiles');
+    Route::post('short-profile', [HomeController::class, 'shortlist_profile'])->name('short-profile');
+    Route::get('/check-shortlist', [HomeController::class, 'check_shortlist'])->name('check-shortlist');
+    Route::get('member/privacy-policy', [PagesController::class, 'privacy_policy'])->name('member.privacy-policy');
+    Route::get('member/refund-policy', [PagesController::class, 'refund'])->name('member.refund-policy');
+    Route::post('/interest/update-status', [HomeController::class, 'updateInterestStatus'])->name('interest.update.status');
+    Route::get('/membership/success', function () {
+        return view('dashboard.memberships.success');
+    })->name('membership.success');
+    Route::get('/membership/failed', function () {
+        return view('dashboard.memberships.failed');
+    })->name('membership.failed');
+    Route::post('/save-subscription', [PushSubscriptionController::class, 'store']);
+    Route::post('/send-notification', [PushSubscriptionController::class, 'sendBrowserNotification']);
+    Route::post('/upload-photos', [HomeController::class, 'uploadPhotos'])->name('upload-photos');
+    Route::delete('/gallery-photos/{photo}', [HomeController::class, 'deleteGalleryPhoto'])->name('gallery-photos.destroy');
+    Route::post('/profile/photo', [HomeController::class, 'updatePhoto'])->name('profile.photo.update');
+    Route::get('/verify-account', [MyMemberController::class, 'verify_account'])->name('verify-account');
+});

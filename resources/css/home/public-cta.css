@@ -1,0 +1,185 @@
+/*
+|--------------------------------------------------------------------------
+| Public CTA Base
+|--------------------------------------------------------------------------
+*/
+
+.public-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 46px;
+
+    padding: 12px 22px;
+
+    border: 1px solid var(--brand);
+    border-radius: 4px;
+
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    letter-spacing: 0;
+
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.public-cta svg {
+    width: 18px;
+    height: 18px;
+
+    flex: none;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Primary CTA
+|--------------------------------------------------------------------------
+*/
+
+.public-cta-primary {
+    background: var(--brand);
+    color: #ffffff;
+
+    border-color: var(--brand);
+
+    box-shadow:
+        0 8px 20px
+        color-mix(
+            in srgb,
+            var(--brand) 20%,
+            transparent
+        );
+}
+
+.public-cta-primary:hover {
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 88%,
+            #000000
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--brand) 88%,
+            #000000
+        );
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 24px
+        color-mix(
+            in srgb,
+            var(--brand) 28%,
+            transparent
+        );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Secondary CTA
+|--------------------------------------------------------------------------
+*/
+
+.public-cta-secondary {
+    background: var(--surface, #ffffff);
+    color: var(--brand);
+
+    border-color: var(--brand);
+
+    box-shadow: none;
+}
+
+.public-cta-secondary:hover {
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 7%,
+            var(--surface, #ffffff)
+        );
+
+    color: var(--brand);
+
+    transform: translateY(-1px);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Focus / Active
+|--------------------------------------------------------------------------
+*/
+
+.public-cta:focus-visible {
+    outline:
+        3px solid
+        color-mix(
+            in srgb,
+            var(--brand) 32%,
+            transparent
+        );
+
+    outline-offset: 3px;
+}
+
+.public-cta:active {
+    transform: translateY(0);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Disabled
+|--------------------------------------------------------------------------
+*/
+
+.public-cta:disabled,
+.public-cta[aria-disabled="true"] {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 600px) {
+
+    .public-cta {
+        min-height: 44px;
+
+        padding: 11px 17px;
+
+        font-size: 13px;
+    }
+
+}

@@ -1,0 +1,98 @@
+:root {
+    --site-primary: #a83b6b;
+    --site-secondary: #f7d7df;
+    --site-accent: #d8a15a;
+    --site-deep: #2a1820;
+    --site-page: #fffaf9;
+    --site-surface: #fffdfd;
+    --site-surface-soft: #fff4f7;
+    --site-border: #f2dfe7;
+    --site-text: #20171e;
+    --site-muted: #645962;
+    --site-shadow: 0 18px 40px rgba(90, 38, 68, 0.12);
+
+    --font-body: "DM Sans", sans-serif;
+    --font-display: "Playfair Display", serif;
+    --font-heading: var(--font-display);
+
+    --brand: var(--site-primary, #a83b6b);
+    --deep: var(--site-deep, #2a1820);
+    --gold: var(--site-accent, #d8a15a);
+    --page: var(--site-page);
+    --surface: var(--site-surface);
+    --surface-soft: var(--site-surface-soft);
+    --border: var(--site-border);
+    --text: var(--site-text);
+    --text-soft: var(--site-muted);
+    --muted: var(--site-muted);
+    --shadow: var(--site-shadow);
+
+    --color-bg: var(--page);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-soft);
+    --color-border: var(--border);
+    --color-divider: color-mix(in srgb, var(--brand) 18%, var(--border));
+    --color-text: var(--text);
+    --color-text-muted: var(--muted);
+    --color-text-inverse: #ffffff;
+    --color-primary: var(--brand);
+    --color-primary-hover: color-mix(in srgb, var(--site-primary) 78%, #000000);
+    --color-primary-active: color-mix(in srgb, var(--site-primary) 66%, #000000);
+    --color-primary-light: color-mix(in srgb, var(--site-primary) 12%, #ffffff);
+    --color-primary-placeholder: color-mix(in srgb, var(--site-primary) 18%, transparent);
+    --color-primary-soft: color-mix(in srgb, var(--site-primary) 12%, var(--surface));
+    --color-secondary: var(--site-secondary);
+    --color-gold: var(--site-accent);
+    --color-gold-light: color-mix(in srgb, var(--site-accent) 16%, #ffffff);
+    --color-shadow: var(--site-shadow);
+
+    --radius-sm: 0.5rem;
+    --radius-lg: 1.25rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 9999px;
+    --shadow-md: var(--site-shadow);
+    --transition: 0.2s ease;
+    --text-base: 1rem;
+}
+
+body {
+    --brand: var(--site-primary, #a83b6b);
+    --deep: var(--site-deep, #2a1820);
+    --gold: var(--site-accent, #d8a15a);
+    --page: var(--site-page);
+    --surface: var(--site-surface);
+    --surface-soft: var(--site-surface-soft);
+    --border: var(--site-border);
+    --text: var(--site-text);
+    --muted: var(--site-muted);
+}
+
+html[data-theme="dark"] {
+    --site-primary: #f2a4bf;
+    --site-secondary: #f6dfe7;
+    --site-accent: #e4b56e;
+    --site-deep: #160d12;
+    --site-page: #120d10;
+    --site-surface: #1b1418;
+    --site-surface-soft: #26191f;
+    --site-border: rgba(255, 255, 255, 0.08);
+    --site-text: #f9f3f5;
+    --site-muted: #d2bfc5;
+    --site-shadow: 0 20px 42px rgba(7, 2, 5, 0.42);
+
+    --brand: var(--site-primary);
+    --deep: var(--site-deep);
+    --gold: var(--site-accent);
+    --page: var(--site-page);
+    --surface: var(--site-surface);
+    --surface-soft: var(--site-surface-soft);
+    --border: var(--site-border);
+    --text: var(--site-text);
+    --text-soft: var(--site-muted);
+    --muted: var(--site-muted);
+    --shadow: var(--site-shadow);
+
+    --color-primary: var(--site-primary);
+    --color-primary-hover: color-mix(in srgb, var(--site-primary) 78%, #000000);
+    --color-primary-light: color-mix(in srgb, var(--site-primary) 12%, transparent);
+}

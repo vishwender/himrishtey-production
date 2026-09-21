@@ -1,0 +1,102 @@
+.member-terms-page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 3vw, 1.5rem);
+}
+
+.member-terms-hero {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.member-terms-kicker {
+  margin: 0 0 .65rem;
+  color: var(--color-primary);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.member-terms-hero h1 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+}
+
+.member-terms-intro {
+  max-width: 58ch;
+  margin: 1rem auto 0;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.member-terms-card {
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.member-terms-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.35rem;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.member-terms-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.member-terms-card-header h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.125rem;
+}
+
+.member-terms-content {
+  max-width: 72ch;
+  color: var(--color-text-muted);
+}
+
+.member-terms-content :is(p, span, li, strong, b) {
+  background: transparent !important;
+  color: var(--color-text-muted) !important;
+  font-family: inherit !important;
+  font-size: clamp(1rem, 1.25vw, 1.1rem) !important;
+  line-height: 1.82 !important;
+  white-space: normal !important;
+}
+
+.member-terms-content p {
+  margin: 0 0 1.25rem !important;
+  text-align: left !important;
+}
+
+.member-terms-content p:last-child { margin-bottom: 0 !important; }
+
+.member-terms-content :is(strong, b) {
+  color: var(--color-text) !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 576px) {
+  .member-terms-page { padding-inline: .75rem; }
+  .member-terms-card-header { align-items: flex-start; }
+  .member-terms-icon { width: 42px; height: 42px; border-radius: 12px; }
+}

@@ -1,0 +1,609 @@
+/*
+|--------------------------------------------------------------------------
+| Component Enhancements
+|--------------------------------------------------------------------------
+| Shared visual sizing for homepage components.
+| Structural layout stays in layout.css.
+|--------------------------------------------------------------------------
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| Success Stories
+|--------------------------------------------------------------------------
+*/
+
+.stories {
+    padding-top: 24px;
+    padding-bottom: 52px;
+}
+
+.stories h2 {
+    font-size: 36px;
+}
+
+.stories .ornament {
+    margin-bottom: 28px;
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+}
+
+.story-grid article {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    min-height: 180px;
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 24px
+        rgba(44, 24, 27, 0.08);
+}
+
+.story-grid article > img {
+    width: 100%;
+    height: 180px;
+    min-height: 0;
+    object-fit: cover;
+}
+
+.story-grid article > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-width: 0;
+
+    padding: 18px 20px 16px;
+}
+
+.story-grid b,
+.story-grid strong {
+    margin-bottom: 4px;
+
+    font-size: 13px;
+}
+
+.story-grid p {
+    margin: 8px 0 10px;
+
+    font-size: 12.5px;
+    line-height: 1.6;
+}
+
+.story-grid small {
+    font-size: 10.5px;
+}
+
+@media (max-width: 720px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-grid article {
+        grid-template-columns: 220px minmax(0, 1fr);
+    }
+}
+
+.stories .more {
+    margin-top: 30px;
+
+    padding: 12px 32px;
+
+    font-size: 13px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Communities
+|--------------------------------------------------------------------------
+*/
+
+.communities {
+    padding-top: 20px;
+    padding-bottom: 54px;
+}
+
+.communities h2 {
+    margin-bottom: 24px;
+
+    font-size: 36px;
+}
+
+.community-grid {
+    gap: 22px;
+}
+
+.community-grid a {
+    height: 350px;
+
+    padding: 24px;
+
+    border-radius: 9px;
+
+    font-size: 18px;
+    line-height: 1.25;
+
+    box-shadow:
+        0 12px 28px
+        rgba(32, 20, 21, 0.14);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.community-grid a:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 36px
+        rgba(32, 20, 21, 0.20);
+}
+
+.community-grid a b {
+    max-width: 130px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0, 0, 0, 0.60);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| App CTA
+|--------------------------------------------------------------------------
+*/
+
+.app-cta {
+    min-height: 190px;
+
+    gap: 54px;
+
+    padding: 26px 5vw;
+}
+
+.app-cta .phone {
+    min-width: 125px;
+
+    padding: 22px 25px;
+
+    border-radius: 20px;
+}
+
+.app-cta .phone svg {
+    width: 66px;
+    height: 66px;
+}
+
+.app-cta .phone small {
+    font-size: 12px;
+}
+
+.app-cta h2 {
+    font-size: 36px;
+    line-height: 1.18;
+}
+
+.app-cta p {
+    margin-top: 12px;
+
+    font-size: 14px;
+}
+
+.app-cta .store {
+    padding: 12px 20px;
+
+    font-size: 11px;
+    line-height: 1.25;
+}
+
+.app-cta .store b {
+    font-size: 18px;
+}
+
+.app-cta .cta-white {
+    padding: 19px 31px;
+
+    font-size: 15px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Trust Strip Icons
+|--------------------------------------------------------------------------
+|
+| Lucide replaces <i> tags with <svg>.
+|--------------------------------------------------------------------------
+*/
+
+.trust-strip article > svg {
+    width: 68px;
+    height: 68px;
+
+    flex: 0 0 68px;
+
+    padding: 18px;
+
+    border-radius: 50%;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 8%,
+            #ffffff
+        );
+
+    color: var(--brand);
+
+    stroke-width: 1.8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| How It Works Icons
+|--------------------------------------------------------------------------
+*/
+
+.three > div > svg {
+    width: 92px;
+    height: 92px;
+
+    flex: none;
+
+    padding: 23px;
+
+    border-radius: 50%;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 10%,
+            #ffffff
+        );
+
+    color: var(--brand);
+
+    stroke-width: 1.7;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Why Choose Us Icons
+|--------------------------------------------------------------------------
+*/
+
+.why-grid p > svg {
+    width: 50px;
+    height: 50px;
+
+    flex: 0 0 50px;
+
+    padding: 12px;
+
+    border-radius: 50%;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 7%,
+            #ffffff
+        );
+
+    color: var(--brand);
+
+    stroke-width: 1.8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Hero Buttons
+|--------------------------------------------------------------------------
+*/
+
+.hero-buttons .solid,
+.hero-buttons .outline {
+    gap: 10px;
+}
+
+.hero-buttons svg {
+    width: 22px;
+    height: 22px;
+
+    flex: none;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Finder Button
+|--------------------------------------------------------------------------
+*/
+
+.finder button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+}
+
+.finder button svg {
+    width: 25px;
+    height: 25px;
+
+    flex: none;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.finder button span {
+    font-size: 15px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Theme Toggle Icon
+|--------------------------------------------------------------------------
+|
+| Keep support for both old and current class names.
+|--------------------------------------------------------------------------
+*/
+
+.landing-theme-toggle,
+.public-theme-toggle,
+.header-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-theme-toggle svg,
+.public-theme-toggle svg,
+.header-theme-toggle svg {
+    width: 24px;
+    height: 24px;
+
+    margin: auto;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Theme Icon Visibility
+|--------------------------------------------------------------------------
+*/
+
+.theme-moon {
+    display: none;
+}
+
+html[data-theme="dark"] .theme-sun {
+    display: none;
+}
+
+html[data-theme="dark"] .theme-moon {
+    display: block;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Tablet
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 900px) {
+
+    .story-grid article {
+        min-height: 180px;
+
+        grid-template-columns:
+            160px
+            minmax(0, 1fr);
+    }
+
+    .story-grid article > div {
+        padding: 14px 16px;
+    }
+
+    .community-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .community-grid a {
+        height: 145px;
+    }
+
+    .app-cta {
+        min-height: 165px;
+
+        gap: 25px;
+    }
+
+    .app-cta .phone {
+        display: none;
+    }
+
+    .app-cta h2 {
+        font-size: 29px;
+    }
+
+    .trust-strip article > svg {
+        width: 56px;
+        height: 56px;
+
+        flex-basis: 56px;
+
+        padding: 14px;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 600px) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stories
+    |--------------------------------------------------------------------------
+    */
+
+    .stories {
+        padding-top: 18px;
+        padding-bottom: 38px;
+    }
+
+    .stories h2 {
+        font-size: 30px;
+    }
+
+    .story-grid article {
+        min-height: 0;
+
+        grid-template-columns: 1fr;
+    }
+
+    .story-grid article > img {
+        height: 160px;
+    }
+
+    .story-grid article > div {
+        padding: 14px 16px;
+    }
+
+    .story-grid p {
+        font-size: 13px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Communities
+    |--------------------------------------------------------------------------
+    */
+
+    .communities {
+        padding-top: 12px;
+        padding-bottom: 40px;
+    }
+
+    .communities h2 {
+        font-size: 30px;
+    }
+
+    .community-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+
+    .community-grid a {
+        height: 130px;
+
+        padding: 17px;
+
+        font-size: 15px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | App CTA
+    |--------------------------------------------------------------------------
+    */
+
+    .app-cta {
+        gap: 18px;
+
+        padding: 34px 24px;
+    }
+
+    .app-cta h2 {
+        font-size: 28px;
+    }
+
+    .app-cta p {
+        font-size: 13px;
+    }
+
+    .app-cta .store {
+        width: 190px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Icons
+    |--------------------------------------------------------------------------
+    */
+
+    .three > div > svg {
+        width: 78px;
+        height: 78px;
+
+        padding: 20px;
+    }
+
+    .why-grid p > svg {
+        width: 46px;
+        height: 46px;
+
+        flex-basis: 46px;
+
+        padding: 11px;
+    }
+
+    .trust-strip article > svg {
+        width: 46px;
+        height: 46px;
+
+        flex-basis: 46px;
+
+        padding: 11px;
+    }
+
+    .landing-theme-toggle svg,
+    .public-theme-toggle svg,
+    .header-theme-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+}

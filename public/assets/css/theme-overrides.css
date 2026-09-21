@@ -1,0 +1,247 @@
+/* Shared dark-mode compatibility layer.
+   Loaded after page styles so legacy fixed light colours do not leak through. */
+
+:root {
+  --site-primary: var(--site-primary, #D92768);
+  --site-secondary: var(--site-secondary, #EFA994);
+  --site-accent: var(--site-accent, #B78628);
+  --color-primary: var(--site-primary);
+  --color-primary-hover: color-mix(in srgb, var(--site-primary) 80%, #000000);
+  --color-primary-light: color-mix(in srgb, var(--site-primary) 12%, #ffffff);
+  --color-secondary: var(--site-secondary);
+  --color-gold: var(--site-accent);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] .main-content,
+[data-theme="dark"] .ep-main,
+[data-theme="dark"] .qs-main,
+[data-theme="dark"] .vc-main,
+[data-theme="dark"] .pp-main,
+[data-theme="dark"] .membership-section,
+[data-theme="dark"] .membership-details,
+[data-theme="dark"] .wallet-page,
+[data-theme="dark"] .verify-page,
+[data-theme="dark"] .sr-grid-wrap,
+[data-theme="dark"] .sbid-container,
+[data-theme="dark"] .profile-detail-page,
+[data-theme="dark"] .view-profile-page,
+[data-theme="dark"] .delete-profile-page {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(
+  .top-navbar, .site-header, .sidebar-nav, .site-footer,
+  .ep-tab-sidebar, .ep-tab-content, .ep-info-card, .ep-form,
+  .qs-search-card, .qs-filter-card, .qs-result-card,
+  .adv-search-card, .adv-filter-card, .sbid-search-card,
+  .profile-card, .sbid-profile-card, .vc-card, .int-card,
+  .membership-card, .pricing-card, .content-card,
+  .wallet-card, .wallet-transaction-card, .verify-card,
+  .pp-card, .profile-detail-card, .pd-card, .vmp-card,
+  .delete-card, .change-password-card, .rate-modal,
+  .modal-content, .dropdown-menu, .offcanvas, .toast
+) {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(
+  .ep-tab-btn, .ep-mobile-tab, .ep-field-group, .ep-info-row,
+  .qs-filter-group, .adv-filter-group, .sr-topbar, .sr-filter-chip,
+  .sbid-hint, .sbid-stat-pill, .profile-card-tags .pct,
+  .vc-tags span, .int-toggle-wrap, .int-tabbar-wrap,
+  .membership-header, .discussion-section, .content-section,
+  .wallet-summary, .profile-completion-card, .alert
+) {
+  background-color: var(--color-surface-2);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea,
+  .form-control, .form-select, .input-group-text
+) {
+  background-color: var(--color-surface-offset) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+[data-theme="dark"] :is(input, textarea)::placeholder {
+  color: var(--color-text-faint) !important;
+  opacity: 1;
+}
+
+[data-theme="dark"] :is(option, optgroup) {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(
+  h1, h2, h3, h4, h5, h6, p, li, dt, dd, label,
+  .card-title, .card-text, .modal-title, .table, .table td, .table th,
+  .ep-page-title, .ep-section-title, .qs-page-title, .sbid-page-title,
+  .profile-card-name, .vc-name, .membership-card h2, .pricing-card h2
+) {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(
+  .text-muted, .form-text, .ep-page-subtitle, .ep-label,
+  .qs-page-subtitle, .sbid-page-subtitle, .profile-card-meta,
+  .vc-location, .vc-profession, .membership-card p, .pricing-card p
+) {
+  color: var(--color-text-muted) !important;
+}
+
+[data-theme="dark"] :is(.table, .table > :not(caption) > * > *) {
+  --bs-table-bg: var(--color-surface);
+  --bs-table-color: var(--color-text);
+  --bs-table-border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(.table-striped > tbody > tr:nth-of-type(odd) > *, .table-hover > tbody > tr:hover > *) {
+  --bs-table-accent-bg: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(.pca-btn, .sbid-action-btn, .profile-card-actions button) {
+  background-color: var(--color-surface-2);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] :is(.sidebar-nav-item:hover, .ep-tab-btn:hover, .ep-mobile-tab:hover, .dropdown-item:hover) {
+  background-color: var(--color-surface-offset);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .sidebar-nav-item.active,
+[data-theme="dark"] .ep-tab-btn.active,
+[data-theme="dark"] .ep-mobile-tab.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] :is(.rate-modal-overlay, .modal-backdrop, .sidebar-overlay, .pqv-backdrop) {
+  background-color: rgba(0, 0, 0, 0.68);
+}
+
+[data-theme="dark"] :is(.skeleton, .sr-skel-line, .sbid-skeleton, .loading-skeleton) {
+  background-color: var(--color-surface-dynamic);
+}
+
+[data-theme="dark"] ::selection {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* Hero overlay and readability helpers for per-site hero backgrounds */
+:root {
+  --site-hero-overlay: rgba(0,0,0,0.45);
+  --site-hero-text-color: #ffffff;
+}
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Overlay only when a site background is present */
+.hero-section.has-hero-bg::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--site-hero-overlay);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure content sits above the overlay */
+.hero-section .hero-container,
+.hero-section .hero-content {
+  position: relative;
+  z-index: 1;
+  color: var(--site-hero-text-color) !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+/* CTA buttons ensure sufficient contrast */
+.btn-hero-primary {
+  background: var(--site-primary);
+  color: #fff;
+  border: 0;
+}
+
+.btn-hero-secondary {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Dashboard sidebar follows the current site's palette. */
+.sidebar {
+  --color-primary: var(--site-primary);
+  --color-primary-hover: color-mix(in srgb, var(--site-primary) 80%, #000);
+  --color-primary-light: color-mix(in srgb, var(--site-primary) 14%, var(--color-surface));
+}
+
+.sidebar .sidebar-header {
+  background: linear-gradient(135deg, var(--site-primary), var(--site-secondary));
+}
+
+.sidebar .sidebar-plan-name {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: #fff;
+}
+
+.sidebar .sidebar-user-name,
+.sidebar .sidebar-value {
+  color: #fff;
+}
+
+.sidebar .sidebar-label {
+  color: rgba(255, 255, 255, .78);
+}
+
+/* Dashboard footer shares the public footer's per-site palette. */
+.site-footer,
+[data-theme="dark"] .site-footer {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--site-primary) 90%, #000) 0%,
+    var(--site-secondary) 100%
+  );
+  border-top-color: color-mix(in srgb, var(--site-accent) 35%, transparent);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+.site-footer .footer-tagline,
+.site-footer .footer-copy {
+  color: rgba(255, 255, 255, .82);
+}
+
+.site-footer .footer-links a {
+  color: rgba(255, 255, 255, .9);
+}
+
+.site-footer .footer-links a:hover,
+.site-footer .footer-links a:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,594 @@
+/* ===========================
+   Membership Section
+=========================== */
+
+.membership-section,
+.membership-section *,
+.membership-details,
+.membership-details *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.membership-section,
+.membership-details{
+    font-family:"Poppins",sans-serif;
+    background:#f8f8f8;
+    color:#1f1f1f;
+}
+
+.membership-section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 20px;
+}
+
+.membership-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.membership-header h1{
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.membership-header p{
+    color:#7d7d7d;
+    font-size:17px;
+}
+
+/* ===========================
+   Grid
+=========================== */
+
+.membership-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(340px,1fr));
+
+    gap:28px;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.membership-card{
+
+    position:relative;
+
+    padding:40px;
+
+    min-height:290px;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f8f6 0%,
+            #fbfaf5 45%,
+            #fff7df 100%
+        );
+
+    box-shadow:
+        0 10px 30px rgba(30,30,30,.05);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.membership-card p {
+    color: #7a7a7a;
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 0;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 4;   /* Show only 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    /* Standard property for newer browsers */
+    line-clamp: 4;
+}
+
+.membership-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.08);
+}
+
+.membership-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(248,220,140,.25),
+            transparent 70%
+        );
+
+    transform:
+        translate(45%,-45%);
+}
+
+.membership-card h2{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:22px;
+
+    color:#222;
+}
+
+.membership-card p{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#7a7a7a;
+
+    font-size:18px;
+
+    line-height:1.9;
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media(max-width:768px){
+
+    .membership-section{
+
+        padding:40px 18px;
+    }
+
+    .membership-header{
+
+        text-align:left;
+    }
+
+    .membership-header h1{
+
+        font-size:34px;
+    }
+
+    .membership-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .membership-card{
+
+        min-height:auto;
+
+        padding:28px;
+    }
+
+    .membership-card h2{
+
+        font-size:28px;
+    }
+
+    .membership-card p{
+
+        font-size:16px;
+        line-height:1.7;
+    }
+
+}
+
+.discussion-section{
+
+    margin-top:70px;
+
+    padding-top:40px;
+
+    border-top:1px solid #ececec;
+}
+
+.discussion-header h2{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.discussion-header p{
+
+    color:#777;
+
+    font-size:17px;
+
+    margin-bottom:30px;
+}
+
+.callback-btn{
+
+    width:100%;
+
+    height:64px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:var(--color-primary);
+
+    color:#fff;
+
+    font-size:22px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:background-color .2s, box-shadow .2s;
+}
+
+.callback-btn:hover:not(:disabled){
+
+    background:var(--color-primary-hover);
+}
+
+.callback-btn:focus-visible{
+
+    outline:2px solid var(--color-primary);
+    outline-offset:3px;
+}
+
+.callback-btn:disabled{
+
+    background:var(--color-surface-dynamic);
+
+    color:var(--color-text-muted);
+
+    cursor:not-allowed;
+}
+
+.discussion-timer{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+    margin-top:35px;
+}
+
+.timer-icon{
+
+    font-size:52px;
+
+    color:#222;
+}
+
+.timer-text span{
+
+    font-size:72px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    color:#111;
+}
+
+.timer-description{
+
+    flex:1;
+
+    color:#666;
+
+    font-size:18px;
+
+    line-height:1.6;
+}
+
+@media(max-width:768px){
+
+    .discussion-header h2{
+
+        font-size:32px;
+    }
+
+    .discussion-timer{
+
+        flex-wrap:wrap;
+    }
+
+    .timer-text span{
+
+        font-size:56px;
+    }
+
+    .timer-description{
+
+        width:100%;
+    }
+
+}
+
+.membership-details{
+
+    max-width:1400px;
+    margin:auto;
+    padding:60px 30px;
+}
+
+.page-header{
+
+    display:flex;
+    align-items:center;
+    gap:25px;
+
+    margin-bottom:60px;
+}
+
+.page-header h1{
+
+    font-size:46px;
+    font-weight:700;
+}
+
+.page-header p{
+
+    margin-top:8px;
+    color:#777;
+}
+
+.back-btn{
+
+    font-size:30px;
+    color:#222;
+}
+
+.pricing-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(320px,1fr));
+
+    gap:35px;
+
+    margin-bottom:70px;
+}
+
+.pricing-card{
+
+    color:#fff;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.pricing-card h2{
+    margin:30px 0 20px;
+    font-size:38px;
+    font-weight:700;
+    text-align:center;
+    width:100%;
+}
+
+.pricing-card:hover{
+
+    transform:translateY(-10px);
+}
+
+.discount{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    background:rgba(255,255,255,.2);
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:600;
+}
+
+.pricing-card h2{
+
+    margin:30px 0 20px;
+
+    font-size:38px;
+}
+
+.plan-price{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    margin-bottom:15px;
+}
+
+.currency{
+
+    font-size:28px;
+
+    margin-top:12px;
+}
+
+.amount{
+
+    font-size:70px;
+
+    font-weight:bold;
+}
+
+.old-price{
+
+    text-align:center;
+
+    text-decoration:line-through;
+
+    margin-bottom:30px;
+
+    opacity:.8;
+
+    font-size:22px;
+}
+
+.pricing-card ul{
+    list-style:none;
+    padding:0;
+    margin:35px 0;
+}
+
+.pricing-card li{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:22px;
+    margin-bottom:18px;
+}
+
+.pricing-card li i{
+    font-size:18px;
+}
+
+.buy-btn{
+    width:100%;
+    height:60px;
+    border:none;
+    border-radius:16px;
+    background:#ef3a37;
+    color:#fff;
+    font-size:24px;
+    font-weight:600;
+}
+
+.buy-btn:hover{
+    background:#c62828;      /* Darker red */
+    color:#fff;
+}
+
+.buy-btn:focus{
+    outline:none;
+    box-shadow:0 0 0 4px rgba(229,57,53,.2);
+}
+
+.buy-btn:active{
+    transform:scale(.98);
+}
+
+.content-section{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:35px;
+}
+
+.content-card{
+
+    background:#fff;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.content-card h3{
+
+    margin-bottom:20px;
+
+    font-size:28px;
+}
+
+.content-card p{
+
+    color:#666;
+
+    line-height:1.9;
+}
+
+/* Card Themes */
+
+.silver-card{
+    background:linear-gradient(135deg,#7e57c2,#5e35b1);
+}
+
+.gold-card{
+    background:linear-gradient(135deg,#ffb300,#fb8c00);
+}
+
+.platinum-card{
+    background:linear-gradient(135deg,#1976d2,#1565c0);
+}
+
+.diamond-card{
+    background:linear-gradient(135deg,#00acc1,#00838f);
+}
+
+.default-card{
+    background:linear-gradient(135deg,#8e24aa,#6a1b9a);
+}
+
+@media(max-width:992px){
+
+    .pricing-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .content-section{
+
+        grid-template-columns:1fr;
+    }
+
+    .page-header h1{
+
+        font-size:34px;
+    }
+}

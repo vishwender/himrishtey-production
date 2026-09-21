@@ -1,0 +1,76 @@
+.public-cta {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 12px 22px !important;
+    border: 1px solid var(--brand) !important;
+    border-radius: 4px !important;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.public-cta svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+}
+
+.public-cta-primary {
+    background: var(--brand) !important;
+    color: #fff !important;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--brand) 20%, transparent) !important;
+}
+
+.public-cta-primary:hover {
+    background: color-mix(in srgb, var(--brand) 88%, #000) !important;
+    border-color: color-mix(in srgb, var(--brand) 88%, #000) !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--brand) 28%, transparent) !important;
+}
+
+.public-cta-secondary {
+    background: var(--surface, #fff) !important;
+    color: var(--brand) !important;
+    box-shadow: none !important;
+}
+
+.public-cta-secondary:hover {
+    background: color-mix(in srgb, var(--brand) 7%, var(--surface, #fff)) !important;
+    color: var(--brand) !important;
+    transform: translateY(-1px);
+}
+
+.public-cta:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--brand) 32%, transparent);
+    outline-offset: 3px;
+}
+
+.public-cta:active {
+    transform: translateY(0);
+}
+
+.public-cta:disabled,
+.public-cta[aria-disabled="true"] {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none !important;
+}
+
+@media (max-width: 600px) {
+    .public-cta {
+        min-height: 44px;
+        padding: 11px 17px !important;
+        font-size: 13px !important;
+    }
+}

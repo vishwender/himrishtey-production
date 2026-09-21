@@ -1,0 +1,464 @@
+/*
+|--------------------------------------------------------------------------
+| Color Scheme
+|--------------------------------------------------------------------------
+*/
+
+:root {
+    color-scheme: light;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Smooth Theme Transition
+|--------------------------------------------------------------------------
+*/
+
+body,
+.public-header,
+.nav,
+.profile-card,
+.finder,
+.split > article,
+.story-grid article,
+.trust-strip,
+.public-footer,
+.public-mobile-nav {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Theme Toggle Icons
+|--------------------------------------------------------------------------
+|
+| Light mode  = show moon
+| Dark mode   = show sun
+|--------------------------------------------------------------------------
+*/
+
+.theme-sun {
+    display: none;
+}
+
+.theme-moon {
+    display: block;
+}
+
+html[data-theme="dark"] .theme-sun {
+    display: block;
+}
+
+html[data-theme="dark"] .theme-moon {
+    display: none;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Page
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] body {
+    background: #151112;
+    color: #f7eff1;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Header
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .public-header,
+html[data-theme="dark"] .nav {
+    background: #211a1c;
+
+    border-color: #443438;
+}
+
+html[data-theme="dark"] .public-header nav a,
+html[data-theme="dark"] .nav nav a {
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .public-header nav a:hover,
+html[data-theme="dark"] .nav nav a:hover,
+html[data-theme="dark"] .public-header nav a.active,
+html[data-theme="dark"] .nav nav a.active {
+    color: var(--brand);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Header Controls
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .header-icon-button,
+html[data-theme="dark"] .mobile-menu-toggle {
+    background: #2a1e21;
+    color: #ffffff;
+
+    border-color: #584147;
+}
+
+html[data-theme="dark"] .header-icon-button:hover,
+html[data-theme="dark"] .mobile-menu-toggle:hover {
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 18%,
+            #2a1e21
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--brand) 45%,
+            #584147
+        );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Mobile Navigation
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .public-mobile-nav {
+    background: #211a1c;
+
+    border-color: #443438;
+
+    box-shadow:
+        0 12px 25px
+        rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .public-mobile-nav a {
+    color: #f7eff1;
+
+    border-color: #443438;
+}
+
+html[data-theme="dark"] .public-mobile-nav a:hover {
+    color: var(--brand);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Hero
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(21, 17, 18, 0.96),
+            rgba(21, 17, 18, 0.74) 42%,
+            rgba(21, 17, 18, 0.15) 76%,
+            transparent 100%
+        );
+
+    pointer-events: none;
+}
+
+html[data-theme="dark"] .hero-copy {
+    position: relative;
+    z-index: 1;
+}
+
+html[data-theme="dark"] .hero h1 {
+    color: #ffffff;
+}
+
+html[data-theme="dark"] .hero-copy > p,
+html[data-theme="dark"] .trusted {
+    color: #d3c5c8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Finder
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .finder {
+    background: #211a1c;
+
+    border-color: #443438;
+
+    box-shadow:
+        0 16px 35px
+        rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .finder label {
+    border-color: #443438;
+}
+
+html[data-theme="dark"] .finder label span {
+    color: #bcaeb1;
+}
+
+html[data-theme="dark"] .finder label b {
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .finder select,
+html[data-theme="dark"] .finder input {
+    background: transparent;
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .finder select option {
+    background: #211a1c;
+    color: #f7eff1;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Headings
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] h2 {
+    color: #f7eff1;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Trust Strip
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .trust-strip {
+    background: #151112;
+
+    border-color: #443438;
+}
+
+html[data-theme="dark"] .trust-strip b {
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .trust-strip small {
+    color: #c4b5b8;
+}
+
+html[data-theme="dark"] .trust-strip article > svg {
+    background: #352428;
+    color: var(--brand);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Profile Cards
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .profile-card {
+    background: #211a1c;
+
+    border-color: #443438;
+
+    box-shadow:
+        0 12px 28px
+        rgba(0, 0, 0, 0.22);
+}
+
+html[data-theme="dark"] .profile-card b,
+html[data-theme="dark"] .profile-card strong {
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .profile-card small {
+    color: #c4b5b8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — How It Works / Why Choose
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .split > article {
+    background: #2a1e21;
+
+    border-color: #443438;
+}
+
+html[data-theme="dark"] .three b,
+html[data-theme="dark"] .why-grid b {
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .three small,
+html[data-theme="dark"] .why-grid small {
+    color: #c4b5b8;
+}
+
+html[data-theme="dark"] .three > div > svg,
+html[data-theme="dark"] .why-grid p > svg {
+    background: #352428;
+    color: var(--brand);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Success Stories
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .story-grid article {
+    background: #2a1e21;
+
+    border-color: #443438;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .story-grid b,
+html[data-theme="dark"] .story-grid strong {
+    color: #f7eff1;
+}
+
+html[data-theme="dark"] .story-grid p {
+    color: #ddd0d3;
+}
+
+html[data-theme="dark"] .story-grid small {
+    color: #c4b5b8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Communities
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .community-grid a {
+    box-shadow:
+        0 10px 28px
+        rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme="dark"] .community-grid a:hover {
+    box-shadow:
+        0 16px 38px
+        rgba(0, 0, 0, 0.42);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — App CTA
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .app-cta {
+    color: #ffffff;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Secondary / Outline Buttons
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .outline,
+html[data-theme="dark"] .public-outline,
+html[data-theme="dark"] .public-cta-secondary {
+    color: #f7eff1;
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--brand) 55%,
+            #ffffff
+        );
+}
+
+html[data-theme="dark"] .outline:hover,
+html[data-theme="dark"] .public-outline:hover,
+html[data-theme="dark"] .public-cta-secondary:hover {
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 20%,
+            #211a1c
+        );
+
+    color: #ffffff;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Dark Theme — Footer
+|--------------------------------------------------------------------------
+|
+| Footer remains brand-themed rather than turning grey/black.
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] .public-footer {
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--brand) 78%,
+                #000000
+            ) 0%,
+            color-mix(
+                in srgb,
+                var(--deep) 78%,
+                #000000
+            ) 100%
+        );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Selection
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"] ::selection {
+    background: var(--brand);
+    color: #ffffff;
+}

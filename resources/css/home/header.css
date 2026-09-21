@@ -1,0 +1,507 @@
+/*
+|--------------------------------------------------------------------------
+| Public Header
+|--------------------------------------------------------------------------
+*/
+
+.public-header,
+.nav {
+    width: 100%;
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    padding:
+        0
+        max(
+            24px,
+            calc((100vw - var(--container, 1160px)) / 2)
+        );
+
+    background: var(--surface, #ffffff);
+
+    border-bottom:
+        1px solid
+        var(--border-light, #eeeeee);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+}
+
+body.public-site {
+    padding-top: 72px;
+}
+
+html {
+    scroll-padding-top: 88px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Logo
+|--------------------------------------------------------------------------
+*/
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 9px;
+
+    flex-shrink: 0;
+
+    color: var(--brand);
+}
+
+.logo img {
+    display: block;
+    width: 280px;
+    height: 75px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.logo span {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    line-height: 1.05;
+}
+
+.logo b {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.05;
+
+    white-space: nowrap;
+}
+
+.logo small {
+    margin-top: 3px;
+
+    color: var(--muted, #716a68);
+
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 1.2;
+
+    letter-spacing: 0.04em;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Main Navigation
+|--------------------------------------------------------------------------
+*/
+
+.nav nav,
+.public-header nav {
+    display: flex;
+    align-items: center;
+
+    gap: 34px;
+
+    margin-left: auto;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.nav nav a,
+.public-header nav a {
+    position: relative;
+
+    padding: 8px 0;
+
+    color: var(--text, #211d1c);
+
+    transition:
+        color 0.2s ease;
+}
+
+.nav nav a:hover,
+.public-header nav a:hover {
+    color: var(--brand);
+}
+
+.nav nav a::after,
+.public-header nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 1px;
+
+    height: 2px;
+
+    background: var(--brand);
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition:
+        transform 0.2s ease;
+}
+
+.nav nav a:hover::after,
+.public-header nav a:hover::after {
+    transform: scaleX(1);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Active Navigation
+|--------------------------------------------------------------------------
+*/
+
+.nav nav a.active,
+.public-header nav a.active {
+    color: var(--brand);
+}
+
+.nav nav a.active::after,
+.public-header nav a.active::after {
+    transform: scaleX(1);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header Actions
+|--------------------------------------------------------------------------
+*/
+
+.nav > div,
+.public-header .header-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    flex-shrink: 0;
+}
+
+.nav .solid,
+.nav .outline,
+.public-header .solid,
+.public-header .outline {
+    min-height: 42px;
+
+    padding: 11px 18px;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Icon Buttons
+|--------------------------------------------------------------------------
+*/
+
+.header-icon-button {
+    width: 42px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+    color: var(--text);
+
+    border:
+        1px solid
+        var(--border, #e8e4e2);
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.header-icon-button:hover {
+    color: var(--brand);
+
+    background:
+        color-mix(
+            in srgb,
+            var(--brand) 6%,
+            #ffffff
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--brand) 30%,
+            var(--border)
+        );
+}
+
+.header-icon-button svg {
+    width: 19px;
+    height: 19px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile Menu Button
+|--------------------------------------------------------------------------
+*/
+
+.mobile-menu-toggle {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+    color: var(--text);
+
+    border:
+        1px solid
+        var(--border, #e8e4e2);
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.mobile-menu-toggle svg {
+    width: 21px;
+    height: 21px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Mobile Navigation Panel
+|--------------------------------------------------------------------------
+*/
+
+.public-mobile-nav {
+    display: none;
+
+    position: relative;
+    z-index: 49;
+
+    width: 100%;
+
+    padding: 10px 18px 18px;
+
+    background: var(--surface, #ffffff);
+
+    border-bottom:
+        1px solid
+        var(--border-light, #eeeeee);
+
+    box-shadow:
+        0 12px 25px
+        rgba(0, 0, 0, 0.06);
+}
+
+.public-mobile-nav a {
+    display: flex;
+    align-items: center;
+
+    min-height: 46px;
+
+    padding: 10px 4px;
+
+    color: var(--text);
+
+    border-bottom:
+        1px solid
+        var(--border-light, #eeeeee);
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.public-mobile-nav a:last-child {
+    border-bottom: 0;
+}
+
+.public-mobile-nav a:hover {
+    color: var(--brand);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Open Mobile Navigation
+|--------------------------------------------------------------------------
+|
+| Supports the common classes/attributes your JS may use.
+|--------------------------------------------------------------------------
+*/
+
+.public-mobile-nav.open,
+.public-mobile-nav.is-open,
+.public-mobile-nav.active,
+.public-mobile-nav[data-open="true"] {
+    display: block;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Tablet
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 900px) {
+
+    body.public-site {
+        padding-top: 68px;
+    }
+
+    .public-header,
+    .nav {
+        min-height: 68px;
+
+        padding-inline: 18px;
+    }
+
+    .nav nav,
+    .public-header nav {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: inline-flex;
+    }
+
+    .logo b {
+        font-size: 21px;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 600px) {
+
+    body.public-site {
+        padding-top: 64px;
+    }
+
+    .public-header,
+    .nav {
+        min-height: 64px;
+
+        gap: 12px;
+
+        padding-inline: 16px;
+    }
+
+    .logo {
+        gap: 7px;
+    }
+
+    .logo img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .logo b {
+        font-size: 18px;
+    }
+
+    .logo small {
+        display: none;
+    }
+
+    .nav > div,
+    .public-header .header-actions {
+        gap: 8px;
+    }
+
+    .nav .outline,
+    .public-header .outline {
+        display: none;
+    }
+
+    .nav .solid,
+    .public-header .solid {
+        min-height: 38px;
+
+        padding: 9px 12px;
+
+        font-size: 11px;
+    }
+
+    .header-icon-button,
+    .mobile-menu-toggle {
+        width: 38px;
+        height: 38px;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Very Small Screens
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 380px) {
+
+    .nav .solid,
+    .public-header .solid {
+        padding-inline: 9px;
+    }
+
+    .logo b {
+        font-size: 16px;
+    }
+
+}
+
+@media (min-width: 901px) {
+
+    .public-mobile-nav {
+        display: none !important;
+    }
+
+}

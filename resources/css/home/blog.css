@@ -1,0 +1,385 @@
+/* =========================================================
+   BLOG PAGE
+   ========================================================= */
+
+.blog-page {
+    background: var(--background);
+    color: var(--text);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.blog-hero {
+    position: relative;
+    overflow: hidden;
+
+    padding: 96px 0 88px;
+
+    background:
+        radial-gradient(
+            circle at 82% 18%,
+            color-mix(in srgb, var(--gold) 18%, transparent),
+            transparent 34%
+        ),
+        linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--brand) 8%, var(--surface)) 0%,
+            var(--surface-soft) 100%
+        );
+
+    border-bottom: 1px solid var(--border);
+}
+
+.blog-hero::after {
+    content: "";
+
+    position: absolute;
+    right: -120px;
+    top: -150px;
+
+    width: 430px;
+    height: 430px;
+
+    border: 1px solid
+        color-mix(in srgb, var(--brand) 12%, transparent);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.blog-hero .wrap {
+    position: relative;
+    z-index: 1;
+
+    max-width: 900px;
+}
+
+.blog-hero .editorial-kicker {
+    display: inline-block;
+
+    margin-bottom: 18px;
+
+    color: var(--brand);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.blog-hero h1 {
+    max-width: 820px;
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-family: var(--font-heading);
+    font-size: clamp(42px, 5vw, 66px);
+    font-weight: 700;
+    line-height: 1.08;
+}
+
+.blog-hero h1 em {
+    display: block;
+
+    color: var(--brand);
+
+    font-weight: inherit;
+}
+
+.blog-hero p {
+    max-width: 700px;
+
+    margin: 26px 0 0;
+
+    color: var(--text-soft);
+
+    font-size: 18px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   BLOG CONTENT
+   ========================================================= */
+
+.blog-content {
+    padding: 90px 0 110px;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 30px;
+}
+
+
+/* =========================================================
+   BLOG CARD
+   ========================================================= */
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border: 1px solid
+        color-mix(in srgb, var(--brand) 10%, var(--border));
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06),
+        0 12px 30px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        color-mix(in srgb, var(--brand) 28%, var(--border));
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.09),
+        0 20px 45px rgba(0, 0, 0, 0.13);
+}
+
+
+/* IMAGE */
+
+.blog-card-image {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
+
+    background: var(--surface-soft);
+}
+
+.blog-card-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform .35s ease;
+}
+
+.blog-card:hover .blog-card-image img {
+    transform: scale(1.04);
+}
+
+
+/* CARD BODY */
+
+.blog-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    padding: 27px;
+}
+
+.blog-date {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: var(--brand);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.blog-card h2 {
+    margin: 0 0 14px;
+
+    font-family: var(--font-heading);
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.28;
+}
+
+.blog-card h2 a {
+    color: var(--text);
+    text-decoration: none;
+
+    transition: color .2s ease;
+}
+
+.blog-card h2 a:hover {
+    color: var(--brand);
+}
+
+.blog-card p {
+    margin: 0 0 24px;
+
+    color: var(--text-soft);
+
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.blog-read-more {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: auto;
+
+    color: var(--brand);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.blog-read-more span {
+    transition: transform .2s ease;
+}
+
+.blog-read-more:hover span {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.blog-empty {
+    max-width: 700px;
+
+    margin: 0 auto;
+    padding: 80px 30px;
+
+    text-align: center;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.blog-empty > svg {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 20px;
+    padding: 13px;
+
+    color: var(--brand);
+
+    background:
+        color-mix(in srgb, var(--brand) 9%, var(--surface));
+
+    border-radius: 50%;
+
+    stroke-width: 1.7;
+}
+
+.blog-empty h2 {
+    margin: 0 0 10px;
+
+    color: var(--text);
+
+    font-family: var(--font-heading);
+    font-size: 32px;
+}
+
+.blog-empty p {
+    margin: 0;
+
+    color: var(--text-soft);
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.blog-pagination {
+    margin-top: 54px;
+}
+
+.blog-pagination nav {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .blog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .blog-hero {
+        padding: 66px 0 60px;
+    }
+
+    .blog-hero h1 {
+        font-size: 40px;
+    }
+
+    .blog-hero p {
+        font-size: 16px;
+    }
+
+    .blog-content {
+        padding: 60px 0 80px;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .blog-card-body {
+        padding: 22px;
+    }
+
+    .blog-card h2 {
+        font-size: 23px;
+    }
+
+}

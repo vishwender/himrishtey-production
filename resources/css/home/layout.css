@@ -1,0 +1,360 @@
+/*
+|--------------------------------------------------------------------------
+| Desktop Layout Scale
+|--------------------------------------------------------------------------
+| Larger desktop rhythm only.
+| Tablet/mobile component behaviour stays in each component stylesheet.
+|--------------------------------------------------------------------------
+*/
+
+@media (min-width: 901px) {
+
+    :root {
+        --container: 1320px;
+        --container-padding: 32px;
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    .wrap,
+    .hero-copy,
+    .trust-strip {
+        width: min(
+            var(--container),
+            calc(100% - (var(--container-padding) * 2))
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hero
+    |--------------------------------------------------------------------------
+    */
+
+    .hero {
+        height: 540px;
+    }
+
+    .hero-copy {
+        padding-top: 82px;
+    }
+
+    .hero h1 {
+        font-size: 58px;
+    }
+
+    .hero-copy > p {
+        margin: 26px 0;
+
+        font-size: 19px;
+    }
+
+    .hero-buttons .solid,
+    .hero-buttons .outline {
+        padding: 16px 30px;
+
+        font-size: 16px;
+    }
+
+    .trusted {
+        margin-top: 40px;
+    }
+
+    .trusted small {
+        font-size: 12px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Finder
+    |--------------------------------------------------------------------------
+    */
+
+    .finder {
+        width: min(
+            1080px,
+            calc(100% - 64px)
+        );
+
+        min-height: 108px;
+
+        margin-top: -62px;
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr))
+            235px;
+
+        padding: 18px 22px;
+    }
+
+    .finder label {
+        padding-inline: 22px;
+    }
+
+    .finder label span {
+        font-size: 12px;
+    }
+
+    .finder label b {
+        font-size: 15px;
+    }
+
+    .finder button {
+        height: 56px;
+
+        font-size: 14px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Trust Strip
+    |--------------------------------------------------------------------------
+    */
+
+    .trust-strip {
+        margin-bottom: 26px;
+
+        padding: 28px 12px 30px;
+    }
+
+    .trust-strip b {
+        font-size: 14px;
+    }
+
+    .trust-strip small {
+        font-size: 11px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Section Headings
+    |--------------------------------------------------------------------------
+    */
+
+    h2 {
+        font-size: 31px;
+    }
+
+    .ornament {
+        margin: 9px 0 23px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Matches
+    |--------------------------------------------------------------------------
+    */
+
+    .matches {
+        padding: 18px 0 42px;
+    }
+
+    .cards {
+        gap: 20px;
+    }
+
+    .profile-photo {
+        height: 205px;
+    }
+
+    .profile-card > div:last-child {
+        padding: 14px;
+    }
+
+    .profile-card b {
+        font-size: 13px;
+    }
+
+    .profile-card small {
+        font-size: 11px;
+    }
+
+    .more {
+        margin-top: 24px;
+
+        padding: 10px 28px;
+
+        font-size: 12px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Split Sections
+    |--------------------------------------------------------------------------
+    */
+
+    .split {
+        gap: 30px;
+
+        padding-bottom: 34px;
+    }
+
+    .split > article {
+        padding: 28px 32px;
+    }
+
+    .three {
+        gap: 25px;
+    }
+
+    .three b {
+        font-size: 13px;
+    }
+
+    .three small,
+    .why-grid small {
+        font-size: 11px;
+    }
+
+    .why-grid {
+        gap: 25px;
+    }
+
+    .why-grid b {
+        font-size: 12px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Success Stories
+    |--------------------------------------------------------------------------
+    */
+
+    .stories {
+        padding-bottom: 34px;
+    }
+
+    .story-grid {
+        gap: 30px;
+    }
+
+    .story-grid article {
+        min-height: 178px;
+
+        grid-template-columns:
+            250px
+            minmax(0, 1fr);
+    }
+
+    .story-grid article div {
+        padding: 23px 28px;
+    }
+
+    .story-grid b,
+    .story-grid strong {
+        font-size: 13px;
+    }
+
+    .story-grid p {
+        font-size: 13px;
+    }
+
+    .story-grid small {
+        font-size: 10px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Communities
+    |--------------------------------------------------------------------------
+    */
+
+    .communities {
+        padding-bottom: 34px;
+    }
+
+    .community-grid {
+        gap: 20px;
+
+        margin-top: 19px;
+    }
+
+    .community-grid a {
+        height: 124px;
+
+        padding: 18px;
+
+        font-size: 15px;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | App CTA
+    |--------------------------------------------------------------------------
+    */
+
+    .app-cta {
+        min-height: 132px;
+
+        gap: 40px;
+    }
+
+    .app-cta h2 {
+        font-size: 28px;
+    }
+
+    .app-cta p {
+        font-size: 12px;
+    }
+
+    .store {
+        padding: 9px 16px;
+    }
+
+    .store b {
+        font-size: 15px;
+    }
+
+    .cta-white {
+        padding: 17px 29px;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Brand Logo
+|--------------------------------------------------------------------------
+| Brand logo files already include the wordmark.
+|--------------------------------------------------------------------------
+*/
+
+.logo > span {
+    display: none;
+}
+
+.logo img {
+    width: 220px;
+    height: 62px;
+
+    object-fit: contain;
+    object-position: left center;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile Logo
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 600px) {
+
+    .logo img {
+        width: 165px;
+        height: 48px;
+    }
+
+}
