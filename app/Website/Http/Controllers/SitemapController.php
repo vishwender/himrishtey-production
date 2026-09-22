@@ -20,8 +20,12 @@ class SitemapController extends Controller
             $urls[] = ['loc' => $baseUrl.route($route, [], false)];
         }
 
-        return response()->view('sitemap', compact('urls'))
-            ->header('Content-Type', 'application/xml; charset=UTF-8');
+        // The XML declaration must be the first bytes in the response.
+        $xml = ltrim(view('sitemap', compact('urls'))->render());
+
+        return response($xml, 200, [
+            'Content-Type' => 'application/xml; charset=UTF-8',
+        ]);
     }
 
     public function robots(): Response

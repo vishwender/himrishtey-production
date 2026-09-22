@@ -2,6 +2,7 @@
 
 namespace App\Website\Http\Controllers\Auth;
 
+use App\Services\ProfileId;
 use App\Website\Http\Controllers\Controller;
 use App\Website\Models\Member;
 use App\Website\Services\EmailService;
@@ -131,8 +132,7 @@ class LoginController extends Controller
         // dd($data);
         $member = Member::create($data);
         //  dd($member->toArray());
-        $profile_id = 10000 + $member->id;
-        $member->update(['profile_id' => 'HIM'.$profile_id]);
+        $member->update(['profile_id' => ProfileId::forSite(config('site.current.code'), $member->id)]);
         Auth::guard('member')->login($member);
         $request->session()->regenerate();
         $this->generateCaptcha();
@@ -167,10 +167,8 @@ class LoginController extends Controller
                 'profile_completed' => '15%',
             ]);
 
-            $profile_id = 10000 + $member->id;
-
             $member->update([
-                'profile_id' => 'HIM'.$profile_id,
+                'profile_id' => ProfileId::forSite(config('site.current.code'), $member->id),
             ]);
         } else {
 

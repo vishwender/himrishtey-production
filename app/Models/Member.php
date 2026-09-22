@@ -247,22 +247,6 @@ class Member extends Authenticatable
         $database = DB::connection('site')
             ->getDatabaseName();
 
-        $prefixes = [
-            'himrishteymain_base' => 'HIM',
-            'himrishteymain_gallpakki' => 'PB',
-            'himrishteymain_devbhoomi' => 'DB',
-            'himrishteymain_dogririshtey' => 'DR',
-        ];
-
-        $prefix = $prefixes[$database] ?? null;
-
-        if (! $prefix) {
-            throw new \RuntimeException(
-                "No profile ID prefix configured for database: {$database}"
-            );
-        }
-
-        // Gallpakki's public profile numbers start at 10001.
-        return $prefix.($memberId + ($prefix === 'PB' ? 10000 : 0));
+        return \App\Services\ProfileId::forSite($database, $memberId);
     }
 }

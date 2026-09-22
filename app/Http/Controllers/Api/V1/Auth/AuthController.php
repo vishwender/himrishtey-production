@@ -460,23 +460,7 @@ class AuthController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $prefix = match ($application->code) {
-
-            'himrishteymain_base',
-            'himrishtey_main',
-            'himrishtey' => 'HIM',
-
-            'devbhoomi',
-            'himrishteymain_devbhoomi' => 'DR',
-
-            'gallpakki',
-            'himrishteymain_gallpakki' => 'PB',
-
-            'dogririshtey',
-            'himrishteymain_dogririshtey' => 'JR',
-
-            default => null,
-        };
+        $prefix = \App\Services\ProfileId::prefix($application->code);
 
         if (! $prefix) {
             return response()->json([
@@ -841,7 +825,7 @@ class AuthController extends Controller
         */
 
                 $member->profile_id =
-                    $prefix.($member->id + ($prefix === 'PB' ? 10000 : 0));
+                    $prefix.$member->id;
 
                 /*
         |--------------------------------------------------------------------------

@@ -33,6 +33,7 @@ class SitemapTest extends TestCase
             ->assertOk()
             ->assertHeader('Content-Type', 'application/xml; charset=UTF-8');
 
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $response->getContent());
         $xml = simplexml_load_string($response->getContent());
         $this->assertNotFalse($xml);
         $xml->registerXPathNamespace('s', 'http://www.sitemaps.org/schemas/sitemap/0.9');
@@ -72,5 +73,15 @@ class SitemapTest extends TestCase
         $this->get('http://localhost/sitemap.xml')->assertNotFound();
         $this->get('http://localhost/robots.txt')->assertOk()
             ->assertContent("User-agent: *\nDisallow:\n");
+    }
+
+    public function test_head_requests_return_xml_headers_without_a_body(): void
+    {
+        foreach (array_keys(config('site.sites')) as $host) {
+            $this->head('https://'.$host.'/sitemap.xml')
+                ->assertOk()
+                ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
+                ->assertContent('');
+        }
     }
 }
