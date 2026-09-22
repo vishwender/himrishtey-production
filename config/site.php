@@ -98,7 +98,7 @@ return [
         ],
         'gallpakki.com' => [
             'search_state' => 'Punjab',
-            'hosts' => ['happy-charcoal-orangutan.97-74-95-195.cpanel.site'],
+            'hosts' => [],
             'name' => env('SITE3_NAME', 'Gallpakki'),
             'display_name' => env('SITE3_DISPLAY_NAME', 'Gallpakki'),
             'meta_title' => env('SITE3_META_TITLE', 'Gall Pakki | Punjabi Matrimony & Marriage Bureau in Punjab'),
@@ -139,7 +139,7 @@ return [
         ],
         'devbhoomirishtey.com' => [
             'search_state' => 'Uttarakhand',
-            'hosts' => ['caring-blue-bear.97-74-95-195.cpanel.site'],
+            'hosts' => ['himrishtey-production.ddev.site'],
             'name' => env('SITE4_NAME', 'Dev Bhoomi Rishtey'),
             'display_name' => env('SITE4_DISPLAY_NAME', 'Dev Bhoomi Rishtey'),
             'meta_title' => env('SITE4_META_TITLE'),
