@@ -56,6 +56,36 @@ class SiteMetadataTest extends TestCase
             ->assertSee('<title>Membership Plans - Gallpakki</title>', false);
     }
 
+    public function test_analytics_ids_follow_the_current_site_and_blank_ids_disable_tracking(): void
+    {
+        $sites = config('site.sites');
+        foreach ($sites as &$site) {
+            $site['google_analytics_id'] = null;
+            $site['google_tag_manager_id'] = null;
+        }
+        unset($site);
+        $sites['gallpakki.com']['google_analytics_id'] = 'G-GALLPAKKI1';
+        $sites['gallpakki.com']['google_tag_manager_id'] = 'GTM-GALL123';
+        $sites['himrishtey.com']['google_analytics_id'] = 'G-HIMRISHTE1';
+        config(['site.sites' => $sites]);
+
+        foreach (['/', '/pricing'] as $path) {
+            $this->get('https://gallpakki.com'.$path)->assertOk()
+                ->assertSee('gtag/js?id=G-GALLPAKKI1', false)
+                ->assertSee("gtag('config', 'G-GALLPAKKI1')", false)
+                ->assertDontSee('G-HIMRISHTE1');
+            $this->get('https://himrishtey.com'.$path)->assertOk()
+                ->assertSee('gtag/js?id=G-HIMRISHTE1', false)
+                ->assertDontSee('G-GALLPAKKI1')
+                ->assertDontSee('GTM-GALL123');
+            $this->get('https://dogririshtey.com'.$path)->assertOk()
+                ->assertDontSee('googletagmanager.com');
+        }
+
+        $this->get('https://www.gallpakki.com/')->assertOk()
+            ->assertSee('G-GALLPAKKI1')->assertSee('GTM-GALL123');
+    }
+
     public function test_metadata_does_not_leak_between_sites(): void
     {
         $this->get('https://gallpakki.com/')->assertOk()->assertSee(self::DESCRIPTION);
