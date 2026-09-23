@@ -23,6 +23,9 @@ class ProfileId
             throw new \RuntimeException("No profile ID prefix configured for site: {$site}");
         }
 
-        return $prefix.$memberId;
+        // Preserve GallPakki's established numbering used by the mobile apps.
+        $number = $prefix === 'PB' ? 10000 + $memberId : $memberId;
+
+        return $prefix.$number;
     }
 }
