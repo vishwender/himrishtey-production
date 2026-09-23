@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', e($siteMetaTitle))</title>
 
