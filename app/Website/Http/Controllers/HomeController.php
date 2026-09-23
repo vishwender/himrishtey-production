@@ -805,6 +805,7 @@ class HomeController extends Controller
     */
 
         $query = Member::query();
+        \App\Support\AnnualIncomeOptions::filter($query, $request->input('annual_income'), $request->input('annual_income_to'));
         // Don't show current member
         $query->where('id', '!=', $member->id);
         if (in_array($lookingFor, ['Male', 'Female'], true)) {

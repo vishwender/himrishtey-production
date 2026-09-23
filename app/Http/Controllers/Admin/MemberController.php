@@ -866,10 +866,7 @@ class MemberController extends Controller
             ->orderBy('value')
             ->get();
 
-        $annualIncomes = AnnualIncome::query()
-            ->orderBy('display_order')
-            ->orderBy('annual_income')
-            ->get();
+        $annualIncomes = collect(\App\Support\AnnualIncomeOptions::labels())->map(fn ($label) => (object) ['annual_income' => $label]);
 
         $employers = Employer::query()
             ->orderBy('employer')
@@ -1613,6 +1610,7 @@ class MemberController extends Controller
     public function advancedSearchResults(Request $request)
     {
         $query = $this->withoutDeletionRequests(Member::query());
+        \App\Support\AnnualIncomeOptions::filter($query, $request->input('annual_income_from'), $request->input('annual_income_to'));
 
         /*
     |--------------------------------------------------------------------------
@@ -2375,7 +2373,7 @@ class MemberController extends Controller
         $educations = Education::query()->orderBy('education')->get();
         $employers = Employer::query()->orderBy('employer')->get();
         $occupations = Occupation::query()->where('status', 1)->orderBy('occupation')->get();
-        $annualIncomes = AnnualIncome::query()->orderBy('display_order')->orderBy('annual_income')->get();
+        $annualIncomes = collect(\App\Support\AnnualIncomeOptions::labels())->map(fn ($label) => (object) ['annual_income' => $label]);
         $familyStatuses = FamilyStatus::query()->orderBy('value')->get();
         $countries = Country::query()
             ->orderByRaw("CASE WHEN LOWER(name) = 'india' THEN 0 ELSE 1 END")

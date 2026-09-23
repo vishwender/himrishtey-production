@@ -4,6 +4,7 @@ namespace App\Website\Http\Controllers;
 
 use App\Website\Models\Education;
 use App\Website\Models\Member;
+use App\Website\Models\Occupation;
 use App\Website\Services\ProfilePhotoStorage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,8 +45,9 @@ class MemberController extends Controller
         // Show page
         if ($request->isMethod('get')) {
             $educations = Education::orderBy('education')->get();
+            $occupations = Occupation::where('status', '1')->orderBy('occupation')->get();
 
-            return view('dashboard.profile.complete-profile', compact('educations'));
+            return view('dashboard.profile.complete-profile', compact('educations', 'occupations'));
         }
         // Update profile
         $member = Auth::guard('member')->user();

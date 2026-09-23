@@ -617,12 +617,9 @@
                             Annual Income From
                         </label>
 
-                        <input
-                            type="number"
-                            name="annual_income_from"
-                            class="form-control"
-                            value="{{ request('annual_income_from') }}"
-                            placeholder="Minimum income">
+                        <select name="annual_income_from" class="form-select">
+                            @include('partials.annual-income-options', ['selected' => request('annual_income_from'), 'placeholder' => 'Any income'])
+                        </select>
 
                     </div>
 
@@ -634,12 +631,9 @@
                             Annual Income To
                         </label>
 
-                        <input
-                            type="number"
-                            name="annual_income_to"
-                            class="form-control"
-                            value="{{ request('annual_income_to') }}"
-                            placeholder="Maximum income">
+                        <select name="annual_income_to" class="form-select">
+                            @include('partials.annual-income-options', ['selected' => request('annual_income_to'), 'placeholder' => 'Any income'])
+                        </select>
 
                     </div>
 

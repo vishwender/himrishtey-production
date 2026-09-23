@@ -389,7 +389,7 @@
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Annual Income</span>
-                                    <span class="pd-info-value">{{$profile->partner_annual_income_from}} - {{$profile->partner_annual_income_to}} LPA</span>
+                                    <span class="pd-info-value">{{$profile->partner_annual_income_from}} - {{$profile->partner_annual_income_to}}</span>
                                 </div>
                             </div>
                         </div>

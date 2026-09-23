@@ -167,7 +167,7 @@ class MyMemberController extends Controller
         $data['educations'] = Education::all();
         $data['familyStatuses'] = FamilyStatus::all();
         $data['employers'] = Employer::all();
-        $data['annualIncomes'] = AnnualIncome::all();
+        $data['annualIncomes'] = collect(\App\Support\AnnualIncomeOptions::labels())->map(fn ($label) => (object) ['annual_income' => $label]);
         $data['motherTongues'] = MotherTongue::all();
 
         $profile_created_for = $user->profile_created_for;
@@ -276,7 +276,7 @@ class MyMemberController extends Controller
         $data['casts'] = Cast::all();
         $data['mstatus'] = MaritalStatus::all();
         $data['states'] = State::where('country_id', 1)->get();
-        $data['incomes'] = AnnualIncome::all();
+        $data['incomes'] = collect(\App\Support\AnnualIncomeOptions::labels())->map(fn ($label) => (object) ['annual_income' => $label]);
         $data['mother_tongues'] = MotherTongue::all();
         $data['educations'] = Education::all();
         $data['employers'] = Employer::all();
@@ -333,11 +333,8 @@ class MyMemberController extends Controller
                 ->when(! empty($partnerEmployers), function ($q) use ($partnerEmployers) {
                     $q->whereIn('employer', $partnerEmployers);
                 })
-                ->when(! empty($partnerIncomeFrom), function ($q) use ($partnerIncomeFrom) {
-                    $q->where('annual_income', '>=', $partnerIncomeFrom);
-                })
-                ->when(! empty($partnerIncomeTo), function ($q) use ($partnerIncomeTo) {
-                    $q->where('annual_income', '<=', $partnerIncomeTo);
+                ->when(filled($partnerIncomeFrom) || filled($partnerIncomeTo), function ($q) use ($partnerIncomeFrom, $partnerIncomeTo) {
+                    \App\Support\AnnualIncomeOptions::filter($q, $partnerIncomeFrom, $partnerIncomeTo);
                 })
                 ->when(! empty($partnerHeightFrom), function ($q) use ($partnerHeightFrom) {
                     $q->where('height', '>=', $partnerHeightFrom);
@@ -418,7 +415,7 @@ class MyMemberController extends Controller
         $educations = Education::orderBy('education')->get();
         $occupations = Occupation::where('status', '1')->orderBy('occupation')->get();
         $employedIn = Employer::orderBy('employer')->get();
-        $annualIncome = AnnualIncome::orderBy('annual_income')->get();
+        $annualIncome = collect(\App\Support\AnnualIncomeOptions::labels())->map(fn ($label) => (object) ['annual_income' => $label]);
         $familyStatus = FamilyStatus::orderBy('value')->get();
         $maritalStatus = MaritalStatus::orderBy('marital_status')->get();
         $religions = Religion::orderBy('religion')->get();

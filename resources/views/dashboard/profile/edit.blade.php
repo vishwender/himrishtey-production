@@ -420,19 +420,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                                 class="ep-select"
                                 id="annual_income"
                                 name="annual_income">
-                                <option value="">Select</option>
-
-                                @foreach($annualIncome as $income)
-
-                                <option
-                                    value="{{ $income->annual_income }}"
-                                    @selected(old('annual_income', $member->annual_income) == $income->annual_income)
-                                    >
-                                    {{ $income->annual_income }}
-                                </option>
-
-                                @endforeach
-
+                                @include('partials.annual-income-options', ['selected' => old('annual_income', $member->annual_income)])
                             </select>
 
                             <i
@@ -784,41 +772,18 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                     </div>
 
 
-                    <!-- Income Range -->
-                    <div class="ep-field-group ep-full-width">
-                        <label class="ep-label">
-                            Annual Income Range:
-                            <strong id="income-range-label">
-                                {{ $member->partner_annual_income_from ?? 0 }}
-                                –
-                                {{ $member->partner_annual_income_to ?? 10 }}
-                                LPA
-                            </strong>
-                        </label>
-
-                        <div class="ep-range-row">
-                            <input
-                                type="range"
-                                class="ep-range"
-                                id="income_from"
-                                name="partner_annual_income_from"
-                                min="0"
-                                max="50"
-                                value="{{ $member->partner_annual_income_from ?? 0 }}"
-                                step="1">
-
-                            <input
-                                type="range"
-                                class="ep-range"
-                                id="income_to"
-                                name="partner_annual_income_to"
-                                min="0"
-                                max="50"
-                                value="{{ $member->partner_annual_income_to ?? 10 }}"
-                                step="1">
-                        </div>
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="income_from">Annual Income From</label>
+                        <select class="ep-select" id="income_from" name="partner_annual_income_from">
+                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
+                        </select>
                     </div>
-
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="income_to">Annual Income To</label>
+                        <select class="ep-select" id="income_to" name="partner_annual_income_to">
+                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
+                        </select>
+                    </div>
 
                     <!-- About Partner -->
                     <div class="ep-field-group ep-full-width">
@@ -1320,5 +1285,5 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 </div>
 
 @section('scripts')
-<script src="{{ asset('assets/js/edit-profile.js') }}"></script>
+<script src="{{ asset('assets/js/edit-profile.js') }}?v={{ filemtime(public_path('assets/js/edit-profile.js')) }}"></script>
 @endsection

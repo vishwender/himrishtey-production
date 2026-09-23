@@ -91,19 +91,15 @@
 
                         <!-- Annual Income -->
                         <div class="adv-field">
-                            <div class="adv-label"><i data-lucide="indian-rupee" width="15" height="15"></i> Annual Income (LPA)</div>
-                            <div class="adv-range-wrap">
-                                <div class="adv-range-labels">
-                                    <div class="adv-range-val"><span>Min</span> ₹<span id="incMinDisplay">0</span>L</div>
-                                    <div class="adv-range-val" style="text-align:right;"><span>Max</span> ₹<span id="incMaxDisplay">50</span>L</div>
-                                </div>
-                                <div class="range-track-container">
-                                    <div class="range-track"></div>
-                                    <div class="range-fill" id="incFill"></div>
-                                    <input type="range" class="adv-range" id="incMin" min="0" max="50" value="0" step="1" aria-label="Minimum income" />
-                                    <input type="range" class="adv-range" id="incMax" min="0" max="50" value="50" step="1" aria-label="Maximum income" />
-                                </div>
-                            </div>
+                            <div class="adv-label">Annual Income</div>
+                            <label for="incMin">From</label>
+                            <select class="form-select" id="incMin">
+                                @include('partials.annual-income-options', ['selected' => request('annual_income'), 'placeholder' => 'Any income'])
+                            </select>
+                            <label for="incMax">To</label>
+                            <select class="form-select" id="incMax">
+                                @include('partials.annual-income-options', ['selected' => request('annual_income_to'), 'placeholder' => 'Any income'])
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -343,7 +339,7 @@
 <script>
     window.searchResultsUrl = @json(route('search-results'));
 </script>
-<script src="{{asset('assets/js/advanced-search.js') }}?v=20260827-2"></script>
+<script src="{{asset('assets/js/advanced-search.js') }}?v={{ filemtime(public_path('assets/js/advanced-search.js')) }}"></script>
 @endsection
 
 </body>

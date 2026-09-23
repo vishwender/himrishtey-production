@@ -1154,14 +1154,7 @@ const RangeSliderManager = {
 
         });
 
-        this.register({
 
-            from: "income_from",
-            to: "income_to",
-            label: "income-range-label",
-            formatter: value => `${Math.round(value)} LPA`
-
-        });
 
     },
 
