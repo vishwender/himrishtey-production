@@ -32,29 +32,11 @@
   <link rel="stylesheet" href="{{ asset('assets/css/theme-overrides.css') }}?v={{ filemtime(public_path('assets/css/theme-overrides.css')) }}" />
   <style>
     :root {
-      --site-primary: {
-          {
-          $sitePrimaryColor ?? '#b92c3d'
-        }
-      }
+      --site-primary: {{ $sitePrimaryColor ?? '#b92c3d' }};
 
-      ;
+      --site-secondary: {{ $siteSecondaryColor ?? '#2f2d5c' }};
 
-      --site-secondary: {
-          {
-          $siteSecondaryColor ?? '#2f2d5c'
-        }
-      }
-
-      ;
-
-      --site-accent: {
-          {
-          $siteAccentColor ?? '#f4c86c'
-        }
-      }
-
-      ;
+      --site-accent: {{ $siteAccentColor ?? '#f4c86c' }};
       --brand: var(--site-primary);
       --deep: var(--site-secondary);
       --gold: var(--site-accent);

@@ -45,29 +45,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/public-navigation.css') }}?v={{ filemtime(public_path('assets/css/public-navigation.css')) }}">
     <style>
         :root {
-            --site-primary: {
-                    {
-                    $sitePrimaryColor
-                }
-            }
+            --site-primary: {{ $sitePrimaryColor ?? '#b92c3d' }};
 
-            ;
+            --site-secondary: {{ $siteSecondaryColor ?? '#2f2d5c' }};
 
-            --site-secondary: {
-                    {
-                    $siteSecondaryColor
-                }
-            }
-
-            ;
-
-            --site-accent: {
-                    {
-                    $siteAccentColor
-                }
-            }
-
-            ;
+            --site-accent: {{ $siteAccentColor ?? '#f4c86c' }};
             --brand: var(--site-primary);
             --deep: var(--site-secondary);
             --gold: var(--site-accent);
