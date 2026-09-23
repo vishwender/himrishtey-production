@@ -3,7 +3,7 @@
 @section('title', 'Search By Profile Id - HimRishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/search-by-id.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/search-by-id.css') }}?v={{ filemtime(public_path('assets/css/search-by-id.css')) }}" />
 @endsection
 
 @section('content')
@@ -132,20 +132,6 @@
                             <img src="" alt="" id="resultAvatar" class="sbid-profile-avatar" width="80" height="80" loading="lazy" />
                             <span class="sbid-online-badge" id="resultOnlineBadge" style="display:none;" aria-label="Online now"></span>
                         </div>
-                        <div class="sbid-profile-actions">
-                            <button type="button" class="sbid-action-btn sbid-btn-interest" id="sbidInterestBtn" aria-label="Send interest">
-                                <i data-lucide="heart" width="16" height="16"></i>
-                                <span>Interest</span>
-                            </button>
-                            <button type="button" class="sbid-action-btn sbid-btn-shortlist" id="sbidShortlistBtn" aria-label="Shortlist profile">
-                                <i data-lucide="bookmark" width="16" height="16"></i>
-                                <span>Shortlist</span>
-                            </button>
-                            <button type="button" class="sbid-action-btn sbid-btn-message" id="sbidMessageBtn" aria-label="Send message">
-                                <i data-lucide="message-circle" width="16" height="16"></i>
-                                <span>Message</span>
-                            </button>
-                        </div>
                     </div>
 
                     <!-- Name / Basic Info -->
@@ -163,6 +149,17 @@
                             <!-- populated by JS -->
                         </div>
                     </div>
+
+                        <div class="sbid-profile-actions">
+                            <button type="button" class="sbid-action-btn sbid-btn-interest" id="sbidInterestBtn" aria-label="Send interest">
+                                <i data-lucide="heart" width="16" height="16"></i>
+                                <span>Interest</span>
+                            </button>
+                            <button type="button" class="sbid-action-btn sbid-btn-shortlist" id="sbidShortlistBtn" aria-label="Shortlist profile">
+                                <i data-lucide="bookmark" width="16" height="16"></i>
+                                <span>Shortlist</span>
+                            </button>
+                        </div>
 
                     <!-- Details Grid -->
                     <div class="sbid-details-grid" id="resultDetailsGrid">
