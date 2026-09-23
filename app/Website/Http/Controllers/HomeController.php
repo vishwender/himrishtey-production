@@ -1653,26 +1653,19 @@ class HomeController extends Controller
             : asset($profile->gender === 'Female'
                 ? 'images/profile_photos/girl.jpg'
                 : 'images/profile_photos/boy.jpg');
-        if (! empty($profile->height)) {
-            $height = (string) $profile->height;
-
-            if (str_contains($height, '.')) {
-                [$feet, $inches] = explode('.', $height);
-            } else {
-                $feet = $height;
-                $inches = 0;
+        $profile->formatted_height = \App\Support\HeightFormatter::format($profile->height, 'Not provided');
+        $birthDate = null;
+        if (filled($profile->birth_date_time) && !str_starts_with((string) $profile->birth_date_time, '0000-00-00')) {
+            try {
+                $birthDate = Carbon::parse($profile->birth_date_time);
+            } catch (\Throwable $exception) {
+                // Legacy records can contain an invalid or incomplete birth date.
             }
-
-            $profile->formatted_height = $feet."'".$inches.'" ft';
-        } else {
-            $profile->formatted_height = 'N/A';
         }
-        $birthDate = Carbon::parse($profile->birth_date_time);
-        $ageDiff = $birthDate->diff(Carbon::today());
-        $profile->date = $birthDate->format('d-m-Y');
-        $profile->time = $birthDate->format('h:i A');
-        $profile->age_years = $ageDiff->y;
-        $profile->age_months = $ageDiff->m;
+        $profile->date = $birthDate?->format('d-m-Y') ?? 'Not provided';
+        $profile->time = $birthDate?->format('h:i A') ?? 'Not provided';
+        $profile->age_years = $birthDate ? (int) $birthDate->diffInYears(Carbon::today()) : null;
+        $profile->age_months = $birthDate?->diff(Carbon::today())->m;
 
         return view('dashboard.profile.view-my-profile', compact('profile', 'profilegallery'));
     }

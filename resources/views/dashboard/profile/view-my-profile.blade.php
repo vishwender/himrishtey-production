@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'My Profile – HimRishtey')
+@section('title', 'My Profile – ' . $siteName)
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/profile-detail.css') }}">
@@ -20,7 +20,7 @@
             <div class="pd-profile-image-wrapper">
                 <div class="pd-profile-image">
                     <img src="{{ $profile->profile_photo_url }}"
-                        alt="{{ $profile->full_name }}"
+                        alt="{{ filled($profile->full_name) ? $profile->full_name : 'Not provided' }}"
                         loading="eager"
                         onerror="this.onerror=null;this.src='{{ asset('images/profile_photos/' . ($profile->gender === 'Female' ? 'girl.jpg' : 'boy.jpg')) }}';">
                 </div>
@@ -35,16 +35,16 @@
 
                 <div class="pd-hero-meta">
 
-                    <p class="pd-hero-age">{{ $profile->age_years }} years · {{ $profile->formatted_height }}</p>
+                    <p class="pd-hero-age">{{ $profile->age_years !== null ? $profile->age_years . ' years' : 'Age not provided' }} · {{ filled($profile->formatted_height) ? $profile->formatted_height : 'Not provided' }}</p>
 
                     <h1 class="pd-hero-name">
-                        {{ $profile->full_name }}
-                        <span class="pd-hero-id">| {{ $profile->profile_id }}</span>
+                        {{ filled($profile->full_name) ? $profile->full_name : 'Not provided' }}
+                        <span class="pd-hero-id">| {{ filled($profile->profile_id) ? $profile->profile_id : 'Not provided' }}</span>
                     </h1>
 
                     <p class="pd-hero-location">
                         <i data-lucide="map-pin" width="14" height="14"></i>
-                        {{ $profile->city_living_in }}, {{ $profile->state_living_in }}
+                        {{ filled($profile->city_living_in) ? $profile->city_living_in : 'Not provided' }}, {{ filled($profile->state_living_in) ? $profile->state_living_in : 'Not provided' }}
 
                     </p>
 
@@ -70,8 +70,8 @@
                     @if($profile->membershipPlan)
                         <span class="pd-badge pd-badge-premium"><i data-lucide="star" width="14" height="14"></i> {{ $profile->membershipPlan->plan_name }}</span>
                     @endif
-                    <span class="pd-badge pd-badge-active">
-                        <i data-lucide="circle" width="10" height="10"></i> Active
+                    <span class="pd-badge {{ strtolower((string) $profile->active) === 'yes' ? 'pd-badge-active' : '' }}">
+                        <i data-lucide="circle" width="10" height="10"></i> {{ strtolower((string) $profile->active) === 'yes' ? 'Active' : 'Inactive' }}
                     </span>
                 </div>
 
@@ -85,13 +85,13 @@
                     </div>
                     <div class="pd-section-body">
                         <p class="pd-about-text">
-                            {{ $profile->about_me }}
+                            {{ filled($profile->about_me) ? $profile->about_me : 'Not provided' }}
                         </p>
                         <p class="pd-meta-line">
-                            Created by <strong>{{$profile->profile_created_for}}</strong> &nbsp;·&nbsp; {{$profile->age_years}} years &nbsp;·&nbsp; Profile ID: <strong>{{$profile->profile_id }}</strong> &nbsp;·&nbsp; {{$profile->religion }} &nbsp;·&nbsp; {{$profile->cast}} &nbsp;·&nbsp; {{$profile->city_living_in}}
+                            Profile created for <strong>{{ filled($profile->profile_created_for) ? $profile->profile_created_for : 'Not provided' }}</strong> &nbsp;·&nbsp; {{ $profile->age_years !== null ? $profile->age_years . ' years' : 'Age not provided' }} &nbsp;·&nbsp; Profile ID: <strong>{{ filled($profile->profile_id) ? $profile->profile_id : 'Not provided' }}</strong> &nbsp;·&nbsp; {{ filled($profile->religion) ? $profile->religion : 'Not provided' }} &nbsp;·&nbsp; {{ filled($profile->cast) ? $profile->cast : 'Not provided' }} &nbsp;·&nbsp; {{ filled($profile->city_living_in) ? $profile->city_living_in : 'Not provided' }}
                         </p>
                         <div class="pd-tags">
-                            <span class="pd-tag">{{ $profile->marital_status }}</span>
+                            <span class="pd-tag">{{ filled($profile->marital_status) ? $profile->marital_status : 'Not provided' }}</span>
                         </div>
                     </div>
                 </div>
@@ -107,23 +107,23 @@
                         <div class="pd-info-grid">
                             <div class="pd-info-row">
                                 <span class="pd-info-label">Date of Birth</span>
-                                <span class="pd-info-value">{{$profile->date}}</span>
+                                <span class="pd-info-value">{{ filled($profile->date) ? $profile->date : 'Not provided' }}</span>
                             </div>
                             <div class="pd-info-row">
                                 <span class="pd-info-label">Time of Birth</span>
                                 <span class="pd-info-value" id="tobValue">
-                                    {{$profile->time}}
+                                    {{ filled($profile->time) ? $profile->time : 'Not provided' }}
                                 </span>
                             </div>
                             <div class="pd-info-row">
                                 <span class="pd-info-label">Place of Birth</span>
                                 <span class="pd-info-value" id="pobValue">
-                                    {{$profile->birth_place}}
+                                    {{ filled($profile->birth_place) ? $profile->birth_place : 'Not provided' }}
                                 </span>
                             </div>
                             <div class="pd-info-row">
                                 <span class="pd-info-label">Manglik</span>
-                                <span class="pd-info-value">{{$profile->manglik}}</span>
+                                <span class="pd-info-value">{{ filled($profile->manglik) ? $profile->manglik : 'Not provided' }}</span>
                             </div>
                         </div>
                     </div>
@@ -141,23 +141,23 @@
                             <div class="pd-info-grid">
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Community</span>
-                                    <span class="pd-info-value">{{$profile->cast}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->cast) ? $profile->cast : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Sub Community</span>
-                                    <span class="pd-info-value">{{$profile->sub_cast}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->sub_cast) ? $profile->sub_cast : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Gotra</span>
-                                    <span class="pd-info-value">{{$profile->gotra}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->gotra) ? $profile->gotra : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Native Place</span>
-                                    <span class="pd-info-value">{{$profile->native_place}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->native_place) ? $profile->native_place : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Mother Tongue</span>
-                                    <span class="pd-info-value">{{$profile->mother_tongue}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->mother_tongue) ? $profile->mother_tongue : 'Not provided' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -176,25 +176,25 @@
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Contact Number</span>
                                     <span class="pd-info-value" id="mobileValue">
-                                        {{$profile->mobile_number}}
+                                        {{ filled($profile->mobile_number) ? $profile->mobile_number : 'Not provided' }}
                                     </span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">WhatsApp Number</span>
                                     <span class="pd-info-value" id="waValue">
-                                        {{$profile->whatsapp_number}}
+                                        {{ filled($profile->whatsapp_number) ? $profile->whatsapp_number : 'Not provided' }}
                                     </span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Alternate Number</span>
-                                    <span class="pd-info-value" id="waValue">
-                                        {{$profile->alternate_number}}
+                                    <span class="pd-info-value" id="alternateNumberValue">
+                                        {{ filled($profile->alternate_number) ? $profile->alternate_number : 'Not provided' }}
                                     </span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Email</span>
                                     <span class="pd-info-value" id="emailValue">
-                                        {{$profile->email}}
+                                        {{ filled($profile->email) ? $profile->email : 'Not provided' }}
                                     </span>
                                 </div>
                             </div>
@@ -219,35 +219,43 @@
                             <div class="pd-info-grid">
                                 <div class="pd-info-row pd-info-row--full">
                                     <span class="pd-info-label">About Education & Career</span>
-                                    <span class="pd-info-value">{{$profile->about_my_education}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->about_my_education) ? $profile->about_my_education : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Education</span>
-                                    <span class="pd-info-value">{{$profile->education}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->education) ? $profile->education : 'Not provided' }}</span>
+                                </div>
+                                <div class="pd-info-row">
+                                    <span class="pd-info-label">About My Career</span>
+                                    <span class="pd-info-value">{{ filled($profile->about_my_career) ? $profile->about_my_career : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Other Qualification</span>
-                                    <span class="pd-info-value">{{$profile->any_other_qualification}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->any_other_qualifications) ? $profile->any_other_qualifications : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Employed In</span>
-                                    <span class="pd-info-value">{{$profile->employes_in}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->employed_in) ? $profile->employed_in : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Occupation</span>
-                                    <span class="pd-info-value">{{$profile->occupation}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->occupation) ? $profile->occupation : 'Not provided' }}</span>
+                                </div>
+                                <div class="pd-info-row">
+                                    <span class="pd-info-label">Designation</span>
+                                    <span class="pd-info-value">{{ filled($profile->designation) ? $profile->designation : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Currently Working At</span>
-                                    <span class="pd-info-value">{{$profile->organization_name}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->organization_name) ? $profile->organization_name : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Job Location</span>
-                                    <span class="pd-info-value">{{$profile->job_location}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->job_location) ? $profile->job_location : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Annual Income</span>
-                                    <span class="pd-info-value">{{$profile->annual_income}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->annual_income) ? $profile->annual_income : 'Not provided' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -265,31 +273,43 @@
                             <div class="pd-info-grid">
                                 <div class="pd-info-row pd-info-row--full">
                                     <span class="pd-info-label">About My Family</span>
-                                    <span class="pd-info-value">{{$profile->about_family}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->about_family) ? $profile->about_family : 'Not provided' }}</span>
+                                </div>
+                                <div class="pd-info-row">
+                                    <span class="pd-info-label">Father's Name</span>
+                                    <span class="pd-info-value">{{ filled($profile->father_name) ? $profile->father_name : 'Not provided' }}</span>
+                                </div>
+                                <div class="pd-info-row">
+                                    <span class="pd-info-label">Mother's Name</span>
+                                    <span class="pd-info-value">{{ filled($profile->mother_name) ? $profile->mother_name : 'Not provided' }}</span>
+                                </div>
+                                <div class="pd-info-row">
+                                    <span class="pd-info-label">Family Status</span>
+                                    <span class="pd-info-value">{{ filled($profile->family_status) ? $profile->family_status : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Father's Occupation</span>
-                                    <span class="pd-info-value">{{$profile->father_occupation}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->father_occupation) ? $profile->father_occupation : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Mother's Occupation</span>
-                                    <span class="pd-info-value">{{$profile->mother_occupation}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->mother_occupation) ? $profile->mother_occupation : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Brothers</span>
-                                    <span class="pd-info-value">{{$profile->no_of_brothers}} | ( {{$profile->married_brothers}} Married)</span>
+                                    <span class="pd-info-value">{{ filled($profile->no_of_brothers) ? $profile->no_of_brothers : 'Not provided' }} | ( {{ filled($profile->married_brothers) ? $profile->married_brothers : 'Not provided' }} Married)</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Sisters</span>
-                                    <span class="pd-info-value">{{$profile->no_of_sisters}} | ( {{$profile->married_sisters}} Married)</span>
+                                    <span class="pd-info-value">{{ filled($profile->no_of_sisters) ? $profile->no_of_sisters : 'Not provided' }} | ( {{ filled($profile->married_sisters) ? $profile->married_sisters : 'Not provided' }} Married)</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Native Place</span>
-                                    <span class="pd-info-value">{{$profile->native_place}},{{$profile->state_living_in}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->native_place) ? $profile->native_place : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Family Type</span>
-                                    <span class="pd-info-value">{{$profile->family_type}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->family_type) ? $profile->family_type : 'Not provided' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -309,28 +329,28 @@
                                     <i data-lucide="utensils" width="16" height="16"></i>
                                     <div>
                                         <span class="pd-lc-label">Diet</span>
-                                        <span class="pd-lc-value">{{$profile->diet}}</span>
+                                        <span class="pd-lc-value">{{ filled($profile->diet) ? $profile->diet : 'Not provided' }}</span>
                                     </div>
                                 </div>
                                 <div class="pd-lifestyle-chip">
                                     <i data-lucide="cigarette-off" width="16" height="16"></i>
                                     <div>
                                         <span class="pd-lc-label">Smoking</span>
-                                        <span class="pd-lc-value">{{$profile->is_smoking}}</span>
+                                        <span class="pd-lc-value">{{ filled($profile->is_smoking) ? $profile->is_smoking : 'Not provided' }}</span>
                                     </div>
                                 </div>
                                 <div class="pd-lifestyle-chip">
                                     <i data-lucide="wine-off" width="16" height="16"></i>
                                     <div>
                                         <span class="pd-lc-label">Drinking</span>
-                                        <span class="pd-lc-value">{{$profile->is_drinking}}</span>
+                                        <span class="pd-lc-value">{{ filled($profile->is_drinking) ? $profile->is_drinking : 'Not provided' }}</span>
                                     </div>
                                 </div>
                                 <div class="pd-lifestyle-chip">
                                     <i data-lucide="accessibility" width="16" height="16"></i>
                                     <div>
                                         <span class="pd-lc-label">Disability</span>
-                                        <span class="pd-lc-value">{{$profile->any_disability}}</span>
+                                        <span class="pd-lc-value">{{ filled($profile->any_disability) ? $profile->any_disability : 'Not provided' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -349,47 +369,47 @@
                             <div class="pd-info-grid">
                                 <div class="pd-info-row pd-info-row--full">
                                     <span class="pd-info-label">About My Partner</span>
-                                    <span class="pd-info-value">{{$profile->about_my_partner}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->about_my_partner) ? $profile->about_my_partner : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Age Range</span>
-                                    <span class="pd-info-value">{{$profile->partner_age_from}} - {{$profile->partner_age_to}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_age_from) ? $profile->partner_age_from : 'Not provided' }} - {{ filled($profile->partner_age_to) ? $profile->partner_age_to : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Height Range</span>
-                                    <span class="pd-info-value">{{$profile->partner_height_from}} - {{$profile->partner_height_to}}"</span>
+                                    <span class="pd-info-value">{{ \App\Support\HeightFormatter::format($profile->partner_height_from) }} – {{ \App\Support\HeightFormatter::format($profile->partner_height_to) }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Marital Status</span>
-                                    <span class="pd-info-value">{{$profile->looking_for}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->looking_for) ? $profile->looking_for : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Religion</span>
-                                    <span class="pd-info-value">{{$profile->partner_religion}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_religion) ? $profile->partner_religion : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Mother Tongue</span>
-                                    <span class="pd-info-value">{{$profile->partner_mothertongue}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_mothertongue) ? $profile->partner_mothertongue : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Community</span>
-                                    <span class="pd-info-value">{{$profile->partner_cast}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_cast) ? $profile->partner_cast : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Is Manglik</span>
-                                    <span class="pd-info-value">{{$profile->is_partner_manglik}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->is_partner_manglik) ? $profile->is_partner_manglik : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Highest Qualification</span>
-                                    <span class="pd-info-value">{{$profile->partner_education}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_education) ? $profile->partner_education : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Partner Occupation</span>
-                                    <span class="pd-info-value">{{$profile->partner_occupation}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_occupation) ? $profile->partner_occupation : 'Not provided' }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Annual Income</span>
-                                    <span class="pd-info-value">{{$profile->partner_annual_income_from}} - {{$profile->partner_annual_income_to}}</span>
+                                    <span class="pd-info-value">{{ filled($profile->partner_annual_income_from) ? $profile->partner_annual_income_from : 'Not provided' }} - {{ filled($profile->partner_annual_income_to) ? $profile->partner_annual_income_to : 'Not provided' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -399,10 +419,10 @@
             <aside class="pd-aside">
                 <div class="pd-action-card">
                     <div class="pd-action-profile-thumb">
-                        <img class="pd-thumb-image" src="{{ $profile->profile_photo_url }}" alt="{{ $profile->full_name }}">
+                        <img class="pd-thumb-image" src="{{ $profile->profile_photo_url }}" alt="{{ filled($profile->full_name) ? $profile->full_name : 'Not provided' }}">
                         <div class="pd-action-name">
-                            <strong>{{ $profile->full_name }}</strong>
-                            <span>{{ $profile->age_years }} yrs · {{ $profile->city_living_in }}</span>
+                            <strong>{{ filled($profile->full_name) ? $profile->full_name : 'Not provided' }}</strong>
+                            <span>{{ $profile->age_years !== null ? $profile->age_years . ' yrs' : 'Age not provided' }} · {{ filled($profile->city_living_in) ? $profile->city_living_in : 'Not provided' }}</span>
                         </div>
                     </div>
                     <div class="pd-action-btns">
@@ -411,9 +431,9 @@
                     </div>
                     <div class="pd-action-divider"></div>
                     <ul class="pd-quick-info" role="list">
-                        <li><i data-lucide="calendar" width="15" height="15"></i><span>{{ $profile->age_years }} years old</span></li>
-                        <li><i data-lucide="map-pin" width="15" height="15"></i><span>{{ $profile->city_living_in }}, {{ $profile->state_living_in }}</span></li>
-                        <li><i data-lucide="mail" width="15" height="15"></i><span>{{ $profile->email }}</span></li>
+                        <li><i data-lucide="calendar" width="15" height="15"></i><span>{{ $profile->age_years !== null ? $profile->age_years . ' years old' : 'Age not provided' }}</span></li>
+                        <li><i data-lucide="map-pin" width="15" height="15"></i><span>{{ filled($profile->city_living_in) ? $profile->city_living_in : 'Not provided' }}, {{ filled($profile->state_living_in) ? $profile->state_living_in : 'Not provided' }}</span></li>
+                        <li><i data-lucide="mail" width="15" height="15"></i><span>{{ filled($profile->email) ? $profile->email : 'Not provided' }}</span></li>
                     </ul>
                 </div>
             </aside>
@@ -483,43 +503,6 @@
 
         </div>
 
-    </div>
-
-    <!-- ===================== UNLOCK MODAL ===================== -->
-    <div class="pd-modal-overlay" id="unlockModalOverlay" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="pd-modal">
-            <div class="pd-modal-header">
-                <h3 id="unlockModalTitle">Unlock Profile</h3>
-                <button class="pd-modal-close" onclick="closeUnlockModal()" aria-label="Close">
-                    <i data-lucide="x" width="20" height="20"></i>
-                </button>
-            </div>
-            <div class="pd-modal-body">
-                <div class="pd-modal-profile">
-                    <div class="pd-modal-avatar">
-                        <i data-lucide="user" width="28" height="28"></i>
-                    </div>
-                    <strong>Rahul Thakur</strong>
-                </div>
-                <div class="pd-modal-row">
-                    <span>Profile view price</span>
-                    <span>₹ 20</span>
-                </div>
-                <div class="pd-modal-wallet">
-                    <div>
-                        <span>Wallet Balance</span>
-                        <small class="pd-wallet-low" id="walletLowNote" style="display:none;">Low balance</small>
-                    </div>
-                    <span>₹ 150</span>
-                </div>
-            </div>
-            <div class="pd-modal-footer">
-                <button class="pd-modal-cancel" onclick="closeUnlockModal()">Cancel</button>
-                <button class="pd-modal-confirm" id="unlockConfirmBtn" onclick="confirmUnlock()">
-                    Unlock
-                </button>
-            </div>
-        </div>
     </div>
 
     <!-- Toast notification -->
