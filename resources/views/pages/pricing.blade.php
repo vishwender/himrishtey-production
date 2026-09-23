@@ -47,9 +47,9 @@
 
                             {{-- Original / Strikethrough Price --}}
                             @if ($originalPrice)
-                            <p class="pricing-original-price">
+                            <s class="pricing-original-price">
                                 ₹{{ number_format($originalPrice) }}
-                            </p>
+                            </s>
                             @endif
 
                         </div>
@@ -84,24 +84,5 @@
         </div>
     </div>
 </section>
-<style>
-    .pricing-price-wrap {
-        margin: 16px 0 12px;
-    }
 
-    .pricing-price {
-        margin: 0;
-        font-size: 2.4rem;
-        font-weight: 800;
-        line-height: 1.1;
-    }
-
-    .pricing-original-price {
-        margin: 6px 0 0;
-        font-size: 1rem;
-        color: #8a8f98;
-        text-decoration: line-through;
-        text-decoration-thickness: 1.5px;
-    }
-</style>
 @endsection

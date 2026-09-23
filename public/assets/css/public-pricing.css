@@ -63,7 +63,41 @@
 
 .pricing-content p { margin: 0; color: var(--muted); }
 .pricing-name { margin: 0; font-size: 24px; }
-.pricing-content .pricing-price { color: var(--brand); font-size: 36px; font-weight: 700; }
+.pricing-price-wrap {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    margin: 16px 0 12px;
+}
+
+.pricing-content .pricing-price {
+    margin: 0;
+    color: var(--brand);
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.pricing-original-price {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    color: var(--muted, #8a8f98);
+    font-size: 1rem;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.pricing-original-price::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 1.5px;
+    background: currentColor;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
 .pricing-content .public-cta { width: 100%; margin-top: auto; white-space: normal; text-align: center; }
 .pricing-empty { grid-column: 1 / -1; }
 
