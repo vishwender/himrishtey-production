@@ -148,17 +148,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <label class="ep-label" for="height">Height</label>
                         <div class="ep-select-wrapper">
                             <select class="ep-select" id="height" name="height">
-                                <option value="4.6" @selected(old('height', $member->height) == '4.6')>4'6"</option>
-                                <option value="4.8" @selected(old('height', $member->height) == '4.8')>4'8"</option>
-                                <option value="4.10" @selected(old('height', $member->height) == '4.10')>4'10"</option>
-                                <option value="5.0" @selected(old('height', $member->height) == '5.0')>5'0"</option>
-                                <option value="5.2" @selected(old('height', $member->height) == '5.2')>5'2"</option>
-                                <option value="5.4" @selected(old('height', $member->height) == '5.4')>5'4"</option>
-                                <option value="5.6" @selected(old('height', $member->height) == '5.6')>5'6"</option>
-                                <option value="5.8" @selected(old('height', $member->height) == '5.8')>5'8"</option>
-                                <option value="5.10" @selected(old('height', $member->height) == '5.10')>5'10"</option>
-                                <option value="6.0" @selected(old('height', $member->height) == '6.0')>6'0"</option>
-                                <option value="6.2" @selected(old('height', $member->height) == '6.2')>6'2"</option>
+                                @include('dashboard.profile.partials.height-options')
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
                         </div>

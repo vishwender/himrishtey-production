@@ -414,6 +414,7 @@ class MyMemberController extends Controller
     {
 
         $member = Auth::guard('member')->user();
+        $heights = Height::orderBy('height_value')->get();
         $educations = Education::orderBy('education')->get();
         $occupations = Occupation::where('status', '1')->orderBy('occupation')->get();
         $employedIn = Employer::orderBy('employer')->get();
@@ -431,7 +432,7 @@ class MyMemberController extends Controller
             ->all();
 
         // dd($completion);
-        return view('dashboard.profile.edit', compact('member', 'completion', 'sectionCompletion', 'familyStatus', 'annualIncome', 'employedIn', 'educations', 'occupations', 'maritalStatus', 'religions', 'motherTongues', 'casts'));
+        return view('dashboard.profile.edit', compact('member', 'heights', 'completion', 'sectionCompletion', 'familyStatus', 'annualIncome', 'employedIn', 'educations', 'occupations', 'maritalStatus', 'religions', 'motherTongues', 'casts'));
     }
 
     public function update_profile(Request $request)
