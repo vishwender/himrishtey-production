@@ -774,10 +774,10 @@ class HomeController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $partnerAgeFrom = $request->input('partner_age_from');
-        $partnerAgeTo = $request->input('partner_age_to');
-        $partnerReligion = $request->input('partner_religion');
-        $partnerCast = $request->input('partner_cast');
+        $partnerAgeFrom = $request->input('partner_age_from', $request->input('age_from'));
+        $partnerAgeTo = $request->input('partner_age_to', $request->input('age_to'));
+        $partnerReligion = $request->input('partner_religion', $request->input('religion'));
+        $partnerCast = $request->input('partner_cast', $request->input('cast'));
         $maritalStatus = $request->input('marital_status');
         $lookingFor = $request->input('looking_for');
         $stateName = $request->input('state_name');
@@ -806,6 +806,35 @@ class HomeController extends Controller
 
         $query = Member::query();
         \App\Support\AnnualIncomeOptions::filter($query, $request->input('annual_income'), $request->input('annual_income_to'));
+        foreach (['mother_tongue', 'education', 'employed_in'] as $field) {
+            if ($request->filled($field)) {
+                $query->whereIn($field, array_filter(array_map('trim', explode(',', $request->input($field)))));
+            }
+        }
+        if ($request->filled('manglik')) {
+            $query->where('manglik', $request->input('manglik'));
+        }
+        if ($request->filled('profile_id')) {
+            $query->where('profile_id', trim($request->input('profile_id')));
+        }
+        if ($request->filled('height_from') || $request->filled('height_to')) {
+            $toInches = static function (string $height): int {
+                $parts = explode('.', $height, 2);
+                return (int) $parts[0] * 12 + (int) ($parts[1] ?? 0);
+            };
+            $minHeight = $toInches((string) $request->input('height_from', '0'));
+            $maxHeight = $toInches((string) $request->input('height_to', '9'));
+            $heights = [];
+            for ($inches = max(0, $minHeight); $inches <= min(119, $maxHeight); $inches++) {
+                $feet = intdiv($inches, 12);
+                $remainder = $inches % 12;
+                $heights[] = $feet.'.'.$remainder;
+                if ($remainder === 0) {
+                    $heights[] = (string) $feet;
+                }
+            }
+            $query->whereIn('height', $heights);
+        }
         // Don't show current member
         $query->where('id', '!=', $member->id);
         if (in_array($lookingFor, ['Male', 'Female'], true)) {
@@ -854,7 +883,7 @@ class HomeController extends Controller
         }
 
         if (! empty($stateName)) {
-            $query->where('state_name', $stateName);
+            $query->whereIn('state_living_in', array_filter(array_map('trim', explode(',', $stateName))));
         }
 
         /*
