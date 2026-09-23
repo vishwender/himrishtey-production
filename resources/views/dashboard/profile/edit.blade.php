@@ -306,20 +306,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <div class="ep-select-wrapper">
 
                             <select class="ep-select" id="education" name="education">
-
-                                <option value="">Select</option>
-
-                                @foreach($educations as $education)
-
-                                <option
-                                    value="{{ $education->education }}"
-                                    @selected(old('education', $member->education) == $education->education)
-                                    >
-                                    {{ $education->education }}
-                                </option>
-
-                                @endforeach
-
+                                @include('dashboard.profile.partials.education-options')
                             </select>
 
                             <i

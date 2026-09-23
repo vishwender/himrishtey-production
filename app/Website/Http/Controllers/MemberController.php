@@ -2,6 +2,7 @@
 
 namespace App\Website\Http\Controllers;
 
+use App\Website\Models\Education;
 use App\Website\Models\Member;
 use App\Website\Services\ProfilePhotoStorage;
 use Carbon\Carbon;
@@ -42,7 +43,9 @@ class MemberController extends Controller
     {
         // Show page
         if ($request->isMethod('get')) {
-            return view('dashboard.profile.complete-profile');
+            $educations = Education::orderBy('education')->get();
+
+            return view('dashboard.profile.complete-profile', compact('educations'));
         }
         // Update profile
         $member = Auth::guard('member')->user();

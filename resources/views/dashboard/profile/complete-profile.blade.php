@@ -174,24 +174,10 @@
                     </label>
                     <div class="input-wrap select-wrap">
                         <select id="education" name="education" class="form-input form-select" required>
-                            <option value="" disabled selected>Select education</option>
-                            <option value="10">10th</option>
-                            <option value="12">12th</option>
-                            <option value="Diploma">Diploma</option>
-                            <option value="B.A">B.A</option>
-                            <option value="B.Sc.">B.Sc.</option>
-                            <option value="B.Com">B.Com</option>
-                            <option value="B.Tech / B.E.">B.Tech / B.E.</option>
-                            <option value="BBA">BBA</option>
-                            <option value="BCA">BCA</option>
-                            <option value="M.A.">M.A.</option>
-                            <option value="M.Sc.">M.Sc.</option>
-                            <option value="M.Com">M.Com</option>
-                            <option value="M.Tech.">M.Tech / M.E.</option>
-                            <option value="MBA">MBA</option>
-                            <option value="MCA">MCA</option>
-                            <option value="Ph.D.">Doctorate (Ph.D.)</option>
-                            <option value="other">Other</option>
+                            <option value="" disabled @selected(!old('education'))>Select education</option>
+                            @foreach ($educations as $education)
+                                <option value="{{ $education->education }}" @selected(old('education') === $education->education)>{{ $education->education }}</option>
+                            @endforeach
                         </select>
                         <i data-lucide="chevron-down" width="14" height="14" class="select-icon" aria-hidden="true"></i>
                     </div>
