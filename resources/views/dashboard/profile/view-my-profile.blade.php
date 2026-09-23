@@ -377,7 +377,7 @@
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Height Range</span>
-                                    <span class="pd-info-value">{{ \App\Support\HeightFormatter::format($profile->partner_height_from) }} – {{ \App\Support\HeightFormatter::format($profile->partner_height_to) }}</span>
+                                    <span class="pd-info-value">{{ \App\Support\HeightFormatter::formatPartnerRange($profile->partner_height_from) }} – {{ \App\Support\HeightFormatter::formatPartnerRange($profile->partner_height_to) }}</span>
                                 </div>
                                 <div class="pd-info-row">
                                     <span class="pd-info-label">Marital Status</span>
