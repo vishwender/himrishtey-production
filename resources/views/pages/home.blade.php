@@ -214,24 +214,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
              </article>
          </section>
 
-         <section class="stories wrap" id="stories">
-             <h2>Real stories. Real happiness.</h2>
-             <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
-             <div class="story-grid">
-                 <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
-                     <div><b>Pooja &amp; Ankush</b><strong>Shimla, Himachal Pradesh</strong>
-                         <p>“We met on {{ $siteName }} and instantly connected. Today, we are happily building our future together.”</p>
-                         <small><i data-lucide="heart" aria-hidden="true"></i> Married on 12th Feb 2024</small>
-                     </div>
-                 </article>
-                 <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
-                     <div><b>Megha &amp; Saurav</b><strong>Kangra, Himachal Pradesh</strong>
-                         <p>“Thanks to {{ $siteName }}, we found not just a life partner but a best friend for life.”</p>
-                         <small><i data-lucide="heart" aria-hidden="true"></i> Married on 5th Nov 2023</small>
-                     </div>
-                 </article>
-             </div><a class="more outline public-cta public-cta-secondary" href="{{ route('success-stories') }}">Read More Success Stories</a>
-         </section>
+
 
          @php
          $instagram = config('site.current.instagram', []);
@@ -447,6 +430,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
              </div>
 
+         </section>
+
+         <section class="stories wrap" id="stories">
+             <h2>Real stories. Real happiness.</h2>
+             <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
+             <div class="story-grid">
+                 <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
+                     <div><b>Pooja &amp; Ankush</b><strong>Shimla, Himachal Pradesh</strong>
+                         <p>“We met on {{ $siteName }} and instantly connected. Today, we are happily building our future together.”</p>
+                         <small><i data-lucide="heart" aria-hidden="true"></i> Married on 12th Feb 2024</small>
+                     </div>
+                 </article>
+                 <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
+                     <div><b>Megha &amp; Saurav</b><strong>Kangra, Himachal Pradesh</strong>
+                         <p>“Thanks to {{ $siteName }}, we found not just a life partner but a best friend for life.”</p>
+                         <small><i data-lucide="heart" aria-hidden="true"></i> Married on 5th Nov 2023</small>
+                     </div>
+                 </article>
+             </div><a class="more outline public-cta public-cta-secondary" href="{{ route('success-stories') }}">Read More Success Stories</a>
          </section>
      </main>
      @include('partials.public-footer')
