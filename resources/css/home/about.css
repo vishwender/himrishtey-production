@@ -14,7 +14,7 @@
 }
 
 .public-site .about-cms {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 17px;
     line-height: 1.8;
     text-align: left;
@@ -74,7 +74,7 @@
     right: -1.25rem;
     bottom: -4rem;
     color: var(--brand);
-    font: 13rem/1 "Playfair Display", serif;
+    font: 13rem/1 "Inter", sans-serif;
     opacity: .035;
     pointer-events: none;
 }

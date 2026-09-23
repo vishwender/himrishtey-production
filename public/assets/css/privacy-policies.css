@@ -22,7 +22,7 @@
 }
 
 .pp-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Inter', sans-serif);
   font-size: var(--text-xl);
   color: var(--color-text);
   margin: 0;

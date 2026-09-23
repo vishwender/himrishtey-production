@@ -61,7 +61,7 @@
 
     opacity: 0.045;
 
-    font-family: var(--font-heading, "Playfair Display", serif);
+    font-family: var(--font-heading, "Inter", sans-serif);
     font-size: 180px;
     line-height: 1;
 
@@ -412,7 +412,7 @@
 .app-download-content h2 {
     margin: 0 0 22px;
 
-    font-family: "Outfit", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: clamp(27px, 3vw, 39px);
     line-height: 1.22;
     font-weight: 400;
@@ -530,7 +530,7 @@
 }
 
 .rating-number {
-    font-family: "Outfit", sans-serif;
+    font-family: "Inter", sans-serif;
 
     font-size: 34px;
     line-height: 1;

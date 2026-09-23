@@ -46,7 +46,7 @@
     .checkout-heading h1 {
         margin: 0 0 8px;
 
-        font-family: "Outfit", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 34px;
         font-weight: 700;
 
@@ -96,7 +96,7 @@
     .card-header h2 {
         margin: 0;
 
-        font-family: "Outfit", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 21px;
         font-weight: 600;
 
@@ -165,7 +165,7 @@
     .plan-name {
         margin: 0;
 
-        font-family: "Outfit", sans-serif;
+        font-family: "Inter", sans-serif;
 
         font-size: 25px;
         font-weight: 600;
@@ -188,7 +188,7 @@
     }
 
     .plan-price strong {
-        font-family: "Outfit", sans-serif;
+        font-family: "Inter", sans-serif;
 
         font-size: 28px;
         font-weight: 700;
@@ -294,7 +294,7 @@
     }
 
     .summary-total strong {
-        font-family: "Outfit", sans-serif;
+        font-family: "Inter", sans-serif;
 
         font-size: 27px;
         font-weight: 700;
@@ -320,7 +320,7 @@
         background: var(--app-primary);
         color: #fff;
 
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
 
         font-size: 15px;
         font-weight: 600;

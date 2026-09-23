@@ -35,7 +35,7 @@
 }
 
 .int-page-title {
-  font-family: var(--font-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Inter', sans-serif);
   font-size: var(--text-xl);
   font-weight: 700;
   color: var(--color-text);
@@ -62,7 +62,7 @@
   padding: var(--space-2) var(--space-4);
   border: none;
   border-radius: calc(var(--radius-lg) - 3px);
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body, 'Inter', sans-serif);
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text-muted);
@@ -155,7 +155,7 @@
   border: none;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body, 'Inter', sans-serif);
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text-muted);
@@ -303,7 +303,7 @@
 }
 
 .profile-card-name {
-  font-family: var(--font-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Inter', sans-serif);
   font-size: var(--text-sm);
   font-weight: 700;
   color: var(--color-text);
@@ -370,7 +370,7 @@
   padding: var(--space-2) var(--space-2);
   border: none;
   border-radius: var(--radius-md);
-  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-family: var(--font-body, 'Inter', sans-serif);
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
@@ -498,7 +498,7 @@
 .int-empty-icon.rejected { background: rgba(161,44,123,0.08); color: var(--color-error, #a12c7b); }
 
 .int-empty h3 {
-  font-family: var(--font-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Inter', sans-serif);
   font-size: var(--text-lg);
   font-weight: 700;
   color: var(--color-text);

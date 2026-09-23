@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
     <style>
@@ -44,7 +44,7 @@
 
         body {
             min-height: 100vh;
-            font-family: "DM Sans", sans-serif;
+            font-family: "Inter", sans-serif;
             color: var(--app-ink);
             background:
                 radial-gradient(circle at top left,
@@ -73,7 +73,7 @@
         }
 
         .brand-name {
-            font-family: "Outfit", sans-serif;
+            font-family: "Inter", sans-serif;
             font-size: 30px;
             font-weight: 700;
             color: var(--app-primary);
@@ -132,7 +132,7 @@
         }
 
         .success-title {
-            font-family: "Outfit", sans-serif;
+            font-family: "Inter", sans-serif;
             font-size: 32px;
             line-height: 1.2;
             font-weight: 700;
@@ -169,7 +169,7 @@
         }
 
         .membership-name {
-            font-family: "Outfit", sans-serif;
+            font-family: "Inter", sans-serif;
             font-size: 21px;
             font-weight: 600;
             color: var(--app-ink);
@@ -218,7 +218,7 @@
 
             padding: 0 20px;
 
-            font-family: "DM Sans", sans-serif;
+            font-family: "Inter", sans-serif;
             font-size: 14px;
             font-weight: 600;
 

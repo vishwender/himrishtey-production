@@ -3,7 +3,7 @@
 @section('title', 'My Profile – ' . $siteName)
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/profile-detail.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/profile-detail.css') }}?v={{ filemtime(public_path('assets/css/profile-detail.css')) }}">
 @endsection
 
 @section('content')

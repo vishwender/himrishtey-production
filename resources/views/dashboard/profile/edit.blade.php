@@ -2,7 +2,7 @@
 @section('title', 'Edit Profile - HimRishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/edit-profile.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/edit-profile.css') }}?v={{ filemtime(public_path('assets/css/edit-profile.css')) }}" />
 @endsection
 
 <!-- ========== SIDEBAR DRAWER (from base) ========== -->

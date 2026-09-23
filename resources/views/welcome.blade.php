@@ -7,12 +7,12 @@
     <title>{{ config('app.name', 'Him Rishtey') }} — Admin Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root { --ink:#20243a; --muted:#707892; --purple:#6847ef; --lavender:#eeeaff; --line:rgba(76,59,151,.12); }
         * { box-sizing:border-box; }
         html { scroll-behavior:smooth; }
-        body { min-height:100vh; margin:0; background:radial-gradient(circle at 6% 8%,rgba(184,165,255,.28),transparent 27rem),radial-gradient(circle at 91% 88%,rgba(255,190,214,.25),transparent 26rem),#f8f8fc; color:var(--ink); font-family:'DM Sans',sans-serif; }
+        body { min-height:100vh; margin:0; background:radial-gradient(circle at 6% 8%,rgba(184,165,255,.28),transparent 27rem),radial-gradient(circle at 91% 88%,rgba(255,190,214,.25),transparent 26rem),#f8f8fc; color:var(--ink); font-family:'Inter',sans-serif; }
         a { color:inherit; text-decoration:none; }
         .page-shell { display:flex; min-height:100vh; flex-direction:column; overflow:hidden; }
         .nav,.hero,.trust-row,.footer { width:min(1160px,calc(100% - 48px)); margin-inline:auto; }
@@ -21,7 +21,7 @@
         .brand-mark { display:grid; width:42px; height:42px; place-items:center; border-radius:13px; background:linear-gradient(145deg,#9479ff,#5f3fe8); box-shadow:0 9px 22px rgba(96,64,237,.24); }
         .brand-mark svg { width:22px; color:#fff; }
         .brand-copy { display:grid; line-height:1.05; }
-        .brand-name { font:700 1.12rem 'Outfit',sans-serif; }
+        .brand-name { font:700 1.12rem 'Inter',sans-serif; }
         .brand-label { margin-top:5px; color:var(--muted); font-size:.67rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
         .nav-actions { display:flex; align-items:center; gap:20px; }
         .secure-label { display:flex; align-items:center; gap:7px; color:var(--muted); font-size:.83rem; font-weight:600; }
@@ -35,7 +35,7 @@
         .hero { display:grid; flex:1; grid-template-columns:minmax(0,1.04fr) minmax(400px,.96fr); align-items:center; gap:clamp(48px,7vw,94px); padding:66px 0 84px; }
         .eyebrow { display:inline-flex; align-items:center; gap:9px; margin-bottom:25px; padding:8px 12px; border:1px solid #ddd5ff; border-radius:999px; background:rgba(244,241,255,.78); color:#6246ca; font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
         .eyebrow-dot { width:7px; height:7px; border-radius:50%; background:#8b6cff; box-shadow:0 0 0 4px rgba(139,108,255,.13); }
-        h1 { max-width:680px; margin:0; font:700 clamp(3rem,5.8vw,5.25rem)/.98 'Outfit',sans-serif; letter-spacing:-.055em; }
+        h1 { max-width:680px; margin:0; font:700 clamp(3rem,5.8vw,5.25rem)/.98 'Inter',sans-serif; letter-spacing:-.055em; }
         h1 span { color:var(--purple); }
         .hero-copy>p { max-width:590px; margin:27px 0 33px; color:var(--muted); font-size:clamp(1rem,1.5vw,1.13rem); line-height:1.75; }
         .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
@@ -51,7 +51,7 @@
         .metric { padding:17px 15px; border:1px solid #edebf5; border-radius:14px; background:#fbfaff; }
         .metric-icon { display:grid; width:32px; height:32px; margin-bottom:14px; place-items:center; border-radius:9px; background:var(--lavender); color:var(--purple); }
         .metric-icon svg { width:16px; }
-        .metric strong { display:block; font:700 1.2rem 'Outfit',sans-serif; }
+        .metric strong { display:block; font:700 1.2rem 'Inter',sans-serif; }
         .metric small { color:var(--muted); font-size:.67rem; }
         .activity { margin-top:20px; padding:20px; border-radius:15px; background:#f8f8fc; }
         .activity-head { display:flex; justify-content:space-between; margin-bottom:18px; font-size:.82rem; font-weight:700; }
