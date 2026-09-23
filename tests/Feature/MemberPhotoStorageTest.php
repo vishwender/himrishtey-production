@@ -36,6 +36,11 @@ class MemberPhotoStorageTest extends TestCase
         $service = app(MemberPhotoService::class);
         $photo = $service->upload(7, UploadedFile::fake()->create('portrait.jpg', 10, 'image/jpeg'));
         $this->assertSame(basename($photo->photo), $photo->photo);
+        $this->assertMatchesRegularExpression('/^member-7-[0-9]+\.jpg$/', $photo->photo);
+        $secondPhoto = $service->upload(7, UploadedFile::fake()->create('portrait.jpg', 10, 'image/jpeg'), true);
+        $this->assertNotSame($photo->photo, $secondPhoto->photo);
+        $this->assertSame($secondPhoto->photo, DB::connection('site')->table('members')->where('id', 7)->value('photo'));
+        Storage::disk('profile_photos')->assertExists($secondPhoto->photo);
         Storage::disk('profile_photos')->assertExists($photo->photo);
         Storage::disk('public')->assertMissing($photo->photo);
         $this->assertStringContainsString('/photos/photo/', $service->url($photo->photo));

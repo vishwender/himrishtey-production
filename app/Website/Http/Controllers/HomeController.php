@@ -2546,7 +2546,7 @@ class HomeController extends Controller
         $uploadedPhotos = [];
 
         foreach ($request->file('photos') as $photo) {
-            $imageName = $photo->store('', 'profile_photos');
+            $imageName = $photo->storeAs('', \App\Services\MemberPhotoFilename::make($user->id, $photo->extension()), 'profile_photos');
 
             $galleryPhoto = $user->photos()->create([
                 'photo' => $imageName,

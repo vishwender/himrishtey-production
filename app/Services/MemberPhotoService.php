@@ -6,7 +6,6 @@ use App\Jobs\ProcessMemberPhoto;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use RuntimeException;
 
 class MemberPhotoService
@@ -28,7 +27,7 @@ class MemberPhotoService
             $file->getClientOriginalExtension()
         );
 
-        $filename = Str::uuid()->toString() . '.' . $extension;
+        $filename = MemberPhotoFilename::make($memberId, $extension);
 
 
 

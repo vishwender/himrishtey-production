@@ -10,7 +10,7 @@ class ProfilePhotoStorage
 {
     public function save(Member $member, UploadedFile $photo): string
     {
-        $path = $photo->store('', 'profile_photos');
+        $path = $photo->storeAs('', \App\Services\MemberPhotoFilename::make($member->id, $photo->extension()), 'profile_photos');
         try {
             $member->forceFill(['photo' => $path, 'photo_approved' => 'No'])->saveOrFail();
         } catch (\Throwable $exception) {

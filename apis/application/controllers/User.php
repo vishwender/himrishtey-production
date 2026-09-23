@@ -479,7 +479,8 @@ public function step_one_ios_registration_post(){
 
 
 
-      $image_name = "member-photo-".$data['user_id'].".$image_type";
+      require_once dirname(__DIR__, 3).'/app/Services/MemberPhotoFilename.php';
+    $image_name = \App\Services\MemberPhotoFilename::make((int) $data['user_id'], $image_type);
 
       $cur_folder = $_SERVER['DOCUMENT_ROOT']."/photos/photo/".$image_name;
 
@@ -553,7 +554,8 @@ public function update_profile_photo_post(){
 
     
 
-    $image_name = "member-photo-".$data['user_id'].'-'.rand(10000,99999).".$image_type";
+    require_once dirname(__DIR__, 3).'/app/Services/MemberPhotoFilename.php';
+    $image_name = \App\Services\MemberPhotoFilename::make((int) $data['user_id'], $image_type);
 
     $cur_folder = $_SERVER['DOCUMENT_ROOT']."/photos/photo/".$image_name;
 

@@ -1636,7 +1636,7 @@ class AuthController extends Controller
                     $file->getClientOriginalExtension()
                 );
 
-            $filename = 'member-photo-'.time().'.'.$extension;
+            $filename = \App\Services\MemberPhotoFilename::make($member->id, $extension);
 
             /*
     |--------------------------------------------------------------------------
