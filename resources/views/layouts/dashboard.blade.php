@@ -78,7 +78,8 @@
           <span class="sidebar-label">Profile ID</span>
           <span class="sidebar-value">{{ $dashboardMember?->profile_id ?? 'N/A' }}</span>
           <span class="sidebar-label">Membership</span>
-          <span class="sidebar-status active">Active</span>
+          @php($sidebarIsActive = strtolower(trim((string) $dashboardMember?->active)) === 'yes')
+          <span class="sidebar-status {{ $sidebarIsActive ? 'active' : 'inactive' }}">{{ $sidebarIsActive ? 'Active' : 'Inactive' }}</span>
           <span class="sidebar-label">Plan</span>
           <span class="sidebar-plan-name">{{ $dashboardPlan?->plan_name ?? 'Free' }}</span>
         </div>
@@ -192,7 +193,7 @@
         <div class="pqv-info-content">
           <div class="pqv-info-title-row">
             <strong class="pqv-info-title">Membership</strong>
-            <span class="pqv-badge active">Active</span>
+            <span class="pqv-badge {{ $sidebarIsActive ? 'active' : 'inactive' }}">{{ $sidebarIsActive ? 'Active' : 'Inactive' }}</span>
           </div>
           <div class="pqv-info-meta-row">
             <span class="pqv-info-label">Plan name</span>
