@@ -15,7 +15,15 @@ class OtpController extends Controller
 {
     public function sendOtp(Request $request, NimbusSmsService $smsService)
     {
-        $member = Member::where('mobile_number', $request->phone)->first();
+        $request->validate(['phone' => 'required|string']);
+        $signedInMember = Auth::guard('member')->user();
+        $member = $signedInMember
+            ? Member::find($signedInMember->id)
+            : Member::where('mobile_number', $request->phone)->first();
+
+        if ($signedInMember && (! $member || (string) $member->mobile_number !== trim($request->phone))) {
+            return response()->json(['message' => 'Use your registered mobile number to verify your account.'], 422);
+        }
 
         if (! $member) {
             return response()->json(['message' => 'Mobile number not registered'], 404);
@@ -24,7 +32,7 @@ class OtpController extends Controller
         $otp = rand(1000, 9999);
 
         Session::put('otp', $otp);
-        Session::put('otp_mobile', $request->phone);
+        Session::put('otp_mobile', (string) $member->mobile_number);
         Session::put('otp_expires', now()->addMinutes(5));
         $smsService->sendOtp($request->phone, $otp);
 
@@ -33,6 +41,10 @@ class OtpController extends Controller
 
     public function verifyOtp(Request $request)
     {
+        if (Auth::guard('member')->check()) {
+            return $this->verify_account_request($request);
+        }
+
         $request->validate([
             'otp' => 'required|digits:4',
         ]);
@@ -300,80 +312,31 @@ class OtpController extends Controller
 
     public function verify_account_request(Request $request)
     {
-        $request->validate([
-            'otp' => 'required|digits:4',
-        ]);
+        $request->validate(['otp' => 'required|digits:4']);
 
-        /*
-    |--------------------------------------------------------------------------
-    | Check OTP expiry
-    |--------------------------------------------------------------------------
-    */
+        $member = Auth::guard('member')->user();
+        if (! $member) {
+            return response()->json(['message' => 'Please sign in to verify your account.'], 401);
+        }
+        $member = Member::findOrFail($member->id);
 
-        if (now()->greaterThan(Session::get('otp_expires'))) {
-            return response()->json([
-                'message' => 'OTP expired',
-            ], 422);
+        if (! Session::has('otp') || ! Session::has('otp_expires') || now()->greaterThan(Session::get('otp_expires'))) {
+            return response()->json(['message' => 'OTP expired. Please request a new OTP.'], 422);
+        }
+        if ((string) Session::get('otp_mobile') !== (string) $member->mobile_number) {
+            return response()->json(['message' => 'Please request an OTP for your registered mobile number.'], 422);
+        }
+        if (! hash_equals((string) Session::get('otp'), (string) $request->otp)) {
+            return response()->json(['message' => 'Invalid OTP'], 422);
         }
 
-        /*
-    |--------------------------------------------------------------------------
-    | Check OTP
-    |--------------------------------------------------------------------------
-    */
-
-        if (Session::get('otp') == $request->otp) {
-
-            /*
-        |--------------------------------------------------------------------------
-        | Get member
-        |--------------------------------------------------------------------------
-        */
-
-            $phone = Session::get('verify_phone');
-
-            $member = Member::where('mobile_number', $phone)->first();
-
-            if (! $member) {
-                return response()->json([
-                    'message' => 'Member account not found.',
-                ], 404);
-            }
-
-            /*
-        |--------------------------------------------------------------------------
-        | Update member
-        |--------------------------------------------------------------------------
-        */
-
-            $member->member_type = 'Verified';
-
-            $member->save();
-
-            /*
-        |--------------------------------------------------------------------------
-        | Remove OTP session
-        |--------------------------------------------------------------------------
-        */
-
-            Session::forget('otp');
-            Session::forget('otp_expires');
-            Session::forget('verify_phone');
-
-            return response()->json([
-                'message' => 'Account verified successfully.',
-                'redirect' => '/home',
-            ]);
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Invalid OTP
-    |--------------------------------------------------------------------------
-    */
+        $member->forceFill(['member_type' => 'Verified'])->saveOrFail();
+        Auth::guard('member')->setUser($member);
+        Session::forget(['otp', 'otp_mobile', 'otp_expires', 'verify_phone']);
 
         return response()->json([
-            'message' => 'Invalid OTP',
-        ], 422);
+            'message' => 'Account verified successfully.',
+            'redirect' => '/home',
+        ]);
     }
 }
