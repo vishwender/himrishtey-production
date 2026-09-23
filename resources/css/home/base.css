@@ -25,6 +25,18 @@ body {
     line-height: 1.5;
 }
 
+/* Keep off-screen carousel content and decorations from moving the page sideways. */
+body.public-site {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+body.public-site > main {
+    width: 100%;
+    min-width: 0;
+}
+
 html[data-theme="dark"] body {
     background:
         radial-gradient(circle at top, color-mix(in srgb, var(--brand) 22%, transparent), transparent 35%),
