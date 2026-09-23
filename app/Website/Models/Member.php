@@ -9,6 +9,16 @@ use Illuminate\Notifications\Notifiable;
 
 class Member extends Authenticatable
 {
+    protected function diet(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        $normalize = static fn ($value) => is_string($value) && strcasecmp(trim($value), 'Ved') === 0 ? 'Veg' : $value;
+
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: $normalize,
+            set: $normalize,
+        );
+    }
+
     protected $connection = 'site';
 
     use HasFactory, Notifiable;

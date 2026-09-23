@@ -602,7 +602,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <div class="ep-select-wrapper">
                             <select class="ep-select" id="diet" name="diet">
                                 <option value="">Select</option>
-                                <option value="Ved" {{ old('diet', $member->diet) == 'Veg' ? 'selected' : '' }}>Veg</option>
+                                <option value="Veg" {{ in_array(old('diet', $member->diet), ['Veg', 'Ved'], true) ? 'selected' : '' }}>Veg</option>
                                 <option value="Veg & Non-Veg" {{ old('diet', $member->diet) == 'Veg & Non-Veg' ? 'selected' : '' }}>Veg & Non-Veg</option>
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
