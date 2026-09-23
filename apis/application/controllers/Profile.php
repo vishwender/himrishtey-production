@@ -1600,8 +1600,7 @@ private function hasSentInterest($member_id, $profile_id) {
 						$f = finfo_open();
 						$mime_type = finfo_buffer($f, $image, FILEINFO_MIME_TYPE);
 						$image_type = substr($mime_type, strrpos($mime_type, '/') + 1);
-						 require_once dirname(__DIR__, 3).'/app/Services/MemberPhotoFilename.php';
-                         $image_name = \App\Services\MemberPhotoFilename::make((int) $user_id, $image_type);
+						 $image_name = md5(uniqid(rand(), true)).".$image_type";
 						//create png from decoded base 64 string and save the image in the parent folder
 				//		$bpth = $_SERVER['DOCUMENT_ROOT']."/topStore/assets/uploads/stories/";
 						$cur_folder = $_SERVER['DOCUMENT_ROOT']."/photos/photo_gallery/".$image_name;
