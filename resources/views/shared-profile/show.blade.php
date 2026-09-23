@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -26,11 +26,11 @@
                 radial-gradient(circle at 10% 0%, rgba(112, 85, 232, .14), transparent 30rem),
                 #f5f7fb;
             color: var(--share-ink);
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .share-shell {
@@ -44,7 +44,7 @@
             align-items: center;
             gap: .75rem;
             margin-bottom: 1.5rem;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
         }

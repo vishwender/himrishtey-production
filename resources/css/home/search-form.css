@@ -16,7 +16,7 @@
     border: 0;
     outline: none;
 
-    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-family: var(--font-body, "Inter", sans-serif);
     font-size: 13px;
     font-weight: 600;
     line-height: 1.4;

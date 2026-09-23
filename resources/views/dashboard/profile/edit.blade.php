@@ -2,7 +2,7 @@
 @section('title', 'Edit Profile - HimRishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/edit-profile.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/edit-profile.css') }}?v={{ filemtime(public_path('assets/css/edit-profile.css')) }}" />
 @endsection
 
 <!-- ========== SIDEBAR DRAWER (from base) ========== -->
@@ -148,17 +148,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <label class="ep-label" for="height">Height</label>
                         <div class="ep-select-wrapper">
                             <select class="ep-select" id="height" name="height">
-                                <option value="4.6" @selected(old('height', $member->height) == '4.6')>4'6"</option>
-                                <option value="4.8" @selected(old('height', $member->height) == '4.8')>4'8"</option>
-                                <option value="4.10" @selected(old('height', $member->height) == '4.10')>4'10"</option>
-                                <option value="5.0" @selected(old('height', $member->height) == '5.0')>5'0"</option>
-                                <option value="5.2" @selected(old('height', $member->height) == '5.2')>5'2"</option>
-                                <option value="5.4" @selected(old('height', $member->height) == '5.4')>5'4"</option>
-                                <option value="5.6" @selected(old('height', $member->height) == '5.6')>5'6"</option>
-                                <option value="5.8" @selected(old('height', $member->height) == '5.8')>5'8"</option>
-                                <option value="5.10" @selected(old('height', $member->height) == '5.10')>5'10"</option>
-                                <option value="6.0" @selected(old('height', $member->height) == '6.0')>6'0"</option>
-                                <option value="6.2" @selected(old('height', $member->height) == '6.2')>6'2"</option>
+                                @include('dashboard.profile.partials.height-options')
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
                         </div>
@@ -316,20 +306,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <div class="ep-select-wrapper">
 
                             <select class="ep-select" id="education" name="education">
-
-                                <option value="">Select</option>
-
-                                @foreach($educations as $education)
-
-                                <option
-                                    value="{{ $education->education }}"
-                                    @selected(old('education', $member->education) == $education->education)
-                                    >
-                                    {{ $education->education }}
-                                </option>
-
-                                @endforeach
-
+                                @include('dashboard.profile.partials.education-options')
                             </select>
 
                             <i
@@ -443,19 +420,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                                 class="ep-select"
                                 id="annual_income"
                                 name="annual_income">
-                                <option value="">Select</option>
-
-                                @foreach($annualIncome as $income)
-
-                                <option
-                                    value="{{ $income->annual_income }}"
-                                    @selected(old('annual_income', $member->annual_income) == $income->annual_income)
-                                    >
-                                    {{ $income->annual_income }}
-                                </option>
-
-                                @endforeach
-
+                                @include('partials.annual-income-options', ['selected' => old('annual_income', $member->annual_income)])
                             </select>
 
                             <i
@@ -637,7 +602,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <div class="ep-select-wrapper">
                             <select class="ep-select" id="diet" name="diet">
                                 <option value="">Select</option>
-                                <option value="Ved" {{ old('diet', $member->diet) == 'Veg' ? 'selected' : '' }}>Veg</option>
+                                <option value="Veg" {{ in_array(old('diet', $member->diet), ['Veg', 'Ved'], true) ? 'selected' : '' }}>Veg</option>
                                 <option value="Veg & Non-Veg" {{ old('diet', $member->diet) == 'Veg & Non-Veg' ? 'selected' : '' }}>Veg & Non-Veg</option>
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
@@ -807,41 +772,18 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                     </div>
 
 
-                    <!-- Income Range -->
-                    <div class="ep-field-group ep-full-width">
-                        <label class="ep-label">
-                            Annual Income Range:
-                            <strong id="income-range-label">
-                                {{ $member->partner_annual_income_from ?? 0 }}
-                                –
-                                {{ $member->partner_annual_income_to ?? 10 }}
-                                LPA
-                            </strong>
-                        </label>
-
-                        <div class="ep-range-row">
-                            <input
-                                type="range"
-                                class="ep-range"
-                                id="income_from"
-                                name="partner_annual_income_from"
-                                min="0"
-                                max="50"
-                                value="{{ $member->partner_annual_income_from ?? 0 }}"
-                                step="1">
-
-                            <input
-                                type="range"
-                                class="ep-range"
-                                id="income_to"
-                                name="partner_annual_income_to"
-                                min="0"
-                                max="50"
-                                value="{{ $member->partner_annual_income_to ?? 10 }}"
-                                step="1">
-                        </div>
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="income_from">Annual Income From</label>
+                        <select class="ep-select" id="income_from" name="partner_annual_income_from">
+                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
+                        </select>
                     </div>
-
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="income_to">Annual Income To</label>
+                        <select class="ep-select" id="income_to" name="partner_annual_income_to">
+                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
+                        </select>
+                    </div>
 
                     <!-- About Partner -->
                     <div class="ep-field-group ep-full-width">
@@ -1343,5 +1285,5 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 </div>
 
 @section('scripts')
-<script src="{{ asset('assets/js/edit-profile.js') }}"></script>
+<script src="{{ asset('assets/js/edit-profile.js') }}?v={{ filemtime(public_path('assets/js/edit-profile.js')) }}"></script>
 @endsection

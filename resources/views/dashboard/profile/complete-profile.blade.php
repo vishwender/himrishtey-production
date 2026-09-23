@@ -174,24 +174,10 @@
                     </label>
                     <div class="input-wrap select-wrap">
                         <select id="education" name="education" class="form-input form-select" required>
-                            <option value="" disabled selected>Select education</option>
-                            <option value="10">10th</option>
-                            <option value="12">12th</option>
-                            <option value="Diploma">Diploma</option>
-                            <option value="B.A">B.A</option>
-                            <option value="B.Sc.">B.Sc.</option>
-                            <option value="B.Com">B.Com</option>
-                            <option value="B.Tech / B.E.">B.Tech / B.E.</option>
-                            <option value="BBA">BBA</option>
-                            <option value="BCA">BCA</option>
-                            <option value="M.A.">M.A.</option>
-                            <option value="M.Sc.">M.Sc.</option>
-                            <option value="M.Com">M.Com</option>
-                            <option value="M.Tech.">M.Tech / M.E.</option>
-                            <option value="MBA">MBA</option>
-                            <option value="MCA">MCA</option>
-                            <option value="Ph.D.">Doctorate (Ph.D.)</option>
-                            <option value="other">Other</option>
+                            <option value="" disabled @selected(!old('education'))>Select education</option>
+                            @foreach ($educations as $education)
+                                <option value="{{ $education->education }}" @selected(old('education') === $education->education)>{{ $education->education }}</option>
+                            @endforeach
                         </select>
                         <i data-lucide="chevron-down" width="14" height="14" class="select-icon" aria-hidden="true"></i>
                     </div>
@@ -231,17 +217,10 @@
                                 placeholder="e.g. Software Engineer, Teacher, Doctor"
                                 required /> -->
                         <select id="occupation" name="occupation" class="form-input form-select" required>
-                            <option value="">Select</option>
-                            <option value="Software Engineer">Software Engineer</option>
-                            <option value="Doctor">Doctor</option>
-                            <option value="Teacher">Teacher</option>
-                            <option value="Lawyer">Lawyer</option>
-                            <option value="Banker">Banker</option>
-                            <option value="Businessman">Businessman</option>
-                            <option value="Farmer">Farmer</option>
-                            <option value="Nurse">Nurse</option>
-                            <option value="Architect">Architect</option>
-                            <option value="Other">Other</option>
+                            <option value="" @selected(!old('occupation'))>Select</option>
+                            @foreach ($occupations as $occupation)
+                                <option value="{{ $occupation->occupation }}" @selected(old('occupation') === $occupation->occupation)>{{ $occupation->occupation }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <span class="form-error" id="occupationError" role="alert"></span>
@@ -255,18 +234,7 @@
                     <div class="input-wrap select-wrap">
 
                         <select id="income" name="income" class="form-input" required>
-                            <option value="" disabled selected>Select annual income</option>
-                            <option value="Below 1 LPA">Below 1 LPA</option>
-                            <option value="1–2 LPA">1–2 LPA</option>
-                            <option value="2–3 LPA">2–3 LPA</option>
-                            <option value="3–5 LPA">3–5 LPA</option>
-                            <option value="5–7 LPA">5–7 LPA</option>
-                            <option value="7–10 LPA">7–10 LPA</option>
-                            <option value="10–15 LPA">10–15 LPA</option>
-                            <option value="15–20 LPA">15–20 LPA</option>
-                            <option value="20–30 LPA">20–30 LPA</option>
-                            <option value="30–50 LPA">30–50 LPA</option>
-                            <option value="50 LPA+">50 LPA+</option>
+                            @include('partials.annual-income-options', ['selected' => old('annual_income')])
                         </select>
 
                         <i data-lucide="chevron-down" width="14" height="14" class="select-icon" aria-hidden="true"></i>

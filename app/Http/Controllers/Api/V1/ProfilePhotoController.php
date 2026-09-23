@@ -29,8 +29,9 @@ class ProfilePhotoController extends Controller
 
         $file = $request->file('photo');
 
-        $path = $file->store(
+        $path = $file->storeAs(
             '',
+            \App\Services\MemberPhotoFilename::make($member->id, $file->extension()),
             'profile_photos'
         );
 
@@ -78,8 +79,9 @@ class ProfilePhotoController extends Controller
 
         $file = $request->file('photo');
 
-        $path = $file->store(
+        $path = $file->storeAs(
             '',
+            \App\Services\MemberPhotoFilename::make($member->id, $file->extension()),
             'profile_photos'
         );
 

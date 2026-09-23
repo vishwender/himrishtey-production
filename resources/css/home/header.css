@@ -79,7 +79,7 @@ html {
 }
 
 .logo b {
-    font-family: var(--font-heading, "Playfair Display", serif);
+    font-family: var(--font-heading, "Inter", sans-serif);
     font-size: 24px;
     font-weight: 700;
     line-height: 1.05;
@@ -92,7 +92,7 @@ html {
 
     color: var(--muted, #716a68);
 
-    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-family: var(--font-body, "Inter", sans-serif);
     font-size: 8px;
     font-weight: 500;
     line-height: 1.2;

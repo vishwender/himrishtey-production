@@ -3,7 +3,7 @@
 @section('title', 'Wallet - HimRishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/wallet.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/wallet.css') }}?v={{ filemtime(public_path('assets/css/wallet.css')) }}">
 @endsection
 
 

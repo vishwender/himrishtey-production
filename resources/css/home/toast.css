@@ -15,7 +15,7 @@
     background: var(--color-surface, #fff);
     color: var(--color-text, #242424);
     box-shadow: 0 14px 36px rgba(31, 21, 26, .18);
-    font: 500 .95rem/1.4 "DM Sans", sans-serif;
+    font: 500 .95rem/1.4 "Inter", sans-serif;
     opacity: 0;
     pointer-events: none;
     transform: translateY(16px);

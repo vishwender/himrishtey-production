@@ -3,7 +3,7 @@
 @section('title','Interest Box - Him Rishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{asset('assets/css/interests.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/interests.css') }}?v={{ filemtime(public_path('assets/css/interests.css')) }}" />
 @endsection
 
 @section('content')

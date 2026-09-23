@@ -6,6 +6,11 @@ use App\Website\Http\Controllers\MemberController;
 use App\Website\Http\Controllers\OtpController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/csrf-token', function (\Illuminate\Http\Request $request) {
+    return response()->json(['token' => $request->session()->token()])
+        ->header('Cache-Control', 'private, no-store, max-age=0');
+})->name('csrf-token');
+
 Route::post('initial-register', [LoginController::class, 'initial_registor'])->name('initial-register');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login-form');
 Route::post('member-login', [LoginController::class, 'login'])->name('member-login');

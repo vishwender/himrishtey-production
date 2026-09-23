@@ -4,8 +4,8 @@
 @section('description', $post->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($post->excerpt ?: $post->content), 155))
 
 @section('styles')
-  <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/public-pages-v2.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}?v={{ filemtime(public_path('assets/css/blog.css')) }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/public-pages-v2.css') }}?v={{ filemtime(public_path('assets/css/public-pages-v2.css')) }}">
 @endsection
 
 @section('content')

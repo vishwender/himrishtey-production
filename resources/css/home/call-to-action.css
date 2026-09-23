@@ -61,7 +61,7 @@
 
     opacity: 0.045;
 
-    font-family: var(--font-heading, "Playfair Display", serif);
+    font-family: var(--font-heading, "Inter", sans-serif);
     font-size: 180px;
     line-height: 1;
 
@@ -346,7 +346,8 @@
     min-height: 520px;
 
     display: grid;
-    grid-template-columns: 46% 54%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 64px);
     align-items: center;
 
     overflow: hidden;
@@ -411,7 +412,7 @@
 .app-download-content h2 {
     margin: 0 0 22px;
 
-    font-family: "Outfit", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: clamp(27px, 3vw, 39px);
     line-height: 1.22;
     font-weight: 400;
@@ -529,7 +530,7 @@
 }
 
 .rating-number {
-    font-family: "Outfit", sans-serif;
+    font-family: "Inter", sans-serif;
 
     font-size: 34px;
     line-height: 1;
@@ -563,70 +564,42 @@
 
 .app-phone-showcase {
     position: relative;
-
-    min-height: 410px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    min-width: 0;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 16px;
+    padding: 12px 0 24px;
+    isolation: isolate;
 }
 
-
-/* Phone wrapper */
-
 .phone-mockup {
-    position: absolute;
+    position: relative;
     z-index: 2;
-
-    padding: 7px;
-
-    background: #f4f4f4;
-
-    border: 2px solid rgba(255, 255, 255, 0.55);
-    border-radius: 31px;
-
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.32),
-        0 4px 15px rgba(0, 0, 0, 0.18);
-
+    width: 100%;
+    /* Both source images contain the same 750 × 1508 phone frame. */
+    aspect-ratio: 750 / 1508;
+    border-radius: 16% / 8%;
     overflow: hidden;
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
 }
 
 .phone-mockup img {
-    width: 100%;
-    height: 100%;
-
+    position: absolute;
+    /* Clip the baked-in backdrop, preserving the complete phone screen. */
+    width: 135.067%;
+    max-width: none;
+    height: 102.918%;
+    left: -17.333%;
+    top: -1.459%;
     display: block;
-
-    object-fit: cover;
-
-    border-radius: 23px;
 }
-
-
-/* Main / left phone */
-
-.phone-mockup-main {
-    width: 180px;
-    height: 365px;
-
-    left: calc(50% - 170px);
-    top: 5px;
-
-    transform: rotate(-1deg);
-}
-
-
-/* Secondary / right phone */
 
 .phone-mockup-secondary {
-    width: 180px;
-    height: 330px;
-
-    right: calc(50% - 170px);
-    bottom: 0;
-
-    transform: rotate(1deg);
+    margin-top: 48px;
 }
 
 
@@ -683,19 +656,7 @@
         min-height: 500px;
     }
 
-    .phone-mockup-main {
-        width: 160px;
-        height: 325px;
 
-        left: calc(50% - 147.5px);
-    }
-
-    .phone-mockup-secondary {
-        width: 155px;
-        height: 290px;
-
-        right: calc(50% - 147.5px);
-    }
 }
 
 
@@ -736,31 +697,9 @@
     }
 
 
-    /* phones */
-
     .app-phone-showcase {
-        width: 100%;
-        min-height: 370px;
-
+        max-width: 340px;
         margin-top: 25px;
-    }
-
-    .phone-mockup-main {
-        width: 155px;
-        height: 315px;
-
-        left: calc(50% - 140px);
-
-        top: 0;
-    }
-
-    .phone-mockup-secondary {
-        width: 145px;
-        height: 275px;
-
-        right: calc(50% - 140px);
-
-        bottom: 5px;
     }
 
 }
@@ -800,20 +739,10 @@
     }
 
     .app-phone-showcase {
-        min-height: 330px;
-    }
-
-    .phone-mockup-main {
-        width: 140px;
-        height: 285px;
-
-        left: calc(50% - 125px);
+        gap: 12px;
     }
 
     .phone-mockup-secondary {
-        width: 130px;
-        height: 250px;
-
-        right: calc(50% - 125px);
+        margin-top: 36px;
     }
 }

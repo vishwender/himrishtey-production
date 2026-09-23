@@ -4,6 +4,20 @@ namespace App\Support;
 
 final class HeightFormatter
 {
+    public static function formatPartnerRange(mixed $height, string $emptyValue = '-'): string
+    {
+        $value = trim((string) $height);
+
+        // The partner-preference slider saves positions 1–28, starting at 4 ft 6 in.
+        if (ctype_digit($value) && (int) $value >= 1 && (int) $value <= 28) {
+            $totalInches = 54 + (int) $value - 1;
+
+            return self::fromParts(intdiv($totalInches, 12), $totalInches % 12);
+        }
+
+        return self::format($height, $emptyValue);
+    }
+
     public static function format(mixed $height, string $emptyValue = '-'): string
     {
         if ($height === null) {

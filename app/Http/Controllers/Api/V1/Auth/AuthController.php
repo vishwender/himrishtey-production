@@ -512,7 +512,7 @@ class AuthController extends Controller
     */
 
         $member = DB::connection('application')->transaction(
-            function () use ($validated, $prefix) {
+            function () use ($validated, $application) {
 
                 $member = new Member;
 
@@ -825,7 +825,7 @@ class AuthController extends Controller
         */
 
                 $member->profile_id =
-                    $prefix.$member->id;
+                    \App\Services\ProfileId::forSite($application->code, $member->id);
 
                 /*
         |--------------------------------------------------------------------------
@@ -1636,7 +1636,7 @@ class AuthController extends Controller
                     $file->getClientOriginalExtension()
                 );
 
-            $filename = 'member-photo-'.time().'.'.$extension;
+            $filename = \App\Services\MemberPhotoFilename::make($member->id, $extension);
 
             /*
     |--------------------------------------------------------------------------

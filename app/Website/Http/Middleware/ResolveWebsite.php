@@ -27,7 +27,13 @@ class ResolveWebsite
                 ]);
             }
 
-            return $next($request);
+            $response = $next($request);
+            if (config('site.current') && str_contains((string) $response->headers->get('Content-Type'), 'text/html')) {
+                // HTML includes session-specific CSRF tokens and must not be served from a shared/stale cache.
+                $response->headers->set('Cache-Control', 'private, no-store, max-age=0');
+            }
+
+            return $response;
         } finally {
             config($original);
         }

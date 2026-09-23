@@ -51,3 +51,4 @@ Homestead.yaml
 /photos/photo/
 /apis/application/config/firebase-service-account.json
 /.well-known/
+/apis/

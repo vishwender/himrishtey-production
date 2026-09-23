@@ -8,8 +8,8 @@
   <meta name="description" content="Meet verified people who share your values, culture and hopes for the future.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('assets/css/design-preview.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('assets/css/design-preview.css') }}?v={{ filemtime(public_path('assets/css/design-preview.css')) }}">
   <style>:root{--brand:{{ $sitePrimaryColor }};--brand-dark:{{ $siteSecondaryColor }};--accent:{{ $siteAccentColor }};--hero:url('{{ asset($siteHeroBackground) }}')}</style>
 </head>
 <body>

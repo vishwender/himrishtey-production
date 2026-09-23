@@ -1,6 +1,8 @@
 /* Keep the wide banner artwork separate from the copy on small screens. */
 @media (max-width: 600px) {
     .public-site .hero {
+        width: 100%;
+        min-width: 0;
         height: auto;
         background-image: none;
         background-color: var(--surface, #fff);
@@ -23,6 +25,7 @@
         height: auto;
         padding: 28px 0 32px;
         min-width: 0;
+        margin-inline: auto;
     }
 
     .hero .hero-copy h1 {
@@ -40,4 +43,5 @@
     .hero .hero-buttons { flex-flow: row wrap; gap: 12px; }
     .hero .hero-buttons a { max-width: 100%; padding: 13px 18px; font-size: 14px; }
     .hero .trusted { margin-top: 24px; }
+    .hero .trusted small svg { width: 16px; height: 16px; vertical-align: middle; }
 }

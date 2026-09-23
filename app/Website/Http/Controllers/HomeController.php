@@ -774,10 +774,10 @@ class HomeController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $partnerAgeFrom = $request->input('partner_age_from');
-        $partnerAgeTo = $request->input('partner_age_to');
-        $partnerReligion = $request->input('partner_religion');
-        $partnerCast = $request->input('partner_cast');
+        $partnerAgeFrom = $request->input('partner_age_from', $request->input('age_from'));
+        $partnerAgeTo = $request->input('partner_age_to', $request->input('age_to'));
+        $partnerReligion = $request->input('partner_religion', $request->input('religion'));
+        $partnerCast = $request->input('partner_cast', $request->input('cast'));
         $maritalStatus = $request->input('marital_status');
         $lookingFor = $request->input('looking_for');
         $stateName = $request->input('state_name');
@@ -805,6 +805,36 @@ class HomeController extends Controller
     */
 
         $query = Member::query();
+        \App\Support\AnnualIncomeOptions::filter($query, $request->input('annual_income'), $request->input('annual_income_to'));
+        foreach (['mother_tongue', 'education', 'employed_in'] as $field) {
+            if ($request->filled($field)) {
+                $query->whereIn($field, array_filter(array_map('trim', explode(',', $request->input($field)))));
+            }
+        }
+        if ($request->filled('manglik')) {
+            $query->where('manglik', $request->input('manglik'));
+        }
+        if ($request->filled('profile_id')) {
+            $query->where('profile_id', trim($request->input('profile_id')));
+        }
+        if ($request->filled('height_from') || $request->filled('height_to')) {
+            $toInches = static function (string $height): int {
+                $parts = explode('.', $height, 2);
+                return (int) $parts[0] * 12 + (int) ($parts[1] ?? 0);
+            };
+            $minHeight = $toInches((string) $request->input('height_from', '0'));
+            $maxHeight = $toInches((string) $request->input('height_to', '9'));
+            $heights = [];
+            for ($inches = max(0, $minHeight); $inches <= min(119, $maxHeight); $inches++) {
+                $feet = intdiv($inches, 12);
+                $remainder = $inches % 12;
+                $heights[] = $feet.'.'.$remainder;
+                if ($remainder === 0) {
+                    $heights[] = (string) $feet;
+                }
+            }
+            $query->whereIn('height', $heights);
+        }
         // Don't show current member
         $query->where('id', '!=', $member->id);
         if (in_array($lookingFor, ['Male', 'Female'], true)) {
@@ -853,7 +883,7 @@ class HomeController extends Controller
         }
 
         if (! empty($stateName)) {
-            $query->where('state_name', $stateName);
+            $query->whereIn('state_living_in', array_filter(array_map('trim', explode(',', $stateName))));
         }
 
         /*
@@ -1623,26 +1653,19 @@ class HomeController extends Controller
             : asset($profile->gender === 'Female'
                 ? 'images/profile_photos/girl.jpg'
                 : 'images/profile_photos/boy.jpg');
-        if (! empty($profile->height)) {
-            $height = (string) $profile->height;
-
-            if (str_contains($height, '.')) {
-                [$feet, $inches] = explode('.', $height);
-            } else {
-                $feet = $height;
-                $inches = 0;
+        $profile->formatted_height = \App\Support\HeightFormatter::format($profile->height, 'Not provided');
+        $birthDate = null;
+        if (filled($profile->birth_date_time) && !str_starts_with((string) $profile->birth_date_time, '0000-00-00')) {
+            try {
+                $birthDate = Carbon::parse($profile->birth_date_time);
+            } catch (\Throwable $exception) {
+                // Legacy records can contain an invalid or incomplete birth date.
             }
-
-            $profile->formatted_height = $feet."'".$inches.'" ft';
-        } else {
-            $profile->formatted_height = 'N/A';
         }
-        $birthDate = Carbon::parse($profile->birth_date_time);
-        $ageDiff = $birthDate->diff(Carbon::today());
-        $profile->date = $birthDate->format('d-m-Y');
-        $profile->time = $birthDate->format('h:i A');
-        $profile->age_years = $ageDiff->y;
-        $profile->age_months = $ageDiff->m;
+        $profile->date = $birthDate?->format('d-m-Y') ?? 'Not provided';
+        $profile->time = $birthDate?->format('h:i A') ?? 'Not provided';
+        $profile->age_years = $birthDate ? (int) $birthDate->diffInYears(Carbon::today()) : null;
+        $profile->age_months = $birthDate?->diff(Carbon::today())->m;
 
         return view('dashboard.profile.view-my-profile', compact('profile', 'profilegallery'));
     }
@@ -2325,6 +2348,11 @@ class HomeController extends Controller
                 ->lockForUpdate()
                 ->first();
 
+            // Check the current database status before reading contacts or charging the wallet.
+            if (! $member || strtolower(trim((string) $member->active)) !== 'yes') {
+                return ['inactive_membership' => true];
+            }
+
             $wallet = MemberWallet::where('member_id', $userId)
                 ->latest('id')
                 ->lockForUpdate()
@@ -2367,6 +2395,13 @@ class HomeController extends Controller
 
             return ['wallet' => $wallet, 'already_unlocked' => false];
         }, 3);
+
+        if (! empty($result['inactive_membership'])) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Active membership required to unlock contact details.',
+            ], 403);
+        }
 
         if (! empty($result['insufficient_balance'])) {
             return response()->json([
@@ -2546,7 +2581,7 @@ class HomeController extends Controller
         $uploadedPhotos = [];
 
         foreach ($request->file('photos') as $photo) {
-            $imageName = $photo->store('', 'profile_photos');
+            $imageName = $photo->storeAs('', \App\Services\MemberPhotoFilename::make($user->id, $photo->extension()), 'profile_photos');
 
             $galleryPhoto = $user->photos()->create([
                 'photo' => $imageName,

@@ -3,7 +3,7 @@
 @section('title', 'Verify account - ' . $siteName)
 
 @section('styles')
-<link href="{{ asset('assets/css/verify-account.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/css/verify-account.css') }}?v={{ filemtime(public_path('assets/css/verify-account.css')) }}" rel="stylesheet" />
 @endsection
 
 @section('content')

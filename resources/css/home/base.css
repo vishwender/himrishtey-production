@@ -20,9 +20,21 @@ body {
     background:
         radial-gradient(circle at top, color-mix(in srgb, var(--brand) 16%, transparent), transparent 28%),
         linear-gradient(180deg, #fff7fa 0%, #fff4f8 24%, #fffdfd 100%);
-    font-family: "DM Sans", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 14px;
     line-height: 1.5;
+}
+
+/* Keep off-screen carousel content and decorations from moving the page sideways. */
+body.public-site {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+body.public-site > main {
+    width: 100%;
+    min-width: 0;
 }
 
 html[data-theme="dark"] body {
@@ -138,7 +150,7 @@ textarea {
 }
 
 .logo b {
-    font-family: "Playfair Display", serif;
+    font-family: "Inter", sans-serif;
     font-size: 24px;
     font-weight: 700;
 }
@@ -249,7 +261,7 @@ textarea {
 .hero h1 {
     margin: 0;
 
-    font-family: "Playfair Display", serif;
+    font-family: "Inter", sans-serif;
     font-size: 47px;
     font-weight: 700;
     line-height: 1.08;
@@ -449,7 +461,7 @@ textarea {
 h2 {
     margin: 0;
 
-    font-family: "Playfair Display", serif;
+    font-family: "Inter", sans-serif;
     font-size: 25px;
     font-weight: 700;
 

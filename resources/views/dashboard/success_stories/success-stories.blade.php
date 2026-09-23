@@ -3,7 +3,7 @@
 @section('title','Success Stories - Himrishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{asset('assets/css/success-stories.css')}}" />
+<link rel="stylesheet" href="{{ asset('assets/css/success-stories.css') }}?v={{ filemtime(public_path('assets/css/success-stories.css')) }}" />
 @endsection
 
 @section('content')

@@ -569,10 +569,7 @@
                         </label>
 
                         <select name="annual_income" class="form-select">
-                            <option value="">Select Annual Income</option>
-                            @foreach($annualIncomes as $income)
-                            <option value="{{ $income->annual_income }}" @selected(old('annual_income', $member->annual_income) == $income->annual_income)>{{ $income->annual_income }}</option>
-                            @endforeach
+                            @include('partials.annual-income-options', ['selected' => old('annual_income', $member->annual_income)])
                         </select>
 
                     </div>
@@ -1550,10 +1547,7 @@
                         </label>
 
                         <select name="partner_annual_income_from" id="partner_annual_income_from" class="form-select">
-                            <option value="">Select Income</option>
-                            @foreach($annualIncomes as $income)
-                            <option value="{{ $income->annual_income }}" @selected(old('partner_annual_income_from', $member->partner_annual_income_from) == $income->annual_income)>{{ $income->annual_income }}</option>
-                            @endforeach
+                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
                         </select>
 
                     </div>
@@ -1567,10 +1561,7 @@
                         </label>
 
                         <select name="partner_annual_income_to" id="partner_annual_income_to" class="form-select">
-                            <option value="">Select Income</option>
-                            @foreach($annualIncomes as $income)
-                            <option value="{{ $income->annual_income }}" @selected(old('partner_annual_income_to', $member->partner_annual_income_to) == $income->annual_income)>{{ $income->annual_income }}</option>
-                            @endforeach
+                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
                         </select>
 
                     </div>

@@ -3,7 +3,7 @@
 @section('title', 'Terms & Conditions - Himrishtey')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/member-terms.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/member-terms.css') }}?v={{ filemtime(public_path('assets/css/member-terms.css')) }}">
 @endsection
 
 @section('content')

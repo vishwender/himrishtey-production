@@ -139,7 +139,6 @@
 
     initRange('ageMin','ageMax','ageMinDisplay','ageMaxDisplay','ageFill', (v) => v);
     initRange('htMin','htMax','htMinDisplay','htMaxDisplay','htFill', (v) => (v / 10).toFixed(1));
-    initRange('incMin','incMax','incMinDisplay','incMaxDisplay','incFill', (v) => v);
 
     // ===== SUMMARY UPDATE =====
     function updateSummary() {
@@ -154,7 +153,7 @@
       if (htMin != 46 || htMax != 70) chips.push(`Height: ${(htMin/10).toFixed(1)}–${(htMax/10).toFixed(1)} ft`);
 
       const incMin = document.getElementById('incMin').value, incMax = document.getElementById('incMax').value;
-      if (incMin != 0 || incMax != 50) chips.push(`Income: ₹${incMin}L–₹${incMax}L`);
+      if (incMin || incMax) chips.push(`Income: ${incMin || "Any"} – ${incMax || "Any"}`);
 
       const pid = document.getElementById('profileId').value.trim();
       if (pid) chips.push(`ID: ${pid}`);
@@ -179,6 +178,8 @@
     // Update summary on radio change
     document.querySelectorAll('input[name="manglik"], input[name="maritalStatus"]').forEach(r => r.addEventListener('change', updateSummary));
     document.getElementById('profileId').addEventListener('input', updateSummary);
+
+    ['incMin', 'incMax'].forEach(id => document.getElementById(id).addEventListener('change', updateSummary));
 
     // ===== SEARCH =====
     function doSearch() {
@@ -212,13 +213,12 @@
       document.getElementById('profileId').value = '';
       document.getElementById('ageMin').value = 18; document.getElementById('ageMax').value = 70;
       document.getElementById('htMin').value = 46; document.getElementById('htMax').value = 70;
-      document.getElementById('incMin').value = 0; document.getElementById('incMax').value = 50;
+      document.getElementById('incMin').value = ''; document.getElementById('incMax').value = '';
       document.querySelector('input[name="manglik"][value=""]').checked = true;
       document.querySelector('input[name="maritalStatus"][value=""]').checked = true;
       Object.keys(selected).forEach(key => { selected[key] = []; renderChips(key); renderList(key, DATA[key]); });
       // Re-init sliders
       initRange('ageMin','ageMax','ageMinDisplay','ageMaxDisplay','ageFill', (v) => v);
       initRange('htMin','htMax','htMinDisplay','htMaxDisplay','htFill', (v) => (v / 10).toFixed(1));
-      initRange('incMin','incMax','incMinDisplay','incMaxDisplay','incFill', (v) => v);
       updateSummary();
     }

@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
   <script>
     try {
       const savedTheme = localStorage.getItem('site-theme') || localStorage.getItem('hr-theme') || localStorage.getItem('public-theme') || 'light';
@@ -16,7 +17,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,36 +26,18 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v=20260827-logo2" />
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ filemtime(public_path('assets/css/style.css')) }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/rateus.css') }}?v={{ filemtime(public_path('assets/css/rateus.css')) }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/toast-manager.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/toast-manager.css') }}?v={{ filemtime(public_path('assets/css/toast-manager.css')) }}" />
   @yield('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/theme-overrides.css') }}?v={{ filemtime(public_path('assets/css/theme-overrides.css')) }}" />
   <style>
     :root {
-      --site-primary: {
-          {
-          $sitePrimaryColor ?? '#b92c3d'
-        }
-      }
+      --site-primary: {{ $sitePrimaryColor ?? '#b92c3d' }};
 
-      ;
+      --site-secondary: {{ $siteSecondaryColor ?? '#2f2d5c' }};
 
-      --site-secondary: {
-          {
-          $siteSecondaryColor ?? '#2f2d5c'
-        }
-      }
-
-      ;
-
-      --site-accent: {
-          {
-          $siteAccentColor ?? '#f4c86c'
-        }
-      }
-
-      ;
+      --site-accent: {{ $siteAccentColor ?? '#f4c86c' }};
       --brand: var(--site-primary);
       --deep: var(--site-secondary);
       --gold: var(--site-accent);
@@ -96,7 +79,8 @@
           <span class="sidebar-label">Profile ID</span>
           <span class="sidebar-value">{{ $dashboardMember?->profile_id ?? 'N/A' }}</span>
           <span class="sidebar-label">Membership</span>
-          <span class="sidebar-status active">Active</span>
+          @php($sidebarIsActive = strtolower(trim((string) $dashboardMember?->active)) === 'yes')
+          <span class="sidebar-status {{ $sidebarIsActive ? 'active' : 'inactive' }}">{{ $sidebarIsActive ? 'Active' : 'Inactive' }}</span>
           <span class="sidebar-label">Plan</span>
           <span class="sidebar-plan-name">{{ $dashboardPlan?->plan_name ?? 'Free' }}</span>
         </div>
@@ -210,7 +194,7 @@
         <div class="pqv-info-content">
           <div class="pqv-info-title-row">
             <strong class="pqv-info-title">Membership</strong>
-            <span class="pqv-badge active">Active</span>
+            <span class="pqv-badge {{ $sidebarIsActive ? 'active' : 'inactive' }}">{{ $sidebarIsActive ? 'Active' : 'Inactive' }}</span>
           </div>
           <div class="pqv-info-meta-row">
             <span class="pqv-info-label">Plan name</span>
