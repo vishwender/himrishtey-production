@@ -18,10 +18,11 @@ class ProfilePhotoUrl
         if (str_starts_with($photo, 'members/')) {
             return asset('storage/'.$photo);
         }
-        if (str_starts_with($photo, 'storage/') || str_starts_with($photo, 'photos/')) {
+        if (str_starts_with($photo, 'storage/') || str_starts_with($photo, 'photos/')
+            || str_starts_with($photo, 'images/profile_photos/') || str_starts_with($photo, 'uploads/gallery/')) {
             return asset($photo);
         }
-        foreach (['photos/photo/', 'uploads/gallery/'] as $directory) {
+        foreach (['photos/photo/', 'uploads/gallery/', 'images/profile_photos/'] as $directory) {
             if (is_file(public_path($directory.$photo))) {
                 return asset($directory.$photo);
             }
