@@ -433,13 +433,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  <div class="phone-mockup phone-mockup-main">
                      <img
                          src="{{ asset('assets/images/app/profile-screen.png') }}"
-                         alt="{{ $siteName }} profile screen">
+                         width="1013" height="1552" loading="lazy"
+                         alt="{{ $siteName }} app login screen">
                  </div>
 
                  <div class="phone-mockup phone-mockup-secondary">
                      <img
                          src="{{ asset('assets/images/app/matches-screen.png') }}"
-                         alt="{{ $siteName }} matches screen">
+                         width="1013" height="1552" loading="lazy"
+                         alt="{{ $siteName }} app dashboard">
                  </div>
 
              </div>
