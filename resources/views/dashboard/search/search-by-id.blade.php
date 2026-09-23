@@ -38,7 +38,7 @@
                                 id="profileIdInput"
                                 name="profile_id"
                                 class="sbid-input"
-                                placeholder="e.g. HIM10234"
+                                placeholder="Enter profile id"
                                 autocomplete="off"
                                 autocorrect="off"
                                 spellcheck="false"
@@ -150,16 +150,16 @@
                         </div>
                     </div>
 
-                        <div class="sbid-profile-actions">
-                            <button type="button" class="sbid-action-btn sbid-btn-interest" id="sbidInterestBtn" aria-label="Send interest">
-                                <i data-lucide="heart" width="16" height="16"></i>
-                                <span>Interest</span>
-                            </button>
-                            <button type="button" class="sbid-action-btn sbid-btn-shortlist" id="sbidShortlistBtn" aria-label="Shortlist profile">
-                                <i data-lucide="bookmark" width="16" height="16"></i>
-                                <span>Shortlist</span>
-                            </button>
-                        </div>
+                    <div class="sbid-profile-actions">
+                        <button type="button" class="sbid-action-btn sbid-btn-interest" id="sbidInterestBtn" aria-label="Send interest">
+                            <i data-lucide="heart" width="16" height="16"></i>
+                            <span>Interest</span>
+                        </button>
+                        <button type="button" class="sbid-action-btn sbid-btn-shortlist" id="sbidShortlistBtn" aria-label="Shortlist profile">
+                            <i data-lucide="bookmark" width="16" height="16"></i>
+                            <span>Shortlist</span>
+                        </button>
+                    </div>
 
                     <!-- Details Grid -->
                     <div class="sbid-details-grid" id="resultDetailsGrid">

@@ -52,7 +52,7 @@
                             <label class="adv-label" for="profileId">
                                 <i data-lucide="id-card" width="15" height="15"></i> Profile ID
                             </label>
-                            <input type="text" id="profileId" class="adv-input" placeholder="e.g. HIM10234" autocomplete="off" />
+                            <input type="text" id="profileId" class="adv-input" placeholder="Enter profile id" autocomplete="off" />
                         </div>
 
                         <!-- Age Range -->
