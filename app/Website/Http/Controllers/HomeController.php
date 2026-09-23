@@ -2348,6 +2348,11 @@ class HomeController extends Controller
                 ->lockForUpdate()
                 ->first();
 
+            // Check the current database status before reading contacts or charging the wallet.
+            if (! $member || strtolower(trim((string) $member->active)) !== 'yes') {
+                return ['inactive_membership' => true];
+            }
+
             $wallet = MemberWallet::where('member_id', $userId)
                 ->latest('id')
                 ->lockForUpdate()
@@ -2390,6 +2395,13 @@ class HomeController extends Controller
 
             return ['wallet' => $wallet, 'already_unlocked' => false];
         }, 3);
+
+        if (! empty($result['inactive_membership'])) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Active membership required to unlock contact details.',
+            ], 403);
+        }
 
         if (! empty($result['insufficient_balance'])) {
             return response()->json([
