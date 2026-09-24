@@ -1085,9 +1085,6 @@ function whatsAppProfileText(btn) {
         `Highest Qualification : ${d.partner_education || ""}`,
         `Partner Occupation : ${d.partner_occupation || "N/A"}`,
         `Annual Income(in Lacs) : ${d.partner_annual_income_to || ""}`,
-
-        "",
-        `View : ${d.url}`
     ].join("\n");
 }
 

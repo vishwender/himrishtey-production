@@ -681,8 +681,6 @@
                     data-partner_occupation="{{ $usr->partner_occupation ?? '' }}"
                     data-partner_annual_income_to="{{ $usr->partner_annual_income_to ?? '' }}"
 
-                    data-url="{{ \Illuminate\Support\Facades\URL::signedRoute('profile.share-preview',['profileId' => $usr->profile_id]) }}"
-
                     onclick="shareToWhatsApp(this)">
                     <svg
                         width="17"
