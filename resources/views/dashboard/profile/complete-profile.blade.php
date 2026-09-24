@@ -2,7 +2,7 @@
 @section('title', 'Complete your profile - ' . $siteName)
 
 @push('head')
-<link href="{{ asset('assets/css/signup.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/css/signup.css') }}?v={{ filemtime(public_path('assets/css/signup.css')) }}" rel="stylesheet" />
 @endpush
 @section('content')
 <!-- ================= MAIN ================= -->
@@ -425,7 +425,7 @@
                 <p class="su-panel-subtitle">Profiles with a clear photo get up to 5&times; more responses. You can always add this later.</p>
 
                 <label class="su-photo-circle" for="photoInput" id="photoCircle">
-                    <img id="photoPreview" alt="" hidden />
+                    <img id="photoPreview" alt="Selected profile photo" hidden />
                     <span class="su-photo-placeholder" id="photoPlaceholder">
                         <i data-lucide="camera" width="28" height="28"></i>
                         Upload Photo
