@@ -634,7 +634,12 @@
                 </button>
                 <button
                     class="pd-btn-whatsapp"
-                    data-image="{{ !empty($usr->photo) ? asset('photos/photo/' . $usr->photo) : '' }}"
+                    data-image="{{ !empty($usr->photo)
+    ? (filter_var($usr->photo, FILTER_VALIDATE_URL)
+        ? $usr->photo
+        : asset('photos/photo/' . ltrim($usr->photo, '/')))
+    : ''
+}}"
                     data-name="{{ $usr->full_name ?? '' }}"
                     data-created="{{ $usr->profile_created_for ?? '' }}"
                     data-age="{{ $usr->age_years ?? '' }}"
