@@ -460,7 +460,7 @@ class HomeController extends Controller
             ->limit(30)
             ->get();
 
-        dd($recentProfiles);
+        // dd($recentProfiles);
 
         $data['recents'] = $this->formatDashboardProfiles(
             $recentProfiles
