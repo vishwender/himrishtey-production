@@ -715,18 +715,6 @@
     </div><!-- / pd-layout -->
 </div>
 
-<!-- ===================== BOTTOM ACTION BAR (Mobile) ===================== -->
-<div class="pd-bottom-bar" id="pdBottomBar">
-    <button class="pd-bottom-reject" id="rejectBtn" onclick="handleReject()" style="display:none;">
-        <i data-lucide="x-circle" width="18" height="18"></i>
-        Reject
-    </button>
-    <button class="pd-bottom-interest" id="bottomInterestBtn" onclick="handleInterestAction()">
-        <i data-lucide="send" width="18" height="18"></i>
-        <span id="bottomInterestLabel">Send Interest</span>
-    </button>
-</div>
-
 <!-- ===================== GALLERY LIGHTBOX ===================== -->
 <div class="pd-gallery-overlay" id="galleryOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Profile Gallery">
     <div class="pd-gallery-modal {{ $galleryPhotos->count() === 1 ? 'pd-gallery-modal-single' : '' }}">
