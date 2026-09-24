@@ -420,7 +420,20 @@ class MyMemberController extends Controller
         $maritalStatus = MaritalStatus::orderBy('marital_status')->get();
         $religions = Religion::orderBy('religion')->get();
         $motherTongues = MotherTongue::orderBy('mother_tongue')->get();
-        $casts = Cast::orderBy('cast')->get();
+        $casts = Cast::query()
+            ->select('cast')
+            ->whereNotNull('cast')
+            ->distinct()
+            ->orderBy('cast')
+            ->get()
+            ->map(function ($cast) {
+                $cast->cast = trim($cast->cast);
+
+                return $cast;
+            })
+            ->filter(fn ($cast) => $cast->cast !== '')
+            ->unique(fn ($cast) => mb_strtolower($cast->cast))
+            ->values();
         // dd($employedIn);
         $sections = $member->profileCompletionSections();
         $completion = $member->profileCompletionPercentage();

@@ -172,7 +172,22 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 
                     <div class="ep-field-group">
                         <label class="ep-label" for="cast">Cast</label>
-                        <input class="ep-input" type="text" id="cast" name="cast" placeholder="e.g. Brahmin" value="{{ old('cast', $member->cast) }}" />
+                        @php
+                            $selectedCast = trim((string) old('cast', $member->cast));
+                            $hasSelectedCast = $casts->contains(fn ($cast) => mb_strtolower($cast->cast) === mb_strtolower($selectedCast));
+                        @endphp
+                        <div class="ep-select-wrapper">
+                            <select class="ep-select" id="cast" name="cast">
+                                <option value="">Select</option>
+                                @if ($selectedCast !== '' && ! $hasSelectedCast)
+                                    <option value="{{ $selectedCast }}" selected>{{ $selectedCast }}</option>
+                                @endif
+                                @foreach ($casts as $cast)
+                                    <option value="{{ $cast->cast }}" @selected(mb_strtolower($cast->cast) === mb_strtolower($selectedCast))>{{ $cast->cast }}</option>
+                                @endforeach
+                            </select>
+                            <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
+                        </div>
                     </div>
 
                     <div class="ep-field-group">
@@ -1043,7 +1058,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                                     type="checkbox"
                                     name="partner_cast[]"
                                     value="{{ $cast->cast }}"
-                                    @checked(in_array($cast->cast, $partnerCast))
+                                    @checked(collect($partnerCast)->contains(fn ($value) => mb_strtolower(trim($value)) === mb_strtolower($cast->cast)))
                                 />
 
                                 {{ $cast->cast }}
