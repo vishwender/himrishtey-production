@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initGallery();
   initLikeShortlist();
   initBottomBar();
-  prepareWhatsAppPhoto();
 });
 
 /* ── CAROUSEL ── */
@@ -1042,29 +1041,6 @@ function fallbackCopy(text) {
     textarea.remove();
 }
 
-let whatsAppPhoto = null;
-let whatsAppPhotoLoading = false;
-
-async function prepareWhatsAppPhoto() {
-    const btn = document.querySelector(".pd-btn-whatsapp[data-photo]");
-    if (!btn?.dataset.photo) return;
-
-    whatsAppPhotoLoading = true;
-    try {
-        const response = await fetch(btn.dataset.photo);
-        if (!response.ok) throw new Error("Photo unavailable");
-        const blob = await response.blob();
-        const extensions = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
-        const extension = extensions[blob.type];
-        if (!extension) throw new Error("Unsupported photo format");
-        whatsAppPhoto = new File([blob], `${btn.dataset.profile}.${extension}`, { type: blob.type });
-    } catch (error) {
-        whatsAppPhoto = null;
-    } finally {
-        whatsAppPhotoLoading = false;
-    }
-}
-
 function whatsAppProfileText(btn) {
     const d = btn.dataset;
     return [
@@ -1089,50 +1065,9 @@ function whatsAppProfileText(btn) {
     ].join("\n");
 }
 
-function openWhatsAppWithPhoto(btn, text) {
-    if (whatsAppPhoto) {
-        const photoUrl = URL.createObjectURL(whatsAppPhoto);
-        const download = document.createElement("a");
-        download.href = photoUrl;
-        download.download = whatsAppPhoto.name;
-        document.body.appendChild(download);
-        download.click();
-        download.remove();
-        setTimeout(() => URL.revokeObjectURL(photoUrl), 60000);
-        showToast("Photo downloaded. Attach it in WhatsApp and use the profile text as its caption.");
-    } else {
-        // Cross-origin photos may display successfully but disallow fetching a file.
-        const photo = document.createElement("a");
-        photo.href = btn.dataset.photo;
-        photo.target = "_blank";
-        photo.rel = "noopener";
-        photo.textContent = "Open profile photo to save";
-        const toast = document.getElementById("pdToast");
-        showToast("Save the profile photo, then attach it in WhatsApp. ");
-        toast?.appendChild(photo);
-    }
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
-}
-
 function shareToWhatsApp(btn) {
-    if (whatsAppPhotoLoading) {
-        showToast("Preparing the photo. Please tap Share via WhatsApp again in a moment.");
-        return;
-    }
-
     const text = whatsAppProfileText(btn);
-    const shareData = whatsAppPhoto ? { files: [whatsAppPhoto], text } : null;
-    if (!btn.dataset.downloadPhoto && shareData && navigator.share && navigator.canShare?.(shareData)) {
-        // Keep this call synchronous with the click to preserve user activation.
-        navigator.share(shareData).catch(error => {
-            if (error.name !== "AbortError") {
-                showToast("Photo sharing failed. Tap again to download it and open WhatsApp.");
-                btn.dataset.downloadPhoto = "true";
-            }
-        });
-        return;
-    }
-    openWhatsAppWithPhoto(btn, text);
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
 }
 
 /* ── TOAST ── */

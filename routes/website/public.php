@@ -21,3 +21,7 @@ Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('faqs', [WelcomeController::class, 'faqs'])->name('faqs');
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+Route::get('profile-preview/{profileId}', [\App\Website\Http\Controllers\ProfileShareController::class, 'show'])
+    ->middleware(['signed', 'throttle:60,1'])
+    ->name('profile.share-preview');
