@@ -32,7 +32,7 @@
     </span>
     <p class="ss-privacy-text">
       We don't post all success stories here. Your privacy is our top priority.
-      You can send us your story by clicking <strong>Add Story</strong>.
+      You can send us your story by clicking <strong>Share Your Story</strong>.
     </p>
   </div>
 
