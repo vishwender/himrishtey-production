@@ -688,21 +688,11 @@
                 <i data-lucide="x" width="22" height="22"></i>
             </button>
             <div class="pd-gallery-grid" id="galleryGrid">
-                <div class="pd-gallery-item">
-                    <div class="pd-gallery-placeholder">
-                        <i data-lucide="user" width="40" height="40"></i>
+                @foreach ($galleryPhotos as $photoUrl)
+                    <div class="pd-gallery-item">
+                        <img class="pd-gallery-image" src="{{ $photoUrl }}" alt="{{ $usr->full_name }} gallery photo" loading="lazy">
                     </div>
-                </div>
-                <div class="pd-gallery-item">
-                    <div class="pd-gallery-placeholder">
-                        <i data-lucide="image" width="40" height="40"></i>
-                    </div>
-                </div>
-                <div class="pd-gallery-item">
-                    <div class="pd-gallery-placeholder">
-                        <i data-lucide="image" width="40" height="40"></i>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

@@ -2096,11 +2096,20 @@ class HomeController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        // dd($usr);
+        $galleryPhotos = collect([$usr->photo])
+            ->merge($data['photos']
+                ->filter(fn ($photo) => ! empty($photo->photo)
+                    && ($photo->photo_approved === 'Yes' || trim((string) $photo->photo_approved) === ''))
+                ->map(fn ($photo) => ProfilePhotoUrl::get($photo->photo)))
+            ->filter()
+            ->unique()
+            ->values();
+
         return view(
             'dashboard.profile.view-profile',
             compact(
                 'usr',
+                'galleryPhotos',
                 'data',
                 'wallet'
             )
