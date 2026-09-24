@@ -209,7 +209,7 @@ class MyMemberController extends Controller
                 $diff = $birthDate->diff($today);
                 $member->age_years = $diff->y;
                 $member->age_months = $diff->m;
-                $member->photo = ! empty($member->photo) && $member->photo_approved === 'Yes'
+                $member->photo = ! empty($member->photo) && ($member->photo_approved === 'Yes' || trim((string) $member->photo_approved) === '')
                     ? ProfilePhotoUrl::get($member->photo)
                     : ($member->gender === 'Male'
                         ? '/images/profile_photos/boy.jpg'
@@ -232,7 +232,7 @@ class MyMemberController extends Controller
                 $diff = $birthDate->diff($today);
                 $member->age_years = $diff->y;
                 $member->age_months = $diff->m;
-                $member->photo = ! empty($member->photo) && $member->photo_approved === 'Yes'
+                $member->photo = ! empty($member->photo) && ($member->photo_approved === 'Yes' || trim((string) $member->photo_approved) === '')
                     ? ProfilePhotoUrl::get($member->photo)
                     : ($member->gender === 'Male'
                         ? '/images/profile_photos/boy.jpg'
@@ -255,7 +255,7 @@ class MyMemberController extends Controller
                 $diff = $birthDate->diff($today);
                 $member->age_years = $diff->y;
                 $member->age_months = $diff->m;
-                $member->photo = ! empty($member->photo) && $member->photo_approved === 'Yes'
+                $member->photo = ! empty($member->photo) && ($member->photo_approved === 'Yes' || trim((string) $member->photo_approved) === '')
                     ? ProfilePhotoUrl::get($member->photo)
                     : ($member->gender === 'Male'
                         ? '/images/profile_photos/boy.jpg'

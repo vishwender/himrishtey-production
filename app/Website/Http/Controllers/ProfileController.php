@@ -116,7 +116,7 @@ class ProfileController extends Controller
             $diff = $birthDate->diff(Carbon::parse($today));
             $users[$key]['age_years'] = $diff->y;
             $users[$key]['age_months'] = $diff->m;
-            if (! empty($recent->photo) && $recent->photo_approved === 'Yes') {
+            if (! empty($recent->photo) && ($recent->photo_approved === 'Yes' || trim((string) $recent->photo_approved) === '')) {
                 $users[$key]['photo'] = ProfilePhotoUrl::get($recent->photo);
             } elseif ($recent->gender === 'Male') {
                 $users[$key]['photo'] = '/img/boy.jpg';
@@ -249,7 +249,7 @@ class ProfileController extends Controller
             $profile['age_years'] = $diff->y;
             $profile['age_months'] = $diff->m;
 
-            if (! empty($recent->photo) && $recent->photo_approved === 'Yes') {
+            if (! empty($recent->photo) && ($recent->photo_approved === 'Yes' || trim((string) $recent->photo_approved) === '')) {
                 $profile['photo'] = ProfilePhotoUrl::get($recent->photo);
             } elseif ($recent->gender === 'Male') {
                 $profile['photo'] = '/images/profile_photos/boy.jpg';
