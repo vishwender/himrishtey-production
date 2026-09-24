@@ -533,7 +533,7 @@
 
         </div><!-- / pd-details-col -->
 
-        <!-- RIGHT COLUMN: Sticky Action Card (desktop) -->
+        <!-- Action card: sticky sidebar on desktop, above details on mobile -->
         <aside class="pd-aside">
             <div class="pd-action-card">
                 <div class="pd-action-profile-thumb">

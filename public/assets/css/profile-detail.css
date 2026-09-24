@@ -942,7 +942,11 @@
 }
 
 @media (max-width: 1023px) {
-  .pd-aside { display: none; }
+  .pd-aside {
+    position: static;
+    order: -1;
+    min-width: 0;
+  }
 }
 
 .pd-action-card {
