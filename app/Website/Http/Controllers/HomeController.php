@@ -1886,7 +1886,7 @@ class HomeController extends Controller
         | Profile photo
         |--------------------------------------------------------------------------
         */
-        if (! empty($usr->photo) && $usr->photo_approved === 'Yes') {
+        if (! empty($usr->photo) && ($usr->photo_approved === 'Yes' || trim((string) $usr->photo_approved) === '')) {
 
             $usr->photo =
                 ProfilePhotoUrl::get($usr->photo);
