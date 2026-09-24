@@ -20,12 +20,22 @@ class ProfileId
         $prefix = self::prefix($site);
 
         if ($prefix === null) {
-            throw new \RuntimeException("No profile ID prefix configured for site: {$site}");
+            throw new \RuntimeException(
+                "No profile ID prefix configured for site: {$site}"
+            );
         }
 
-        // Preserve GallPakki's established numbering used by the mobile apps.
-        $number = $prefix === 'PB' ? 10000 + $memberId : $memberId;
+        $number = match ($prefix) {
+            'HIM' => 10000 + $memberId,
+            'PB'  => 10000 + $memberId,
+            'DR'  => 110000 + $memberId,
+            'JR'  => 10000 + $memberId,
 
-        return $prefix.$number;
+            default => throw new \RuntimeException(
+                "No profile ID numbering rule configured for prefix: {$prefix}"
+            ),
+        };
+
+        return $prefix . $number;
     }
 }
