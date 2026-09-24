@@ -125,7 +125,7 @@ class LoginController extends Controller
             'birth_date_time' => $request->birth_date,
             'registration_date' => now(),
             'profile_id' => 'NA',
-            'profile_completed' => '15%',
+            'profile_completed' => 15,
         ];
 
         $data = array_filter($data, fn ($value) => ! is_null($value));
@@ -164,7 +164,7 @@ class LoginController extends Controller
                 'password' => Str::random(32),
                 'profile_id' => 'NA',
                 'registration_date' => now(),
-                'profile_completed' => '15%',
+                'profile_completed' => 15,
             ]);
 
             $member->update([
