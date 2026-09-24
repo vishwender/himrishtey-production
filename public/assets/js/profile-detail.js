@@ -1077,14 +1077,14 @@ function whatsAppProfileText(btn) {
 
         "",
         `*Partner Preferences*`,
-        `Height : ${d.partner_height_to || ""}`,
-        `Age : ${d.partner_age_to || ""}`,
+        `Height :${d.partner_height_from || ""} - ${d.partner_height_to || ""}`,
+        `Age : ${d.partner_age_from || ""} - ${d.partner_age_to || ""}`,
         `Marital status : ${d.looking_for || ""}`,
         `Religion & Mother tongue : ${d.partner_religion || ""} | ${d.partner_mothertongue || ""}`,
         `Is Manglik : ${d.is_partner_manglik || ""}`,
         `Highest Qualification : ${d.partner_education || ""}`,
         `Partner Occupation : ${d.partner_occupation || "N/A"}`,
-        `Annual Income(in Lacs) : ${d.partner_annual_income_to || ""}`,
+        `Annual Income(in Lacs) : ${d.partner_annual_income_from || ""} - ${d.partner_annual_income_to || ""}`,
     ].join("\n");
 }
 

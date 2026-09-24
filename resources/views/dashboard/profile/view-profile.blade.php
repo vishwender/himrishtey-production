@@ -670,8 +670,9 @@
                     data-is_smoking="{{ $usr->is_smoking ?? '' }}"
                     data-is_drinking="{{ $usr->is_drinking ?? '' }}"
                     data-any_disability="{{ $usr->any_disability ?? '' }}"
-
+                    data-partner_height_from="{{ $usr->partner_height_from ?? '' }}"
                     data-partner_height_to="{{ $usr->partner_height_to ?? '' }}"
+                    data-partner_age_from="{{ $usr->partner_age_from ?? '' }}"
                     data-partner_age_to="{{ $usr->partner_age_to ?? '' }}"
                     data-looking_for="{{ $usr->looking_for ?? '' }}"
                     data-partner_religion="{{ $usr->partner_religion ?? '' }}"
@@ -679,6 +680,7 @@
                     data-is_partner_manglik="{{ $usr->is_partner_manglik ?? '' }}"
                     data-partner_education="{{ $usr->partner_education ?? '' }}"
                     data-partner_occupation="{{ $usr->partner_occupation ?? '' }}"
+                    data-partner_annual_income_from="{{ $usr->partner_annual_income_from ?? '' }}"
                     data-partner_annual_income_to="{{ $usr->partner_annual_income_to ?? '' }}"
 
                     onclick="shareToWhatsApp(this)">
