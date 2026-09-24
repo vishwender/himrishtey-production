@@ -24,3 +24,7 @@ Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('profile-preview/{profileId}', [\App\Website\Http\Controllers\ProfileShareController::class, 'show'])
     ->name('profile.share-preview');
+
+// Preserve existing policy links while using the public pages everywhere.
+Route::redirect('members/terms-and-conditions', '/terms-and-conditions')->name('member.terms-and-conditions');
+Route::redirect('member/privacy-policy', '/privacy-policy')->name('member.privacy-policy');

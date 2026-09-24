@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ filemtime(public_path('assets/css/style.css')) }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/rateus.css') }}?v={{ filemtime(public_path('assets/css/rateus.css')) }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/toast-manager.css') }}?v={{ filemtime(public_path('assets/css/toast-manager.css')) }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/public-footer.css') }}?v={{ filemtime(public_path('assets/css/public-footer.css')) }}" />
   @yield('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/theme-overrides.css') }}?v={{ filemtime(public_path('assets/css/theme-overrides.css')) }}" />
   <style>
@@ -104,13 +105,10 @@
         <li><a href="{{ route('change-password') }}" class="sidebar-nav-item"><i data-lucide="key-round" width="18" height="18"></i><span>Change Password</span></a></li>
         <li><a href="{{ route('viewed-contacts') }}" class="sidebar-nav-item"><i data-lucide="phone" width="18" height="18"></i><span>Viewed Contact</span></a></li>
         <li><a href="{{ route('referral') }}" class="sidebar-nav-item"><i data-lucide="gift" width="18" height="18"></i><span>Refer &amp; Earn</span></a></li>
-        <li><a href="{{ route('member.success-stories') }}" class="sidebar-nav-item"><i data-lucide="trophy" width="18" height="18"></i><span>Success Stories</span></a></li>
         <li><a href="{{ route('delete-profile') }}" class="sidebar-nav-item"><i data-lucide="user-x" width="18" height="18"></i><span>Delete Profile</span></a></li>
         <li><a href="{{route('member.refund-policy')}}" class="sidebar-nav-item"><i data-lucide="file-text" width="18" height="18"></i><span>Refund &amp; Cancellation</span></a></li>
-        <li><a href="{{ route('member.privacy-policy') }}" class="sidebar-nav-item"><i data-lucide="lock" width="18" height="18"></i><span>Privacy Policy</span></a></li>
         <li><a href="javascript:void(0)" class="sidebar-nav-item" id="openRateModal"><i data-lucide="star" width="18" height="18"></i><span>Rate Us</span></a></li>
         <li><a href="tel:9857102002" class="sidebar-nav-item"><i data-lucide="phone-call" width="18" height="18"></i><span>Helpline: 9857102002</span></a></li>
-        <li><a href="{{route('member.terms-and-conditions')}}" class="sidebar-nav-item"><i data-lucide="scroll-text" width="18" height="18"></i><span>Terms &amp; Conditions</span></a></li>
         <li>
           <form method="POST" action="{{ route('member-logout') }}" class="d-inline">
             @csrf
@@ -206,11 +204,7 @@
 
       <hr class="pqv-divider" />
 
-      <div class="pqv-footer-links">
-        <a href="{{route('member.terms-and-conditions')}}">Terms and Conditions</a>
-        <span aria-hidden="true">•</span>
-        <a href="{{route('member.privacy-policy')}}">Privacy Policy</a>
-      </div>
+
     </div>
   </div>
 
@@ -220,21 +214,7 @@
   </main>
 
   <!-- PAGE FOOTER -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container-xxl footer-inner">
-      <div class="footer-brand">
-        <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }} Logo" class="footer-logo">
-        <p class="footer-tagline">{{ $siteTagline }}</p>
-      </div>
-      <div class="footer-links">
-        <a href="{{route('member.terms-and-conditions')}}">Terms &amp; Conditions</a>
-        <a href="{{route('member.privacy-policy')}}">Privacy Policy</a>
-        <a href="{{route('member.refund-policy')}}">Refund Policy</a>
-        <a href="{{ url('/#contact') }}">Contact Us</a>
-      </div>
-      <p class="footer-copy">© 2026 {{ $siteName }}. All rights reserved.</p>
-    </div>
-  </footer>
+  @include('partials.public-footer')
 
   <!-- Rate Us Modal -->
   <div class="rate-modal-overlay" id="rateModal">
