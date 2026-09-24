@@ -683,7 +683,7 @@
 
     <!-- ===================== GALLERY LIGHTBOX ===================== -->
     <div class="pd-gallery-overlay" id="galleryOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Profile Gallery">
-        <div class="pd-gallery-modal">
+        <div class="pd-gallery-modal {{ $galleryPhotos->count() === 1 ? 'pd-gallery-modal-single' : '' }}">
             <button class="pd-gallery-close" id="galleryClose" aria-label="Close gallery">
                 <i data-lucide="x" width="22" height="22"></i>
             </button>

@@ -1290,6 +1290,14 @@
   margin-top: 1rem;
 }
 
+.pd-gallery-modal-single {
+  max-width: 420px;
+}
+
+.pd-gallery-modal-single .pd-gallery-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .pd-gallery-header {
   display: flex;
   align-items: center;
