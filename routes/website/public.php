@@ -23,5 +23,4 @@ Route::get('faqs', [WelcomeController::class, 'faqs'])->name('faqs');
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('profile-preview/{profileId}', [\App\Website\Http\Controllers\ProfileShareController::class, 'show'])
-    ->middleware(['signed', 'throttle:60,1'])
     ->name('profile.share-preview');

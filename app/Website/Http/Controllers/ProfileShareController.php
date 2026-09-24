@@ -13,15 +13,20 @@ class ProfileShareController extends Controller
         $profile = Member::query()
             ->where('profile_id', $profileId)
             ->where('active', 'Yes')
-            ->where(fn ($query) => $query->whereNull('profile_hide')->orWhereRaw('LOWER(profile_hide) != ?', ['yes']))
+            ->where(fn($query) => $query->whereNull('profile_hide')->orWhereRaw('LOWER(profile_hide) != ?', ['yes']))
             ->firstOrFail();
 
         $photo = ! empty($profile->photo)
             && ($profile->photo_approved === 'Yes' || trim((string) $profile->photo_approved) === '')
-                ? ProfilePhotoUrl::get($profile->photo)
-                : asset('images/profile_photos/'.($profile->gender === 'Male' ? 'boy.jpg' : 'girl.jpg'));
+            ? ProfilePhotoUrl::get($profile->photo)
+            : asset('images/profile_photos/' . ($profile->gender === 'Male' ? 'boy.jpg' : 'girl.jpg'));
 
-        $description = collect([$profile->profile_id, $profile->religion, $profile->cast, $profile->city_living_in])
+        $description = collect([
+            $profile->profile_id,
+            $profile->religion,
+            $profile->cast,
+            $profile->city_living_in
+        ])
             ->filter()->implode(' · ');
 
         return response()->view('dashboard.profile.share-preview', [

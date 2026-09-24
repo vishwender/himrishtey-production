@@ -1043,7 +1043,9 @@ function fallbackCopy(text) {
 
 function whatsAppProfileText(btn) {
     const d = btn.dataset;
+
     return [
+        `Image : ${d.image || ""}`,
         `*${d.name || "HimRishtey Profile"}*`,
         `Created by ${d.created || "Self"}`,
         `${d.age || ""} years`,
@@ -1051,7 +1053,7 @@ function whatsAppProfileText(btn) {
         d.religion || "",
         d.caste || "",
         [d.city, d.state].filter(Boolean).join(", "),
-        `About : ${d.about || ""}`,
+        `About : ${d.about_me || ""}`,
         `Community : ${d.caste || ""}`,
         `Sub Community : ${d.subCommunity || "N/A"}`,
         `Gotra : ${d.gotra || ""}`,
@@ -1060,8 +1062,32 @@ function whatsAppProfileText(btn) {
         `Other qualification : ${d.qualification || ""}`,
         `Employed in : ${d.employed || ""}`,
         `Occupation : ${d.occupation || ""}`,
+        `Currently Working: ${d.organization_name || ""}`,
+        `Family Type: ${d.family_type || ""}`,
+        `Father Occupation: ${d.father_occupation || ""}`,
+        `Mother Occupation : ${d.mother_occupation || ""}`,
+        `Brother : ${d.no_of_brothers || ""}`,
+        `Married Brother : ${d.married_brothers || ""}`,
+        `Sister : ${d.no_of_sisters || ""}`,
+        `Married Sisters : ${d.married_sisters || ""}`,
+        `Diet : ${d.diet || ""}`,
+        `Smoking : ${d.is_smoking || ""}`,
+        `Drinking : ${d.is_drinking || ""}`,
+        `Any disability : ${d.any_disability || ""}`,
+
         "",
-        `View Profile: ${d.url}`
+        `*Partner Preferences*`,
+        `Height : ${d.partner_height_to || ""}`,
+        `Age : ${d.partner_age_to || ""}`,
+        `Marital status : ${d.looking_for || ""}`,
+        `Religion & Mother tongue : ${d.partner_religion || ""} | ${d.partner_mothertongue || ""}`,
+        `Is Manglik : ${d.is_partner_manglik || ""}`,
+        `Highest Qualification : ${d.partner_education || ""}`,
+        `Partner Occupation : ${d.partner_occupation || "N/A"}`,
+        `Annual Income(in Lacs) : ${d.partner_annual_income_to || ""}`,
+
+        "",
+        `View : ${d.url}`
     ].join("\n");
 }
 
