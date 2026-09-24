@@ -460,6 +460,8 @@ class HomeController extends Controller
             ->limit(30)
             ->get();
 
+        dd($recentProfiles);
+
         $data['recents'] = $this->formatDashboardProfiles(
             $recentProfiles
         );
@@ -684,7 +686,7 @@ class HomeController extends Controller
 
             if (
                 ! empty($profile->photo) &&
-                $profile->photo_approved === 'Yes'
+                ($profile->photo_approved === 'Yes' || trim((string) $profile->photo_approved) === '')
             ) {
 
                 $profile->photo =
@@ -828,7 +830,7 @@ class HomeController extends Controller
             for ($inches = max(0, $minHeight); $inches <= min(119, $maxHeight); $inches++) {
                 $feet = intdiv($inches, 12);
                 $remainder = $inches % 12;
-                $heights[] = $feet.'.'.$remainder;
+                $heights[] = $feet . '.' . $remainder;
                 if ($remainder === 0) {
                     $heights[] = (string) $feet;
                 }
@@ -2032,7 +2034,7 @@ class HomeController extends Controller
             );
 
             $usr->mobile_number_masked =
-                '****'.substr($mobile, -4);
+                '****' . substr($mobile, -4);
         } else {
 
             $usr->mobile_number_masked = '****';
@@ -2048,7 +2050,7 @@ class HomeController extends Controller
             );
 
             $usr->whatsapp_number_masked =
-                '****'.substr($whatsapp, -4);
+                '****' . substr($whatsapp, -4);
         } else {
 
             $usr->whatsapp_number_masked = '****';
@@ -2066,7 +2068,7 @@ class HomeController extends Controller
             if (count($emailParts) === 2) {
 
                 $usr->email_masked =
-                    '****@'.$emailParts[1];
+                    '****@' . $emailParts[1];
             } else {
 
                 $usr->email_masked = '****';
@@ -2608,7 +2610,7 @@ class HomeController extends Controller
         $galleryPhoto = $user->photos()->findOrFail($photo);
         if ($user->photo !== $galleryPhoto->photo) {
             foreach (['photos/photo/', 'uploads/gallery/'] as $directory) {
-                $photoPath = public_path($directory.basename($galleryPhoto->photo));
+                $photoPath = public_path($directory . basename($galleryPhoto->photo));
                 if (File::exists($photoPath)) {
                     File::delete($photoPath);
                     break;
