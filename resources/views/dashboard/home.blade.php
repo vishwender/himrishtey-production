@@ -313,20 +313,20 @@
         <!-- Likes -->
         <a href="{{ url('stats-profiles?profile=likes') }}" class="stat-card blue">
             <div class="stat-card-header">
-                <span class="stat-label">Likes</span>
+                <span class="stat-label">Likes Received</span>
 
                 <div class="stat-icon-wrap blue">
                     <i data-lucide="heart" width="20" height="20"></i>
                 </div>
             </div>
 
-            <span class="stat-number" data-target="{{ $data['iLikes'] }}">
-                {{ $data['iLikes'] }}
+            <span class="stat-number" data-target="{{ $data['likesReceived'] }}">
+                {{ $data['likesReceived'] }}
             </span>
 
             <span class="stat-trend up">
                 <i data-lucide="heart-handshake" width="12" height="12"></i>
-                Profiles you liked
+                People who liked your profile
             </span>
         </a>
 
@@ -334,20 +334,20 @@
         <!-- Interests -->
         <a href="{{ url('interest-box') }}" class="stat-card purple">
             <div class="stat-card-header">
-                <span class="stat-label">Interests Sent</span>
+                <span class="stat-label">Interests Received</span>
 
                 <div class="stat-icon-wrap purple">
                     <i data-lucide="send" width="20" height="20"></i>
                 </div>
             </div>
 
-            <span class="stat-number" data-target="{{ $data['interestSent'] }}">
-                {{ $data['interestSent'] }}
+            <span class="stat-number" data-target="{{ $data['interestsReceived'] }}">
+                {{ $data['interestsReceived'] }}
             </span>
 
             <span class="stat-trend up">
                 <i data-lucide="user-round-plus" width="12" height="12"></i>
-                Interests sent
+                Interests received
             </span>
         </a>
 

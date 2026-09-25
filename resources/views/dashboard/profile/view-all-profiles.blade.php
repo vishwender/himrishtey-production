@@ -2,7 +2,7 @@
 
 @php
 $statsTitle = match ($profileFor) {
-'likes' => 'Profiles you liked',
+'likes' => 'People who liked your profile',
 'contacts' => 'Contacts you viewed',
 'profile_viewed' => 'People who viewed your profile',
 default => ucfirst($profileFor) . ' Profiles',

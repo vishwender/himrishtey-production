@@ -401,8 +401,8 @@ class HomeController extends Controller
             $id
         )->count();
 
-        $data['iLikes'] = ProfileLike::where(
-            'user_id',
+        $data['likesReceived'] = ProfileLike::where(
+            'like_profile_id',
             $id
         )->count();
 
@@ -411,8 +411,8 @@ class HomeController extends Controller
             $id
         )->count();
 
-        $data['interestSent'] = SentInterest::where(
-            'member_id',
+        $data['interestsReceived'] = SentInterest::where(
+            'profile_id',
             $id
         )->count();
 
