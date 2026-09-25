@@ -8,6 +8,7 @@
 
 @section('content')
 @php
+$profileFallback = asset(strtolower(trim((string) $usr->gender)) === 'female' ? 'images/profile_photos/girl.jpg' : 'images/profile_photos/boy.jpg');
 $publicShareUrl = route('profile.share-preview', $usr->profile_id);
 $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicShareUrl);
 @endphp
@@ -41,7 +42,7 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
 
                 <img
                     id="mainProfileImage"
-                    src="{{ $usr->photo }}"
+                    src="{{ $usr->photo ?: $profileFallback }}" onerror="this.onerror=null;this.src='{{ $profileFallback }}';"
                     alt="{{ $usr->full_name }}">
 
             </div>
@@ -657,7 +658,7 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
     <h2 id="profileShareTitle">Share this profile</h2>
     <p id="profileShareDescription">A thoughtful introduction could be the start of something special.</p>
     <div class="pd-share-member">
-        <img src="{{ $usr->photo }}" alt="" width="56" height="56">
+        <img src="{{ $usr->photo ?: $profileFallback }}" onerror="this.onerror=null;this.src='{{ $profileFallback }}';" alt="" width="56" height="56">
         <div><strong>{{ $usr->full_name }}</strong><span>{{ $usr->profile_id }} · {{ $usr->city_living_in }}</span></div>
     </div>
     <label for="profileShareUrl">Profile link</label>

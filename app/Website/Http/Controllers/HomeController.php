@@ -1894,14 +1894,10 @@ class HomeController extends Controller
 
             $usr->photo =
                 ProfilePhotoUrl::get($usr->photo);
-        } elseif ($usr->gender === 'Male') {
-
-            $usr->photo =
-                '/images/profile_photos/boy.jpg';
-        } elseif ($usr->gender === 'Female') {
-
-            $usr->photo =
-                '/images/profile_photos/girl.jpg';
+        } else {
+            $usr->photo = strtolower(trim((string) $usr->gender)) === 'female'
+                ? '/images/profile_photos/girl.jpg'
+                : '/images/profile_photos/boy.jpg';
         }
 
         /*
