@@ -1,5 +1,5 @@
 <!-- ShortListed Profile -->
-<section class="profile-row-section container-xxl" aria-label="Who Viewed My Profile">
+<section class="profile-row-section matching-bg container-xxl" aria-label="Shortlisted Profiles">
     <div class="section-header">
         <div class="section-title-group">
             <h2 class="section-title">Shortlisted Profiles</h2>

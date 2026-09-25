@@ -39,5 +39,4 @@
         @endforelse
 
     </div>
-    </div>
 </section>

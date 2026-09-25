@@ -1,5 +1,5 @@
 <!-- Verified Profiles -->
-<section class="profile-row-section container-xxl" aria-label="Verified Profiles">
+<section class="profile-row-section matching-bg container-xxl" aria-label="Verified Profiles">
     <div class="section-header">
         <div class="section-title-group">
             <h2 class="section-title">Verified Profiles</h2>
