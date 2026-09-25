@@ -1,6 +1,6 @@
 window.profilePhotoUrl = function (photo, gender) {
     if (!photo || !String(photo).trim()) {
-        return '/images/profile_photos/' + (gender === 'Female' ? 'girl.jpg' : 'boy.jpg');
+        return '/images/profile_photos/' + (String(gender || '').trim().toLowerCase() === 'female' ? 'girl.jpg' : 'boy.jpg');
     }
 
     const path = String(photo).trim();

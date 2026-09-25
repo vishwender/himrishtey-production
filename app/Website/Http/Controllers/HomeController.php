@@ -986,7 +986,7 @@ class HomeController extends Controller
                 $photo =
                     ProfilePhotoUrl::get($recent->photo);
             } elseif (
-                strtolower($recent->gender) === 'male'
+                strtolower(trim((string) $recent->gender)) !== 'female'
             ) {
 
                 $photo =
@@ -1027,6 +1027,8 @@ class HomeController extends Controller
                 'profile_id' => $recent->profile_id,
 
                 'name' => $recent->full_name,
+
+                'gender' => trim((string) $recent->gender),
 
                 'age' => $age,
 

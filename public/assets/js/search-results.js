@@ -171,6 +171,11 @@
         '</div>' +
       '</div>';
 
+    const photoImage = article.querySelector('.profile-card-img');
+    photoImage.addEventListener('error', function () {
+      photoImage.src = window.profilePhotoUrl(null, profile.gender);
+    }, { once: true });
+
     /* Like toggle */
     const likeBtn = article.querySelector('.pca-btn.like');
     likeBtn.addEventListener('click', function (e) {
