@@ -18,8 +18,16 @@ final class AnnualIncomeOptions
     public static function filter($query, ?string $from, ?string $to): void
     {
         $labels = self::labels();
-        $lower = array_search($from, $labels, true);
-        $upper = array_search($to, $labels, true);
+        // Numeric dropdown values use the same labels as Edit Profile:
+        // 3 lakhs corresponds to the existing stored 2-3 lakhs option.
+        $index = static function (?string $value) use ($labels) {
+            if ($value !== null && ctype_digit($value) && (int) $value >= 1 && (int) $value <= 50) {
+                return (int) $value - 1;
+            }
+            return array_search($value, $labels, true);
+        };
+        $lower = $index($from);
+        $upper = $index($to);
 
         if ($lower === false && $upper === false) {
             return;

@@ -90,16 +90,18 @@
                         </div>
 
                         <!-- Annual Income -->
-                        <div class="adv-field">
-                            <div class="adv-label">Annual Income</div>
-                            <label for="incMin">From</label>
-                            <select class="form-select" id="incMin">
-                                @include('partials.annual-income-options', ['selected' => request('annual_income'), 'placeholder' => 'Any income'])
-                            </select>
-                            <label for="incMax">To</label>
-                            <select class="form-select" id="incMax">
-                                @include('partials.annual-income-options', ['selected' => request('annual_income_to'), 'placeholder' => 'Any income'])
-                            </select>
+                        <div class="adv-two-col">
+                            @foreach (['incMin' => 'Annual Income From', 'incMax' => 'Annual Income To'] as $incomeId => $incomeLabel)
+                            <div class="adv-field">
+                                <label class="adv-label" for="{{ $incomeId }}">{{ $incomeLabel }}</label>
+                                <select class="form-select" id="{{ $incomeId }}">
+                                    <option value="">Any income</option>
+                                    @for ($amount = 1; $amount <= 50; $amount++)
+                                    <option value="{{ $amount }}">{{ $amount }} {{ $amount === 1 ? 'lakh' : 'lakhs' }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

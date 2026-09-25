@@ -46,21 +46,18 @@
 
     params.forEach(function (value, key) {
       if (SKIP.includes(key) || !value) return;
+      const incomeNames = { annual_income: 'Annual income from', annual_income_to: 'Annual income to' };
+      let displayValue = value.replace(/_/g, ' ');
+      if (incomeNames[key]) {
+        const legacyBand = value.match(/^\d+-(\d+) lakhs$/);
+        displayValue = legacyBand ? legacyBand[1] + ' LPA' : (/^\d+$/.test(value) ? value + ' LPA' : value);
+      }
       filters.push({
-        name:  key.replace(/_/g, ' '),
-        value: value.replace(/_/g, ' '),
-        key:   key,
+        name: incomeNames[key] || key.replace(/_/g, ' '),
+        value: displayValue,
+        key: key,
       });
     });
-
-    /* Fallback mock filters if no URL params (demo mode) */
-    if (!filters.length) {
-      filters.push(
-        { name: 'age',      value: '22–28',  key: 'age' },
-        { name: 'religion', value: 'Hindu',  key: 'religion' },
-        { name: 'location', value: 'Himachal Pradesh', key: 'location' }
-      );
-    }
 
     return filters;
   }

@@ -113,7 +113,7 @@
     }
 
     // ===== DUAL RANGE SLIDERS =====
-    function initRange(minId, maxId, displayMinId, displayMaxId, fillId, formatFn) {
+    function initRange(minId, maxId, displayMinId, displayMaxId, fillId, formatFn, gap = 0) {
       const minInput = document.getElementById(minId);
       const maxInput = document.getElementById(maxId);
       const fillEl = document.getElementById(fillId);
@@ -121,7 +121,7 @@
       function update() {
         let minVal = parseInt(minInput.value);
         let maxVal = parseInt(maxInput.value);
-        if (minVal > maxVal) { if (this === minInput) minInput.value = maxVal; else maxInput.value = minVal; }
+        if (minVal + gap > maxVal) { if (this === minInput) minInput.value = maxVal - gap; else maxInput.value = minVal + gap; }
         minVal = parseInt(minInput.value); maxVal = parseInt(maxInput.value);
         const min = parseInt(minInput.min), max = parseInt(minInput.max);
         const left = ((minVal - min) / (max - min)) * 100;
@@ -132,8 +132,8 @@
         document.getElementById(displayMaxId).textContent = formatFn(maxVal, 'max');
         updateSummary();
       }
-      minInput.addEventListener('input', update);
-      maxInput.addEventListener('input', update);
+      minInput.oninput = update;
+      maxInput.oninput = update;
       update.call(minInput);
     }
 
@@ -153,7 +153,7 @@
       if (htMin != 46 || htMax != 70) chips.push(`Height: ${(htMin/10).toFixed(1)}–${(htMax/10).toFixed(1)} ft`);
 
       const incMin = document.getElementById('incMin').value, incMax = document.getElementById('incMax').value;
-      if (incMin || incMax) chips.push(`Income: ${incMin || "Any"} – ${incMax || "Any"}`);
+      if (incMin || incMax) chips.push(`Income: ${incMin || "Any"}–${incMax || "Any"} LPA`);
 
       const pid = document.getElementById('profileId').value.trim();
       if (pid) chips.push(`ID: ${pid}`);
@@ -179,20 +179,41 @@
     document.querySelectorAll('input[name="manglik"], input[name="maritalStatus"]').forEach(r => r.addEventListener('change', updateSummary));
     document.getElementById('profileId').addEventListener('input', updateSummary);
 
-    ['incMin', 'incMax'].forEach(id => document.getElementById(id).addEventListener('change', updateSummary));
+    function validateIncomeRange() {
+      const min = document.getElementById('incMin');
+      const max = document.getElementById('incMax');
+      max.setCustomValidity(min.value && max.value && Number(min.value) > Number(max.value)
+        ? 'Annual income to must be at least annual income from.' : '');
+      return max.reportValidity();
+    }
+    ['incMin', 'incMax'].forEach(id => document.getElementById(id).addEventListener('change', () => {
+      validateIncomeRange();
+      updateSummary();
+    }));
 
     // ===== SEARCH =====
     function doSearch() {
+      if (!validateIncomeRange()) return;
       const params = {};
       params._source = 'advanced';
       const pid = document.getElementById('profileId').value.trim();
       if (pid) params.profile_id = pid;
-      params.age_from = document.getElementById('ageMin').value;
-      params.age_to = document.getElementById('ageMax').value;
-      params.height_from = (document.getElementById('htMin').value / 10).toFixed(1);
-      params.height_to = (document.getElementById('htMax').value / 10).toFixed(1);
-      params.annual_income = document.getElementById('incMin').value;
-      params.annual_income_to = document.getElementById('incMax').value;
+      const ageMin = document.getElementById('ageMin').value;
+      const ageMax = document.getElementById('ageMax').value;
+      if (ageMin != 18 || ageMax != 70) {
+        params.age_from = ageMin;
+        params.age_to = ageMax;
+      }
+      const heightMin = document.getElementById('htMin').value;
+      const heightMax = document.getElementById('htMax').value;
+      if (heightMin != 46 || heightMax != 70) {
+        params.height_from = (heightMin / 10).toFixed(1);
+        params.height_to = (heightMax / 10).toFixed(1);
+      }
+      const incomeMin = Number(document.getElementById('incMin').value);
+      const incomeMax = Number(document.getElementById('incMax').value);
+      if (incomeMin) params.annual_income = String(incomeMin);
+      if (incomeMax) params.annual_income_to = String(incomeMax);
       const manglik = document.querySelector('input[name="manglik"]:checked')?.value;
       if (manglik) params.manglik = manglik;
       const marital = document.querySelector('input[name="maritalStatus"]:checked')?.value;
@@ -214,6 +235,7 @@
       document.getElementById('ageMin').value = 18; document.getElementById('ageMax').value = 70;
       document.getElementById('htMin').value = 46; document.getElementById('htMax').value = 70;
       document.getElementById('incMin').value = ''; document.getElementById('incMax').value = '';
+      document.getElementById('incMax').setCustomValidity('');
       document.querySelector('input[name="manglik"][value=""]').checked = true;
       document.querySelector('input[name="maritalStatus"][value=""]').checked = true;
       Object.keys(selected).forEach(key => { selected[key] = []; renderChips(key); renderList(key, DATA[key]); });

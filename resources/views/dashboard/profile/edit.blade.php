@@ -435,7 +435,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                                 class="ep-select"
                                 id="annual_income"
                                 name="annual_income">
-                                @include('partials.annual-income-options', ['selected' => old('annual_income', $member->annual_income)])
+                                @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('annual_income', $member->annual_income)])
                             </select>
 
                             <i
@@ -790,13 +790,13 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                     <div class="ep-field-group">
                         <label class="ep-label" for="income_from">Annual Income From</label>
                         <select class="ep-select" id="income_from" name="partner_annual_income_from">
-                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
                         </select>
                     </div>
                     <div class="ep-field-group">
                         <label class="ep-label" for="income_to">Annual Income To</label>
                         <select class="ep-select" id="income_to" name="partner_annual_income_to">
-                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
                         </select>
                     </div>
 
