@@ -58,7 +58,7 @@
   <!-- SIDEBAR / SIDE DRAWER -->
   <aside class="sidebar" id="sidebar" role="complementary" aria-label="Navigation menu">
     <div class="sidebar-header">
-      <div class="sidebar-profile-card" onclick="window.location='#'">
+      <div class="sidebar-profile-card">
         <div class="sidebar-avatar-wrap">
           <img
             src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}"
@@ -79,14 +79,22 @@
         </div>
         <div class="sidebar-user-info">
           <h2 class="sidebar-user-name">{{ $dashboardMember?->full_name ?? 'User' }}</h2>
-          <span class="sidebar-label">Profile ID</span>
-          <span class="sidebar-value">{{ $dashboardMember?->profile_id ?? 'N/A' }}</span>
-          <span class="sidebar-label">Membership</span>
-          @php($sidebarIsActive = strtolower(trim((string) $dashboardMember?->active)) === 'yes')
-          <span class="sidebar-status {{ $sidebarIsActive ? 'active' : 'inactive' }}">{{ $sidebarIsActive ? 'Active' : 'Inactive' }}</span>
-          <span class="sidebar-label">Plan</span>
-          <span class="sidebar-plan-name">{{ $dashboardPlan?->plan_name ?? 'Free' }}</span>
         </div>
+        <dl class="sidebar-user-details">
+          <div class="sidebar-detail-row">
+            <dt class="sidebar-label">Profile ID</dt>
+            <dd class="sidebar-value">{{ $dashboardMember?->profile_id ?? 'N/A' }}</dd>
+          </div>
+          <div class="sidebar-detail-row">
+            <dt class="sidebar-label">Membership</dt>
+            @php($sidebarIsActive = strtolower(trim((string) $dashboardMember?->active)) === 'yes')
+            <dd><span class="sidebar-status {{ $sidebarIsActive ? 'active' : 'inactive' }}">{{ $sidebarIsActive ? 'Active' : 'Inactive' }}</span></dd>
+          </div>
+          <div class="sidebar-detail-row">
+            <dt class="sidebar-label">Plan</dt>
+            <dd class="sidebar-plan-name">{{ $dashboardPlan?->plan_name ?? 'Free' }}</dd>
+          </div>
+        </dl>
       </div>
       <button class="sidebar-close-btn" id="sidebarClose" aria-label="Close menu">
         <i data-lucide="x" width="20" height="20"></i>
