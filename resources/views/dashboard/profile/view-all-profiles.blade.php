@@ -1,12 +1,12 @@
 @extends('layouts.dashboard')
 
 @php
-    $statsTitle = match ($profileFor) {
-        'likes' => 'Profiles you liked',
-        'contacts' => 'Contacts you viewed',
-        'profile_viewed' => 'People who viewed your profile',
-        default => ucfirst($profileFor) . ' Profiles',
-    };
+$statsTitle = match ($profileFor) {
+'likes' => 'Profiles you liked',
+'contacts' => 'Contacts you viewed',
+'profile_viewed' => 'People who viewed your profile',
+default => ucfirst($profileFor) . ' Profiles',
+};
 @endphp
 
 @section('title', $statsTitle . ' - ' . $siteName)
@@ -33,7 +33,7 @@
             <div class="vc-image-wrap">
 
                 <img
-                    src="{{ $member['photo'] }}"
+                    src="{{ asset($member['photo']) }}"
                     class="vc-image"
                     alt="{{ $member['full_name'] }}">
 
