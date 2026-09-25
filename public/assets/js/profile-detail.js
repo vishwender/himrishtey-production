@@ -181,15 +181,8 @@ function closeGallery() {
 
 /* ── LIKE & SHORTLIST (hero fabs) ── */
 function initLikeShortlist() {
-  const likeBtn = document.getElementById("likeBtn");
+  initProfileLike();
   const shortlistBtn = document.getElementById("shortlistBtn");
-
-  likeBtn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    likeBtn.classList.toggle("active");
-    showToast(likeBtn.classList.contains("active") ? "❤️ Liked!" : "Like removed");
-    if (window.lucide) window.lucide.createIcons();
-  });
 
   shortlistBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -292,77 +285,60 @@ document.addEventListener('DOMContentLoaded', function () {
     checkShortlistStatus();
 });
 
-//Like button functionality
-document.addEventListener('DOMContentLoaded', function () {
+// Keep the heart state synchronized with the saved like state.
+function initProfileLike() {
+  const button = document.getElementById('likeBtn');
+  if (!button) return;
 
-    const button = document.getElementById('likeBtn');
+  const setLiked = (liked) => {
+    button.classList.remove('active');
+    button.classList.toggle('liked', liked);
+    button.setAttribute('aria-pressed', String(liked));
+    button.setAttribute('aria-label', liked ? 'Unlike profile' : 'Like profile');
+    button.setAttribute('title', liked ? 'Unlike profile' : 'Like profile');
+  };
 
-    if (!button) return;
+  const readResponse = async (response) => {
+    if (!response.ok) throw new Error('Unable to update like status.');
+    return response.json();
+  };
 
-    const profileId = button.dataset.profileId;
+  button.disabled = true;
+  fetch(`/check-profile-like/${button.dataset.profileId}`, {
+    headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+  })
+    .then(readResponse)
+    .then(data => setLiked(data.liked === true))
+    .catch(error => console.error('Unable to check like status:', error))
+    .finally(() => { button.disabled = false; });
 
-    fetch(`/check-profile-like/${profileId}`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-
-        if (data.liked) {
-            button.classList.add('liked');
-            button.setAttribute('aria-label', 'Unlike profile');
-            button.setAttribute('title', 'Unlike profile');
-        }
-
-    })
-    .catch(error => {
-        console.error('Unable to check like status:', error);
-    });
-});
-
-document.getElementById('likeBtn')?.addEventListener('click', function () {
-
-    const button = this;
-    const profileId = button.dataset.profileId;
-
+  button.addEventListener('click', async (event) => {
+    event.stopPropagation();
+    if (button.disabled) return;
     button.disabled = true;
-
-    fetch("/like-profile", {
-        method: "POST",
+    try {
+      const response = await fetch('/like-profile', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
         },
-        body: JSON.stringify({
-            id: profileId
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-
-        if (data.status === 'liked') {
-            button.classList.add('liked');
-            button.setAttribute('aria-label', 'Unlike profile');
-            button.setAttribute('title', 'Unlike profile');
-
-        } else if (data.status === 'unliked') {
-            button.classList.remove('liked');
-            button.setAttribute('aria-label', 'Like profile');
-            button.setAttribute('title', 'Like profile');
-        }
-
-    })
-    .catch(error => {
-        console.error('Like error:', error);
-    })
-    .finally(() => {
-        button.disabled = false;
-    });
-});
+        body: JSON.stringify({ id: button.dataset.profileId })
+      });
+      const data = await readResponse(response);
+      if (!['liked', 'unliked'].includes(data.status)) throw new Error('Unexpected like status.');
+      const liked = data.status === 'liked';
+      setLiked(liked);
+      showToast(liked ? '❤️ Liked!' : 'Like removed');
+    } catch (error) {
+      console.error('Like error:', error);
+      showToast('Unable to update like. Please try again.');
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
 
 /* ── INTEREST ACTIONS ── */
 let interestState = "none"; // none | sent | received | matched | rejected
