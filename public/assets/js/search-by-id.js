@@ -473,7 +473,7 @@ async function apiSearchById(profileId) {
     if (viewBtn) {
 
         viewBtn.href =
-            `/view-profile/${encodeURIComponent(user.id)}`;
+            `/view-profile/${encodeURIComponent(user.profile_id)}`;
     }
 
 
