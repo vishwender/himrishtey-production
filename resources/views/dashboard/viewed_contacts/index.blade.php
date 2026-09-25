@@ -24,7 +24,7 @@
             <div class="vc-image-wrap">
 
                 <img
-                    src="{{ asset($member['photo']) }}"
+                    src="{{ asset('photos/photo/' . $member['photo']) }}"
                     class="vc-image"
                     alt="{{ $member['full_name'] }}">
 
