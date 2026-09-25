@@ -413,9 +413,9 @@
 <!-- Upload Photos Modal -->
 <div id="photoUploadModal" class="photo-modal-overlay" aria-hidden="true">
 
-    <div class="photo-modal-box">
+    <div class="photo-modal-box" role="dialog" aria-modal="true" aria-labelledby="photoUploadTitle">
 
-        <button id="closePhotoModal" class="photo-close-btn" type="button">
+        <button id="closePhotoModal" class="photo-close-btn" type="button" aria-label="Close photo upload">
             <i data-lucide="x"></i>
         </button>
 
@@ -425,7 +425,7 @@
                 <i data-lucide="images"></i>
             </div>
 
-            <h2>Upload Photos</h2>
+            <h2 id="photoUploadTitle">Upload Photos</h2>
 
             <p>
                 Upload clear, recent photos to make your profile more attractive.
