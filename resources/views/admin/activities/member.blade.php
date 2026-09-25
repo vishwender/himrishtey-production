@@ -17,7 +17,7 @@
                 @if(!empty($member->photo))
 
                 <img
-                    src="{{ asset('storage/' . $member->photo) }}"
+                    src="{{ \App\Website\Services\ProfilePhotoUrl::get($member->photo) }}"
                     width="70"
                     height="70"
                     class="rounded-circle object-fit-cover me-3"

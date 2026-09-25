@@ -24,7 +24,7 @@
             <div class="vc-image-wrap">
 
                 <img
-                    src="{{ asset('photos/photo/' . $member['photo']) }}"
+                    src="{{ \App\Website\Services\ProfilePhotoUrl::get($member['photo'] ?? null) ?? asset('images/profile_photos/' . (($member['gender'] ?? null) === 'Female' ? 'girl.jpg' : 'boy.jpg')) }}"
                     class="vc-image"
                     alt="{{ $member['full_name'] }}">
 

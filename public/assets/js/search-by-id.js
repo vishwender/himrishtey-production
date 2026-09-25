@@ -269,7 +269,7 @@ async function apiSearchById(profileId) {
     if (avatar) {
         avatar.src =
             user.photo_url ||
-            'https://himrishtey.com/img/boy.jpg';
+            (user.gender === 'Female' ? '/images/profile_photos/girl.jpg' : '/images/profile_photos/boy.jpg');
 
         avatar.alt = fullName;
     }

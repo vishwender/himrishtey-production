@@ -18,7 +18,7 @@ $verified = !empty($profile['mem_type']) && $profile['mem_type'] === 'Yes';
     <div class="profile-card">
 
         <div class="profile-card-img-wrap">
-            <img src="{{ $profile['photo'] ?? 'https://picsum.photos/seed/profile/220/280' }}"
+            <img src="{{ \App\Website\Services\ProfilePhotoUrl::get($profile['photo'] ?? null) ?? asset('images/profile_photos/' . (($profile['gender'] ?? null) === 'Female' ? 'girl.jpg' : 'boy.jpg')) }}"
                 alt="{{ $profileName }}"
                 width="220"
                 height="280"

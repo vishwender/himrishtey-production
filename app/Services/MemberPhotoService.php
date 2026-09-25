@@ -356,17 +356,7 @@ class MemberPhotoService
 
         $sharedLegacyPath = 'photos/photo/' . basename($photo);
 
-        if (is_file(public_path($sharedLegacyPath))) {
-            return asset($sharedLegacyPath);
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Final Laravel storage fallback
-    |--------------------------------------------------------------------------
-    */
-
-        return Storage::disk($this->disk)->url($photo);
+        return asset($sharedLegacyPath);
     }
 
     /**
