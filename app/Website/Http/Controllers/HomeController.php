@@ -15,6 +15,7 @@ use App\Website\Models\Religion;
 use App\Website\Models\SentInterest;
 use App\Website\Models\Shortlist;
 use App\Website\Models\SuccessStory;
+use App\Website\Models\ViewedContact;
 use App\Website\Services\EmailService;
 use App\Website\Services\NimbusSmsService;
 use App\Website\Services\ProfilePhotoStorage;
@@ -153,7 +154,7 @@ class HomeController extends Controller
     //     $data['iLikes'] = ProfileLike::where('user_id', $id)->count();
     //     $data['iviewed'] = ProfileViewed::where('viewed_profile_id', $id)->count();
     //     $data['interestSent'] = SentInterest::where('member_id', $id)->count();
-    //     $data['contact'] = ProfileViewed::where('member_id', $id)->count();
+    //     $data['contact'] = ViewedContact::where('member_id', $id)->count();
 
     //     /* recent profiles */
     //     $today   = Carbon::today()->format('Y-m-d');
@@ -415,7 +416,7 @@ class HomeController extends Controller
             $id
         )->count();
 
-        $data['contact'] = ProfileViewed::where(
+        $data['contact'] = ViewedContact::where(
             'member_id',
             $id
         )->count();

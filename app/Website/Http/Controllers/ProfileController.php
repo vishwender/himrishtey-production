@@ -296,7 +296,8 @@ class ProfileController extends Controller
                 ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
                 ->where('profile_viewed.viewed_profile_id', $id)
                 ->where('members.active', 'Yes')
-                ->where('members.profile_hide', '!=', 'yes')
+                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_viewed.id', 'desc')
                 ->limit(30)
                 ->get();
@@ -311,12 +312,13 @@ class ProfileController extends Controller
                 ->limit(30)
                 ->get();
         } elseif ($profileFor == 'contacts') {
-            $recents = Member::select('members.*', 'profile_viewed.viewed_profile_id')
-                ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
-                ->where('profile_viewed.member_id', $id)
+            $recents = Member::select('members.*')
+                ->join('viewed_contacts', 'members.id', '=', 'viewed_contacts.profile_id')
+                ->where('viewed_contacts.member_id', $id)
                 ->where('members.active', 'Yes')
-                ->where('members.profile_hide', '!=', 'yes')
-                ->orderBy('profile_viewed.id', 'desc')
+                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
+                ->orderBy('viewed_contacts.id', 'desc')
                 ->limit(30)
                 ->get();
         } else {
@@ -377,7 +379,8 @@ class ProfileController extends Controller
                 ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
                 ->where('profile_viewed.viewed_profile_id', $id)
                 ->where('members.active', 'Yes')
-                ->where('members.profile_hide', '!=', 'yes')
+                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_viewed.id', 'desc')
                 ->skip($offset)
                 ->limit($limit)
@@ -393,16 +396,19 @@ class ProfileController extends Controller
                 ->skip($offset)
                 ->take($limit)
                 ->get();
-        } else {
-            $recents = Member::select('members.*', 'profile_viewed.viewed_profile_id')
-                ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
-                ->where('profile_viewed.member_id', $id)
+        } elseif ($profileFor == 'contacts') {
+            $recents = Member::select('members.*')
+                ->join('viewed_contacts', 'members.id', '=', 'viewed_contacts.profile_id')
+                ->where('viewed_contacts.member_id', $id)
                 ->where('members.active', 'Yes')
-                ->where('members.profile_hide', '!=', 'yes')
-                ->orderBy('profile_viewed.id', 'desc')
+                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
+                ->orderBy('viewed_contacts.id', 'desc')
                 ->skip($offset)
                 ->take($limit)
                 ->get();
+        } else {
+            $recents = [];
         }
 
         $users = [];

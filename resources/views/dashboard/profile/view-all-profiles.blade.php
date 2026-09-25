@@ -1,6 +1,15 @@
 @extends('layouts.dashboard')
 
-@section('title', ucfirst($profileFor) .' Profiles - Himrishtey')
+@php
+    $statsTitle = match ($profileFor) {
+        'likes' => 'Profiles you liked',
+        'contacts' => 'Contacts you viewed',
+        'profile_viewed' => 'People who viewed your profile',
+        default => ucfirst($profileFor) . ' Profiles',
+    };
+@endphp
+
+@section('title', $statsTitle . ' - Himrishtey')
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/viewed-contact.css') }}" />
@@ -11,8 +20,8 @@
 <main class="vc-main">
 
     <div class="vc-header">
-        <h1 class="vc-title">{{ $profileFor === 'likes' ? 'Profiles you liked' : ucfirst($profileFor) . ' Profiles' }}</h1>
-        <p class="vc-subtitle">{{ count($users) }} {{ ucfirst($profileFor) }} profiles</p>
+        <h1 class="vc-title">{{ $statsTitle }}</h1>
+        <p class="vc-subtitle">{{ count($users) }} profiles</p>
     </div>
 
     <div class="vc-grid">
