@@ -115,7 +115,7 @@ class MembershipController extends Controller
             'plan_id' => 'required|integer',
         ]);
 
-        $api = new Api(config('website.runtime.razorpay_key'), config('website.runtime.razorpay_secret'));
+        $api = $this->paymentApi();
 
         try {
 
@@ -217,12 +217,14 @@ class MembershipController extends Controller
                     ->update([
                         'plan_id' => $plan->id,
                         'plan_activation_date' => $activationDate,
+                        'active' => 'Yes',
                     ]);
 
                 $activated = DB::connection('site')->table('members')
                     ->where('id', $member->id)
                     ->where('plan_id', $plan->id)
                     ->whereDate('plan_activation_date', $activationDate)
+                    ->where('active', 'Yes')
                     ->exists();
 
                 if (! $activated) {
@@ -287,4 +289,9 @@ class MembershipController extends Controller
                 );
         }
     }
+    protected function paymentApi(): Api
+    {
+        return new Api(config('website.runtime.razorpay_key'), config('website.runtime.razorpay_secret'));
+    }
+
 }
