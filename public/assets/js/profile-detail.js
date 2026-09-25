@@ -969,44 +969,36 @@ function submitReport(btn) {
 
 /* ── SHARE ── */
 document.getElementById("shareBtn")?.addEventListener("click", shareProfile);
+const profileShareDialog = document.getElementById("profileShareDialog");
+profileShareDialog?.addEventListener("close", () => document.body.classList.remove("pd-sharing"));
+profileShareDialog?.addEventListener("click", (event) => {
+    const bounds = profileShareDialog.getBoundingClientRect();
+    if (event.target === profileShareDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) {
+        profileShareDialog.close();
+    }
+});
 
 function shareProfile() {
     const btn = document.getElementById("shareBtn");
 
     if (!btn) return;
 
-    const name = btn.dataset.name || "HimRishtey Profile";
-    const age = btn.dataset.age || "";
-    const profession = btn.dataset.profession || "";
-    const location = btn.dataset.location || "";
+    const url = btn.dataset.url;
+    if (!url) return;
 
-    const details = [
-        name,
-        age ? `${age} yrs` : "",
-        profession,
-        location
-    ].filter(Boolean).join(" | ");
-
-    const shareData = {
-        title: `${name} – HimRishtey`,
-        text: details,
-        url: window.location.href
-    };
-
-    if (navigator.share) {
-        navigator.share(shareData).catch((error) => {
-            // User cancelled the share dialog
-            if (error.name !== "AbortError") {
-                console.error("Share failed:", error);
-            }
-        });
-    } else {
-        copyProfileLink();
-    }
+    const dialog = document.getElementById("profileShareDialog");
+    document.getElementById("profileShareUrl").value = url;
+    document.getElementById("profileSharePreview").href = url;
+    document.getElementById("profileShareWhatsApp").href =
+        `https://wa.me/?text=${encodeURIComponent(whatsAppProfileText(btn))}`;
+    document.getElementById("profileShareStatus").textContent = "";
+    dialog.showModal();
+    document.body.classList.add("pd-sharing");
 }
 
 function copyProfileLink() {
-    const url = window.location.href;
+    const url = document.getElementById("shareBtn")?.dataset.url;
+    if (!url) return;
 
     if (navigator.clipboard) {
         navigator.clipboard.writeText(url)
@@ -1028,64 +1020,22 @@ function fallbackCopy(text) {
     textarea.style.position = "fixed";
     textarea.style.opacity = "0";
 
-    document.body.appendChild(textarea);
+    (document.getElementById("profileShareDialog") || document.body).appendChild(textarea);
     textarea.select();
 
     try {
-        document.execCommand("copy");
+        if (!document.execCommand("copy")) throw new Error("Copy unavailable");
         showToast("🔗 Profile link copied!");
     } catch (error) {
-        console.error("Unable to copy profile link:", error);
+        document.getElementById("profileShareUrl")?.select();
+        showToast("Select and copy the shareable link above.");
     }
 
     textarea.remove();
 }
 
 function whatsAppProfileText(btn) {
-    const d = btn.dataset;
-
-    return [
-        `Image : ${d.image || ""}`,
-        `*${d.name || "HimRishtey Profile"}*`,
-        `Created by ${d.created || "Self"}`,
-        `${d.age || ""} years`,
-        `Profile id - ${d.profile || ""}`,
-        d.religion || "",
-        d.caste || "",
-        [d.city, d.state].filter(Boolean).join(", "),
-        `About : ${d.about_me || ""}`,
-        `Community : ${d.caste || ""}`,
-        `Sub Community : ${d.subCommunity || "N/A"}`,
-        `Gotra : ${d.gotra || ""}`,
-        `Native Place : ${d.nativePlace || ""}`,
-        `Education : ${d.education || ""}`,
-        `Other qualification : ${d.qualification || ""}`,
-        `Employed in : ${d.employed || ""}`,
-        `Occupation : ${d.occupation || ""}`,
-        `Currently Working: ${d.organization_name || ""}`,
-        `Family Type: ${d.family_type || ""}`,
-        `Father Occupation: ${d.father_occupation || ""}`,
-        `Mother Occupation : ${d.mother_occupation || ""}`,
-        `Brother : ${d.no_of_brothers || ""}`,
-        `Married Brother : ${d.married_brothers || ""}`,
-        `Sister : ${d.no_of_sisters || ""}`,
-        `Married Sisters : ${d.married_sisters || ""}`,
-        `Diet : ${d.diet || ""}`,
-        `Smoking : ${d.is_smoking || ""}`,
-        `Drinking : ${d.is_drinking || ""}`,
-        `Any disability : ${d.any_disability || ""}`,
-
-        "",
-        `*Partner Preferences*`,
-        `Height :${d.partner_height_from || ""} - ${d.partner_height_to || ""}`,
-        `Age : ${d.partner_age_from || ""} - ${d.partner_age_to || ""}`,
-        `Marital status : ${d.looking_for || ""}`,
-        `Religion & Mother tongue : ${d.partner_religion || ""} | ${d.partner_mothertongue || ""}`,
-        `Is Manglik : ${d.is_partner_manglik || ""}`,
-        `Highest Qualification : ${d.partner_education || ""}`,
-        `Partner Occupation : ${d.partner_occupation || "N/A"}`,
-        `Annual Income(in Lacs) : ${d.partner_annual_income_from || ""} - ${d.partner_annual_income_to || ""}`,
-    ].join("\n");
+    return btn.dataset.shareText || "";
 }
 
 function shareToWhatsApp(btn) {
@@ -1096,6 +1046,9 @@ function shareToWhatsApp(btn) {
 /* ── TOAST ── */
 let toastTimer;
 function showToast(message) {
+  if (document.getElementById("profileShareDialog")?.open) {
+    document.getElementById("profileShareStatus").textContent = message;
+  }
   const toast = document.getElementById("pdToast");
   if (!toast) return;
   clearTimeout(toastTimer);

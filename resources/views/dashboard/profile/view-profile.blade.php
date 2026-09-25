@@ -7,6 +7,10 @@
 @endsection
 
 @section('content')
+@php
+$publicShareUrl = route('profile.share-preview', $usr->profile_id);
+$publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicShareUrl);
+@endphp
 <!-- ===================== HERO / PHOTO CAROUSEL ===================== -->
 <section class="pd-hero">
 
@@ -616,85 +620,14 @@
 
                 <div class="pd-action-divider"></div>
 
-                <button class="pd-btn-share-profile"
+                <button type="button" id="shareBtn" class="pd-btn-share-profile"
 
-                    data-name="{{ $usr->full_name }}"
-                    data-created="{{ $usr->profile_created_for }}"
-                    data-age="{{ $usr->age_years }}"
-                    data-height="{{ $usr->height }}"
-                    data-profile="{{ $usr->profile_id }}"
-                    data-religion="{{ $usr->religion }}"
-                    data-caste="{{ $usr->cast }}"
-                    data-city="{{ $usr->city_living_in }}"
-                    data-state="{{ $usr->state_living_in }}"
-                    data-about="{{ strip_tags($usr->about_me ?? '') }}"
-                    data-url="{{ route('view-profile',$usr->profile_id) }}" onclick="shareProfile()">
+                    data-url="{{ $publicShareUrl }}"
+                    data-share-text="{{ $publicShareText }}">
                     <i data-lucide="share-2" width="16" height="16"></i>
                     Share Profile
                 </button>
-                <button
-                    class="pd-btn-whatsapp"
-                    data-image="{{ !empty($usr->photo)
-    ? (filter_var($usr->photo, FILTER_VALIDATE_URL)
-        ? $usr->photo
-        : asset('photos/photo/' . ltrim($usr->photo, '/')))
-    : ''
-}}"
-                    data-name="{{ $usr->full_name ?? '' }}"
-                    data-created="{{ $usr->profile_created_for ?? '' }}"
-                    data-age="{{ $usr->age_years ?? '' }}"
-                    data-profile="{{ $usr->profile_id ?? '' }}"
-                    data-religion="{{ $usr->religion ?? '' }}"
-                    data-caste="{{ $usr->cast ?? '' }}"
-                    data-city="{{ $usr->city_living_in ?? '' }}"
-                    data-state="{{ $usr->state_living_in ?? '' }}"
-                    data-about_me="{{ strip_tags($usr->about_me ?? '') }}"
 
-                    data-sub-community="{{ $usr->sub_cast ?? '' }}"
-                    data-gotra="{{ $usr->gotra ?? '' }}"
-                    data-native-place="{{ $usr->native_place ?? '' }}"
-                    data-education="{{ $usr->education ?? '' }}"
-                    data-qualification="{{ $usr->any_other_qualifications ?? '' }}"
-                    data-employed="{{ $usr->employed_in ?? '' }}"
-                    data-occupation="{{ $usr->occupation ?? '' }}"
-
-                    data-organization_name="{{ $usr->organization_name ?? '' }}"
-                    data-family_type="{{ $usr->family_type ?? '' }}"
-                    data-father_occupation="{{ $usr->father_occupation ?? '' }}"
-                    data-mother_occupation="{{ $usr->mother_occupation ?? '' }}"
-                    data-no_of_brothers="{{ $usr->no_of_brothers ?? '' }}"
-                    data-married_brothers="{{ $usr->married_brothers ?? '' }}"
-                    data-no_of_sisters="{{ $usr->no_of_sisters ?? '' }}"
-                    data-married_sisters="{{ $usr->married_sisters ?? '' }}"
-                    data-diet="{{ $usr->diet ?? '' }}"
-                    data-is_smoking="{{ $usr->is_smoking ?? '' }}"
-                    data-is_drinking="{{ $usr->is_drinking ?? '' }}"
-                    data-any_disability="{{ $usr->any_disability ?? '' }}"
-                    data-partner_height_from="{{ $usr->partner_height_from ?? '' }}"
-                    data-partner_height_to="{{ $usr->partner_height_to ?? '' }}"
-                    data-partner_age_from="{{ $usr->partner_age_from ?? '' }}"
-                    data-partner_age_to="{{ $usr->partner_age_to ?? '' }}"
-                    data-looking_for="{{ $usr->looking_for ?? '' }}"
-                    data-partner_religion="{{ $usr->partner_religion ?? '' }}"
-                    data-partner_mothertongue="{{ $usr->partner_mothertongue ?? '' }}"
-                    data-is_partner_manglik="{{ $usr->is_partner_manglik ?? '' }}"
-                    data-partner_education="{{ $usr->partner_education ?? '' }}"
-                    data-partner_occupation="{{ $usr->partner_occupation ?? '' }}"
-                    data-partner_annual_income_from="{{ $usr->partner_annual_income_from ?? '' }}"
-                    data-partner_annual_income_to="{{ $usr->partner_annual_income_to ?? '' }}"
-
-                    onclick="shareToWhatsApp(this)">
-                    <svg
-                        width="17"
-                        height="17"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                    </svg>
-
-                    Share via WhatsApp
-                </button>
             </div>
             @if($usr->is_free_member)
             <!-- Upgrade card (shown when plan not active) -->
@@ -716,6 +649,31 @@
 </div>
 
 <!-- ===================== GALLERY LIGHTBOX ===================== -->
+<dialog id="profileShareDialog" class="pd-share-dialog" aria-labelledby="profileShareTitle" aria-describedby="profileShareDescription">
+    <div class="pd-share-heading">
+        <span class="pd-share-symbol"><i data-lucide="share-2" aria-hidden="true"></i></span>
+        <form method="dialog"><button class="pd-share-close" aria-label="Close share dialog"><i data-lucide="x" aria-hidden="true"></i></button></form>
+    </div>
+    <h2 id="profileShareTitle">Share this profile</h2>
+    <p id="profileShareDescription">A thoughtful introduction could be the start of something special.</p>
+    <div class="pd-share-member">
+        <img src="{{ $usr->photo }}" alt="" width="56" height="56">
+        <div><strong>{{ $usr->full_name }}</strong><span>{{ $usr->profile_id }} · {{ $usr->city_living_in }}</span></div>
+    </div>
+    <label for="profileShareUrl">Profile link</label>
+    <div class="pd-share-link-row">
+        <input id="profileShareUrl" type="url" readonly onclick="this.select()">
+        <button type="button" class="pd-share-copy" onclick="copyProfileLink()"><i data-lucide="copy" width="16" aria-hidden="true"></i> Copy link</button>
+    </div>
+    <p class="pd-share-hint">Anyone with this link can view the profile preview.</p>
+    <div class="pd-share-actions">
+        <a id="profileShareWhatsApp" class="pd-share-whatsapp" target="_blank" rel="noopener noreferrer"><i data-lucide="message-circle" width="18" aria-hidden="true"></i> Share via WhatsApp</a>
+        <a id="profileSharePreview" class="pd-share-preview" target="_blank" rel="noopener noreferrer">Open preview <i data-lucide="external-link" width="16" aria-hidden="true"></i></a>
+    </div>
+    <p class="pd-share-hint">WhatsApp includes the full profile summary and preview link.</p>
+    <p id="profileShareStatus" role="status" aria-live="polite"></p>
+</dialog>
+
 <div class="pd-gallery-overlay" id="galleryOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Profile Gallery">
     <div class="pd-gallery-modal {{ $galleryPhotos->count() === 1 ? 'pd-gallery-modal-single' : '' }}">
         <button class="pd-gallery-close" id="galleryClose" aria-label="Close gallery">

@@ -30,6 +30,9 @@ class ProfileShareController extends Controller
             ->filter()->implode(' · ');
 
         return response()->view('dashboard.profile.share-preview', [
+            'sections' => \App\Website\Services\ProfileShareData::sections($profile),
+            'shareText' => \App\Website\Services\ProfileShareData::text($profile, route('profile.share-preview', $profile->profile_id)),
+            'profileId' => $profile->profile_id,
             'name' => $profile->full_name,
             'photo' => $photo,
             'description' => $description,
