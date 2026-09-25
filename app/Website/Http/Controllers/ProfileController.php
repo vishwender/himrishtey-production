@@ -302,10 +302,11 @@ class ProfileController extends Controller
                 ->get();
         } elseif ($profileFor == 'likes') {
             $recents = Member::select('members.*', 'profile_like.like_profile_id')
-                ->join('profile_like', 'members.id', '=', 'profile_like.user_id')
-                ->where('profile_like.like_profile_id', $id)
+                ->join('profile_like', 'members.id', '=', 'profile_like.like_profile_id')
+                ->where('profile_like.user_id', $id)
                 ->where('members.active', 'Yes')
-                ->where('members.profile_hide', '!=', 'yes')
+                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_like.id', 'desc')
                 ->limit(30)
                 ->get();
@@ -383,10 +384,11 @@ class ProfileController extends Controller
                 ->get();
         } elseif ($profileFor == 'likes') {
             $recents = Member::select('members.*', 'profile_like.like_profile_id')
-                ->join('profile_like', 'members.id', '=', 'profile_like.user_id')
-                ->where('profile_like.like_profile_id', $id)
+                ->join('profile_like', 'members.id', '=', 'profile_like.like_profile_id')
+                ->where('profile_like.user_id', $id)
                 ->where('members.active', 'Yes')
-                ->where('members.profile_hide', '!=', 'yes')
+                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_like.id', 'desc')
                 ->skip($offset)
                 ->take($limit)

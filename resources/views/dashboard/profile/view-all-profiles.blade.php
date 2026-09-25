@@ -11,13 +11,13 @@
 <main class="vc-main">
 
     <div class="vc-header">
-        <h1 class="vc-title">{{ ucfirst($profileFor) }} Profiles</h1>
+        <h1 class="vc-title">{{ $profileFor === 'likes' ? 'Profiles you liked' : ucfirst($profileFor) . ' Profiles' }}</h1>
         <p class="vc-subtitle">{{ count($users) }} {{ ucfirst($profileFor) }} profiles</p>
     </div>
 
     <div class="vc-grid">
 
-        @foreach($users as $member)
+        @forelse($users as $member)
 
         <a href="{{ route('view-profile', $member['profile_id']) }}" class="vc-card">
 
@@ -78,7 +78,12 @@
 
         </a>
 
-        @endforeach
+        @empty
+        <div class="vc-empty" role="status">
+            <h2>{{ $profileFor === 'likes' ? 'No liked profiles to show yet' : 'No profiles to show yet' }}</h2>
+            <p>{{ $profileFor === 'likes' ? 'Profiles you like will appear here while they are active and visible.' : 'Check back later for more profiles.' }}</p>
+        </div>
+        @endforelse
 
     </div>
 
