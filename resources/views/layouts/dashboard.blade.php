@@ -259,6 +259,15 @@
     const uploadProfilePhotosUrl = "{{ route('profile.photo.update') }}";
   </script>
   <script src="{{ asset('assets/js/profile-photo.js') }}"></script>
+  <script>
+    window.profileCardActionsConfig = {
+      like: @json(route('like-profile')),
+      shortlist: @json(route('short-profile')),
+      checkLike: @json(url('check-profile-like/__ID__')),
+      checkShortlist: @json(route('check-shortlist'))
+    };
+  </script>
+  <script src="{{ asset('assets/js/profile-card-actions.js') }}?v={{ filemtime(public_path('assets/js/profile-card-actions.js')) }}"></script>
   @yield('scripts')
 </body>
 

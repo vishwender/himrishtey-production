@@ -299,8 +299,9 @@ function initProfileLike() {
   };
 
   const readResponse = async (response) => {
-    if (!response.ok) throw new Error('Unable to update like status.');
-    return response.json();
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Unable to update like status.');
+    return data;
   };
 
   button.disabled = true;
@@ -333,7 +334,7 @@ function initProfileLike() {
       showToast(liked ? '❤️ Liked!' : 'Like removed');
     } catch (error) {
       console.error('Like error:', error);
-      showToast('Unable to update like. Please try again.');
+      showToast(error.message || 'Unable to update like. Please try again.');
     } finally {
       button.disabled = false;
     }

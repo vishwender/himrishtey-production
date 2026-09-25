@@ -172,6 +172,8 @@ function getKey(mode, tab) {
       '</div>' +
       actionBtns;
 
+    window.mountProfileCardActions(article, profile.id);
+
     /* Card click → profile detail */
     article.addEventListener('click', function (e) {
       if (e.target.closest('.int-action-btn')) return; // let button handle

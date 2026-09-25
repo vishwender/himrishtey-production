@@ -2062,3 +2062,12 @@ body.search-modal-open { overflow: hidden; }
     width: 100%;
   }
 }
+
+/* Saved actions remain visible on touch screens as well as desktop. */
+.profile-card-actions-live { opacity: 1; transform: none; }
+.profile-card-actions-live .pca-btn { background: var(--color-surface); color: var(--color-text); }
+.profile-card-actions-live .pca-btn.is-selected { color: var(--color-primary); }
+.profile-card-actions-live .pca-btn.is-selected svg { fill: currentColor; }
+.profile-card-actions-live .pca-btn:disabled { cursor: default; }
+.profile-card-actions-live .pca-btn:disabled:not(.is-selected) { opacity: .6; }
+.profile-card-actions-live .pca-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }

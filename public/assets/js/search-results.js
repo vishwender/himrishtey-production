@@ -148,14 +148,6 @@
       '<div class="profile-card-img-wrap">' +
         '<img src="' + imgUrl + '" alt="' + profile.name + ', ' + profile.age + '" width="220" height="280" loading="lazy" class="profile-card-img" />' +
         badges +
-        '<div class="profile-card-actions">' +
-          '<button class="pca-btn like" aria-label="Like ' + profile.name + '">' +
-            '<i data-lucide="heart" width="16" height="16"></i>' +
-          '</button>' +
-          '<button class="pca-btn interest" aria-label="Send interest to ' + profile.name + '">' +
-            '<i data-lucide="user-plus" width="16" height="16"></i>' +
-          '</button>' +
-        '</div>' +
       '</div>' +
       '<div class="profile-card-body">' +
         '<h3 class="profile-card-name">' + profile.name + verifiedIcon + '</h3>' +
@@ -173,21 +165,7 @@
       photoImage.src = window.profilePhotoUrl(null, profile.gender);
     }, { once: true });
 
-    /* Like toggle */
-    const likeBtn = article.querySelector('.pca-btn.like');
-    likeBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      likeBtn.classList.toggle('active');
-      const icon = likeBtn.querySelector('svg');
-      if (icon) icon.style.fill = likeBtn.classList.contains('active') ? 'var(--color-primary)' : 'none';
-    });
-
-    /* Interest toggle */
-    const intBtn = article.querySelector('.pca-btn.interest');
-    intBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      intBtn.classList.toggle('active');
-    });
+    window.mountProfileCardActions(article, profile.id);
 
     /* Card click → profile detail */
     article.addEventListener('click', function () {
@@ -195,7 +173,7 @@
     });
 
     article.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
+      if (e.target === article && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         window.location.href = '/view-profile/' + profile.profile_id;
       }

@@ -12,18 +12,19 @@ $education = $profile['education'] ?? null;
 $verified = !empty($profile['mem_type']) && $profile['mem_type'] === 'Yes';
 @endphp
 
-<a href="{{ route('view-profile', $profile['profile_id']) }}"
-    class="profile-card-link">
+<div class="profile-card-link" data-profile-card-id="{{ $profile['id'] }}">
 
     <div class="profile-card">
 
         <div class="profile-card-img-wrap">
+            <a href="{{ route('view-profile', $profile['profile_id']) }}" aria-label="View {{ $profileName }} profile">
             <img src="{{ \App\Website\Services\ProfilePhotoUrl::get($profile['photo'] ?? null) ?? asset('images/profile_photos/' . (($profile['gender'] ?? null) === 'Female' ? 'girl.jpg' : 'boy.jpg')) }}"
                 alt="{{ $profileName }}"
                 width="220"
                 height="280"
                 loading="lazy"
                 class="profile-card-img" />
+            </a>
 
             @if($verified)
             <span class="profile-card-verified-badge">
@@ -36,7 +37,7 @@ $verified = !empty($profile['mem_type']) && $profile['mem_type'] === 'Yes';
         <div class="profile-card-body">
 
             <h3 class="profile-card-name">
-                {{ $profileName }}
+                <a href="{{ route('view-profile', $profile['profile_id']) }}">{{ $profileName }}</a>
 
                 @if($verified)
                 <i data-lucide="shield-check" width="13" height="13" class="verified-icon"></i>
@@ -83,4 +84,4 @@ $verified = !empty($profile['mem_type']) && $profile['mem_type'] === 'Yes';
 
     </div>
 
-</a>
+</div>

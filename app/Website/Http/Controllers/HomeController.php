@@ -2453,6 +2453,14 @@ class HomeController extends Controller
     {
         $member = Auth::guard('member')->user();
 
+        $active = Member::whereKey($member->id)->value('active');
+        if (strtolower(trim((string) $active)) !== 'yes') {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Active membership required to like profiles.',
+            ], 403);
+        }
+
         $profile_id = $request->input('id');
         // dd($profile_id);
         $member_id = $member->id;
