@@ -3,7 +3,7 @@
 @section('title', 'Change Password')
 
 @section('styles')
-<link rel="stylesheet" href="{{asset('assets/css/change-password.css')}}" />
+<link rel="stylesheet" href="{{ asset('assets/css/change-password.css') }}?v={{ filemtime(public_path('assets/css/change-password.css')) }}" />
 @endsection
 
 @section('content')
@@ -17,13 +17,13 @@
             <p>Update your account password to keep your account secure.</p>
         </div>
 
-        <form id="changePasswordForm">
+        <form id="changePasswordForm" action="{{ route('update-password') }}" method="POST">
 
             @csrf
 
             <div class="mb-4">
 
-                <label class="form-label">
+                <label class="form-label" for="current_password">
                     Current Password
                 </label>
 
@@ -31,13 +31,13 @@
 
                     <input
                         type="password"
-                        name="current_password"
+                        name="current_password" id="current_password" autocomplete="current-password" required
                         class="form-control"
                         placeholder="Enter current password">
 
-                    <span class="toggle-password">
-                        <i class="bi bi-eye"></i>
-                    </span>
+                    <button type="button" class="toggle-password" aria-label="Show password" aria-pressed="false">
+                        <i data-lucide="eye" width="20" height="20" aria-hidden="true"></i>
+                    </button>
 
                 </div>
 
@@ -47,7 +47,7 @@
 
             <div class="mb-4">
 
-                <label class="form-label">
+                <label class="form-label" for="new_password">
                     New Password
                 </label>
 
@@ -55,13 +55,13 @@
 
                     <input
                         type="password"
-                        name="new_password"
+                        name="new_password" id="new_password" autocomplete="new-password" required
                         class="form-control"
                         placeholder="Enter new password">
 
-                    <span class="toggle-password">
-                        <i class="bi bi-eye"></i>
-                    </span>
+                    <button type="button" class="toggle-password" aria-label="Show password" aria-pressed="false">
+                        <i data-lucide="eye" width="20" height="20" aria-hidden="true"></i>
+                    </button>
 
                 </div>
 
@@ -71,7 +71,7 @@
 
             <div class="mb-4">
 
-                <label class="form-label">
+                <label class="form-label" for="new_password_confirmation">
                     Confirm Password
                 </label>
 
@@ -79,13 +79,13 @@
 
                     <input
                         type="password"
-                        name="new_password_confirmation"
+                        name="new_password_confirmation" id="new_password_confirmation" autocomplete="new-password" required
                         class="form-control"
                         placeholder="Confirm new password">
 
-                    <span class="toggle-password">
-                        <i class="bi bi-eye"></i>
-                    </span>
+                    <button type="button" class="toggle-password" aria-label="Show password" aria-pressed="false">
+                        <i data-lucide="eye" width="20" height="20" aria-hidden="true"></i>
+                    </button>
 
                 </div>
 
@@ -98,7 +98,7 @@
         </form>
 
     </div>
-    <div id="epSuccessToast" class="ep-toast">
+    <div id="epSuccessToast" class="ep-toast" role="status" aria-live="polite">
         <span id="epToastMsg"></span>
     </div>
 
@@ -106,5 +106,5 @@
 
 @endsection
 @section('scripts')
-<script src="{{ asset('assets/js/change-password.js') }}"></script>
+<script src="{{ asset('assets/js/change-password.js') }}?v={{ filemtime(public_path('assets/js/change-password.js')) }}"></script>
 @endsection

@@ -2,6 +2,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const form = document.getElementById('changePasswordForm');
 
+        form.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const input = toggle.parentElement.querySelector('input');
+                const visible = input.type === 'password';
+                input.type = visible ? 'text' : 'password';
+                toggle.setAttribute('aria-pressed', String(visible));
+                toggle.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+            });
+        });
+
         form.addEventListener('submit', async function(e) {
 
             e.preventDefault();
@@ -20,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
 
-                const response = await fetch("{{ route('update-password') }}", {
+                const response = await fetch(form.action, {
 
                     method: "POST",
 
@@ -88,8 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             msgEl.textContent = message;
             toast.style.background = isError ?
-                'var(--color-error, #a12c7b)' :
-                'var(--color-text)';
+                'var(--color-error)' :
+                'var(--color-surface)';
+            toast.style.color = isError ? '#fff' : 'var(--color-text)';
 
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3500);
