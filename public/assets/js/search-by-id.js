@@ -222,7 +222,7 @@ async function apiSearchById(profileId) {
 
     const profileId = user.profile_id || '';
 
-    const fullName = [
+    const fullName = user.full_name || [
         user.first_name,
         user.last_name
     ].filter(Boolean).join(' ') || 'Member';
@@ -267,9 +267,11 @@ async function apiSearchById(profileId) {
     const avatar = document.getElementById('resultAvatar');
 
     if (avatar) {
-        avatar.src =
-            user.photo_url ||
-            (user.gender === 'Female' ? '/images/profile_photos/girl.jpg' : '/images/profile_photos/boy.jpg');
+        avatar.onerror = function () {
+            avatar.onerror = null;
+            avatar.src = window.profilePhotoUrl(null, user.gender);
+        };
+        avatar.src = window.profilePhotoUrl(user.photo_url, user.gender);
 
         avatar.alt = fullName;
     }

@@ -181,5 +181,5 @@
 
 @section('scripts')
 <!-- Page JS -->
-<script src="{{ asset('assets/js/search-by-id.js') }}"></script>
+<script src="{{ asset('assets/js/search-by-id.js') }}?v={{ filemtime(public_path('assets/js/search-by-id.js')) }}"></script>
 @endsection

@@ -1224,7 +1224,7 @@ class HomeController extends Controller
 
             $photoUrl =
                 ProfilePhotoUrl::get($profile->photo);
-        } elseif ($profile->gender === 'Male') {
+        } elseif (strtolower(trim((string) $profile->gender)) !== 'female') {
 
             $photoUrl =
                 '/images/profile_photos/boy.jpg';
@@ -1247,6 +1247,7 @@ class HomeController extends Controller
                 'id' => $profile->id,
                 'profile_id' => $profile->profile_id,
 
+                'full_name' => $profile->full_name,
                 'first_name' => $profile->first_name,
                 'last_name' => $profile->last_name,
 
