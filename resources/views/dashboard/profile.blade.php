@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard - HimRishtey')
+@section('title', 'Dashboard - ' . $siteName)
 
 @section('content')
 

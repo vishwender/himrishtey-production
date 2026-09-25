@@ -1,13 +1,13 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Rate Us - HimRishtey')
+@section('title', 'Rate Us - ' . $siteName)
 
 @section('content')
 <section class="container py-4">
     <div class="card shadow-sm mx-auto" style="max-width: 680px;">
         <div class="card-body p-4">
             <h1 class="h3 mb-2">Rate your experience</h1>
-            <p class="text-muted">Your feedback helps us improve HimRishtey.</p>
+            <p class="text-muted">Your feedback helps us improve {{ $siteName }}.</p>
             <form id="rating-form">
                 @csrf
                 <div class="mb-3">

@@ -530,7 +530,7 @@
                         <div class="plan-description">
                             Enjoy premium membership features and
                             connect with more suitable profiles on
-                            Himrishtey.
+                            {{ $siteName }}.
                         </div>
 
                         @endif
@@ -694,7 +694,7 @@
 
             currency: "INR",
 
-            name: "Himrishtey",
+            name: @js($siteName),
 
             description: "{{ $plan->name }}",
 

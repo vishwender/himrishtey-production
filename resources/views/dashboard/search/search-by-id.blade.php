@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Search By Profile Id - HimRishtey')
+@section('title', 'Search By Profile Id - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/search-by-id.css') }}?v={{ filemtime(public_path('assets/css/search-by-id.css')) }}" />
@@ -18,7 +18,7 @@
             </div>
             <div>
                 <h1 class="sbid-page-title">Search by Profile ID</h1>
-                <p class="sbid-page-subtitle">Enter a HimRishtey profile ID to find a specific member</p>
+                <p class="sbid-page-subtitle">Enter a {{ $siteName }} profile ID to find a specific member</p>
             </div>
         </div>
 

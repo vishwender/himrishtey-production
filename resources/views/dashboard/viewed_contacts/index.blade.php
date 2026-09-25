@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Viewed Contact - Himrishtey')
+@section('title', 'Viewed Contact - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/viewed-contact.css') }}" />

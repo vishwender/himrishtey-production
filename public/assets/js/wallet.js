@@ -307,7 +307,7 @@ async function handleAddMoney(plan) {
 
             currency: data.currency,
 
-            name: 'HimRishtey',
+            name: document.querySelector('meta[name="site-name"]')?.content || window.location.hostname,
 
             description: 'Wallet Recharge',
 
@@ -541,7 +541,7 @@ async function verifyWalletPayment(razorpayResponse,amount)
 
             currency: data.currency,
 
-            name: 'HimRishtey',
+            name: document.querySelector('meta[name="site-name"]')?.content || window.location.hostname,
 
             description: data.description,
 

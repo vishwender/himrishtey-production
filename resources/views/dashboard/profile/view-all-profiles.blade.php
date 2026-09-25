@@ -9,7 +9,7 @@
     };
 @endphp
 
-@section('title', $statsTitle . ' - Himrishtey')
+@section('title', $statsTitle . ' - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/viewed-contact.css') }}" />

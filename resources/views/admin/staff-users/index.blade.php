@@ -18,7 +18,7 @@
             </h1>
 
             <p class="text-muted mb-0">
-                Manage HimRishtey staff accounts, roles and site access.
+                Manage {{ config('app.name') }} staff accounts, roles and site access.
             </p>
         </div>
 

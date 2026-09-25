@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Payment Successful | Himrishtey</title>
+    <title>Payment Successful | {{ $siteName }}</title>
     <script>try { document.documentElement.dataset.theme = localStorage.getItem('hr-theme') || 'light'; } catch (e) {}</script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -324,7 +324,7 @@
 
         <!-- Brand -->
         <div class="brand">
-            <div class="brand-name">Himrishtey</div>
+            <div class="brand-name">{{ $siteName }}</div>
             <div class="brand-tagline">
                 Find your perfect connection
             </div>
@@ -348,7 +348,7 @@
             </h1>
 
             <p class="success-message">
-                Thank you for upgrading your Himrishtey membership.
+                Thank you for upgrading your {{ $siteName }} membership.
                 Your payment has been successfully processed and your
                 membership is now active.
             </p>
@@ -382,7 +382,7 @@
             <div class="help-text">
                 Your payment receipt and membership details have been recorded.
                 <br>
-                <strong>Thank you for choosing Himrishtey.</strong>
+                <strong>Thank you for choosing {{ $siteName }}.</strong>
             </div>
 
         </div>

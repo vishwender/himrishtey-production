@@ -54,7 +54,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
         <aside class="sidebar" id="adminSidebar">
 
             <div class="brand">
-                {{ $currentSite?->name ?? 'HimRishtey' }} Admin
+                {{ $currentSite?->name ?? config('app.name') }} Admin
             </div>
 
 

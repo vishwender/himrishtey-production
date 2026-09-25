@@ -31,10 +31,12 @@ $contactAddress = $siteKey === 'himrishtey.com'
                 <span class="contact-method-icon"><i data-lucide="phone" width="21" height="21" aria-hidden="true"></i></span>
                 <span><small>Call our helpline</small><strong>{{ $siteSupportPhone ?: '+91 9459170004' }}</strong></span>
             </a>
-            <a class="contact-method" href="mailto:{{ $siteSupportEmail ?: 'himrishtey@gmail.com' }}">
+            @if ($siteSupportEmail)
+            <a class="contact-method" href="mailto:{{ $siteSupportEmail }}">
                 <span class="contact-method-icon"><i data-lucide="mail" width="21" height="21" aria-hidden="true"></i></span>
-                <span><small>Email support</small><strong>{{ $siteSupportEmail ?: 'himrishtey@gmail.com' }}</strong></span>
+                <span><small>Email support</small><strong>{{ $siteSupportEmail }}</strong></span>
             </a>
+            @endif
             @if ($contactAddress)
             <a class="contact-method contact-method-address" href="https://www.google.com/maps/search/?api=1&amp;query={{ urlencode(str_replace("\n", ', ', $contactAddress)) }}" target="_blank" rel="noopener noreferrer">
                 <span class="contact-method-icon"><i data-lucide="map-pin" width="21" height="21" aria-hidden="true"></i></span>

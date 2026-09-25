@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Profile Detail – HimRishtey')
+@section('title', 'Profile Detail – ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/profile-detail.css') }}?v={{ filemtime(public_path('assets/css/profile-detail.css')) }}">

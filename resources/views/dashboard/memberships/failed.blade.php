@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Payment Failed | Himrishtey</title>
+    <title>Payment Failed | {{ $siteName }}</title>
     <script>try { document.documentElement.dataset.theme = localStorage.getItem('hr-theme') || 'light'; } catch (e) {}</script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -373,7 +373,7 @@
         <div class="brand">
 
             <div class="brand-name">
-                Himrishtey
+                {{ $siteName }}
             </div>
 
             <div class="brand-tagline">

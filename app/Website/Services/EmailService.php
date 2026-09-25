@@ -14,7 +14,7 @@ class EmailService
         $details = [
             'name' => $member->full_name,
 
-            'message' => 'Thanks for register with HimRishtey. Please complete your registeration and find out perfect match for you',
+            'message' => 'Thank you for registering with '.config('site.current.display_name', config('app.name')).'. Complete your profile to find your perfect match.',
         ];
 
         // Mail::to($email)->send(new RegisterEmail($details));
@@ -24,11 +24,11 @@ class EmailService
     public function interestEmail($member)
     {
         if ($member['status'] == 0) {
-            $message = 'Dear user, You have got interest from a new '.$member['from_profile_id'].',Please check your account : HIMRMB';
+            $message = 'Dear user, You have got interest from a new '.$member['from_profile_id'].',Please check your account: '.config('site.current.display_name', config('app.name'));
         } elseif ($member['status'] == 1) {
-            $message = 'Dear user, Your interest has been accepted by '.$member['from_profile_id'].' Please check your account : HIMRMB';
+            $message = 'Dear user, Your interest has been accepted by '.$member['from_profile_id'].' Please check your account: '.config('site.current.display_name', config('app.name'));
         } elseif ($member['status'] == 2) {
-            $message = 'Dear user, Your interest has been rejected by '.$member['from_profile_id'].' Please check your account : HIMRMB';
+            $message = 'Dear user, Your interest has been rejected by '.$member['from_profile_id'].' Please check your account: '.config('site.current.display_name', config('app.name'));
         } else {
             $message = '';
         }
@@ -42,7 +42,7 @@ class EmailService
 
     public function viewProfile($member, $user)
     {
-        $message = ''.$user->profile_id.' Viewed Your Profile, Please check your account : HIMRMB';
+        $message = ''.$user->profile_id.' Viewed Your Profile, Please check your account: '.config('site.current.display_name', config('app.name'));
         $details = [
             'name' => $member->full_name,
             'message' => $message,
@@ -53,7 +53,7 @@ class EmailService
 
     public function shortlist($member, $user)
     {
-        $message = ''.$user->profile_id.' Shortlist Your Profile, Please check your account : HIMRMB';
+        $message = ''.$user->profile_id.' Shortlist Your Profile, Please check your account: '.config('site.current.display_name', config('app.name'));
         $details = [
             'name' => $member->full_name,
             'message' => $message,

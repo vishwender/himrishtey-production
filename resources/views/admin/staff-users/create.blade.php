@@ -12,7 +12,7 @@
         <div>
             <h1 class="mb-1">Add Staff User</h1>
             <p class="text-muted mb-0">
-                Create a new HimRishtey staff account and assign access.
+                Create a new {{ config('app.name') }} staff account and assign access.
             </p>
         </div>
 
@@ -125,7 +125,7 @@
                                     name="email"
                                     value="{{ old('email') }}"
                                     class="form-control @error('email') is-invalid @enderror"
-                                    placeholder="staff@himrishtey.com"
+                                    placeholder="staff@example.com"
                                     required>
 
                                 @error('email')
@@ -305,7 +305,7 @@
                                 </h5>
 
                                 <p class="text-muted small mb-0">
-                                    Select which HimRishtey sites this staff member
+                                    Select which {{ config('app.name') }} sites this staff member
                                     can access.
                                 </p>
 

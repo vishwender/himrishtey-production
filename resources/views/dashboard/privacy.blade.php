@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Privacy Policy - Himrishtey')
+@section('title', 'Privacy Policy - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/member-terms.css') }}?v={{ filemtime(public_path('assets/css/member-terms.css')) }}">
@@ -13,7 +13,7 @@
     <section class="member-terms-hero" aria-labelledby="memberPrivacyTitle">
         <p class="member-terms-kicker">Legal</p>
         <h1 id="memberPrivacyTitle">Privacy Policy</h1>
-        <p class="member-terms-intro">Learn how HimRishtey collects, uses, and protects your information.</p>
+        <p class="member-terms-intro">Learn how {{ $siteName }} collects, uses, and protects your information.</p>
     </section>
 
     <article class="member-terms-card" aria-label="Privacy policy content">

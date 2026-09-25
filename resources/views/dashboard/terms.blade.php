@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Terms & Conditions - Himrishtey')
+@section('title', 'Terms & Conditions - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/member-terms.css') }}?v={{ filemtime(public_path('assets/css/member-terms.css')) }}">
@@ -13,7 +13,7 @@
     <section class="member-terms-hero" aria-labelledby="memberTermsTitle">
         <p class="member-terms-kicker">Legal</p>
         <h1 id="memberTermsTitle">Terms &amp; Conditions</h1>
-        <p class="member-terms-intro">Please read these terms carefully before using HimRishtey or managing your membership.</p>
+        <p class="member-terms-intro">Please read these terms carefully before using {{ $siteName }} or managing your membership.</p>
     </section>
 
     <article class="member-terms-card" aria-label="Terms and conditions content">

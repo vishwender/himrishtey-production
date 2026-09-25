@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Refund & Cancellation Policy - Himrishtey')
+@section('title', 'Refund & Cancellation Policy - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/member-terms.css') }}?v={{ filemtime(public_path('assets/css/member-terms.css')) }}">

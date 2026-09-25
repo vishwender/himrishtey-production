@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Wallet - HimRishtey')
+@section('title', 'Wallet - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/wallet.css') }}?v={{ filemtime(public_path('assets/css/wallet.css')) }}">
@@ -174,5 +174,5 @@
     };
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="{{ asset('assets/js/wallet.js') }}"></script>
+<script src="{{ asset('assets/js/wallet.js') }}?v={{ filemtime(public_path('assets/js/wallet.js')) }}"></script>
 @endsection

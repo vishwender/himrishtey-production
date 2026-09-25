@@ -19,7 +19,7 @@ class RegisterEmail extends Mailable
 
     public function build()
     {
-        return $this->subject('Welcome to Himrishtey')
+        return $this->subject('Welcome to '.config('site.current.display_name', config('app.name')))
             ->view('emails.registeremail');
     }
 }

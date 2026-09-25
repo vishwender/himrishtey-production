@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="The secure operations portal for the Him Rishtey team.">
-    <title>{{ config('app.name', 'Him Rishtey') }} — Admin Portal</title>
+    <meta name="description" content="The secure operations portal for the {{ config('app.name') }} team.">
+    <title>{{ config('app.name') }} — Admin Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -80,9 +80,9 @@
 <body>
 <div class="page-shell">
     <nav class="nav" aria-label="Primary navigation">
-        <a class="brand" href="{{ url('/') }}" aria-label="{{ config('app.name', 'Him Rishtey') }} home">
+        <a class="brand" href="{{ url('/') }}" aria-label="{{ config('app.name') }} home">
             <span class="brand-mark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.1-4.5-9.5-8.75C.2 8.2 2.5 3.5 6.8 3.5c2.2 0 3.8 1.25 5.2 3 1.4-1.75 3-3 5.2-3 4.3 0 6.6 4.7 4.3 8.75C19.1 16.5 12 21 12 21Z"/></svg></span>
-            <span class="brand-copy"><span class="brand-name">{{ config('app.name', 'Him Rishtey') }}</span><span class="brand-label">Operations portal</span></span>
+            <span class="brand-copy"><span class="brand-name">{{ config('app.name') }}</span><span class="brand-label">Operations portal</span></span>
         </a>
         <div class="nav-actions">
             <span class="secure-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>Secure access</span>
@@ -93,7 +93,7 @@
         <section class="hero-copy">
             <div class="eyebrow"><span class="eyebrow-dot"></span> Private team workspace</div>
             <h1>Meaningful matches.<br><span>Managed beautifully.</span></h1>
-            <p>A focused operations hub for the people behind every connection. Manage members, review profiles, coordinate teams, and keep every Him Rishtey community running smoothly.</p>
+            <p>A focused operations hub for the people behind every connection. Manage members, review profiles, coordinate teams, and keep every {{ config('app.name') }} community running smoothly.</p>
             <div class="hero-actions"><a class="button button-primary" href="{{ route('admin.login') }}">Enter admin portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="button button-secondary" href="#portal-overview">What you can manage</a></div>
         </section>
         <section class="portal-card" id="portal-overview" aria-label="Admin portal preview">
@@ -120,7 +120,7 @@
         <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-5 4 3 5-7"/></svg></span><span class="trust-copy"><strong>Clear operations</strong><span>One view across your sites</span></span></div>
         <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5.1 3.4 9.8 8 11 4.6-1.2 8-5.9 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="trust-copy"><strong>Privacy by design</strong><span>Member information stays protected</span></span></div>
     </section>
-    <footer class="footer"><span>&copy; {{ date('Y') }} {{ config('app.name', 'Him Rishtey') }}. Internal operations portal.</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Authorised staff only</span></footer>
+    <footer class="footer"><span>&copy; {{ date('Y') }} {{ config('app.name') }}. Internal operations portal.</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Authorised staff only</span></footer>
 </div>
 </body>
 </html>

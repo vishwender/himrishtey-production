@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Advance Search - HimRishtey')
+@section('title', 'Advance Search - ' . $siteName)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/advanced-search.css') }}" />

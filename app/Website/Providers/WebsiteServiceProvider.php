@@ -30,7 +30,7 @@ class WebsiteServiceProvider extends ServiceProvider
 
         View::composer(['pages.*', 'layouts.*', 'dashboard.*', 'auth.*', 'emails.*', 'blog.*'], function ($view): void {
             $site = config('site.current', []);
-            $siteName = $site['display_name'] ?? $site['name'] ?? config('app.name', 'HimRishtey');
+            $siteName = $site['display_name'] ?? $site['name'] ?? config('app.name');
 
             $view->with('siteName', $siteName);
             $view->with('siteMetaTitle', ($site['meta_title'] ?? null) ?: $siteName.' — Find someone who feels like home');
@@ -41,7 +41,7 @@ class WebsiteServiceProvider extends ServiceProvider
             $view->with('siteHeroBadge', $site['hero_badge'] ?? "Himachal Pradesh's Most Trusted Matrimony");
             $view->with('siteHeroTitle', $site['hero_title'] ?? 'We Connect Hearts, Not Just Relationships');
             $view->with('siteHeroTitleSecondary', $site['hero_title_secondary'] ?? 'Find your forever from the hills.');
-            $view->with('siteHeroSubtitle', $site['hero_subtitle'] ?? 'Thousands of happy families found their perfect match through HimRishtey.');
+            $view->with('siteHeroSubtitle', $site['hero_subtitle'] ?? 'Thousands of happy families found their perfect match through '.$siteName.'.');
             $view->with('siteHeroBackground', $site['hero_background'] ?? null);
             $view->with('siteHeroCtaPrimary', $site['hero_cta_primary'] ?? 'Create Your Profile');
             $view->with('siteHeroCtaSecondary', $site['hero_cta_secondary'] ?? 'Browse Profiles');
