@@ -283,12 +283,12 @@ a, button, [role="button"] {
   align-items: center;
   backdrop-filter: blur(10px);
 }
-.navbar-logo
-{
-    display: block;
-    width: 158px;
-    height: auto;
-    max-width: none;
+.navbar-logo {
+  display: block;
+  width: 100%;
+  height: var(--navbar-logo-height);
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .navbar-inner {
@@ -323,9 +323,16 @@ a, button, [role="button"] {
 .navbar-brand {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   width: 158px;
   height: 54px;
-  overflow: hidden;
+  padding: 0;
+}
+.navbar-brand > a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 .brand-logo { height: 28px; width: auto; flex-shrink: 0; }
 
