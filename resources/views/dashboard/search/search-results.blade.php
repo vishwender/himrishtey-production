@@ -164,5 +164,5 @@
     window.searchReturnUrl = @json($searchReturnUrl);
 </script>
 <!-- Page JS -->
-<script src="{{ asset('assets/js/search-results.js') }}?v=20260827-2"></script>
+<script src="{{ asset('assets/js/search-results.js') }}?v={{ filemtime(public_path('assets/js/search-results.js')) }}"></script>
 @endsection

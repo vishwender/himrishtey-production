@@ -127,7 +127,7 @@ function getKey(mode, tab) {
     article.setAttribute('aria-label', profile.name + ', ' + profile.age);
     article.style.animationDelay = delay + 'ms';
 
-    const imgUrl = profile.photo;
+    const imgUrl = window.profilePhotoUrl(profile.photo, profile.gender);
 
     const verifiedIcon = profile.verified
       ? '<i data-lucide="shield-check" width="13" height="13" class="verified-icon"></i>'

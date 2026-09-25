@@ -148,7 +148,7 @@
 
 @section('scripts')
 <!-- Page JS -->
-<script src="{{ asset('assets/js/interests.js') }}"></script>
+<script src="{{ asset('assets/js/interests.js') }}?v={{ filemtime(public_path('assets/js/interests.js')) }}"></script>
 @endsection
 <script>
     window.ALL_INTERESTS = @json($data);

@@ -130,7 +130,7 @@
     article.setAttribute('aria-label', profile.name + ', ' + profile.age);
     article.style.animationDelay = delay + 'ms';
 
-    const imgUrl = profile.photo;
+    const imgUrl = window.profilePhotoUrl(profile.photo, profile.gender);
 
     let badges = '';
     if (profile.matchPct) {

@@ -7,6 +7,7 @@
   <meta name="site-name" content="{{ $siteName }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
+  <script src="{{ asset('assets/js/profile-photo-url.js') }}?v={{ filemtime(public_path('assets/js/profile-photo-url.js')) }}"></script>
   <script>
     try {
       const savedTheme = localStorage.getItem('site-theme') || localStorage.getItem('hr-theme') || localStorage.getItem('public-theme') || 'light';

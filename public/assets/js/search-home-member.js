@@ -74,7 +74,7 @@
                 item.href = `view-profile/${encodeURIComponent(profile.profile_id)}`;
 
                 const image = document.createElement('img');
-                image.src = profile.photo || (profile.gender === 'Female' ? '/images/profile_photos/girl.jpg' : '/images/profile_photos/boy.jpg');
+                image.src = window.profilePhotoUrl(profile.photo, profile.gender);
                 image.alt = profile.full_name ? `${profile.full_name}'s profile photo` : 'Profile photo';
 
                 const details = document.createElement('div');
