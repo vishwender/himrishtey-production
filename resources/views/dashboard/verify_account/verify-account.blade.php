@@ -18,38 +18,6 @@
         <section class="verify-left">
 
 
-            <!-- Back Button -->
-
-            <button
-                type="button"
-                class="back-button"
-                onclick="history.back()"
-                aria-label="Go back">
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-
-                    <line
-                        x1="19"
-                        y1="12"
-                        x2="5"
-                        y2="12">
-                    </line>
-
-                    <polyline
-                        points="12 19 5 12 12 5">
-                    </polyline>
-
-                </svg>
-
-            </button>
-
-
             <!-- Brand -->
 
             <div class="brand">
@@ -91,7 +59,7 @@
                 <!-- Title -->
 
                 <h1 class="verify-title">
-                    Verify Mobile
+                    Verify your mobile number
                 </h1>
 
 
@@ -109,9 +77,9 @@
 
                     <label
                         class="form-label"
-                        for="phoneNumber">
+                        for="verifyPhoneNumber">
 
-                        Enter Phone number
+                        Mobile number
 
                     </label>
 
@@ -126,6 +94,7 @@
                             type="tel"
                             id="verifyPhoneNumber"
                             name="phone"
+                            aria-describedby="phoneError"
                             class="phone-input"
                             placeholder="Phone number"
                             maxlength="10"
@@ -138,7 +107,7 @@
 
                     <span
                         class="form-error"
-                        id="phoneError">
+                        id="phoneError" role="alert">
                     </span>
 
                 </div>
@@ -179,6 +148,7 @@
                         <input
                             type="text"
                             id="otp"
+                            aria-describedby="otpError"
                             class="otp-input"
                             maxlength="4"
                             inputmode="numeric"
@@ -188,7 +158,7 @@
 
                         <span
                             class="form-error"
-                            id="otpError">
+                            id="otpError" role="alert">
                         </span>
 
                     </div>
@@ -239,7 +209,7 @@
 
                 <div class="secure-text">
 
-                    🔒 Your mobile number is secure with us.
+                    <i data-lucide="shield-check" width="16" height="16" aria-hidden="true"></i> Verify your number to help keep your account secure.
 
                 </div>
 
