@@ -137,7 +137,7 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('assets/js/quick-search.js') }}?v=20260827-2"></script>
+<script src="{{ asset('assets/js/quick-search.js') }}?v={{ filemtime(public_path('assets/js/quick-search.js')) }}"></script>
 
 <script>
     window.searchResultsUrl = @json(route('search-results'));

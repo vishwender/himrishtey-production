@@ -22,8 +22,9 @@
 
         maritalStatus: [
             'Never Married',
-            'Widow / Widower',
-            'Divorcee',
+            'Widowed',
+            'Divorced',
+            'Awaiting Divorce',
             'Separated',
             'Any'
         ],

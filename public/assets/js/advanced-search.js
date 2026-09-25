@@ -7,14 +7,6 @@
 
    
 
-    // ===== SIDEBAR =====
-    const sidebar = document.getElementById('mainSidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    document.getElementById('sidebarToggle').addEventListener('click', () => { sidebar.classList.add('open'); overlay.classList.add('active'); });
-    document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
-    overlay.addEventListener('click', closeSidebar);
-    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); }
-
     // ===== DATA =====
     const DATA = {
       religion: ['Hindu', 'Sikh', 'Christian', 'Buddhist', 'Muslim'],
@@ -112,6 +104,8 @@
       return map[key] || 'Select...';
     }
 
+    function formatHeight(inches) { return Math.floor(inches / 12) + '.' + (inches % 12); }
+
     // ===== DUAL RANGE SLIDERS =====
     function initRange(minId, maxId, displayMinId, displayMaxId, fillId, formatFn, gap = 0) {
       const minInput = document.getElementById(minId);
@@ -138,7 +132,7 @@
     }
 
     initRange('ageMin','ageMax','ageMinDisplay','ageMaxDisplay','ageFill', (v) => v);
-    initRange('htMin','htMax','htMinDisplay','htMaxDisplay','htFill', (v) => (v / 10).toFixed(1));
+    initRange('htMin','htMax','htMinDisplay','htMaxDisplay','htFill', formatHeight);
 
     // ===== SUMMARY UPDATE =====
     function updateSummary() {
@@ -150,7 +144,7 @@
       if (ageMin != 18 || ageMax != 70) chips.push(`Age: ${ageMin}–${ageMax} yrs`);
 
       const htMin = document.getElementById('htMin').value, htMax = document.getElementById('htMax').value;
-      if (htMin != 46 || htMax != 70) chips.push(`Height: ${(htMin/10).toFixed(1)}–${(htMax/10).toFixed(1)} ft`);
+      if (htMin != 54 || htMax != 84) chips.push(`Height: ${formatHeight(htMin)}–${formatHeight(htMax)} ft`);
 
       const incMin = document.getElementById('incMin').value, incMax = document.getElementById('incMax').value;
       if (incMin || incMax) chips.push(`Income: ${incMin || "Any"}–${incMax || "Any"} LPA`);
@@ -206,9 +200,9 @@
       }
       const heightMin = document.getElementById('htMin').value;
       const heightMax = document.getElementById('htMax').value;
-      if (heightMin != 46 || heightMax != 70) {
-        params.height_from = (heightMin / 10).toFixed(1);
-        params.height_to = (heightMax / 10).toFixed(1);
+      if (heightMin != 54 || heightMax != 84) {
+        params.height_from = formatHeight(heightMin);
+        params.height_to = formatHeight(heightMax);
       }
       const incomeMin = Number(document.getElementById('incMin').value);
       const incomeMax = Number(document.getElementById('incMax').value);
@@ -233,7 +227,7 @@
     function resetAll() {
       document.getElementById('profileId').value = '';
       document.getElementById('ageMin').value = 18; document.getElementById('ageMax').value = 70;
-      document.getElementById('htMin').value = 46; document.getElementById('htMax').value = 70;
+      document.getElementById('htMin').value = 54; document.getElementById('htMax').value = 84;
       document.getElementById('incMin').value = ''; document.getElementById('incMax').value = '';
       document.getElementById('incMax').setCustomValidity('');
       document.querySelector('input[name="manglik"][value=""]').checked = true;
@@ -241,6 +235,6 @@
       Object.keys(selected).forEach(key => { selected[key] = []; renderChips(key); renderList(key, DATA[key]); });
       // Re-init sliders
       initRange('ageMin','ageMax','ageMinDisplay','ageMaxDisplay','ageFill', (v) => v);
-      initRange('htMin','htMax','htMinDisplay','htMaxDisplay','htFill', (v) => (v / 10).toFixed(1));
+      initRange('htMin','htMax','htMinDisplay','htMaxDisplay','htFill', formatHeight);
       updateSummary();
     }

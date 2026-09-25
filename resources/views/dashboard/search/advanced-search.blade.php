@@ -83,8 +83,8 @@
                                 <div class="range-track-container">
                                     <div class="range-track"></div>
                                     <div class="range-fill" id="htFill"></div>
-                                    <input type="range" class="adv-range" id="htMin" min="46" max="70" value="46" step="1" aria-label="Minimum height" />
-                                    <input type="range" class="adv-range" id="htMax" min="46" max="70" value="70" step="1" aria-label="Maximum height" />
+                                    <input type="range" class="adv-range" id="htMin" min="54" max="84" value="54" step="1" aria-label="Minimum height" />
+                                    <input type="range" class="adv-range" id="htMax" min="54" max="84" value="84" step="1" aria-label="Maximum height" />
                                 </div>
                             </div>
                         </div>

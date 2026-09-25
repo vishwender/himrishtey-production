@@ -811,7 +811,10 @@ class HomeController extends Controller
         \App\Support\AnnualIncomeOptions::filter($query, $request->input('annual_income'), $request->input('annual_income_to'));
         foreach (['mother_tongue', 'education', 'employed_in'] as $field) {
             if ($request->filled($field)) {
-                $query->whereIn($field, array_filter(array_map('trim', explode(',', $request->input($field)))));
+                $values = array_filter(array_map('trim', explode(',', $request->input($field))));
+                if (!in_array('Any', $values, true)) {
+                    $query->whereIn($field, $values);
+                }
             }
         }
         if ($request->filled('manglik')) {
@@ -846,9 +849,7 @@ class HomeController extends Controller
             $query->where('gender', '!=', $member->gender);
         }
         // Active members
-        $query->where('active', 'yes');
-        // verified
-        $query->where('member_type', 'Verified');
+        $query->whereRaw('LOWER(TRIM(active)) = ?', ['yes']);
 
         /*
     |--------------------------------------------------------------------------
@@ -859,7 +860,13 @@ class HomeController extends Controller
         if (
             ! empty($maritalStatus) && $maritalStatus !== 'Any'
         ) {
-            $query->where('marital_status', $maritalStatus);
+            $status = strtolower(trim($maritalStatus));
+            $statuses = match ($status) {
+                'divorcee', 'divorced' => ['divorcee', 'divorced'],
+                'widow', 'widower', 'widowed', 'widow / widower' => ['widow', 'widower', 'widowed', 'widow / widower'],
+                default => [$status],
+            };
+            $query->whereIn(DB::raw('LOWER(TRIM(marital_status))'), $statuses);
         }
 
         /*
@@ -901,7 +908,7 @@ class HomeController extends Controller
         ) {
 
             $maxBirthDate = Carbon::today()
-                ->subYears((int) $partnerAgeFrom);
+                ->subYears((int) $partnerAgeFrom)->endOfDay();
 
             $minBirthDate = Carbon::today()
                 ->subYears((int) $partnerAgeTo + 1)
@@ -917,7 +924,7 @@ class HomeController extends Controller
         } elseif (! empty($partnerAgeFrom)) {
 
             $maxBirthDate = Carbon::today()
-                ->subYears((int) $partnerAgeFrom);
+                ->subYears((int) $partnerAgeFrom)->endOfDay();
 
             $query->whereDate(
                 'birth_date_time',
