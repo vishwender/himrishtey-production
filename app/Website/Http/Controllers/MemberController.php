@@ -81,7 +81,6 @@ class MemberController extends Controller
             'job_location',
             'occupation',
             'annual_income',
-            'profile_completed',
         ];
         // Accept the former registration field name from older form submissions.
         if (! $request->has('annual_income') && $request->has('income')) {
@@ -101,11 +100,14 @@ class MemberController extends Controller
             ]);
             app(ProfilePhotoStorage::class)->save($member, $request->file('photo'));
         }
-        $member->update($data);
+        $member->fill($data);
+        $member->profile_completed = $member->profileCompletionPercentage();
+        $member->saveOrFail();
 
         return response()->json([
             'success' => true,
             'message' => 'Profile updated successfully.',
+            'profile_completed' => $member->profileCompletionPercentage(),
         ]);
     }
 

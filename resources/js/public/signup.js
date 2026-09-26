@@ -222,7 +222,7 @@
                  country_living_in: countryInput.value,
                  state_living_in: stateInput.value,
                  city_living_in: cityInput.value,
-                 profile_completed: '30%'
+
              })
          });
          const result = await response.json();
@@ -234,7 +234,7 @@
                  country: countryInput.value,
                  state: stateInput.value,
                  city: cityInput.value,
-                 profile_completed: '30%'
+
              });
              saveState(signupData);
              showPanel(2);
@@ -320,7 +320,7 @@
                  employed_in: employedInput.value,
                  occupation: employedInput.value === 'Not Employed in' ? '' : occupationInput.value.trim(),
                  annual_income: incomeInput.value,
-                 profile_completed: '45%'
+
              })
          });
          const result = await response.json();
@@ -331,7 +331,7 @@
                  employed_in: employedInput.value,
                  occupation: employedInput.value === 'Not Employed in' ? '' : occupationInput.value.trim(),
                  annual_income: incomeInput.value,
-                 profile_completed: '45%'
+
              });
              saveState(signupData);
              showPanel(3);
@@ -438,7 +438,7 @@
                 cast: castInput.value,
                 manglik: manglikChecked ? manglikChecked.value : '',
                 horoscope_needed: horoscopeChecked ? horoscopeChecked.value : '',
-                profile_completed: '60%'
+
             })
         });
         const result = await response.json();
@@ -453,7 +453,7 @@
                 is_manglik: manglikChecked ? manglikChecked.value : '',
                 horoscope_needed: horoscopeChecked ? horoscopeChecked.value : '',
                 annual_income: incomeInput.value,
-                profile_completed: '60%'
+
             });
             saveState(signupData);
             showPanel('photo');
@@ -507,7 +507,6 @@
   }
 
   function finishSignup(hasPhoto) {
-    signupData.profile_completed = 100;
     signupData.has_photo = !!hasPhoto;
     saveState(signupData);
 
