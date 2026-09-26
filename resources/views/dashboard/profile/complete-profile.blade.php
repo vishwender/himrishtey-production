@@ -233,8 +233,8 @@
                     </label>
                     <div class="input-wrap select-wrap">
 
-                        <select id="income" name="income" class="form-input" required>
-                            @include('partials.annual-income-options', ['selected' => old('annual_income')])
+                        <select id="income" name="annual_income" class="form-input" required>
+                            @include('partials.annual-income-options', ['selected' => old('annual_income', auth('member')->user()?->annual_income), 'wholeLakhLabels' => true, 'maxWholeLakh' => 49])
                         </select>
 
                         <i data-lucide="chevron-down" width="14" height="14" class="select-icon" aria-hidden="true"></i>

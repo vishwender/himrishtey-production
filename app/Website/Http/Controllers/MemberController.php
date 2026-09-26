@@ -83,6 +83,10 @@ class MemberController extends Controller
             'annual_income',
             'profile_completed',
         ];
+        // Accept the former registration field name from older form submissions.
+        if (! $request->has('annual_income') && $request->has('income')) {
+            $request->merge(['annual_income' => $request->input('income')]);
+        }
         $data = $request->only($allowedFields);
         if ($request->filled('time_of_birth')) {
             // Get existing date
