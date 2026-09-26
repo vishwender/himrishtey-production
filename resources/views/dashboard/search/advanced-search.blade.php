@@ -14,12 +14,7 @@
         <!-- Page Header -->
         <div class="page-header-bar">
             <div>
-                <nav aria-label="Breadcrumb">
-                    <ol class="breadcrumb-custom">
-                        <li><a href="{{route('home')}}">Home</a></li>
-                        <li>Advance Search</li>
-                    </ol>
-                </nav>
+
                 <h1 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-top:var(--space-1);">
                     Advance Search
                 </h1>

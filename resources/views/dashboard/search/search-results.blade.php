@@ -10,17 +10,10 @@
 <!-- MAIN -->
 <main class="main-content" id="sr-main">
 
-    <!-- ── STICKY TOP BAR: breadcrumb + active filters ── -->
+    <!-- ── STICKY TOP BAR: active filters ── -->
     <div class="sr-topbar container-xxl">
 
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb-custom">
-                <li><a href="{{route('home')}}"><i data-lucide="home" width="14" height="14"></i></a></li>
-                <li><a href="{{ $searchReturnUrl }}">{{ $searchSource === 'advanced' ? 'Advanced Search' : 'Quick Search' }}</a></li>
-                <li aria-current="page">Search Results</li>
-            </ol>
-        </nav>
+
 
         <!-- Active filter chips (horizontal scroll) -->
         <div class="sr-filters-row" id="srFilterChips" role="list" aria-label="Active filters">

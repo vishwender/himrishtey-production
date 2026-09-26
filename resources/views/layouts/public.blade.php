@@ -53,7 +53,7 @@
     @include('partials.public-header')
 
     <main class="@yield('main-class', 'public-main')">
-        @yield('content')
+    @yield('content')
     </main>
 
     @include('partials.public-footer')

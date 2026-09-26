@@ -4,14 +4,9 @@
 
 @section('content')
 
-<!-- BREADCRUMB / PAGE TITLE -->
+<!-- PAGE ACTIONS -->
 <div class="page-header-bar container-xxl">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb-custom">
-            <li><i data-lucide="home" width="14" height="14"></i></li>
-            <li aria-current="page">Home</li>
-        </ol>
-    </nav>
+
     <div class="page-header-actions">
         <button
             type="button"
