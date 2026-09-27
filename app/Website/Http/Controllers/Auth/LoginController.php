@@ -124,6 +124,7 @@ class LoginController extends Controller
             'gender' => $request->gender,
             'birth_date_time' => $request->birth_date,
             'registration_date' => now(),
+            'register_through' => 'website',
             'profile_id' => 'NA',
             'profile_completed' => 15,
         ];
@@ -164,6 +165,7 @@ class LoginController extends Controller
                 'password' => Str::random(32),
                 'profile_id' => 'NA',
                 'registration_date' => now(),
+                'register_through' => 'website',
                 'profile_completed' => 15,
             ]);
 
