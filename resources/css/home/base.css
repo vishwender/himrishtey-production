@@ -424,13 +424,31 @@ textarea {
 
     gap: 24px;
 
-    border-bottom: 1px solid #eeeeee;
 }
 
 .trust-strip article {
     display: flex;
-    align-items: center;
-    gap: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--site-shadow);
+}
+
+.trust-strip b {
+    text-align: center;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.trust-strip small {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
 }
 
 .trust-strip div,
@@ -441,7 +459,6 @@ textarea {
     gap: 6px;
 }
 
-.trust-strip small,
 .profile-card small,
 .three small,
 .why-grid small {
@@ -1241,5 +1258,12 @@ footer,
 
     .footer-grid > div:first-child {
         grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 600px) {
+    .trust-strip {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 }

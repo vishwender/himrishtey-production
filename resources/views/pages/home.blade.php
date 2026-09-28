@@ -5,7 +5,7 @@
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1">
      <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
+     <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
      <script>
          try {
              const savedTheme = localStorage.getItem('site-theme') || localStorage.getItem('public-theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
@@ -13,15 +13,30 @@
          } catch (e) {}
      </script>
      @include('partials.google-analytics')
-    @if (config('site.current.google_tag_manager_id'))
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer',{{ Illuminate\Support\Js::from(config('site.current.google_tag_manager_id')) }});</script>
-<!-- End Google Tag Manager -->
-    @endif
+     @if (config('site.current.google_tag_manager_id'))
+     <!-- Google Tag Manager -->
+     <script>
+         (function(w, d, s, l, i) {
+             w[l] = w[l] || [];
+             w[l].push({
+                 'gtm.start': new Date().getTime(),
+                 event: 'gtm.js'
+             });
+             var f = d.getElementsByTagName(s)[0],
+                 j = d.createElement(s),
+                 dl = l != 'dataLayer' ? '&l=' + l : '';
+             j.async = true;
+             j.src =
+                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+             f.parentNode.insertBefore(j, f);
+         })(window, document, 'script', 'dataLayer', {
+             {
+                 Illuminate\ Support\ Js::from(config('site.current.google_tag_manager_id'))
+             }
+         });
+     </script>
+     <!-- End Google Tag Manager -->
+     @endif
      <title>{{ $siteMetaTitle }}</title>
      <meta name="description" content="{{ $siteMetaDescription }}">
      <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,9 +55,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ">
      @if (config('site.current.google_tag_manager_id'))
      <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ config('site.current.google_tag_manager_id') }}"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ config('site.current.google_tag_manager_id') }}"
+             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+     <!-- End Google Tag Manager (noscript) -->
      @endif
      @include('partials.public-header')
      <main>
@@ -136,17 +151,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          </form>
 
          <section class="trust-strip">
-             <article><i data-lucide="badge-check" aria-hidden="true"></i>
-                 <div><b>100% Verified Profiles</b><small>Manually verified for your safety</small></div>
+             <article>
+                 <i data-lucide="badge-check" aria-hidden="true"></i>
+                 <div>
+                     <b>100% Verified Profiles</b>
+                     <small>
+                         Every profile is carefully reviewed by our team to maintain authenticity
+                         and quality. Connect with genuine people and families with greater
+                         confidence while searching for the right life partner.
+                     </small>
+                 </div>
              </article>
-             <article><i data-lucide="shield-check" aria-hidden="true"></i>
-                 <div><b>Secure &amp; Private</b><small>Your privacy is our priority</small></div>
+
+             <article>
+                 <i data-lucide="shield-check" aria-hidden="true"></i>
+                 <div>
+                     <b>Secure, Private &amp; Trusted</b>
+                     <small>
+                         Your privacy and personal information are important to us. We provide
+                         a secure and trusted platform where you can explore matrimonial
+                         profiles and connect with families with confidence.
+                     </small>
+                 </div>
              </article>
-             <article><i data-lucide="users" aria-hidden="true"></i>
-                 <div><b>Thousands of Matches</b><small>New matches every day</small></div>
+
+             <article>
+                 <i data-lucide="users" aria-hidden="true"></i>
+                 <div>
+                     <b>Thousands of Matches</b>
+                     <small>
+                         Explore thousands of matrimonial profiles from different communities
+                         and locations. New profiles are added regularly, giving you more
+                         opportunities to discover a compatible life partner.
+                     </small>
+                 </div>
              </article>
-             <article><i data-lucide="headset" aria-hidden="true"></i>
-                 <div><b>24/7 Customer Support</b><small>We are here to help you</small></div>
+
+             <article>
+                 <i data-lucide="headset" aria-hidden="true"></i>
+                 <div>
+                     <b>Dedicated Customer Support</b>
+                     <small>
+                         Our experienced team is here to assist you throughout your matrimonial
+                         journey. Get personalized guidance and reliable support whenever
+                         you need help finding the right match.
+                     </small>
+                 </div>
              </article>
          </section>
 

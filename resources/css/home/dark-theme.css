@@ -258,9 +258,12 @@ html[data-theme="dark"] h2 {
 */
 
 html[data-theme="dark"] .trust-strip {
-    background: #151112;
+    background: transparent;
+}
 
-    border-color: #443438;
+html[data-theme="dark"] .trust-strip article {
+    background: var(--surface);
+    border-color: var(--border);
 }
 
 html[data-theme="dark"] .trust-strip b {
