@@ -684,6 +684,11 @@ const FormManager = {
         const nextStatus = StatusManager.isComplete(form) ? "complete" : "incomplete";
         StatusManager.update(section, nextStatus);
 
+        if (Number.isInteger(response.profile_completed)) {
+            if (DOM.completionBar) DOM.completionBar.style.width = `${response.profile_completed}%`;
+            if (DOM.completionText) DOM.completionText.textContent = `${response.profile_completed}%`;
+        }
+
         ToastManager.success(response.message || 'Profile updated successfully.');
 
         setTimeout(() => {

@@ -564,11 +564,13 @@ class MyMemberController extends Controller
             }
         }
 
-        $user->save();
+        $user->profile_completed = $user->profileCompletionPercentage();
+        $user->saveOrFail();
 
         return response()->json([
             'success' => true,
             'message' => 'Profile Updated Successfully',
+            'profile_completed' => (int) $user->profile_completed,
         ]);
     }
 
