@@ -503,9 +503,6 @@
      </main>
      @include('partials.public-footer')
      @include('partials.app-popup')
-     <script>
-
-     </script>
  </body>
 
  </html>

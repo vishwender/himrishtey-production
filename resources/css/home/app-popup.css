@@ -77,6 +77,15 @@
              background: #ebe5df;
          }
 
+         .app-download-popup__logo {
+             display: block;
+             width: 180px;
+             max-width: 100%;
+             height: 72px;
+             object-fit: contain;
+             margin: 0 auto 20px;
+         }
+
          .app-download-popup__icon {
              display: flex;
              align-items: center;

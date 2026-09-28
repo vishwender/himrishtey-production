@@ -11,6 +11,8 @@
                  &times;
              </button>
 
+             <img class="app-download-popup__logo" src="{{ asset($siteLogo) }}" alt="{{ $siteName }} logo">
+
              <div class="app-download-popup__icon">
                  <i data-lucide="heart"></i>
              </div>
