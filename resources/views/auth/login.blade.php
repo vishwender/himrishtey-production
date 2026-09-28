@@ -37,7 +37,7 @@
 
         <div class="login-form-header">
           <span class="login-form-kicker">Member access</span>
-          <h2 class="login-form-title">Welcome back</h2>
+          <h2 class="login-form-title">Login</h2>
           <p class="login-form-subtitle">Sign in to continue finding your match</p>
         </div>
 

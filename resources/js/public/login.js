@@ -93,6 +93,13 @@ function initTabs() {
         panel.classList.add('active');
         switcher?.setAttribute('data-active', tabName);
 
+        const heading = document.querySelector('.login-form-title');
+        const subtitle = document.querySelector('.login-form-subtitle');
+        if (heading) heading.textContent = tabName === 'register' ? 'Register' : 'Login';
+        if (subtitle) subtitle.textContent = tabName === 'register'
+            ? 'Create your account to start finding your match'
+            : 'Sign in to continue finding your match';
+
         if (updateHash) {
             const url = new URL(window.location.href);
             url.hash = tabName === 'register' ? 'register' : '';
