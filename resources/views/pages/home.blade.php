@@ -234,17 +234,17 @@
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
                  <div class="three">
                      <div>
-                         <i data-lucide="user-round-plus" aria-hidden="true"></i>
+                         <span class="how-step-icon" aria-hidden="true"><i data-lucide="user-round-plus" aria-hidden="true"></i></span>
                          <b>1. Create Your Profile</b>
                          <small>Sign up and create your profile in just a few minutes.</small>
                      </div>
                      <div>
-                         <i data-lucide="search" aria-hidden="true"></i>
+                         <span class="how-step-icon" aria-hidden="true"><i data-lucide="search" aria-hidden="true"></i></span>
                          <b>2. Discover Matches</b>
                          <small>Get matched with compatible profiles tailored for you.</small>
                      </div>
                      <div>
-                         <i data-lucide="messages-square" aria-hidden="true"></i>
+                         <span class="how-step-icon" aria-hidden="true"><i data-lucide="messages-square" aria-hidden="true"></i></span>
                          <b>3. Start a Conversation</b>
                          <small>Connect, chat and take the first step towards a beautiful journey.</small>
                      </div>
@@ -502,6 +502,10 @@
          </section>
      </main>
      @include('partials.public-footer')
+     @include('partials.app-popup')
+     <script>
+
+     </script>
  </body>
 
  </html>

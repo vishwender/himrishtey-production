@@ -226,6 +226,7 @@
 */
 
 .trust-strip article > svg {
+    align-self: center;
     width: 68px;
     height: 68px;
 
@@ -254,13 +255,22 @@
 |--------------------------------------------------------------------------
 */
 
-.three > div > svg {
+.three .how-step-icon > svg {
+    width: 46px;
+    height: 46px;
+    display: block;
+    overflow: visible;
+    stroke-width: 1.7;
+}
+
+.three .how-step-icon {
     width: 92px;
     height: 92px;
 
     flex: none;
 
-    padding: 23px;
+    display: grid;
+    place-items: center;
 
     border-radius: 50%;
 
@@ -574,11 +584,15 @@ html[data-theme="dark"] .theme-moon {
     |--------------------------------------------------------------------------
     */
 
-    .three > div > svg {
+    .three .how-step-icon {
         width: 78px;
         height: 78px;
 
-        padding: 20px;
+    }
+
+    .three .how-step-icon > svg {
+        width: 38px;
+        height: 38px;
     }
 
     .why-grid p > svg {

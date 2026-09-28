@@ -328,7 +328,7 @@ html[data-theme="dark"] .why-grid small {
     color: #c4b5b8;
 }
 
-html[data-theme="dark"] .three > div > svg,
+html[data-theme="dark"] .three .how-step-icon,
 html[data-theme="dark"] .why-grid p > svg {
     background: #352428;
     color: var(--brand);

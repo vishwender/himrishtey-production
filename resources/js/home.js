@@ -7,6 +7,7 @@ import './public/script.js';
 import './public/toast-manager.js';
 import './public/signup.js';
 import './public/upload-photos.js';
+import './public/app-popup.js';
 import { initializeRevealAnimations } from './home/animations';
 import { initializeLucideIcons } from './home/icons';
 import { initializeNavigation } from './home/navigation';
