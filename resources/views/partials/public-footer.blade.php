@@ -90,7 +90,7 @@
             {{-- Company --}}
             <div class="footer-column">
 
-                <b>Company</b>
+                <b>Explore</b>
 
                 <a href="{{ route('about-us') }}">
                     About Us
