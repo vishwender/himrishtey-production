@@ -612,6 +612,12 @@
     min-height: 50px;
 }
 
+#loginSubmitBtn,
+#loginOtpSubmitBtn,
+#registerSubmitBtn {
+    border-radius: 9999px;
+}
+
 .btn-login + .btn-login {
     margin-top: 0;
 }

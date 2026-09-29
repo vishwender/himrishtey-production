@@ -21,3 +21,18 @@
 @import '../../../public/assets/css/public-navigation.css';
 
 @import "./hero-mobile.css";
+
+/* Keep homepage actions consistent, including header and app-download links. */
+.public-site.public-home button,
+.public-site.public-home .public-cta,
+.public-site.public-home .mobile-auth-link,
+.public-site.public-home .app-store-btn,
+.public-site.public-home .app-download-popup__store {
+    border-radius: 9999px;
+}
+
+/* Shared navigation keeps the same button shape on every public page. */
+.public-site .public-header .public-cta,
+.public-site .public-mobile-nav .mobile-auth-link {
+    border-radius: 9999px;
+}

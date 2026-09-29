@@ -45,7 +45,7 @@
      @vite(['resources/css/home/home.css', 'resources/js/home.js'])
  </head>
 
- <body class="public-site tenant-{{ \Illuminate\Support\Str::slug($siteKey) }}" style="
+ <body class="public-site public-home tenant-{{ \Illuminate\Support\Str::slug($siteKey) }}" style="
         --site-primary: {{ $sitePrimaryColor }};
         --site-secondary: {{ $siteSecondaryColor }};
         --site-accent: {{ $siteAccentColor }};

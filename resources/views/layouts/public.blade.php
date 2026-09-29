@@ -43,7 +43,7 @@
 </head>
 
 <body
-    class="public-site tenant-{{ \Illuminate\Support\Str::slug($siteKey) }}"
+    class="public-site tenant-{{ \Illuminate\Support\Str::slug($siteKey) }} {{ request()->routeIs('welcome') ? 'public-home' : '' }}"
     style="
         --brand: {{ $sitePrimaryColor }};
         --deep: {{ $siteSecondaryColor }};
