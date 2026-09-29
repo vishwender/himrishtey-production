@@ -27,11 +27,11 @@
         </a>
 
         <a href="{{ route('about-us') }}">
-            Why {{ $siteName }}
+            About Us
         </a>
 
         <a href="{{ route('blog.index') }}">
-            Matrimony Guide
+            Blog
         </a>
 
     </nav>
