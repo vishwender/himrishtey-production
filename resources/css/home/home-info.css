@@ -2,9 +2,16 @@
     width: 100%;
     padding: clamp(40px, 6vw, 72px) 0;
     color: var(--text);
-    background: var(--page);
 }
-.home-why { background: var(--surface-soft); }
+.home-info-background {
+    background-color: var(--page);
+    background-image: url('../../../public/assets/images/how-why-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+[data-theme="dark"] .home-info-background {
+    background-image: linear-gradient(rgba(18, 13, 16, .86), rgba(18, 13, 16, .86)), url('../../../public/assets/images/how-why-background.png');
+}
 .home-info-section > .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
 .home-info-section h2 { font-size: clamp(26px, 3vw, 36px); }
 .home-info-section .ornament { margin-bottom: 30px; }
