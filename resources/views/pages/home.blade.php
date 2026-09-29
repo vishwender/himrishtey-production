@@ -228,40 +228,50 @@
          </section>
          @endif
 
-         <section class="split wrap">
-             <article class="how" id="how">
-                 <h2>How it works</h2>
+         <section class="home-info-section home-how" id="how" aria-labelledby="how-title">
+             <div class="wrap">
+                 <h2 id="how-title">How it works</h2>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
-                 <div class="three">
+                 <div class="home-steps-grid">
                      <div>
-                         <span class="how-step-icon" aria-hidden="true"><i data-lucide="user-round-plus" aria-hidden="true"></i></span>
+                         <span class="how-step-icon how-step-icon--create" aria-hidden="true"><i data-lucide="user-round-plus" aria-hidden="true"></i></span>
                          <b>1. Create Your Profile</b>
-                         <small>Sign up and create your profile in just a few minutes.</small>
+                         <small>Sign up and create your profile in just a few minutes. Create your profile as Groom or Bride and share age, height, community, photo, education and job details.</small>
                      </div>
                      <div>
-                         <span class="how-step-icon" aria-hidden="true"><i data-lucide="search" aria-hidden="true"></i></span>
-                         <b>2. Discover Matches</b>
-                         <small>Get matched with compatible profiles tailored for you.</small>
+                         <span class="how-step-icon how-step-icon--activate" aria-hidden="true"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+                         <b>2. Activate Your Profile</b>
+                         <small>Choose Normal or Premium activation. Once your information is verified, our team activates your profile.</small>
                      </div>
                      <div>
-                         <span class="how-step-icon" aria-hidden="true"><i data-lucide="messages-square" aria-hidden="true"></i></span>
-                         <b>3. Start a Conversation</b>
+                         <span class="how-step-icon how-step-icon--discover" aria-hidden="true"><i data-lucide="search" aria-hidden="true"></i></span>
+                         <b>3. Discover Matches</b>
+                         <small>Get matched with compatible profiles tailored for you. Browse opposite gender profiles, check Recent Joins and use advanced search based on your preference.</small>
+                     </div>
+                     <div>
+                         <span class="how-step-icon how-step-icon--interest" aria-hidden="true"><i data-lucide="heart-handshake" aria-hidden="true"></i></span>
+                         <b>4. Send and Receive Interest</b>
                          <small>Connect, chat and take the first step towards a beautiful journey.</small>
                      </div>
                  </div>
-             </article>
-             <article class="why">
-                 <h2>Why choose {{ $siteName }}?</h2>
+             </div>
+         </section>
+         <section class="home-info-section home-why" id="why" aria-labelledby="why-title">
+             <div class="wrap">
+                 <h2 id="why-title">Why choose {{ $siteName }}?</h2>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
-                 <div class="why-grid">
+                 <div class="home-benefits-grid">
                      <p><i data-lucide="badge-check" aria-hidden="true"></i><span><b>Verified &amp; Genuine</b><small>Every profile is manually verified</small></span></p>
                      <p><i data-lucide="eye-off" aria-hidden="true"></i><span><b>Privacy Controls</b><small>You are in control of your privacy</small></span></p>
+                     <p><i data-lucide="star" aria-hidden="true"></i><span><b>Normal &amp; Premium Plans</b><small>Choose the activation model that suits your search journey and visibility needs.</small></span></p>
+                     <p><i data-lucide="sliders-horizontal" aria-hidden="true"></i><span><b>Advanced Search</b><small>Find matches by caste, district, profession, education, age and lifestyle preferences.</small></span></p>
                      <p><i data-lucide="sparkles" aria-hidden="true"></i><span><b>Smart Matching</b><small>Advanced matching for better connections</small></span></p>
                      <p><i data-lucide="users-round" aria-hidden="true"></i><span><b>Community Focused</b><small>Find matches from your community</small></span></p>
+                     <p><i data-lucide="heart" aria-hidden="true"></i><span><b>Send Interest</b><small>Express interest, receive responses, reject unwanted requests and manage connections easily.</small></span></p>
                      <p><i data-lucide="shield-check" aria-hidden="true"></i><span><b>Secure Contact Access</b><small>Connect only when comfortable</small></span></p>
-                     <p><i data-lucide="headset" aria-hidden="true"></i><span><b>Dedicated Support</b><small>Friendly support whenever needed</small></span></p>
+                     <p><i data-lucide="map-pinned" aria-hidden="true"></i><span><b>Local Presence</b><small>Local support with a better understanding of your community.</small></span></p>
                  </div>
-             </article>
+             </div>
          </section>
 
 

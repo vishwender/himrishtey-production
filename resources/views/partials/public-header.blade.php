@@ -22,6 +22,10 @@
             How it Works
         </a>
 
+        <a href="{{ route('welcome') }}#why">
+            Why Choose {{$siteName}}
+        </a>
+
         <a href="{{ route('welcome') }}#stories">
             Success Stories
         </a>

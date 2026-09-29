@@ -1,0 +1,81 @@
+.home-info-section {
+    width: 100%;
+    padding: clamp(40px, 6vw, 72px) 0;
+    color: var(--text);
+    background: var(--page);
+}
+.home-why { background: var(--surface-soft); }
+.home-info-section > .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+.home-info-section h2 { font-size: clamp(26px, 3vw, 36px); }
+.home-info-section .ornament { margin-bottom: 30px; }
+.home-steps-grid,
+.home-benefits-grid { display: grid; gap: 24px; }
+.home-steps-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.home-benefits-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.home-steps-grid > div,
+.home-benefits-grid > p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--brand);
+    border-radius: 18px;
+    box-shadow: var(--site-shadow);
+    text-align: center;
+}
+.home-benefits-grid > p > span { display: flex; flex-direction: column; gap: 12px; }
+.home-info-section b { font-size: 16px; line-height: 1.5; }
+.home-info-section small { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.home-steps-grid .how-step-icon {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    flex: none;
+    border-radius: 50%;
+    color: var(--step-icon-color, var(--brand));
+    background: color-mix(in srgb, var(--step-icon-color, var(--brand)) 12%, var(--surface));
+}
+.home-steps-grid .how-step-icon > svg { width: 36px; height: 36px; overflow: visible; }
+.home-benefits-grid > p > svg { width: 36px; height: 36px; flex: none; color: var(--benefit-icon-color, var(--brand)); overflow: visible; }
+@media (max-width: 1000px) {
+    .home-steps-grid, .home-benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+    .home-steps-grid, .home-benefits-grid { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* Semantic icon colors, with brighter variants for dark backgrounds. */
+.home-benefits-grid [data-lucide="badge-check"] { --benefit-icon-color: #16803d; }
+.home-benefits-grid [data-lucide="eye-off"] { --benefit-icon-color: #2563eb; }
+.home-benefits-grid [data-lucide="star"] { --benefit-icon-color: #eab308; }
+.home-benefits-grid [data-lucide="sliders-horizontal"] { --benefit-icon-color: #087f8c; }
+.home-benefits-grid [data-lucide="sparkles"] { --benefit-icon-color: #9333ea; }
+.home-benefits-grid [data-lucide="users-round"] { --benefit-icon-color: #c45b12; }
+.home-benefits-grid [data-lucide="heart"] { --benefit-icon-color: #db2777; }
+.home-benefits-grid [data-lucide="shield-check"] { --benefit-icon-color: #0d9488; }
+.home-benefits-grid [data-lucide="headset"] { --benefit-icon-color: #4f46e5; }
+
+[data-theme="dark"] .home-benefits-grid [data-lucide="badge-check"] { --benefit-icon-color: #4ade80; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="eye-off"] { --benefit-icon-color: #60a5fa; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="star"] { --benefit-icon-color: #facc15; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="sliders-horizontal"] { --benefit-icon-color: #22d3ee; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="sparkles"] { --benefit-icon-color: #c084fc; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="users-round"] { --benefit-icon-color: #fb923c; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="heart"] { --benefit-icon-color: #f472b6; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="shield-check"] { --benefit-icon-color: #2dd4bf; }
+[data-theme="dark"] .home-benefits-grid [data-lucide="headset"] { --benefit-icon-color: #a5b4fc; }
+
+/* Colors for each step, including readable dark-mode variants. */
+.how-step-icon--create { --step-icon-color: #2563eb; }
+[data-theme="dark"] .how-step-icon--create { --step-icon-color: #60a5fa; }
+.how-step-icon--activate { --step-icon-color: #16803d; }
+[data-theme="dark"] .how-step-icon--activate { --step-icon-color: #4ade80; }
+.how-step-icon--discover { --step-icon-color: #9333ea; }
+[data-theme="dark"] .how-step-icon--discover { --step-icon-color: #c084fc; }
+.how-step-icon--interest { --step-icon-color: #db2777; }
+[data-theme="dark"] .how-step-icon--interest { --step-icon-color: #f472b6; }

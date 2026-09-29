@@ -21,6 +21,7 @@
 @import '../../../public/assets/css/public-navigation.css';
 
 @import "./hero-mobile.css";
+@import "./home-info.css";
 
 /* Keep homepage actions consistent, including header and app-download links. */
 .public-site.public-home button,
