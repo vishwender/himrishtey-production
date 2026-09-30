@@ -14,7 +14,7 @@
     <article class="legal-card" aria-label="Child safety standard">
         <header class="legal-card-header">
             <div class="legal-card-icon" aria-hidden="true"><i data-lucide="shield-alert" width="23" height="23"></i></div>
-            <h2>Our commitment to child safety</h2>
+            <h2>Our commitment to <span class="heading-accent">child safety</span></h2>
         </header>
         <div class="legal-content">
             <section class="legal-safety-section">

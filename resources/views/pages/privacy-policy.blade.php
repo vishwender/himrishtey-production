@@ -12,7 +12,7 @@
   <article class="legal-card" aria-label="Privacy policy content">
     <header class="legal-card-header">
       <div class="legal-card-icon" aria-hidden="true"><i data-lucide="shield-check" width="23" height="23"></i></div>
-      <h2>How we handle your information</h2>
+      <h2>How we <span class="heading-accent">handle your information</span></h2>
     </header>
     <div class="legal-content">
       @if (filled(strip_tags((string) $data))) {!! $data !!} @else <p class="legal-empty">The privacy policy is being updated. Please contact support if you have a question about your data.</p> @endif

@@ -16,7 +16,7 @@
       <div class="legal-card-icon" aria-hidden="true">
         <i data-lucide="receipt-text" width="23" height="23"></i>
       </div>
-      <h2>Membership payments and refunds</h2>
+      <h2>Membership <span class="heading-accent">payments and refunds.</span></h2>
     </header>
     <div class="legal-content">
       @if (filled(strip_tags((string) $data))) {!! $data !!} @else <p class="legal-empty">The refund policy is being updated. Please contact support before making a purchase if you need clarification.</p> @endif
