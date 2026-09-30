@@ -51,12 +51,12 @@
   </section>
 
   <section class="about-steps editorial-wrap"><span class="editorial-kicker">What guides us</span>
-    <h2>Simple principles. Lasting impact.</h2>
+    <h2>Simple principles. <span class="heading-accent">Lasting impact.</span></h2>
     <div>
-      <p><b>Be genuine</b><small>Clear information and honest intentions make better introductions.</small></p>
-      <p><b>Be respectful</b><small>Every person and every family deserves dignity throughout the journey.</small></p>
-      <p><b>Keep improving</b><small>We listen, learn and make the matching experience safer and simpler.</small></p>
-      <p><b>Stay human</b><small>Behind every profile is a person hoping to find something meaningful.</small></p>
+      <p><b><i data-lucide="badge-check" aria-hidden="true"></i>Be genuine</b><small>Clear information and honest intentions make better introductions.</small></p>
+      <p><b><i data-lucide="handshake" aria-hidden="true"></i>Be respectful</b><small>Every person and every family deserves dignity throughout the journey.</small></p>
+      <p><b><i data-lucide="trending-up" aria-hidden="true"></i>Keep improving</b><small>We listen, learn and make the matching experience safer and simpler.</small></p>
+      <p><b><i data-lucide="heart-handshake" aria-hidden="true"></i>Stay human</b><small>Behind every profile is a person hoping to find something meaningful.</small></p>
     </div>
   </section>
 

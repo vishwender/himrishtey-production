@@ -137,3 +137,17 @@
     .public-site .about-story > .about-story-copy { padding: 2.25rem 1.5rem 2.5rem; }
     .public-site .about-story p { font-size: 15px; }
 }
+
+.public-site .about-steps > div > p > b {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.public-site .about-steps > div > p > b > svg {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    overflow: visible;
+    color: var(--brand);
+}

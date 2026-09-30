@@ -1276,6 +1276,6 @@ footer,
 }
 
 /* Highlight selected heading text with the active site theme. */
-.public-home h2 .heading-accent {
+.public-site h2 .heading-accent {
     color: var(--brand);
 }
