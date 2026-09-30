@@ -213,6 +213,7 @@
              aria-label="Verified members">
 
              <h2>Meet our <span class="heading-accent">verified members</span></h2>
+             <p class="members-subtitle">Real people. Verified profiles. Meaningful possibilities.</p>
 
              <div class="ornament">
                  <i data-lucide="heart" aria-hidden="true"></i>
