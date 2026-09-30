@@ -349,16 +349,19 @@
                          <span class="how-step-icon how-step-icon--create" aria-hidden="true"><i data-lucide="user-round-plus" aria-hidden="true"></i></span>
                          <b>1. Create Your Profile</b>
                          <small>Sign up and create your profile in just a few minutes. Create your profile as Groom or Bride and share age, height, community, photo, education and job details.</small>
+                         <span class="how-flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
                      </div>
                      <div>
                          <span class="how-step-icon how-step-icon--activate" aria-hidden="true"><i data-lucide="shield-check" aria-hidden="true"></i></span>
                          <b>2. Activate Your Profile</b>
                          <small>Choose Normal or Premium activation. Once your information is verified, our team activates your profile.</small>
+                         <span class="how-flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
                      </div>
                      <div>
                          <span class="how-step-icon how-step-icon--discover" aria-hidden="true"><i data-lucide="search" aria-hidden="true"></i></span>
                          <b>3. Discover Matches</b>
                          <small>Get matched with compatible profiles tailored for you. Browse opposite gender profiles, check Recent Joins and use advanced search based on your preference.</small>
+                         <span class="how-flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
                      </div>
                      <div>
                          <span class="how-step-icon how-step-icon--interest" aria-hidden="true"><i data-lucide="heart-handshake" aria-hidden="true"></i></span>

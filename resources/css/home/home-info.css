@@ -86,3 +86,30 @@
 [data-theme="dark"] .how-step-icon--discover { --step-icon-color: #c084fc; }
 .how-step-icon--interest { --step-icon-color: #db2777; }
 [data-theme="dark"] .how-step-icon--interest { --step-icon-color: #f472b6; }
+
+/* Connect the steps in reading order, with room for each arrow. */
+.home-steps-grid { gap: 36px; }
+.home-steps-grid > div { position: relative; }
+.how-flow-arrow {
+    position: absolute;
+    top: 50%;
+    right: -33px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    transform: translateY(-50%);
+    color: var(--brand);
+    pointer-events: none;
+}
+.how-flow-arrow svg { width: 26px; height: 26px; overflow: visible; }
+@media (max-width: 1000px) {
+    .home-steps-grid { grid-template-columns: 1fr; gap: 40px; max-width: 580px; margin-inline: auto; }
+    .how-flow-arrow {
+        top: auto;
+        right: auto;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%) rotate(90deg);
+    }
+}
