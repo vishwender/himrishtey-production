@@ -202,36 +202,138 @@
 
          @if($featuredProfiles->isNotEmpty())
 
-         <section class="matches wrap" id="featured" data-profile-slider aria-label="Verified members" aria-roledescription="carousel">
+         <section
+             class="matches wrap"
+             id="featured"
+             data-profile-slider
+             aria-roledescription="carousel"
+             aria-label="Verified members">
+
              <h2>Meet our verified members</h2>
-             <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
-             <div class="profile-slider-controls" hidden>
-                 <button type="button" data-slider-prev aria-label="Previous profiles" aria-controls="verified-profile-track">←</button>
-                 <button type="button" data-slider-next aria-label="Next profiles" aria-controls="verified-profile-track">→</button>
+
+             <div class="ornament">
+                 <i data-lucide="heart" aria-hidden="true"></i>
              </div>
-             <div class="cards profile-slider-track" id="verified-profile-track" tabindex="0" aria-label="Verified profiles; use arrow keys to browse">
-                 @foreach($featuredProfiles as $profile)
-                 @php
-                 $photoUrl = \App\Website\Services\ProfilePhotoUrl::get($profile->photo);
-                 @endphp
-                 <article class="profile-card">
-                     <div class="profile-photo">
-                         <img src="{{ $photoUrl }}" alt="{{ $profile->full_name }}" loading="lazy">
-                         <span>● Verified</span>
+
+
+             <div class="featured-profiles-slider">
+
+                 <div class="swiper featuredSwiper" tabindex="0" aria-label="Verified profiles; use arrow keys to browse">
+
+                     <div class="swiper-wrapper">
+
+                         @foreach($featuredProfiles as $profile)
+
+                         @php
+                         $photoUrl = \App\Website\Services\ProfilePhotoUrl::get(
+                         $profile->photo
+                         );
+                         @endphp
+
+                         <div class="swiper-slide">
+
+                             <article class="profile-card">
+
+                                 <div class="profile-photo">
+
+                                     <img
+                                         src="{{ $photoUrl }}"
+                                         alt="{{ $profile->full_name }}"
+                                         loading="lazy">
+
+                                     <span>
+                                         <i data-lucide="badge-check" aria-hidden="true"></i>
+                                         Verified
+                                     </span>
+
+                                 </div>
+
+                                 <div class="profile-card-content">
+
+                                     <b>
+                                         {{ $profile->full_name }}
+                                         @if($profile->age)
+                                         , {{ $profile->age }}
+                                         @endif
+                                     </b>
+
+
+                                     @if($profile->city_living_in)
+
+                                     <small class="profile-detail">
+                                         <i data-lucide="map-pin" aria-hidden="true"></i>
+
+                                         <span>
+                                             {{ $profile->city_living_in }}
+                                         </span>
+                                     </small>
+
+                                     @endif
+
+
+                                     @if($profile->occupation)
+
+                                     <small class="profile-detail">
+                                         <i data-lucide="briefcase" aria-hidden="true"></i>
+
+                                         <span>
+                                             {{ $profile->occupation }}
+                                         </span>
+                                     </small>
+
+                                     @endif
+
+                                 </div>
+
+                             </article>
+
+                         </div>
+
+                         @endforeach
+
                      </div>
-                     <div>
-                         <b>{{ $profile->full_name }}@if($profile->age), {{ $profile->age }}@endif</b>
-                         @if($profile->city_living_in)
-                         <small class="profile-detail"><i data-lucide="map-pin" aria-hidden="true"></i><span>{{ $profile->city_living_in }}</span></small>
-                         @endif
-                         @if($profile->occupation)
-                         <small class="profile-detail"><i data-lucide="briefcase" aria-hidden="true"></i><span>{{ $profile->occupation }}</span></small>
-                         @endif
-                     </div>
-                 </article>
-                 @endforeach
-             </div><a class="more outline public-cta public-cta-secondary" href="{{ route('login-form') }}#register">View More Profiles</a>
+
+
+                     {{-- Navigation --}}
+
+                     <button
+                         type="button"
+                         class="featured-swiper-prev"
+                         aria-label="Previous profiles">
+
+                         <i data-lucide="chevron-left"></i>
+
+                     </button>
+
+                     <button
+                         type="button"
+                         class="featured-swiper-next"
+                         aria-label="Next profiles">
+
+                         <i data-lucide="chevron-right"></i>
+
+                     </button>
+
+
+                     {{-- Pagination --}}
+
+                     <div class="featured-swiper-pagination"></div>
+
+                 </div>
+
+             </div>
+
+
+             <a
+                 class="more outline public-cta public-cta-secondary"
+                 href="{{ route('login-form') }}#register">
+
+                 View More Profiles
+
+             </a>
+
          </section>
+
          @endif
 
 
