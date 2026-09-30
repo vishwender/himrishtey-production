@@ -113,3 +113,18 @@
         transform: translateX(-50%) rotate(90deg);
     }
 }
+
+.home-how .how-subtitle {
+    width: fit-content;
+    max-width: 100%;
+    margin: 10px auto 16px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--brand) 9%, var(--surface));
+    color: var(--brand);
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-align: center;
+}

@@ -343,6 +343,7 @@
          <section class="home-info-section home-how" id="how" aria-labelledby="how-title">
              <div class="wrap">
                  <h2 id="how-title">How <span class="heading-accent">it works</span></h2>
+                 <p class="how-subtitle">Simple steps to find your life partner.</p>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
                  <div class="home-steps-grid">
                      <div>
