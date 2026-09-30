@@ -435,7 +435,7 @@ class AuthController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:6',
+                'min:8',
             ],
         ]);
 
@@ -1747,7 +1747,7 @@ class AuthController extends Controller
             'new_password' => [
                 'required',
                 'string',
-                'min:6',
+                'min:8',
                 'confirmed',
             ],
         ]);

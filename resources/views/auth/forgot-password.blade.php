@@ -1221,11 +1221,11 @@
             }
 
 
-            if (password.length < 6) {
+            if (password.length < 8) {
 
                 showError(
                     passwordError,
-                    'Password must be at least 6 characters.'
+                    'Password must be at least 8 characters.'
                 );
 
                 passwordInput.focus();

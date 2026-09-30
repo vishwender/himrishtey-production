@@ -105,7 +105,7 @@ class LoginController extends Controller
 
     public function initial_registor(Request $request, EmailService $emailService)
     {
-        $request->validate(['password' => 'required|string|min:6']);
+        $request->validate(['password' => 'required|string|min:8']);
 
         if ((int) $request->captcha !== (int) session('captcha_answer')) {
             return response()->json([

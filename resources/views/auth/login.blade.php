@@ -382,10 +382,10 @@
                   id="regPassword"
                   name="password"
                   class="form-input"
-                  placeholder="Min. 6 characters"
+                  placeholder="Min. 8 characters"
                   autocomplete="new-password"
                   required
-                  minlength="6" />
+                  minlength="8" />
                 <button type="button" class="input-toggle-pass" aria-label="Show password" data-target="regPassword">
                   <i data-lucide="eye" width="16" height="16"></i>
                 </button>

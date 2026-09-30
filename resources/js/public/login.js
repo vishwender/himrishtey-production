@@ -55,8 +55,8 @@ function isValidMobile(value) {
     return /^[6-9]\d{9}$/.test(value.trim());
 }
 
-function isValidPassword(value) {
-    return value.length >= 6;
+function isValidPassword(value, minimumLength = 8) {
+    return value.length >= minimumLength;
 }
 
 function isValidLoginField(value) {
@@ -204,7 +204,7 @@ function validateLogin() {
 
     }
 
-    if (!Login.password.value || !isValidPassword(Login.password.value)) {
+    if (!Login.password.value || !isValidPassword(Login.password.value, 6)) {
 
         showError(
             Login.password,
@@ -501,7 +501,7 @@ function validateRegister() {
 
     if (!Register.password.value || !isValidPassword(Register.password.value)) {
 
-        showError(Register.password, Register.errors.password, 'Password must be at least 6 characters.');
+        showError(Register.password, Register.errors.password, 'Password must be at least 8 characters.');
 
         valid = false;
 
