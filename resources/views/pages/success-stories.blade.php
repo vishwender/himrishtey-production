@@ -14,7 +14,7 @@
           <span class="ss-page-eyebrow">Real stories. Real happiness.</span>
           <h1 class="ss-page-title">
             <i data-lucide="heart-handshake" width="26" height="26" class="ss-title-icon" aria-hidden="true"></i>
-            Matches that <span class="heading-accent">last forever.</span>
+            <span class="ss-title-text">Matches that <span class="heading-accent">last forever.</span></span>
           </h1>
           <p class="ss-page-subtitle">Celebrate the couples who found meaningful connections through {{ $siteName }}.</p>
         </div>
