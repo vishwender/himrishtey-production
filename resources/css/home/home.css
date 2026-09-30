@@ -22,6 +22,7 @@
 
 @import "./hero-mobile.css";
 @import "./home-info.css";
+@import "./why-choose.css";
 
 /* Keep homepage actions consistent, including header and app-download links. */
 .public-site.public-home button,

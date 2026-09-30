@@ -1,0 +1,4 @@
+Tool: built-in image_gen.
+Generate: Photorealistic portrait 2:3 cutout of a happy adult Indian newlywed couple, seated together, man in ivory embroidered sherwani and woman in blush pink wedding attire with gold jewelry. Warm soft light, smiling and looking toward upper right, head-to-knees framing. For a matrimonial website; no text, logos, or UI. Transparent background.
+Final edit: Remove the studio background around their silhouettes and replace it with genuine alpha transparency. Preserve face identities, attire, lighting, pose, framing, and portrait size.
+Final asset: public/assets/images/why-choose-couple.png

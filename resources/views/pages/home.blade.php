@@ -2,7 +2,7 @@
  <html lang="en" data-site="{{ $siteKey }}">
 
  <head>
-    @include('partials.favicon')
+     @include('partials.favicon')
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1">
      <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -369,19 +369,28 @@
              </div>
          </section>
          <section class="home-info-section home-why" id="why" aria-labelledby="why-title">
-             <div class="wrap">
-                 <h2 id="why-title">Why choose <span class="heading-accent">{{ $siteName }}?</span></h2>
-                 <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
+             <div class="why-layout">
+                 <div class="why-introduction">
+                     <span class="why-eyebrow">A trusted matrimonial platform</span>
+                     <h2 id="why-title">Why choose<br><span class="heading-accent">{{ $siteName }}?</span></h2>
+                     <div class="why-divider" aria-hidden="true"><i data-lucide="heart"></i></div>
+                     <p>We are committed to providing a safe, trusted and comfortable platform to help you find a compatible life partner from your community.</p>
+                     <a class="public-cta public-cta-primary why-join" href="{{ route('login-form') }}#register">Join Now for Free <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+                 </div>
+                 <div class="why-art" aria-hidden="true">
+                     <span class="why-art-heart"><i data-lucide="heart"></i></span>
+                     <img src="{{ asset('assets/images/why-choose-couple-v2.png') }}" alt="" width="1024" height="1536" loading="lazy">
+                 </div>
                  <div class="home-benefits-grid">
-                     <p><i data-lucide="badge-check" aria-hidden="true"></i><span><b>Verified &amp; Genuine</b><small>Every profile is manually verified</small></span></p>
-                     <p><i data-lucide="eye-off" aria-hidden="true"></i><span><b>Privacy Controls</b><small>You are in control of your privacy</small></span></p>
-                     <p><i data-lucide="star" aria-hidden="true"></i><span><b>Normal &amp; Premium Plans</b><small>Choose the activation model that suits your search journey and visibility needs.</small></span></p>
-                     <p><i data-lucide="sliders-horizontal" aria-hidden="true"></i><span><b>Advanced Search</b><small>Find matches by caste, district, profession, education, age and lifestyle preferences.</small></span></p>
-                     <p><i data-lucide="sparkles" aria-hidden="true"></i><span><b>Smart Matching</b><small>Advanced matching for better connections</small></span></p>
-                     <p><i data-lucide="users-round" aria-hidden="true"></i><span><b>Community Focused</b><small>Find matches from your community</small></span></p>
-                     <p><i data-lucide="heart" aria-hidden="true"></i><span><b>Send Interest</b><small>Express interest, receive responses, reject unwanted requests and manage connections easily.</small></span></p>
-                     <p><i data-lucide="shield-check" aria-hidden="true"></i><span><b>Secure Contact Access</b><small>Connect only when comfortable</small></span></p>
-                     <p><i data-lucide="map-pinned" aria-hidden="true"></i><span><b>Local Presence</b><small>Local support with a better understanding of your community.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--badge-check" aria-hidden="true"><i data-lucide="badge-check"></i></span><span class="why-benefit-copy"><b>Verified &amp; Genuine</b><small>Every profile is manually verified for authenticity.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--eye-off" aria-hidden="true"><i data-lucide="eye-off"></i></span><span class="why-benefit-copy"><b>Privacy Controls</b><small>You are in control of your privacy and visibility.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--crown" aria-hidden="true"><i data-lucide="crown"></i></span><span class="why-benefit-copy"><b>Normal &amp; Premium Plans</b><small>Choose the plan that suits your search journey and needs.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--sliders-horizontal" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span><span class="why-benefit-copy"><b>Advanced Search</b><small>Find matches by caste, district, profession, education, age and lifestyle preferences.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--sparkles" aria-hidden="true"><i data-lucide="sparkles"></i></span><span class="why-benefit-copy"><b>Smart Matching</b><small>Advanced matching for better and meaningful connections.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--users-round" aria-hidden="true"><i data-lucide="users-round"></i></span><span class="why-benefit-copy"><b>Community Focused</b><small>Find matches from your community and cultural background.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--heart" aria-hidden="true"><i data-lucide="heart"></i></span><span class="why-benefit-copy"><b>Send Interest</b><small>Express interest, receive responses, and take the next step with ease.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--shield-check" aria-hidden="true"><i data-lucide="shield-check"></i></span><span class="why-benefit-copy"><b>Secure Contact Access</b><small>Connect only when you are comfortable and ready.</small></span></p>
+                     <p><span class="why-benefit-icon why-benefit-icon--headset" aria-hidden="true"><i data-lucide="headset"></i></span><span class="why-benefit-copy"><b>Dedicated Support</b><small>Friendly support whenever you need help.</small></span></p>
                  </div>
              </div>
          </section>
