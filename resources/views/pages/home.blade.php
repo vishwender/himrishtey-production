@@ -221,7 +221,12 @@
                      </div>
                      <div>
                          <b>{{ $profile->full_name }}@if($profile->age), {{ $profile->age }}@endif</b>
-                         <small>{{ $profile->city_living_in }}<br>{{ $profile->occupation }}</small>
+                         @if($profile->city_living_in)
+                         <small class="profile-detail"><i data-lucide="map-pin" aria-hidden="true"></i><span>{{ $profile->city_living_in }}</span></small>
+                         @endif
+                         @if($profile->occupation)
+                         <small class="profile-detail"><i data-lucide="briefcase" aria-hidden="true"></i><span>{{ $profile->occupation }}</span></small>
+                         @endif
                      </div>
                  </article>
                  @endforeach

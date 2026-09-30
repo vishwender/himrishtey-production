@@ -1,3 +1,6 @@
+.profile-slider-track .profile-detail { display: flex; align-items: flex-start; gap: 6px; }
+.profile-slider-track .profile-detail svg { width: 13px; height: 13px; flex: 0 0 13px; margin-top: 1px; color: var(--brand); }
+.profile-slider-track .profile-detail span { min-width: 0; overflow-wrap: anywhere; }
 .profile-carousel-viewport { overflow: hidden; touch-action: pan-y; }
 .matches.carousel-ready .profile-slider-track {
     display: flex;
