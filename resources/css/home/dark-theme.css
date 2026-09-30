@@ -274,7 +274,7 @@ html[data-theme="dark"] .trust-strip small {
     color: #c4b5b8;
 }
 
-html[data-theme="dark"] .trust-strip article > svg {
+html[data-theme="dark"] .trust-strip article > .trust-icon {
     background: #352428;
     color: var(--brand);
 }

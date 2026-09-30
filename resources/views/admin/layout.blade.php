@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    @include('partials.favicon')
 
     <meta charset="UTF-8">
 

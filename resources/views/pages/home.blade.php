@@ -2,6 +2,7 @@
  <html lang="en" data-site="{{ $siteKey }}">
 
  <head>
+    @include('partials.favicon')
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1">
      <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -154,7 +155,7 @@
 
          <section class="trust-strip">
              <article>
-                 <i data-lucide="badge-check" aria-hidden="true"></i>
+                 <span class="trust-icon" aria-hidden="true"><i data-lucide="badge-check" aria-hidden="true"></i></span>
                  <div>
                      <b>100% Verified Profiles</b>
                      <small>
@@ -166,7 +167,7 @@
              </article>
 
              <article>
-                 <i data-lucide="shield-check" aria-hidden="true"></i>
+                 <span class="trust-icon" aria-hidden="true"><i data-lucide="shield-check" aria-hidden="true"></i></span>
                  <div>
                      <b>Secure, Private &amp; Trusted</b>
                      <small>
@@ -178,7 +179,7 @@
              </article>
 
              <article>
-                 <i data-lucide="users" aria-hidden="true"></i>
+                 <span class="trust-icon" aria-hidden="true"><i data-lucide="users" aria-hidden="true"></i></span>
                  <div>
                      <b>Thousands of Matches</b>
                      <small>
@@ -190,7 +191,7 @@
              </article>
 
              <article>
-                 <i data-lucide="headset" aria-hidden="true"></i>
+                 <span class="trust-icon" aria-hidden="true"><i data-lucide="headset" aria-hidden="true"></i></span>
                  <div>
                      <b>Dedicated Customer Support</b>
                      <small>

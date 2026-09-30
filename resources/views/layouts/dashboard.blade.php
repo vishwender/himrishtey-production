@@ -2,6 +2,7 @@
 <html lang="en" data-theme="light" data-site="{{ $siteKey }}">
 
 <head>
+    @include('partials.favicon')
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="site-name" content="{{ $siteName }}">

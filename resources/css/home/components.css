@@ -225,7 +225,9 @@
 |--------------------------------------------------------------------------
 */
 
-.trust-strip article > svg {
+.trust-strip article > .trust-icon {
+    display: grid;
+    place-items: center;
     align-self: center;
     width: 68px;
     height: 68px;
@@ -468,7 +470,7 @@ html[data-theme="dark"] .theme-moon {
         font-size: 29px;
     }
 
-    .trust-strip article > svg {
+    .trust-strip article > .trust-icon {
         width: 56px;
         height: 56px;
 
@@ -604,7 +606,7 @@ html[data-theme="dark"] .theme-moon {
         padding: 11px;
     }
 
-    .trust-strip article > svg {
+    .trust-strip article > .trust-icon {
         width: 46px;
         height: 46px;
 
@@ -620,4 +622,14 @@ html[data-theme="dark"] .theme-moon {
         height: 20px;
     }
 
+}
+
+/* Keep the SVG viewport separate from the circular badge's padding. */
+.trust-strip .trust-icon > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: visible;
+    stroke-width: 1.8;
 }

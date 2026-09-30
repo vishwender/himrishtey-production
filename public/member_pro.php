@@ -94,7 +94,8 @@ function profileEscape($value): string
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="/favicon.png?v=<?php echo filemtime(__DIR__ . '/favicon.png'); ?>" type="image/png" />
+	<link rel="icon" href="/favicon.ico?v=<?php echo filemtime(__DIR__ . '/favicon.ico'); ?>" type="image/x-icon" />
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title><?php echo profileEscape($siteName); ?></title>
 	<!-- Google tag (gtag.js) -->

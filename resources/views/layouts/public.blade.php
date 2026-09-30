@@ -2,6 +2,7 @@
 <html lang="en" data-site="{{ $siteKey }}">
 
 <head>
+    @include('partials.favicon')
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
