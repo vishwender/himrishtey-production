@@ -11,7 +11,7 @@
 <div class="faq-page">
     <section class="faq-hero" aria-labelledby="faq-title">
         <span class="faq-kicker">Help Center</span>
-        <h1 id="faq-title">Frequently asked questions</h1>
+        <h1 id="faq-title">Frequently asked <span class="heading-accent">questions</span></h1>
         <p>Everything you need to know to begin your matrimonial journey with confidence.</p>
     </section>
 
@@ -34,7 +34,7 @@
         <div class="faq-heading">
             <div>
                 <span class="faq-count">{{ count($faqs) }} helpful answers</span>
-                <h2>Common questions</h2>
+                <h2>Common <span class="heading-accent">questions</span></h2>
             </div>
             <i data-lucide="messages-square" width="30" height="30" aria-hidden="true"></i>
         </div>
@@ -57,7 +57,7 @@
     <section class="faq-contact" aria-label="Contact support">
         <div class="faq-contact-icon"><i data-lucide="heart-handshake" width="25" height="25" aria-hidden="true"></i></div>
         <div>
-            <h2>Still have a question?</h2>
+            <h2>Still have <span class="heading-accent">a question?</span></h2>
             <p>Our support team will be happy to help you.</p>
         </div>
         <a class="public-cta public-cta-primary" href="{{ route('contact-us') }}">Contact Us <i data-lucide="arrow-right" width="17" height="17" aria-hidden="true"></i></a>
