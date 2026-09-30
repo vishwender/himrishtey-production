@@ -211,7 +211,7 @@
              aria-roledescription="carousel"
              aria-label="Verified members">
 
-             <h2>Meet our verified members</h2>
+             <h2>Meet our <span class="heading-accent">verified members</span></h2>
 
              <div class="ornament">
                  <i data-lucide="heart" aria-hidden="true"></i>
@@ -341,7 +341,7 @@
 
          <section class="home-info-section home-how" id="how" aria-labelledby="how-title">
              <div class="wrap">
-                 <h2 id="how-title">How it works</h2>
+                 <h2 id="how-title">How <span class="heading-accent">it works</span></h2>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
                  <div class="home-steps-grid">
                      <div>
@@ -369,7 +369,7 @@
          </section>
          <section class="home-info-section home-why" id="why" aria-labelledby="why-title">
              <div class="wrap">
-                 <h2 id="why-title">Why choose {{ $siteName }}?</h2>
+                 <h2 id="why-title">Why choose <span class="heading-accent">{{ $siteName }}?</span></h2>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
                  <div class="home-benefits-grid">
                      <p><i data-lucide="badge-check" aria-hidden="true"></i><span><b>Verified &amp; Genuine</b><small>Every profile is manually verified</small></span></p>
@@ -606,7 +606,7 @@
          </section>
          <div class="home-info-background">
              <section class="stories wrap" id="stories">
-                 <h2>Real stories. Real happiness.</h2>
+                 <h2>Real stories. <span class="heading-accent">Real happiness.</span></h2>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
                  <div class="story-grid">
                      <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
