@@ -400,7 +400,7 @@
          @if($enabled && $instagramItems->isNotEmpty())
 
          <section class="communities wrap">
-             <h2>Latest from Instagram</h2>
+             <h2>Latest <span class="heading-accent">from Instagram</span></h2>
 
              <div class="community-grid">
 

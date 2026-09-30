@@ -29,6 +29,15 @@ if (! is_string($database) || ! isset($databases[$database])) {
 	http_response_code(400);
 	exit('Choose a valid database: base, gallpakki, devbhoomi, or dogririshtey.');
 }
+// Keep branding aligned with the database selected for this profile.
+$siteNames = [
+	'base' => 'HimRishtey',
+	'gallpakki' => 'Gallpakki',
+	'devbhoomi' => 'Dev Bhoomi Rishtey',
+	'dogririshtey' => 'Dogri Rishtey',
+];
+$siteName = $siteNames[$database];
+
 $uid = $_GET['uid'] ?? '';
 $sid = is_string($uid) ? base64_decode($uid, true) : false;
 if (
@@ -87,7 +96,7 @@ function profileEscape($value): string
 
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>Gallpakki</title>
+	<title><?php echo profileEscape($siteName); ?></title>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-305607407"></script>
 	<script>
@@ -900,7 +909,7 @@ function profileEscape($value): string
 	<footer class="profile-footer">
 		<div class="profile-footer-inner">
 			<p>
-				&copy; <?php echo date('Y'); ?> Gallpakki.
+				&copy; <?php echo date('Y'); ?> <?php echo profileEscape($siteName); ?>.
 				All rights reserved.
 			</p>
 
