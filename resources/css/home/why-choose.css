@@ -46,14 +46,8 @@
 .why-art-heart svg { width: 26px; height: 26px; fill: currentColor; }
 .home-why .home-benefits-grid { position: relative; z-index: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .home-why .home-benefits-grid > p { flex-direction: row; align-items: flex-start; gap: 12px; padding: 20px 14px; border: 1px solid color-mix(in srgb, var(--border) 45%, transparent); border-radius: 20px; text-align: left; box-shadow: none; }
-.home-why .home-benefits-grid > p > .why-benefit-icon { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; background: color-mix(in srgb, var(--benefit-tone, var(--brand)) 10%, var(--surface)); color: var(--benefit-tone, var(--brand)); }
+.home-why .home-benefits-grid > p > .why-benefit-icon { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; background: color-mix(in srgb, var(--benefit-tone) 10%, var(--surface)); color: var(--benefit-tone); }
 .why-benefit-icon svg { width: 26px; height: 26px; overflow: visible; }
-.why-benefit-icon--crown, .why-benefit-icon--headset { --benefit-tone: #c4660e; }
-.why-benefit-icon--sparkles { --benefit-tone: #ad4419; }
-.why-benefit-icon--users-round { --benefit-tone: #8a40b1; }
-[data-theme="dark"] .why-benefit-icon--crown, [data-theme="dark"] .why-benefit-icon--headset { --benefit-tone: #f3b76b; }
-[data-theme="dark"] .why-benefit-icon--sparkles { --benefit-tone: #f29c7c; }
-[data-theme="dark"] .why-benefit-icon--users-round { --benefit-tone: #d7a1f4; }
 .home-why .home-benefits-grid > p > .why-benefit-copy { min-width: 0; gap: 6px; }
 .home-why .home-benefits-grid b { font-size: 13px; line-height: 1.4; }
 .home-why .home-benefits-grid small { font-size: 12px; line-height: 1.55; }
@@ -78,3 +72,29 @@
     .home-why .home-benefits-grid { grid-template-columns: 1fr; }
     .home-why .home-benefits-grid > p { flex-direction: row; }
 }
+
+/* Independent card palette shared by all sites. */
+.home-why .home-benefits-grid > p { background: color-mix(in srgb, var(--benefit-tone) 6%, #ffffff); border-color: color-mix(in srgb, var(--benefit-tone) 20%, #ffffff); color: #201f2a; }
+.home-why .home-benefits-grid small { color: #595666; }
+.home-why .home-benefits-grid > p > .why-benefit-icon { background: color-mix(in srgb, var(--benefit-tone) 13%, #ffffff); }
+.home-why .home-benefits-grid > p:nth-child(1) { --benefit-tone: #16803d; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(1) { --benefit-tone: #69db9a; }
+.home-why .home-benefits-grid > p:nth-child(2) { --benefit-tone: #2563eb; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(2) { --benefit-tone: #8eb8ff; }
+.home-why .home-benefits-grid > p:nth-child(3) { --benefit-tone: #b77908; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(3) { --benefit-tone: #f3c96a; }
+.home-why .home-benefits-grid > p:nth-child(4) { --benefit-tone: #087f8c; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(4) { --benefit-tone: #6bd2df; }
+.home-why .home-benefits-grid > p:nth-child(5) { --benefit-tone: #b44519; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(5) { --benefit-tone: #ffa783; }
+.home-why .home-benefits-grid > p:nth-child(6) { --benefit-tone: #8a40b1; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(6) { --benefit-tone: #d4a0f5; }
+.home-why .home-benefits-grid > p:nth-child(7) { --benefit-tone: #cb2778; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(7) { --benefit-tone: #ff9bca; }
+.home-why .home-benefits-grid > p:nth-child(8) { --benefit-tone: #0d8070; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(8) { --benefit-tone: #71dac6; }
+.home-why .home-benefits-grid > p:nth-child(9) { --benefit-tone: #5145bd; }
+[data-theme="dark"] .home-why .home-benefits-grid > p:nth-child(9) { --benefit-tone: #b4abff; }
+[data-theme="dark"] .home-why .home-benefits-grid > p { background: color-mix(in srgb, var(--benefit-tone) 9%, #171820); border-color: color-mix(in srgb, var(--benefit-tone) 24%, #171820); color: #f6f3fa; }
+[data-theme="dark"] .home-why .home-benefits-grid small { color: #d2ccd9; }
+[data-theme="dark"] .home-why .home-benefits-grid > p > .why-benefit-icon { background: color-mix(in srgb, var(--benefit-tone) 16%, #171820); }
