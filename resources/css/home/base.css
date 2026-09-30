@@ -304,6 +304,20 @@ textarea {
 
 .trusted small {
     font-size: 10px;
+    line-height: 1.4;
+}
+
+.trusted-caption {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trusted small svg {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    color: var(--brand);
 }
 
 .trusted b {
@@ -312,30 +326,23 @@ textarea {
 
 .mini-faces {
     display: flex;
+    flex-shrink: 0;
 }
 
-.mini-faces i {
+.mini-faces img {
+    display: block;
     width: 27px;
     height: 27px;
-
     margin-left: -8px;
-
-    border: 2px solid #ffffff;
+    border: 2px solid var(--surface);
     border-radius: 50%;
-
-    background:
-        url('/images/profile_photos/girl.jpg')
-        center / cover
-        no-repeat;
+    object-fit: cover;
+    object-position: center top;
+    background: var(--surface-soft);
 }
 
-.mini-faces i:first-child {
+.mini-faces img:first-child {
     margin-left: 0;
-}
-
-.mini-faces i:nth-child(2) {
-    background-image:
-        url('/images/profile_photos/boy.jpg');
 }
 
 

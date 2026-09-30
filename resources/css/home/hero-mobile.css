@@ -43,5 +43,4 @@
     .hero .hero-buttons { flex-flow: row wrap; gap: 12px; }
     .hero .hero-buttons a { max-width: 100%; padding: 13px 18px; font-size: 14px; }
     .hero .trusted { margin-top: 24px; }
-    .hero .trusted small svg { width: 16px; height: 16px; vertical-align: middle; }
 }

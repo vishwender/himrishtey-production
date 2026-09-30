@@ -75,12 +75,14 @@
                      </a>
                  </div>
                  <div class="trusted">
-                     <span class="mini-faces">
-                         <i></i>
-                         <i></i>
-                         <i></i>
+                     @if($featuredProfiles->isNotEmpty())
+                     <span class="mini-faces" aria-hidden="true">
+                         @foreach($featuredProfiles->take(3) as $trustedProfile)
+                         <img src="{{ \App\Website\Services\ProfilePhotoUrl::get($trustedProfile->photo) }}" alt="" width="27" height="27">
+                         @endforeach
                      </span>
-                     <small>Trusted by thousands of<br>happy members <i data-lucide="heart" aria-hidden="true"></i></small>
+                     @endif
+                     <small>Trusted by thousands of<br><span class="trusted-caption">happy members <i data-lucide="heart" aria-hidden="true"></i></span></small>
                  </div>
              </div>
          </section>
