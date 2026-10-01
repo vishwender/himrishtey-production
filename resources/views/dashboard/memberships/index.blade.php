@@ -64,5 +64,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{asset('assets/js/memberships.js') }}"></script>
+<script src="{{ asset('assets/js/memberships.js') }}?v={{ filemtime(public_path('assets/js/memberships.js')) }}"></script>
 @endsection

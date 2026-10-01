@@ -133,7 +133,7 @@ callbackBtn.addEventListener('click', async function () {
 
     try {
 
-        const response = await fetch(callbackStatusUrl, {
+        const response = await fetch(callbackUrl, {
 
             method: 'POST',
 
