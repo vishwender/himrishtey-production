@@ -100,12 +100,12 @@
                     Blog
                 </a>
 
-                <a href="{{ route('contact-us') }}">
-                    Contact Us
-                </a>
-
                 <a href="{{ route('faqs') }}">
                     FAQs
+                </a>
+
+                <a href="{{ route('contact-us') }}">
+                    Contact Us
                 </a>
 
             </div>
@@ -116,12 +116,12 @@
 
                 <b>Legal &amp; Safety</b>
 
-                <a href="{{ route('privacy-policy') }}">
-                    Privacy Policy
-                </a>
-
                 <a href="{{ route('terms-and-conditions') }}">
                     Terms &amp; Conditions
+                </a>
+
+                <a href="{{ route('privacy-policy') }}">
+                    Privacy Policy
                 </a>
 
                 <a href="{{ route('refund-policy') }}">
