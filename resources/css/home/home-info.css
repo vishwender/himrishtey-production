@@ -131,10 +131,13 @@
 }
 
 .home-how .ornament,
+.stories .ornament,
 .matches .ornament { align-items: center; gap: 14px; }
 .home-how .ornament::before,
 .home-how .ornament::after,
 .matches .ornament::before,
+.stories .ornament::before,
+.stories .ornament::after,
 .matches .ornament::after {
     content: '';
     width: clamp(60px, 18vw, 120px);
@@ -142,6 +145,8 @@
     background: linear-gradient(90deg, transparent, var(--brand));
 }
 .home-how .ornament::after,
+.stories .ornament::after,
 .matches .ornament::after { background: linear-gradient(90deg, var(--brand), transparent); }
 .home-how .ornament svg,
+.stories .ornament svg,
 .matches .ornament svg { width: 20px; height: 20px; flex: 0 0 20px; }
