@@ -504,7 +504,7 @@
                          <figcaption>Android</figcaption>
                      </figure>
                      @endif
-                     @if ($siteKey === 'himrishtey.com' && $siteIosAppQr)
+                     @if ($siteIosAppQr)
                      <figure class="app-qr">
                          <img
                              src="{{ asset($siteIosAppQr) }}"
