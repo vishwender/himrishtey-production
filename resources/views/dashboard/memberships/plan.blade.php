@@ -8,7 +8,7 @@
 
 @section('content')
 
-<main class="membership-details">
+<section class="membership-details">
 
     <!-- Membership Header -->
     <div class="page-header">
@@ -127,6 +127,6 @@
 
     </section>
 
-</main>
+</section>
 
 @endsection

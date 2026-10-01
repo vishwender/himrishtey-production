@@ -165,9 +165,9 @@
                   id="loginOtp"
                   name="otp"
                   class="form-input"
-                  placeholder="Enter 6-digit OTP"
+                  placeholder="Enter 4-digit OTP"
                   inputmode="numeric"
-                  maxlength="6"
+                  maxlength="4"
                   autocomplete="one-time-code">
               </div>
 

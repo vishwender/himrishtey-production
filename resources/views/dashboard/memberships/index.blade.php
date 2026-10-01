@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<main class="membership-section">
+<section class="membership-section">
 
     <div class="membership-header">
         <h1>Membership</h1>
@@ -60,7 +60,7 @@
 
     </section>
 
-</main>
+</section>
 @endsection
 
 @section('scripts')
