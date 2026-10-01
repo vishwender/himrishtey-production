@@ -624,22 +624,24 @@
                  <h2>Real stories. <span class="heading-accent">Real happiness.</span></h2>
                  <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
                  <div class="story-grid">
-                     <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
-                         <div><b>Pooja &amp; Ankush</b><strong>Shimla, Himachal Pradesh</strong>
-                             <p>“We met on {{ $siteName }} and instantly connected. Today, we are happily building our future together.”</p>
-                             <small><i data-lucide="heart" aria-hidden="true"></i> Married on 12th Feb 2024</small>
+                     @forelse ($successStories as $story)
+                     <article>
+                         <img src="{{ \App\Services\SuccessStoryPhoto::url($story->photo) }}"
+                             alt="{{ $story->groom_name }} and {{ $story->bride_name }}"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='{{ asset('uploads/success-stories/default-story.png') }}';">
+                         <div>
+                             <b>{{ $story->groom_name }} &amp; {{ $story->bride_name }}</b>
+                             <p>{{ \Illuminate\Support\Str::limit(strip_tags($story->detail ?? ''), 220) }}</p>
                          </div>
                      </article>
-                     <article><img src="{{ asset('uploads/success-stories/default-story.png') }}" alt="Happy couple">
-                         <div><b>Megha &amp; Saurav</b><strong>Kangra, Himachal Pradesh</strong>
-                             <p>“Thanks to {{ $siteName }}, we found not just a life partner but a best friend for life.”</p>
-                             <small><i data-lucide="heart" aria-hidden="true"></i> Married on 5th Nov 2023</small>
-                         </div>
-                     </article>
+                     @empty
+                     <p>Success stories from {{ $siteName }} will appear here soon.</p>
+                     @endforelse
                  </div><a class="more outline public-cta public-cta-secondary" href="{{ route('success-stories') }}">Read More Success Stories</a>
              </section>
+         </div>
      </main>
-     </div>
      @include('partials.public-footer')
      @include('partials.app-popup')
  </body>
