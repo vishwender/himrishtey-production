@@ -805,7 +805,7 @@
     .auth-right {
         display: block;
 
-        padding: 42px var(--container-padding) 70px;
+        padding: 56px var(--container-padding) 70px;
     }
 
     .login-form-panel {
@@ -827,7 +827,7 @@
 @media (max-width: 600px) {
 
     .auth-right {
-        padding-top: 30px;
+        padding-top: 48px;
         padding-bottom: 55px;
     }
 
