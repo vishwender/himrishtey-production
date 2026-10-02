@@ -3,7 +3,7 @@
 @section('title', 'Quick Search - ' . $siteName)
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/quick-search.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/quick-search.css') }}?v={{ filemtime(public_path('assets/css/quick-search.css')) }}" />
 @endsection
 
 @section('content')
@@ -112,27 +112,25 @@
                 </div>
             </div>
 
+            <!-- ===== SEARCH ACTIONS ===== -->
+            <div class="qs-bottom-bar">
+                <div class="qs-bottom-inner">
+                    <div class="qs-bottom-summary" id="qsSummary">
+                        <i data-lucide="filter" width="16" height="16"></i>
+                        <span id="qsSummaryText">No filters applied</span>
+                    </div>
+                    <button type="button" class="qs-reset-btn" id="qsResetBtn" aria-label="Reset all filters">
+                        <i data-lucide="rotate-ccw" width="15" height="15"></i>
+                        Reset
+                    </button>
+                    <button type="button" class="qs-search-btn" id="qsSearchBtn">
+                        <i data-lucide="search" width="18" height="18"></i>
+                        Search Profiles
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
-
-    <!-- ===== STICKY BOTTOM BAR ===== -->
-    <div class="qs-bottom-bar">
-        <div class="qs-bottom-inner">
-            <div class="qs-bottom-summary" id="qsSummary">
-                <i data-lucide="filter" width="16" height="16"></i>
-                <span id="qsSummaryText">No filters applied</span>
-            </div>
-            <button type="button" class="qs-reset-btn" id="qsResetBtn" aria-label="Reset all filters">
-                <i data-lucide="rotate-ccw" width="15" height="15"></i>
-                Reset
-            </button>
-            <button type="button" class="qs-search-btn" id="qsSearchBtn">
-                <i data-lucide="search" width="18" height="18"></i>
-                Search Profiles
-            </button>
-        </div>
-    </div>
-
 </div>
 @endsection
 
