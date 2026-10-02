@@ -1650,3 +1650,18 @@ body.pd-sharing { overflow: hidden; }
 [data-theme="dark"] .pd-share-dialog { --share-border: #3c4758; --share-muted: #b3bdcc; background: #1e293b; color: #f8fafc; }
 [data-theme="dark"] #profileShareStatus { color: #86efac; }
 @media (max-width: 480px) { .pd-share-dialog { padding: 20px; border-radius: 20px; } }
+
+/* My Profile edit action follows the current site's palette. */
+.pd-btn-interest.pd-btn-edit-profile {
+  background: var(--site-primary, var(--color-primary));
+  color: #fff;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--site-primary, var(--color-primary)) 28%, transparent);
+}
+.pd-btn-interest.pd-btn-edit-profile:hover {
+  background: color-mix(in srgb, var(--site-primary, var(--color-primary)) 85%, #000);
+  color: #fff;
+}
+.pd-btn-interest.pd-btn-edit-profile:focus-visible {
+  outline: 2px solid var(--site-primary, var(--color-primary));
+  outline-offset: 4px;
+}

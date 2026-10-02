@@ -426,7 +426,7 @@
                     </div>
                 </div>
                 <div class="pd-action-btns">
-                    <a href="{{ route('edit-profile') }}" class="pd-btn-interest"><i data-lucide="pencil" width="17" height="17"></i> Edit Profile</a>
+                    <a href="{{ route('edit-profile') }}" class="pd-btn-interest pd-btn-edit-profile"><i data-lucide="pencil" width="17" height="17"></i> Edit Profile</a>
                     <button type="button" class="pd-btn-shortlist" id="galleryActionBtn"><i data-lucide="images" width="17" height="17"></i> View Gallery</button>
                 </div>
                 <div class="pd-action-divider"></div>

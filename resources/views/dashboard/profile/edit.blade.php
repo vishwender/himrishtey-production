@@ -17,6 +17,10 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 
 <!-- ========== MAIN LAYOUT ========== -->
 <div class="ep-main">
+    <a class="ep-back-link" href="{{ route('home') }}">
+        <i data-lucide="arrow-left" width="16" height="16" aria-hidden="true"></i>
+        Back to dashboard
+    </a>
 
     <!-- Page Header -->
     <div class="ep-page-header">

@@ -576,3 +576,15 @@
 #children-wrap[hidden] {
   display: none !important;
 }
+.ep-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+.ep-back-link:hover { color: var(--site-primary, var(--color-primary)); }
+.ep-back-link:focus-visible { outline: 2px solid var(--site-primary, var(--color-primary)); outline-offset: 4px; }
+.ep-back-link svg { width: 16px; height: 16px; }
