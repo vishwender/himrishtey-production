@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<main class="verify-page">
+<div class="verify-page">
     <div class="verify-container">
 
 
@@ -225,7 +225,7 @@
 
     </script>
 
-</main>
+</div>
 @endsection
 
 @section('scripts')

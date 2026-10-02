@@ -8,7 +8,7 @@
 
 @section('content')
 
-<main class="member-terms-page">
+<div class="member-terms-page">
 
     <section class="member-terms-hero" aria-labelledby="memberRefundTitle">
         <p class="member-terms-kicker">Legal</p>
@@ -27,6 +27,6 @@
         </section>
     </article>
 
-</main>
+</div>
 
 @endsection

@@ -16,7 +16,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 @section('content')
 
 <!-- ========== MAIN LAYOUT ========== -->
-<main class="ep-main" id="main-content">
+<div class="ep-main">
 
     <!-- Page Header -->
     <div class="ep-page-header">
@@ -1291,7 +1291,7 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 
         </div><!-- /ep-tab-content -->
     </div><!-- /ep-layout -->
-</main>
+</div>
 @endsection
 <!-- ===== SUCCESS TOAST ===== -->
 <div class="ep-toast" id="epSuccessToast" role="status" aria-live="polite">

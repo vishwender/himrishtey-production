@@ -3,7 +3,7 @@
 @section('description', 'Read the terms governing profiles, memberships, payments, and use of ' . $siteName . '.')
 
 @section('content')
-<main class="legal-page" id="main-content">
+<div class="legal-page" id="main-content">
   <section class="legal-hero" aria-labelledby="termsTitle">
     <p class="legal-kicker"><i data-lucide="scale" width="14" height="14"></i> Legal</p>
     <h1 id="termsTitle">Terms &amp; Conditions</h1>
@@ -21,5 +21,5 @@
   <section class="legal-support"><i data-lucide="message-circle-question" width="22" height="22"></i>
     <p>Need help understanding a membership or account term?</p><a class="public-cta public-cta-primary" href="{{ route('contact-us') }}">Contact Support</a>
   </section>
-</main>
+</div>
 @endsection

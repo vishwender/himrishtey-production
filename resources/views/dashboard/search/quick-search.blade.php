@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- ===== MAIN ===== -->
-<main class="main-content qs-main" id="qs-main">
+<div class="main-content qs-main" id="qs-main">
     <div class="qs-container">
 
         <!-- Page Header -->
@@ -133,7 +133,7 @@
         </div>
     </div>
 
-</main>
+</div>
 @endsection
 
 @section('scripts')

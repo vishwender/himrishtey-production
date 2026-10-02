@@ -8,7 +8,7 @@
 
 @section('content')
 
-<main class="delete-profile-page">
+<div class="delete-profile-page">
 
     <div class="delete-wrapper">
 
@@ -75,7 +75,7 @@
 
     </div>
 
-</main>
+</div>
 <div id="epSuccessToast" class="ep-toast">
     <span id="epToastMsg"></span>
 </div>

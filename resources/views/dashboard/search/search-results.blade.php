@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- MAIN -->
-<main class="main-content" id="sr-main">
+<div class="main-content" id="sr-main">
 
     <!-- ── STICKY TOP BAR: active filters ── -->
     <div class="sr-topbar container-xxl">
@@ -144,7 +144,7 @@
         <a href="{{ $searchReturnUrl }}">Refine your search</a>
     </p>
 
-</main>
+</div>
 @endsection
 
 @section('scripts')

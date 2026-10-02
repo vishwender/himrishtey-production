@@ -5,7 +5,7 @@
 
 
 @section('content')
-<main class="legal-page" id="main-content">
+<div class="legal-page" id="main-content">
     <section class="legal-hero" aria-labelledby="childSafetyTitle">
         <p class="legal-kicker"><i data-lucide="shield-check" width="14" height="14"></i> Trust &amp; Safety</p>
         <h1 id="childSafetyTitle">Child Safety Standard</h1>
@@ -38,5 +38,5 @@
     <section class="legal-support"><i data-lucide="shield-alert" width="22" height="22"></i>
         <p>Report a child-safety concern to our support team immediately.</p><a class="public-cta public-cta-primary" href="{{ route('contact-us') }}">Report a Concern</a>
     </section>
-</main>
+</div>
 @endsection

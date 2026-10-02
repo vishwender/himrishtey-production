@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<main class="blog-page article-page">
+<div class="blog-page article-page">
   <article>
     <header class="article-header">
       <div class="container-xl article-header-inner">
@@ -50,5 +50,5 @@
       </div>
     </aside>
   @endif
-</main>
+</div>
 @endsection

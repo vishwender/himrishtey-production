@@ -17,7 +17,7 @@ default => ucfirst($profileFor) . ' Profiles',
 
 @section('content')
 
-<main class="vc-main">
+<div class="vc-main">
 
     <div class="vc-header">
         <h1 class="vc-title">{{ $statsTitle }}</h1>
@@ -96,5 +96,5 @@ default => ucfirst($profileFor) . ' Profiles',
 
     </div>
 
-</main>
+</div>
 @endsection

@@ -9,7 +9,7 @@
 
 @section('content')
 <!-- ========== MAIN ========== -->
-<main class="wlt-main" id="main-content">
+<div class="wlt-main">
 
     <!-- Page Title -->
     <div class="wlt-page-header">
@@ -108,7 +108,7 @@
         </div><!-- /wlt-grid -->
     </div><!-- /wlt-content -->
 
-</main>
+</div>
 
 <!-- ===== ADD MONEY MODAL ===== -->
 <div class="wlt-modal-overlay" id="wltModalOverlay" role="dialog" aria-modal="true" aria-labelledby="wltModalTitle" hidden>

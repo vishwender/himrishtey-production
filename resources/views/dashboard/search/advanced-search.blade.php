@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- ===== MAIN CONTENT ===== -->
-<main class="main-content" id="main-content">
+<div class="main-content">
     <div class="container-xxl">
 
         <!-- Page Header -->
@@ -316,8 +316,7 @@
         </div>
 
     </div>
-</main>
-@endsection
+</div>
 
 <!-- ===== MOBILE BOTTOM BAR ===== -->
 <div class="adv-bottom-bar" aria-label="Search actions (mobile)">
@@ -331,6 +330,7 @@
 
 <!-- Dropdown backdrop -->
 <div class="adv-backdrop" id="advBackdrop"></div>
+@endsection
 
 @section('scripts')
 <script>
@@ -338,7 +338,3 @@
 </script>
 <script src="{{asset('assets/js/advanced-search.js') }}?v={{ filemtime(public_path('assets/js/advanced-search.js')) }}"></script>
 @endsection
-
-</body>
-
-</html>

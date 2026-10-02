@@ -157,7 +157,7 @@
           <i data-lucide="moon" width="18" height="18"></i>
         </button>
         <button class="profile-avatar-btn" id="profileQuickViewBtn" aria-label="Open profile quick view" aria-expanded="false" aria-controls="profileQuickView">
-          <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="40" height="40" class="navbar-avatar" loading="lazy" id="profileAvatar" />
+          <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="40" height="40" class="navbar-avatar" loading="lazy" id="navbarProfileAvatar" />
           <span class="online-dot" aria-hidden="true"></span>
         </button>
       </div>
@@ -174,7 +174,7 @@
 
       <div class="pqv-user-row">
         <div class="pqv-avatar-wrap">
-          <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="60" height="60" loading="lazy" class="pqv-avatar" id="profileAvatar" />
+          <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="60" height="60" loading="lazy" class="pqv-avatar" id="quickViewProfileAvatar" />
           <span class="pqv-avatar-camera" aria-hidden="true"><i data-lucide="camera" width="11" height="11"></i></span>
         </div>
         <div class="pqv-user-text">

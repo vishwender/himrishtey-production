@@ -8,7 +8,7 @@
 
 @section('content')
 
-<main class="change-password-page">
+<div class="change-password-page">
 
     <div class="password-card">
 
@@ -102,7 +102,7 @@
         <span id="epToastMsg"></span>
     </div>
 
-</main>
+</div>
 
 @endsection
 @section('scripts')

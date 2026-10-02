@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- ── MAIN ── -->
-<main class="main-content" id="int-main">
+<div class="main-content" id="int-main">
 
     <!-- PAGE HEADER -->
     <div class="int-page-header container-xxl">
@@ -137,7 +137,7 @@
         </section>
 
     </div><!-- /panels-wrap -->
-</main>
+</div>
 @endsection
 <!-- ── ACCEPT / REJECT CONFIRMATION TOAST ── -->
 <div class="int-toast" id="intToast" role="alert" aria-live="polite" aria-atomic="true">

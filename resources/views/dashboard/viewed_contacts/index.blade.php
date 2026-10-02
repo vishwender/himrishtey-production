@@ -8,7 +8,7 @@
 
 @section('content')
 
-<main class="vc-main">
+<div class="vc-main">
 
     <div class="vc-header">
         <h1 class="vc-title">Viewed Contacts</h1>
@@ -82,5 +82,5 @@
 
     </div>
 
-</main>
+</div>
 @endsection

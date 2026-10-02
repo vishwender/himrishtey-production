@@ -3,7 +3,7 @@
 @section('title', 'Refer & Earn')
 
 @section('content')
-<main class="coming-main">
+<div class="coming-main">
 
     <section class="coming-section">
         <div class="coming-card">
@@ -26,7 +26,7 @@
         </div>
     </section>
 
-</main>
+</div>
 
 <style>
     .coming-main {

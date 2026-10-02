@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- ========== MAIN ========== -->
-<main class="ss-main" id="main-content">
+<div class="ss-main">
 
     <!-- Page Header -->
     <div class="ss-page-header">
@@ -62,7 +62,7 @@
         </button>
     </div>
 
-</main>
+</div>
 
 <!-- ========== ADD STORY MODAL ========== -->
 <div class="ss-modal-overlay" id="ssModalOverlay" role="dialog" aria-modal="true" aria-labelledby="ssModalTitle" hidden>

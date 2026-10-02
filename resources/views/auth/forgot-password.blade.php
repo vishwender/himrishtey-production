@@ -606,7 +606,7 @@
 </style>
 
 
-<main>
+<div>
 
     <section class="forgot-password-page">
 
@@ -964,7 +964,7 @@
 
     </section>
 
-</main>
+</div>
 @endsection
 
 @push('scripts')

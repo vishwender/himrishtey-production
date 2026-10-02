@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- ===== MAIN ===== -->
-<main class="main-content" id="sbid-main">
+<div class="main-content" id="sbid-main">
     <div class="sbid-container">
 
         <!-- Page Header -->
@@ -176,7 +176,7 @@
         </div>
 
     </div>
-</main>
+</div>
 @endsection
 
 @section('scripts')
