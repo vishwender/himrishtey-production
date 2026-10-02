@@ -2,12 +2,12 @@
 <html lang="en" data-theme="light" data-site="{{ $siteKey }}">
 
 <head>
-    @include('partials.favicon')
+  @include('partials.favicon')
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="site-name" content="{{ $siteName }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
+  <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
   <script src="{{ asset('assets/js/profile-photo-url.js') }}?v={{ filemtime(public_path('assets/js/profile-photo-url.js')) }}"></script>
   <script>
     try {
@@ -38,9 +38,7 @@
   <style>
     :root {
       --site-primary: {{ $sitePrimaryColor ?? '#b92c3d' }};
-
       --site-secondary: {{ $siteSecondaryColor ?? '#2f2d5c' }};
-
       --site-accent: {{ $siteAccentColor ?? '#f4c86c' }};
       --brand: var(--site-primary);
       --deep: var(--site-secondary);
@@ -119,7 +117,14 @@
         <li><a href="{{ route('delete-profile') }}" class="sidebar-nav-item"><i data-lucide="user-x" width="18" height="18"></i><span>Delete Profile</span></a></li>
         <li><a href="{{route('member.refund-policy')}}" class="sidebar-nav-item"><i data-lucide="file-text" width="18" height="18"></i><span>Refund &amp; Cancellation</span></a></li>
         <li><a href="javascript:void(0)" class="sidebar-nav-item" id="openRateModal"><i data-lucide="star" width="18" height="18"></i><span>Rate Us</span></a></li>
-        <li><a href="tel:9857102002" class="sidebar-nav-item"><i data-lucide="phone-call" width="18" height="18"></i><span>Helpline: 9857102002</span></a></li>
+        @if($siteSupportPhone)
+        <li>
+          <a href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSupportPhone) }}" class="sidebar-nav-item">
+            <i data-lucide="phone-call" width="18" height="18"></i>
+            <span>Helpline: {{ preg_replace('/^\+91\s*/', '', $siteSupportPhone) }}</span>
+          </a>
+        </li>
+        @endif
         <li>
           <form method="POST" action="{{ route('member-logout') }}" class="d-inline">
             @csrf
