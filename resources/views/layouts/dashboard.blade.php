@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/public-footer.css') }}?v={{ filemtime(public_path('assets/css/public-footer.css')) }}" />
   @yield('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/theme-overrides.css') }}?v={{ filemtime(public_path('assets/css/theme-overrides.css')) }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/dashboard-profile-card.css') }}?v={{ filemtime(public_path('assets/css/dashboard-profile-card.css')) }}">
   <style>
     :root {
       --site-primary: {{ $sitePrimaryColor ?? '#b92c3d' }};
@@ -268,7 +269,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   @vite('resources/js/public/toast-manager.js')
   <!-- Custom JS -->
-  <script src="{{ asset('assets/js/script.js') }}"></script>
+  <script src="{{ asset('assets/js/script.js') }}?v={{ filemtime(public_path('assets/js/script.js')) }}"></script>
   <script>
     const uploadProfilePhotosUrl = "{{ route('profile.photo.update') }}";
   </script>
@@ -281,6 +282,8 @@
       checkShortlist: @json(route('check-shortlist'))
     };
   </script>
+  <script>window.dashboardProfileUrl = @json(route('view-profile', '__PROFILE__'));</script>
+  <script src="{{ asset('assets/js/dashboard-profile-card.js') }}?v={{ filemtime(public_path('assets/js/dashboard-profile-card.js')) }}"></script>
   <script src="{{ asset('assets/js/profile-card-actions.js') }}?v={{ filemtime(public_path('assets/js/profile-card-actions.js')) }}"></script>
   @yield('scripts')
 </body>

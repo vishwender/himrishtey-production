@@ -119,9 +119,9 @@ class ProfileController extends Controller
             if (! empty($recent->photo) && ($recent->photo_approved === 'Yes' || trim((string) $recent->photo_approved) === '')) {
                 $users[$key]['photo'] = ProfilePhotoUrl::get($recent->photo);
             } elseif ($recent->gender === 'Male') {
-                $users[$key]['photo'] = '/img/boy.jpg';
+                $users[$key]['photo'] = '/images/profile_photos/boy.jpg';
             } elseif ($recent->gender === 'Female') {
-                $users[$key]['photo'] = '/img/girl.jpg';
+                $users[$key]['photo'] = '/images/profile_photos/girl.jpg';
             }
             if ($recent->member_type === 'Verified') {
                 $users[$key]['member_type'] = '/img/verified.png';
@@ -296,7 +296,7 @@ class ProfileController extends Controller
                 ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
                 ->where('profile_viewed.viewed_profile_id', $id)
                 ->where('members.active', 'Yes')
-                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                ->where(fn($query) => $query->whereNull('members.profile_hide')
                     ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_viewed.id', 'desc')
                 ->limit(30)
@@ -306,7 +306,7 @@ class ProfileController extends Controller
                 ->join('profile_like', 'members.id', '=', 'profile_like.user_id')
                 ->where('profile_like.like_profile_id', $id)
                 ->where('members.active', 'Yes')
-                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                ->where(fn($query) => $query->whereNull('members.profile_hide')
                     ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_like.id', 'desc')
                 ->limit(30)
@@ -316,7 +316,7 @@ class ProfileController extends Controller
                 ->join('viewed_contacts', 'members.id', '=', 'viewed_contacts.profile_id')
                 ->where('viewed_contacts.member_id', $id)
                 ->where('members.active', 'Yes')
-                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                ->where(fn($query) => $query->whereNull('members.profile_hide')
                     ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('viewed_contacts.id', 'desc')
                 ->limit(30)
@@ -379,7 +379,7 @@ class ProfileController extends Controller
                 ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
                 ->where('profile_viewed.viewed_profile_id', $id)
                 ->where('members.active', 'Yes')
-                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                ->where(fn($query) => $query->whereNull('members.profile_hide')
                     ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_viewed.id', 'desc')
                 ->skip($offset)
@@ -390,7 +390,7 @@ class ProfileController extends Controller
                 ->join('profile_like', 'members.id', '=', 'profile_like.user_id')
                 ->where('profile_like.like_profile_id', $id)
                 ->where('members.active', 'Yes')
-                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                ->where(fn($query) => $query->whereNull('members.profile_hide')
                     ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('profile_like.id', 'desc')
                 ->skip($offset)
@@ -401,7 +401,7 @@ class ProfileController extends Controller
                 ->join('viewed_contacts', 'members.id', '=', 'viewed_contacts.profile_id')
                 ->where('viewed_contacts.member_id', $id)
                 ->where('members.active', 'Yes')
-                ->where(fn ($query) => $query->whereNull('members.profile_hide')
+                ->where(fn($query) => $query->whereNull('members.profile_hide')
                     ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
                 ->orderBy('viewed_contacts.id', 'desc')
                 ->skip($offset)

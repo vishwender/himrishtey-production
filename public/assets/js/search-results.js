@@ -124,44 +124,13 @@
   ---------------------------------------------------------------- */
   function buildProfileCard(profile, delay) {
     const article = document.createElement('article');
-    article.className   = 'profile-card sr-animate';
+    article.className   = 'profile-card dashboard-profile-card sr-animate';
     article.setAttribute('role', 'listitem');
     article.setAttribute('tabindex', '0');
     article.setAttribute('aria-label', profile.name + ', ' + profile.age);
     article.style.animationDelay = delay + 'ms';
 
-    const imgUrl = window.profilePhotoUrl(profile.photo, profile.gender);
-
-    let badges = '';
-    if (profile.matchPct) {
-      badges += '<span class="profile-card-match-badge">' + profile.matchPct + '% Match</span>';
-    }
-    if (profile.verified && !profile.matchPct) {
-      badges += '<span class="profile-card-verified-badge"><i data-lucide="shield-check" width="12" height="12"></i></span>';
-    }
-    if (profile.online) {
-      badges += '<span class="profile-card-online" aria-label="Online now"></span>';
-    }
-
-    const verifiedIcon = profile.verified
-      ? ' <i data-lucide="shield-check" width="13" height="13" class="verified-icon"></i>'
-      : '';
-
-    article.innerHTML =
-      '<div class="profile-card-img-wrap">' +
-        '<img src="' + imgUrl + '" alt="' + profile.name + ', ' + profile.age + '" width="220" height="280" loading="lazy" class="profile-card-img" />' +
-        badges +
-      '</div>' +
-      '<div class="profile-card-body">' +
-        '<h3 class="profile-card-name">' + profile.name + verifiedIcon + '</h3>' +
-        '<p class="profile-card-meta"><i data-lucide="map-pin" width="12" height="12"></i> ' + profile.location + '</p>' +
-        '<p class="profile-card-meta"><i data-lucide="briefcase" width="12" height="12"></i> ' + profile.occupation + ' • ' + profile.age + ' yrs</p>' +
-        '<div class="profile-card-tags">' +
-          '<span class="pct">' + profile.religion + '</span>' +
-          '<span class="pct">' + profile.height + '</span>' +
-          '<span class="pct">' + profile.education + '</span>' +
-        '</div>' +
-      '</div>';
+    article.innerHTML = window.dashboardProfileCardMarkup(profile);
 
     const photoImage = article.querySelector('.profile-card-img');
     photoImage.addEventListener('error', function () {
@@ -171,7 +140,8 @@
     window.mountProfileCardActions(article, profile.id);
 
     /* Card click → profile detail */
-    article.addEventListener('click', function () {
+    article.addEventListener('click', function (event) {
+      if (event.target.closest('a, button')) return;
       window.location.href = '/view-profile/' + profile.profile_id;
     });
 

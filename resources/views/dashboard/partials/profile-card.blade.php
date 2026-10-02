@@ -1,87 +1,41 @@
 @php
 $profileName = $profile['full_name'] ?? $profile['name'] ?? 'Profile';
-$profileAge = !empty($profile['age_years']) ? $profile['age_years'] . ' yrs' : null;
-$city = $profile['city_living_in'] ?? null;
-$state = $profile['state_living_in'] ?? null;
-$country = $profile['country_living_in'] ?? null;
-$location = trim(implode(', ', array_filter([$city, $state, $country])));
-$occupation = $profile['occupation'] ?? null;
-$religion = $profile['religion'] ?? null;
-$height = $profile['height'] ?? null;
-$education = $profile['education'] ?? null;
-$verified = !empty($profile['mem_type']) && $profile['mem_type'] === 'Yes';
+$profileAge = $profile['age_years'] ?? $profile['age'] ?? null;
+$location = $profile['location'] ?? trim(implode(', ', array_filter([$profile['city_living_in'] ?? null, $profile['state_living_in'] ?? null])));
+$verified = ($profile['mem_type'] ?? '') === 'Yes' || strtolower($profile['member_type'] ?? '') === 'verified' || ($profile['verified'] ?? false);
+$profileUrl = route('view-profile', $profile['profile_id']);
+$details = [
+['map-pin', 'Location', $location],
+['briefcase-business', 'Occupation', $profile['occupation'] ?? null],
+['sun', 'Religion', $profile['religion'] ?? null],
+['ruler', 'Height', $profile['height'] ?? null],
+];
 @endphp
-
 <div class="profile-card-link" data-profile-card-id="{{ $profile['id'] }}">
-
-    <div class="profile-card">
-
+    <article class="profile-card dashboard-profile-card">
         <div class="profile-card-img-wrap">
-            <a href="{{ route('view-profile', $profile['profile_id']) }}" aria-label="View {{ $profileName }} profile">
-            <img src="{{ \App\Website\Services\ProfilePhotoUrl::get($profile['photo'] ?? null) ?? asset('images/profile_photos/' . (($profile['gender'] ?? null) === 'Female' ? 'girl.jpg' : 'boy.jpg')) }}"
-                alt="{{ $profileName }}"
-                width="220"
-                height="280"
-                loading="lazy"
-                class="profile-card-img" />
+            <a href="{{ $profileUrl }}" aria-label="View {{ $profileName }} profile">
+                <img src="{{ \App\Website\Services\ProfilePhotoUrl::get($profile['photo'] ?? null) ?? asset('images/profile_photos/' . (strtolower($profile['gender'] ?? '') === 'female' ? 'girl.jpg' : 'boy.jpg')) }}" alt="{{ $profileName }}" width="250" height="300" loading="lazy" class="profile-card-img">
             </a>
-
             @if($verified)
-            <span class="profile-card-verified-badge">
-                <i data-lucide="shield-check" width="12" height="12"></i>
+            <span class="dashboard-card-verified">
+                <i data-lucide="badge-check" aria-hidden="true"></i> Verified
             </span>
             @endif
-
         </div>
-
         <div class="profile-card-body">
-
-            <h3 class="profile-card-name">
-                <a href="{{ route('view-profile', $profile['profile_id']) }}">{{ $profileName }}</a>
-
-                @if($verified)
-                <i data-lucide="shield-check" width="13" height="13" class="verified-icon"></i>
-                @endif
-            </h3>
-
-            @if($location)
-            <p class="profile-card-meta">
-                <i data-lucide="map-pin" width="12" height="12"></i>
-                {{ $location }}
-            </p>
-            @endif
-
-            @if($occupation || $profileAge)
-            <p class="profile-card-meta">
-                @if($occupation)
-                <i data-lucide="briefcase" width="12" height="12"></i>
-                {{ $occupation }}
-
-                @if($profileAge)
-                • {{ $profileAge }}
-                @endif
-                @else
-                {{ $profileAge }}
-                @endif
-            </p>
-            @endif
-
-            <div class="profile-card-tags">
-                @if($religion)
-                <span class="pct">{{ $religion }}</span>
-                @endif
-
-                @if($height)
-                <span class="pct">{{ $height }}</span>
-                @endif
-
-                @if($education)
-                <span class="pct">{{ $education }}</span>
-                @endif
-            </div>
-
+            <h3 class="profile-card-name"><a href="{{ $profileUrl }}">{{ $profileName }}@if($profileAge !== null), {{ $profileAge }}@endif</a></h3>
+            <dl class="dashboard-card-details">
+                @foreach($details as [$icon, $label, $value])
+                <div>
+                    <dt>
+                        <i data-lucide="{{ $icon }}" aria-hidden="true"></i>
+                        <span class="visually-hidden">{{ $label }}</span>
+                    </dt>
+                    <dd>{{ filled($value) ? $value : $label . ' not specified' }}</dd>
+                </div>
+                @endforeach
+            </dl>
         </div>
-
-    </div>
-
+    </article>
 </div>

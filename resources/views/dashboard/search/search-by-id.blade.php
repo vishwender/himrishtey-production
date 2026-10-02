@@ -117,62 +117,8 @@
         <div class="sbid-state sbid-state-result" id="stateResult" style="display:none;" aria-live="polite">
             <p class="sbid-result-label">Search result for <strong id="resultIdLabel"></strong></p>
 
-            <!-- Profile Result Card -->
-            <div class="sbid-profile-card" id="sbidProfileCard" tabindex="0" role="article" aria-label="Search result profile">
+            <article class="profile-card dashboard-profile-card" id="sbidProfileCard" aria-label="Search result profile"></article>
 
-                <!-- Cover + Avatar -->
-                <div class="sbid-profile-cover">
-                    <img src="" alt="" id="resultCoverImg" class="sbid-cover-img" width="680" height="160" loading="lazy" />
-                    <div class="sbid-cover-overlay"></div>
-                </div>
-
-                <div class="sbid-profile-body">
-                    <div class="sbid-profile-top">
-                        <div class="sbid-profile-avatar-wrap">
-                            <img src="" alt="" id="resultAvatar" class="sbid-profile-avatar" width="80" height="80" loading="lazy" />
-                            <span class="sbid-online-badge" id="resultOnlineBadge" style="display:none;" aria-label="Online now"></span>
-                        </div>
-                    </div>
-
-                    <!-- Name / Basic Info -->
-                    <div class="sbid-profile-info">
-                        <div class="sbid-profile-name-row">
-                            <h2 class="sbid-profile-name" id="resultName">—</h2>
-                            <span class="sbid-verified-badge" id="resultVerifiedBadge" style="display:none;" aria-label="Verified profile">
-                                <i data-lucide="badge-check" width="14" height="14"></i> Verified
-                            </span>
-                        </div>
-                        <p class="sbid-profile-id-tag" id="resultIdTag">—</p>
-
-                        <!-- Quick Stats Row -->
-                        <div class="sbid-stats-row" id="resultStatsRow">
-                            <!-- populated by JS -->
-                        </div>
-                    </div>
-
-                    <div class="sbid-profile-actions">
-                        <button type="button" class="sbid-action-btn sbid-btn-interest" id="sbidInterestBtn" aria-label="Send interest">
-                            <i data-lucide="heart" width="16" height="16"></i>
-                            <span>Interest</span>
-                        </button>
-                        <button type="button" class="sbid-action-btn sbid-btn-shortlist" id="sbidShortlistBtn" aria-label="Shortlist profile">
-                            <i data-lucide="bookmark" width="16" height="16"></i>
-                            <span>Shortlist</span>
-                        </button>
-                    </div>
-
-                    <!-- Details Grid -->
-                    <div class="sbid-details-grid" id="resultDetailsGrid">
-                        <!-- populated by JS -->
-                    </div>
-
-                    <!-- View Full Profile CTA -->
-                    <a href="#" class="sbid-view-full-btn" id="sbidViewFullBtn" aria-label="View full profile">
-                        View Full Profile
-                        <i data-lucide="arrow-right" width="16" height="16"></i>
-                    </a>
-                </div>
-            </div>
         </div>
 
     </div>

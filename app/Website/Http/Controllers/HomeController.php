@@ -443,6 +443,9 @@ class HomeController extends Controller
             'members.member_type',
             'members.is_trusted',
             'members.activation_number',
+            'members.city_living_in',
+            'members.state_living_in',
+            'members.occupation',
         ];
 
         /*
@@ -487,6 +490,7 @@ class HomeController extends Controller
         $data['verifiedUsers'] = $this->formatDashboardProfiles(
             $verifiedProfiles
         );
+        //dd($verifiedProfiles);
 
         /*
     |--------------------------------------------------------------------------
@@ -1274,7 +1278,8 @@ class HomeController extends Controller
                 'community' => $profile->community ?? null,
                 'education' => $profile->education ?? null,
                 'occupation' => $profile->occupation ?? null,
-                'city' => $profile->city ?? null,
+                'city' => $profile->city_living_in ?? $profile->city ?? null,
+                'state_living_in' => $profile->state_living_in ?? null,
                 'mother_tongue' => $profile->mother_tongue ?? null,
                 'marital_status' => $profile->marital_status ?? null,
                 'income' => $profile->income ?? null,
@@ -2105,9 +2110,9 @@ class HomeController extends Controller
 
         $galleryPhotos = collect([$usr->photo])
             ->merge($data['photos']
-                ->filter(fn ($photo) => ! empty($photo->photo)
+                ->filter(fn($photo) => ! empty($photo->photo)
                     && ($photo->photo_approved === 'Yes' || trim((string) $photo->photo_approved) === ''))
-                ->map(fn ($photo) => ProfilePhotoUrl::get($photo->photo)))
+                ->map(fn($photo) => ProfilePhotoUrl::get($photo->photo)))
             ->filter()
             ->unique()
             ->values();

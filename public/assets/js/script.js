@@ -418,6 +418,7 @@ document.querySelector(".rate-submit").addEventListener("click", function () {
   /* ---- PROFILE CARD KEYBOARD NAVIGATION ---- */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
+      if (e.target.closest('a, button, input, select, textarea')) return;
       const card = e.target.closest('.profile-card');
       if (card) {
         e.preventDefault();

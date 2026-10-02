@@ -120,26 +120,12 @@ function getKey(mode, tab) {
   ---------------------------------------------------------------- */
   function buildCard(profile, tab, delay) {
     const article = document.createElement('article');
-    article.className = 'profile-card int-animate';
+    article.className = 'profile-card dashboard-profile-card int-animate';
     if (tab === 'rejected') article.classList.add('is-rejected');
     article.setAttribute('role', 'listitem');
     article.setAttribute('tabindex', '0');
     article.setAttribute('aria-label', profile.name + ', ' + profile.age);
     article.style.animationDelay = delay + 'ms';
-
-    const imgUrl = window.profilePhotoUrl(profile.photo, profile.gender);
-
-    const verifiedIcon = profile.verified
-      ? '<i data-lucide="shield-check" width="13" height="13" class="verified-icon"></i>'
-      : '';
-
-    const onlineDot = profile.online
-      ? '<span class="profile-card-online" aria-label="Online now"></span>'
-      : '';
-
-    const statusLabelMap = { pending: 'Pending', accepted: 'Accepted', rejected: 'Rejected' };
-    const statusBadge =
-      '<span class="profile-card-status-badge ' + tab + '">' + statusLabelMap[tab] + '</span>';
 
     /* Accept / Reject buttons — only for received-pending */
     const actionBtns = (tab === 'pending' && currentMode === 'received')
@@ -153,35 +139,28 @@ function getKey(mode, tab) {
         '</div>'
       : '';
 
-    article.innerHTML =
-      '<div class="profile-card-img-wrap">' +
-        '<img src="' + imgUrl + '" alt="' + profile.full_name + ', ' + profile.age_years + '" width="220" height="280" loading="lazy" class="profile-card-img" />' +
-        onlineDot +
-        statusBadge +
-      '</div>' +
-      '<div class="profile-card-body">' +
-        '<h3 class="profile-card-name">' + profile.full_name + verifiedIcon + '</h3>' +
-        '<p class="profile-card-meta"><i data-lucide="map-pin" width="12" height="12"></i> ' + profile.city_living_in + '</p>' +
-        '<p class="profile-card-meta"><i data-lucide="briefcase" width="12" height="12"></i> ' + profile.occupation + ' • ' + profile.age_years + ' yrs</p>' +
-        '<p class="profile-card-meta"><i data-lucide="clock" width="12" height="12"></i> ' + profile.sentDate + '</p>' +
-        '<div class="profile-card-tags">' +
-          '<span class="pct">' + profile.religion + '</span>' +
-          '<span class="pct">' + profile.height   + '</span>' +
-          '<span class="pct">' + profile.education + '</span>' +
-        '</div>' +
-      '</div>' +
-      actionBtns;
+    article.innerHTML = window.dashboardProfileCardMarkup(profile) + actionBtns;
+    const status = document.createElement('span');
+    status.className = 'profile-card-status-badge ' + tab;
+    status.textContent = { pending: 'Pending', accepted: 'Accepted', rejected: 'Rejected' }[tab];
+    article.querySelector('.profile-card-img-wrap').appendChild(status);
+    if (profile.sentDate) {
+      const date = document.createElement('p');
+      date.className = 'dashboard-card-date';
+      date.textContent = profile.sentDate;
+      article.appendChild(date);
+    }
 
     window.mountProfileCardActions(article, profile.id);
 
     /* Card click → profile detail */
     article.addEventListener('click', function (e) {
-      if (e.target.closest('.int-action-btn')) return; // let button handle
+      if (e.target.closest('a, button')) return; // let button handle
       window.location.href = '/view-profile/' + profile.profile_id;
     });
 
     article.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
+      if (e.target === article && e.key === 'Enter') {
         window.location.href = '/view-profile/' + profile.profile_id;
       }
     });
