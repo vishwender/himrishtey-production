@@ -30,11 +30,7 @@
              j.src =
                  'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
              f.parentNode.insertBefore(j, f);
-         })(window, document, 'script', 'dataLayer', {
-             {
-                 Illuminate\ Support\ Js::from(config('site.current.google_tag_manager_id'))
-             }
-         });
+         })(window, document, 'script', 'dataLayer', {{ Illuminate\Support\Js::from(config('site.current.google_tag_manager_id')) }});
      </script>
      <!-- End Google Tag Manager -->
      @endif
