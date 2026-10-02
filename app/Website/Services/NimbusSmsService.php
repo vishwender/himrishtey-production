@@ -46,8 +46,6 @@ class NimbusSmsService
             'message' => 'SMS provider returned an error.',
             'response' => $data,
         ];
-
-        return $response->body();
     }
 
     public function sendInterest($email)

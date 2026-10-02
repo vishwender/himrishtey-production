@@ -9,6 +9,8 @@ export default defineConfig({
             input: [
                 'resources/css/home/home.css',
                 'resources/js/home.js',
+                'resources/js/public/toast-manager.js',
+                'resources/js/public/upload-photos.js',
                 'resources/css/admin/admin.css',
                 'resources/css/admin/dashboard/dashboard.css',
                 'resources/css/admin/members/create-member.css',

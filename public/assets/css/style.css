@@ -200,11 +200,6 @@ body {
   overflow-x: hidden;
 }
 
-::selection {
-  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
-  color: var(--color-text);
-}
-
 .reveal {
   opacity: 0;
   transform: translateY(18px);

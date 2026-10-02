@@ -65,7 +65,7 @@
     <main class="public-content">@yield('content')</main>
     @include('partials.public-footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets/js/toast-manager.js') }}"></script>
+    @vite('resources/js/public/toast-manager.js')
     <script src="{{ asset('assets/js/login.js') }}?v=20260905-profile-id"></script>
     <script>
         document.querySelector('[data-public-theme]')?.addEventListener('click', () => {

@@ -507,6 +507,6 @@
 <script>
     const uploadPhotosUrl = "{{ route('upload-photos') }}";
 </script>
-<script src="{{asset('assets/js/upload-photos.js')}}?v=20260827-uploading"></script>
+@vite('resources/js/public/upload-photos.js')
 <script src="{{asset('assets/js/search-home-member.js')}}?v={{ filemtime(public_path('assets/js/search-home-member.js')) }}"></script>
 @endsection
