@@ -3,63 +3,33 @@
 @section('title', 'Memberships - ' . $siteName)
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/memberships.css') }}?v={{ filemtime(public_path('assets/css/memberships.css')) }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/memberships.css') }}?v={{ filemtime(public_path('assets/css/memberships.css')) }}">
 @endsection
 
 @section('content')
-<section class="membership-section">
-
-    <div class="membership-header">
-        <h1>Membership</h1>
-        <p>Choose the plan that suits your needs.</p>
-    </div>
-    <section class="membership-grid">
-        @foreach($data['memberships'] as $membership)
-        <a href="{{ route('plans', $membership->id) }}" class="membership-link">
-            <article class="membership-card">
-                <h2>{{ $membership->plan_name }}</h2>
-
-                <p>
-                    {{ $membership->plan_description }}
-                </p>
-            </article>
+<section class="mp-page" aria-labelledby="membership-heading">
+    <header class="mp-heading">
+        <span class="mp-eyebrow"><i data-lucide="heart-handshake" aria-hidden="true"></i> MADE FOR YOUR JOURNEY</span>
+        <h1 id="membership-heading">Your person is worth<br><span>taking the next step.</span></h1>
+        <p>Explore our memberships and find the right way to connect.</p>
+    </header>
+    <div class="mp-section-heading"><div><span class="mp-overline">START HERE</span><h2>Choose your membership</h2></div><span class="mp-detail">Compare plans, benefits &amp; validity</span></div>
+    <div class="mp-grid mp-grid--memberships">
+        @forelse($data['memberships'] as $membership)
+        <a href="{{ route('plans', $membership->id) }}" class="mp-card mp-category">
+            <div class="mp-card-top"><span class="mp-plan-icon"><i data-lucide="{{ $loop->index % 2 ? 'sparkles' : 'heart' }}" aria-hidden="true"></i></span><span class="mp-category-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span></div>
+            <h3>{{ $membership->plan_name }}</h3>
+            <p>{{ $membership->plan_description }}</p>
+            <span class="mp-category-link">Explore plans <i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
         </a>
-        @endforeach
+        @empty
+        <div class="mp-empty"><h3>Memberships will be available soon</h3><p>Request a callback below and we’ll help you with the next step.</p></div>
+        @endforelse
+    </div>
+    <section class="mp-help" aria-labelledby="membership-help">
+        <div class="mp-help-copy"><span class="mp-small-icon"><i data-lucide="headset" aria-hidden="true"></i></span><div><span class="mp-overline">LET’S TALK IT THROUGH</span><h2 id="membership-help">A little guidance goes a long way.</h2><p>Our team can help you compare memberships and answer your questions.</p></div></div>
+        <div class="mp-help-action"><button type="button" id="callbackBtn" class="mp-button mp-button--primary" data-url="{{ route('callback.request') }}" data-status-url="{{ route('callback.status') }}">Request a Callback</button><p class="mp-cooldown"><i data-lucide="clock-3" aria-hidden="true"></i> Request cooldown <span id="timer" role="timer" aria-label="Time until another callback request">00:00</span></p></div>
     </section>
-
-    <section class="discussion-section">
-
-        <div class="discussion-header">
-            <h2>Need a discussion?</h2>
-            <p>
-                Our relationship experts are here to help you choose the right
-                membership and answer your questions.
-            </p>
-        </div>
-
-        <button id="callbackBtn" class="callback-btn" data-url="{{ route('callback.request') }}" data-status-url="{{ route('callback.status') }}">
-            Request a Callback
-        </button>
-
-        <div class="discussion-timer">
-
-            <div class="timer-icon">
-                <i class="bi bi-stopwatch-fill"></i>
-            </div>
-
-            <div class="timer-text">
-                <span id="timer">10:00</span>
-            </div>
-
-            <div class="timer-description">
-                Need a discussion? Press the button above and we will contact
-                you within 10 minutes.
-            </div>
-
-        </div>
-
-    </section>
-
 </section>
 @endsection
 
