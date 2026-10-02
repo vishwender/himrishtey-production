@@ -36,7 +36,7 @@
         @endphp
         <article class="mp-card {{ $isRecommended ? 'mp-card--recommended' : '' }}" aria-labelledby="plan-{{ $plan->id }}">
             <div class="mp-card-top">
-                <span class="mp-plan-icon"><i data-lucide="{{ $isRecommended ? 'sparkles' : 'heart' }}" aria-hidden="true"></i></span>
+                @include('dashboard.memberships.plan-icon', ['planName' => $plan->plan_name, 'icon' => $isRecommended ? 'sparkles' : 'heart'])
                 @if($isRecommended)<span class="mp-badge">Recommended</span>@endif
             </div>
             <h3 id="plan-{{ $plan->id }}">{{ $plan->plan_name }}</h3>

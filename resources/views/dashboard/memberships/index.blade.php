@@ -17,7 +17,7 @@
     <div class="mp-grid mp-grid--memberships">
         @forelse($data['memberships'] as $membership)
         <a href="{{ route('plans', $membership->id) }}" class="mp-card mp-category">
-            <div class="mp-card-top"><span class="mp-plan-icon"><i data-lucide="{{ $loop->index % 2 ? 'sparkles' : 'heart' }}" aria-hidden="true"></i></span><span class="mp-category-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span></div>
+            <div class="mp-card-top">@include('dashboard.memberships.plan-icon', ['planName' => $membership->plan_name, 'icon' => $loop->index % 2 ? 'sparkles' : 'heart'])<span class="mp-category-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span></div>
             <h3>{{ $membership->plan_name }}</h3>
             <p>{{ $membership->plan_description }}</p>
             <span class="mp-category-link">Explore plans <i data-lucide="arrow-up-right" aria-hidden="true"></i></span>

@@ -97,3 +97,25 @@
     .mp-information-card .mp-small-icon { display: none; }
     .mp-terms summary { padding: 18px 20px; }
 }
+
+/* Metallic plan accents, independent of the site's brand color. */
+.mp-plan-icon--gold {
+    color: #94620b;
+    background: linear-gradient(135deg, #fff8df, #f8dda0);
+    box-shadow: inset 0 0 0 1px rgba(174, 120, 20, .16);
+}
+.mp-plan-icon--silver {
+    color: #386a9b;
+    background: linear-gradient(135deg, #f0f7ff, #cfdfef);
+    box-shadow: inset 0 0 0 1px rgba(65, 110, 154, .16);
+}
+[data-theme="dark"] .mp-plan-icon--gold {
+    color: #f4ce74;
+    background: linear-gradient(135deg, #3d3220, #514024);
+    box-shadow: inset 0 0 0 1px rgba(244, 206, 116, .2);
+}
+[data-theme="dark"] .mp-plan-icon--silver {
+    color: #b4d4f5;
+    background: linear-gradient(135deg, #243344, #30465c);
+    box-shadow: inset 0 0 0 1px rgba(180, 212, 245, .2);
+}
