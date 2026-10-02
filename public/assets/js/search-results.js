@@ -11,13 +11,15 @@
   'use strict';
 
   /* ----------------------------------------------------------------
-     MOCK DATA — replace with real API calls
+     Results supplied by the website search controller
   ---------------------------------------------------------------- */
   const PROFILES = window.searchResults || [];
 
   const PAGE_SIZE  = 8;
-  const TOTAL_MOCK =  PROFILES.length;
+  const TOTAL_RESULTS =  PROFILES.length;
 
+  let sortedProfiles = PROFILES.slice();
+  let resultVersion = 0;
   let currentPage  = 0;
   let isLoading    = false;
   let allLoaded    = false;
@@ -41,7 +43,7 @@
   ---------------------------------------------------------------- */
   function readSearchParams() {
     const params  = new URLSearchParams(window.location.search);
-    const SKIP    = ['user_id', 'gender', 'page_no', '_source'];
+    const SKIP    = ['user_id', 'gender', 'page_no', '_source', 'sort'];
     const filters = [];
 
     params.forEach(function (value, key) {
@@ -103,14 +105,15 @@
   }
 
   /* ----------------------------------------------------------------
-     Mock API — returns a page of results
+     Return a page from the selected result order
   ---------------------------------------------------------------- */
   function fetchPage(page) {
+    const profiles = sortedProfiles;
     return new Promise(function (resolve) {
       setTimeout(function () {
         const start   = page * PAGE_SIZE;
-        const slice   = PROFILES.slice(start, start + PAGE_SIZE);
-        const hasMore = start + PAGE_SIZE < TOTAL_MOCK;
+        const slice   = profiles.slice(start, start + PAGE_SIZE);
+        const hasMore = start + PAGE_SIZE < TOTAL_RESULTS;
         resolve({ success: true, user: slice, hasMore: hasMore });
       }, 600 + Math.random() * 400);
     });
@@ -188,6 +191,7 @@
   async function loadPage() {
     if (isLoading || allLoaded) return;
     isLoading = true;
+    const version = resultVersion;
 
     if (currentPage === 0) {
       /* First load — show skeleton */
@@ -200,6 +204,7 @@
 
     try {
       const response = await fetchPage(currentPage);
+      if (version !== resultVersion) return;
 
       if (currentPage === 0) {
         /* Hide skeleton, show grid */
@@ -212,7 +217,7 @@
         }
 
         if (resultGrid) resultGrid.style.display = '';
-        if (countNum)   countNum.textContent     = TOTAL_MOCK;
+        if (countNum)   countNum.textContent     = TOTAL_RESULTS;
       }
 
       if (response.success && response.user.length) {
@@ -228,12 +233,14 @@
       }
 
     } catch (err) {
+      if (version !== resultVersion) return;
       console.error('Failed to load profiles:', err);
       if (currentPage === 0) {
         if (skeletonGrid) skeletonGrid.style.display = 'none';
         if (emptyState)   emptyState.style.display   = '';
       }
     } finally {
+      if (version !== resultVersion) return;
       isLoading = false;
       if (loadMoreEl) loadMoreEl.style.display = 'none';
 
@@ -269,19 +276,44 @@
     observer.observe(sentinel);
   }
 
-  /* ----------------------------------------------------------------
-     Sort change — re-render with mock sort
-  ---------------------------------------------------------------- */
+  /* Sort the complete result set before slicing pages. */
+  function applySort(value) {
+    const sort = ['newest', 'age_asc', 'age_desc'].includes(value) ? value : 'relevance';
+    sortedProfiles = PROFILES.slice();
+    if (sort === 'newest') {
+      // Member IDs increase as profiles are registered.
+      sortedProfiles.sort((a, b) => Number(b.id) - Number(a.id));
+    } else if (sort === 'age_asc' || sort === 'age_desc') {
+      const age = profile => profile.age === null || profile.age === undefined || profile.age === ''
+        ? null : Number(profile.age);
+      sortedProfiles.sort((a, b) => {
+        const first = age(a), second = age(b);
+        const firstMissing = first === null || !Number.isFinite(first);
+        const secondMissing = second === null || !Number.isFinite(second);
+        if (firstMissing || secondMissing) return Number(firstMissing) - Number(secondMissing);
+        return sort === 'age_asc' ? first - second : second - first;
+      });
+    }
+    if (sortSelect) sortSelect.value = sort;
+    return sort;
+  }
+
   function initSortChange() {
+    applySort(new URLSearchParams(window.location.search).get('sort'));
     if (!sortSelect) return;
     sortSelect.addEventListener('change', function () {
-      /* In production: re-fetch with sort param */
-      /* For demo: just clear and reload */
+      const sort = applySort(sortSelect.value);
+      const url = new URL(window.location.href);
+      if (sort === 'relevance') url.searchParams.delete('sort');
+      else url.searchParams.set('sort', sort);
+      window.history.replaceState(null, '', url);
+      resultVersion++;
       currentPage = 0;
-      allLoaded   = false;
-      isLoading   = false;
-      if (resultGrid)   resultGrid.innerHTML = '';
-      if (endMsgEl)     endMsgEl.style.display = 'none';
+      allLoaded = false;
+      isLoading = false;
+      if (resultGrid) resultGrid.innerHTML = '';
+      if (endMsgEl) endMsgEl.style.display = 'none';
+      if (emptyState) emptyState.style.display = 'none';
       loadPage();
     });
   }
