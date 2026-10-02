@@ -25,7 +25,7 @@ class ProfileController extends Controller
         $id = Auth::guard('member')->user()->id;
         $member = Member::find($id);
         $today = Carbon::today()->format('Y-m-d');
-        $profileFor = $request->input('profile');
+        $profileFor = $request->input('profile', 'recent');
         $loggedInUser = Member::find($id);
         if (! $loggedInUser) {
             return [];
