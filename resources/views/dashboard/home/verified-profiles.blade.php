@@ -1,8 +1,10 @@
 <!-- Verified Profiles -->
-<section class="profile-row-section matching-bg container-xxl" aria-label="Verified Profiles">
+<section class="profile-row-section matching-bg container-xxl home-profile-section" aria-label="Verified Profiles">
     <div class="section-header">
         <div class="section-title-group">
+            <span class="home-section-eyebrow"><i data-lucide="shield-check" aria-hidden="true"></i> VERIFIED CONNECTIONS</span>
             <h2 class="section-title">Verified Profiles</h2>
+            <p class="home-section-description">Explore verified profiles and get to know someone new.</p>
             <span class="section-badge verified"><i data-lucide="shield-check" width="11" height="11"></i> Verified</span>
         </div>
         <a href="{{ route('recent-profiles', ['profile' => 'verified']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
