@@ -1,20 +1,27 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Change Password')
+@section('title', 'Change Password - ' . $siteName)
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/memberships.css') }}?v={{ filemtime(public_path('assets/css/memberships.css')) }}">
 <link rel="stylesheet" href="{{ asset('assets/css/change-password.css') }}?v={{ filemtime(public_path('assets/css/change-password.css')) }}" />
 @endsection
 
 @section('content')
 
-<div class="change-password-page">
+<section class="mp-page change-password-page" aria-labelledby="password-heading">
+    <header class="mp-heading">
+        <span class="mp-eyebrow"><i data-lucide="shield-check" aria-hidden="true"></i> KEEP YOUR ACCOUNT SECURE</span>
+        <h1 id="password-heading">Your journey, protected.<br><span>A fresh password helps.</span></h1>
+        <p>Update your password to keep your profile and connections secure.</p>
+    </header>
 
-    <div class="password-card">
+    <div class="mp-card password-card">
 
+        <div class="mp-card-top"><span class="mp-small-icon"><i data-lucide="key-round" aria-hidden="true"></i></span><span class="mp-overline">ACCOUNT SECURITY</span></div>
         <div class="card-header-custom">
-            <h2>Change Password</h2>
-            <p>Update your account password to keep your account secure.</p>
+            <h2>Change password</h2>
+            <p>Enter your current password, then choose a new one.</p>
         </div>
 
         <form id="changePasswordForm" action="{{ route('update-password') }}" method="POST">
@@ -91,9 +98,11 @@
 
             </div>
 
-            <button type="submit" class="btn update-btn">
-                Update Password
-            </button>
+            <div class="password-guidance"><i data-lucide="shield-check" aria-hidden="true"></i><p>Use at least 8 characters. Choose a unique password you don’t use for other accounts.</p></div>
+            <div class="password-actions">
+                <a href="{{ route('home') }}" class="mp-button mp-button--outline">Back to dashboard</a>
+                <button type="submit" class="mp-button mp-button--primary update-btn">Update Password</button>
+            </div>
 
         </form>
 
@@ -102,7 +111,7 @@
         <span id="epToastMsg"></span>
     </div>
 
-</div>
+</section>
 
 @endsection
 @section('scripts')
