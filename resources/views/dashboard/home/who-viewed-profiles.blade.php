@@ -6,7 +6,7 @@
             <h2 class="section-title">Who Viewed My Profile</h2>
             <p class="home-section-description">See who stopped by to get to know you.</p>
         </div>
-        <a href="{{ route('recent-profiles', ['profile' => 'viewed']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
+        <a href="{{ route('recent-profiles', ['profile' => 'viewed']) }}" class="section-view-all section-view-all-right">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>
     <div class="profile-scroll-track" role="list">
         @forelse($viewedMyProfile ?? [] as $profile)

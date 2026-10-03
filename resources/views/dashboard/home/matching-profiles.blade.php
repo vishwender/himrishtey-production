@@ -7,7 +7,7 @@
             <p class="home-section-description">Meet people who share your preferences and hopes for the future.</p>
             <span class="section-badge">For You</span>
         </div>
-        <a href="{{ route('recent-profiles', ['profile' => 'matching']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
+        <a href="{{ route('recent-profiles', ['profile' => 'matching']) }}" class="section-view-all section-view-all-right">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>
     <div class="profile-scroll-track" role="list">
 

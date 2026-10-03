@@ -7,7 +7,7 @@
             <p class="home-section-description">Explore verified profiles and get to know someone new.</p>
             <span class="section-badge verified"><i data-lucide="shield-check" width="11" height="11"></i> Verified</span>
         </div>
-        <a href="{{ route('recent-profiles', ['profile' => 'verified']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
+        <a href="{{ route('recent-profiles', ['profile' => 'verified']) }}" class="section-view-all section-view-all-right">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>
     <div class="profile-scroll-track" role="list">
         @foreach(($verifiedProfiles ?? []) as $profile)

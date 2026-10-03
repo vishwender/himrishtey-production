@@ -7,7 +7,7 @@
             <p class="home-section-description">Discover new people beginning their journey.</p>
             <span class="section-badge">New</span>
         </div>
-        <a href="{{ route('recent-profiles', ['profile' => 'recent']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
+        <a href="{{ route('recent-profiles', ['profile' => 'recent']) }}" class="section-view-all section-view-all-right">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>
     <div class="profile-scroll-track" role="list">
         @foreach(($recents ?? []) as $profile)
