@@ -1,0 +1,42 @@
+/* Scoped to viewed profiles. */
+.profile-view-page { --pv-accent: var(--site-primary, #b92c3d); --pv-tint: color-mix(in srgb, var(--pv-accent) 7%, var(--color-surface)); color: var(--color-text); }
+.profile-view-page .pv-introduction { padding-bottom: 0; }
+.profile-view-page .mp-heading { margin-bottom: 32px; }
+.profile-view-page .pd-hero { width: calc(100% - 32px); max-width: 1192px; margin: 0 auto; border: 1px solid var(--color-border); border-radius: 24px; overflow: hidden; }
+.profile-view-page .pd-hero-carousel { background: var(--pv-tint); }
+.profile-view-page .pd-hero-age { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.profile-view-page .pd-main { max-width: 1240px; padding: 32px 24px 60px; }
+.profile-view-page .pd-layout { grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; }
+.profile-view-page .pd-details-col { min-width: 0; }
+.profile-view-page .pd-section, .profile-view-page .pd-action-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 5px 20px rgba(25,15,25,.025); }
+.profile-view-page .pd-section:hover { box-shadow: 0 8px 24px color-mix(in srgb, var(--pv-accent) 6%, transparent); }
+.profile-view-page .pd-section { margin-bottom: 20px; }
+.profile-view-page .pd-section-header { padding: 22px 24px; border-color: var(--color-border); }
+.profile-view-page .pd-section-icon { width: 44px; height: 44px; border-radius: 13px; color: var(--pv-accent); background: var(--pv-tint); }
+.profile-view-page .pd-section-title { font-size: 18px; }
+.profile-view-page .pd-section-body { padding: 24px; }
+.profile-view-page .pd-info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.profile-view-page .pd-info-row { min-width: 0; gap: 8px; }
+.profile-view-page .pd-info-label { display: flex; align-items: start; gap: 7px; font-size: 11px; letter-spacing: .3px; text-transform: none; font-weight: 600; }
+.profile-view-page .pd-info-label svg { width: 15px; height: 15px; flex-shrink: 0; color: var(--pv-accent); }
+.profile-view-page .pd-info-value { color: var(--color-text); font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+.profile-view-page .pd-contact-row > div { min-width: 0; }
+.profile-view-page .pd-contact-row .pd-info-value { margin-top: 8px; }
+.profile-view-page .pd-action-card { padding: 24px; }
+.profile-view-page .pd-thumb-placeholder { background: var(--pv-tint); }
+.profile-view-page .pd-lifestyle-chip { border: 1px solid var(--color-border); background: var(--pv-tint); border-radius: 12px; }
+.profile-view-page .pd-btn-unlock { background: var(--pv-accent); }
+.profile-view-page .pd-btn-unlock:hover { background: color-mix(in srgb, var(--pv-accent) 85%, #000); }
+.profile-view-page .pd-upgrade-card { background: var(--pv-tint); color: var(--color-text); border: 1px solid var(--color-border); }
+.profile-view-page .pd-upgrade-card p { color: var(--color-text-muted); }
+.profile-view-page .pd-upgrade-icon { color: var(--pv-accent); background: var(--color-surface); }
+.profile-view-page .pd-btn-upgrade { background: var(--pv-accent); color: #fff; border-radius: 10px; }
+.profile-view-page .pd-btn-upgrade:hover { background: color-mix(in srgb, var(--pv-accent) 85%, #000); color: #fff; }
+.profile-view-page :is(a, button):focus-visible { outline: 3px solid var(--pv-accent); outline-offset: 3px; }
+@media (max-width: 1023px) { .profile-view-page .pd-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) {
+ .profile-view-page .pd-main { padding: 24px 12px 48px; }
+ .profile-view-page .pd-hero { width: calc(100% - 24px); border-radius: 20px; }
+ .profile-view-page .pd-section-header, .profile-view-page .pd-section-body, .profile-view-page .pd-action-card { padding: 20px; }
+ .profile-view-page .pd-info-grid { grid-template-columns: minmax(0, 1fr); }
+}
