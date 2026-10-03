@@ -116,7 +116,6 @@
         <li><a href="{{ route('viewed-contacts') }}" class="sidebar-nav-item"><i data-lucide="phone" width="18" height="18"></i><span>Viewed Contact</span></a></li>
         <li><a href="{{ route('referral') }}" class="sidebar-nav-item"><i data-lucide="gift" width="18" height="18"></i><span>Refer &amp; Earn</span></a></li>
         <li><a href="{{ route('delete-profile') }}" class="sidebar-nav-item"><i data-lucide="user-x" width="18" height="18"></i><span>Delete Profile</span></a></li>
-        <li><a href="{{route('member.refund-policy')}}" class="sidebar-nav-item"><i data-lucide="file-text" width="18" height="18"></i><span>Refund &amp; Cancellation</span></a></li>
         <li><a href="javascript:void(0)" class="sidebar-nav-item" id="openRateModal"><i data-lucide="star" width="18" height="18"></i><span>Rate Us</span></a></li>
         @if($siteSupportPhone)
         <li>
