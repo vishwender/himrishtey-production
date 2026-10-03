@@ -20,7 +20,7 @@ const radios = document.querySelectorAll('input[name="reason"]');
 
         e.preventDefault();
 
-        if (!confirm('Are you sure you want to delete your profile?')) {
+        if (!confirm('Are you sure you want to request deletion of your profile?')) {
             return;
         }
 

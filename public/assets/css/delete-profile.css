@@ -1,156 +1,34 @@
-.delete-profile-page{
-    max-width:900px;
-    margin:40px auto;
-    padding:0 20px;
-}
-
-.delete-wrapper{
-    background:var(--color-surface);
-    border-radius:20px;
-    padding:50px;
-    box-shadow:0 12px 35px rgba(0,0,0,.08);
-}
-
-.delete-header h1{
-    font-size:42px;
-    font-weight:700;
-    margin-bottom:20px;
-    color:var(--color-text);
-}
-
-.delete-header p{
-    font-size:22px;
-    line-height:1.8;
-    color:var(--color-text-muted);
-    margin-bottom:45px;
-}
-
-.reason-list{
-    display:flex;
-    flex-direction:column;
-    gap:28px;
-}
-
-.reason-item{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    cursor:pointer;
-    font-size:24px;
-    font-weight:500;
-    color:var(--color-text);
-}
-
-.reason-item input{
-    display:none;
-}
-
-.custom-radio{
-    width:28px;
-    height:28px;
-    border:3px solid var(--color-text-faint);
-    border-radius:50%;
-    position:relative;
-    transition:.3s;
-    flex-shrink:0;
-}
-
-.reason-item input:checked + .custom-radio{
-    border-color:var(--site-primary);
-}
-
-.reason-item input:checked + .custom-radio::after{
-    content:'';
-    position:absolute;
-    width:14px;
-    height:14px;
-    background:var(--site-primary);
-    border-radius:50%;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-}
-
-.other-reason{
-    margin-top:35px;
-}
-
-.other-reason textarea{
-    width:100%;
-    border:1px solid var(--color-border);
-    background:var(--color-surface);
-    color:var(--color-text);
-    border-radius:12px;
-    padding:15px;
-    resize:none;
-    font-size:18px;
-    outline:none;
-}
-
-.delete-btn{
-    margin-top:50px;
-    width:100%;
-    height:65px;
-    border:none;
-    border-radius:14px;
-    background:var(--site-primary);
-    color:#fff;
-    font-size:22px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.delete-btn:hover{
-    background:color-mix(in srgb, var(--site-primary) 80%, #000);
-}
-
-.delete-btn:focus-visible,
-.other-reason textarea:focus-visible {
-    outline:3px solid var(--site-primary);
-    outline-offset:3px;
-}
-
-.ep-toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #333;
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transition: .3s;
-    z-index: 9999;
-}
-
-.ep-toast.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-@media(max-width:768px){
-
-    .delete-wrapper{
-        padding:25px;
-    }
-
-    .delete-header h1{
-        font-size:34px;
-    }
-
-    .delete-header p{
-        font-size:18px;
-    }
-
-    .reason-item{
-        font-size:19px;
-    }
-
-    .delete-btn{
-        height:55px;
-        font-size:18px;
-    }
-
-}
+/* Profile deletion shares the membership page's typography and card styles. */
+.dp-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.dp-form .mp-card-top, .dp-information .mp-card-top { margin-bottom: 24px; }
+.dp-form .mp-card-top .mp-overline, .dp-information .mp-card-top .mp-overline { margin: 0; }
+.dp-reasons { min-width: 0; border: 0; margin: 0; padding: 0; }
+.dp-reasons legend { float: none; width: auto; margin: 0 0 8px; padding: 0; font-size: 21px; font-weight: 700; }
+.dp-description, .dp-information > p { margin: 0 0 24px; color: var(--color-text-muted); font-size: 13px; line-height: 1.8; }
+.reason-list { display: grid; gap: 10px; }
+.reason-item { position: relative; display: flex; align-items: center; gap: 12px; padding: 15px 16px; border: 1px solid var(--mp-border); border-radius: 10px; color: var(--color-text); font-size: 13px; line-height: 1.5; cursor: pointer; overflow-wrap: anywhere; }
+.reason-item:has(input:checked) { background: var(--mp-tint); border-color: var(--mp-accent); }
+.reason-item:hover { border-color: var(--mp-accent); }
+.reason-item input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.custom-radio { display: grid; place-items: center; width: 18px; height: 18px; flex-shrink: 0; border: 1.5px solid var(--color-text-faint); border-radius: 50%; }
+.reason-item input:checked + .custom-radio { border-color: var(--mp-accent); }
+.reason-item input:checked + .custom-radio::after { content: ''; width: 8px; height: 8px; background: var(--mp-accent); border-radius: 50%; }
+.reason-item:has(input:focus-visible) { outline: 3px solid var(--mp-accent); outline-offset: 3px; }
+.other-reason { margin-top: 20px; }
+.other-reason label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+.other-reason textarea { box-sizing: border-box; width: 100%; padding: 12px 14px; border: 1px solid var(--mp-border); border-radius: 10px; background: var(--color-surface); color: var(--color-text); font: inherit; font-size: 13px; line-height: 1.7; resize: vertical; }
+.other-reason textarea:focus-visible { outline: 3px solid var(--mp-accent); outline-offset: 3px; }
+.dp-actions { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--mp-border); padding-top: 24px; margin-top: 24px; }
+.delete-btn { cursor: pointer; }
+.dp-information h2 { margin: 0 0 10px; font-size: 21px; font-weight: 700; }
+.dp-notes { display: grid; gap: 22px; padding: 0; margin: 0 0 28px; list-style: none; }
+.dp-notes li { display: flex; align-items: start; gap: 12px; }
+.dp-notes svg { color: var(--mp-accent); margin-top: 2px; width: 18px; height: 18px; }
+.dp-notes strong { display: block; font-size: 13px; font-weight: 650; margin-bottom: 6px; }
+.dp-notes span { display: block; font-size: 12px; line-height: 1.8; color: var(--color-text-muted); }
+.dp-stay { padding: 20px; border-radius: 12px; background: var(--mp-tint); }
+.dp-stay p { margin: 0 0 18px; font-size: 13px; line-height: 1.8; color: var(--color-text-muted); }
+.ep-toast { position: fixed; top: 20px; right: 20px; max-width: calc(100vw - 40px); padding: 15px 20px; border-radius: 10px; color: var(--color-surface, #fff); opacity: 0; visibility: hidden; transition: opacity .2s; z-index: 9999; font-size: 13px; }
+.ep-toast.show { opacity: 1; visibility: visible; }
+@media (max-width: 800px) { .dp-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .dp-actions { flex-direction: column; } .dp-actions .mp-button { width: 100%; } }
