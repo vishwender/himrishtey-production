@@ -3,21 +3,20 @@
 @section('title', 'Wallet - ' . $siteName)
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/memberships.css') }}?v={{ filemtime(public_path('assets/css/memberships.css')) }}">
 <link rel="stylesheet" href="{{ asset('assets/css/wallet.css') }}?v={{ filemtime(public_path('assets/css/wallet.css')) }}">
 @endsection
 
 
 @section('content')
 <!-- ========== MAIN ========== -->
-<div class="wlt-main">
+<div class="mp-page wlt-main" aria-labelledby="wallet-heading">
 
-    <!-- Page Title -->
-    <div class="wlt-page-header">
-        <div>
-            <h1 class="wlt-page-title">Wallet</h1>
-            <p class="wlt-page-subtitle">Manage your balance, recharge &amp; view transactions</p>
-        </div>
-    </div>
+    <header class="mp-heading">
+        <span class="mp-eyebrow"><i data-lucide="wallet" aria-hidden="true"></i> READY FOR YOUR NEXT STEP</span>
+        <h1 id="wallet-heading">Your wallet.<br><span>More ways to connect.</span></h1>
+        <p>Manage your balance, explore recharge offers, and keep track of your transactions.</p>
+    </header>
 
     <!-- Skeleton Loader -->
     <div class="wlt-skeleton" id="wltSkeleton" aria-hidden="true">
