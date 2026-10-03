@@ -58,3 +58,25 @@
  .profile-view-page .pd-basic-grid { grid-template-columns: minmax(0, 1fr); }
  .profile-view-page .pd-basic-intro { padding: 16px; }
 }
+
+/* Field tiles share the Lifestyle section's icon, label and value layout. */
+.profile-view-page .pd-info-grid, .profile-view-page .pd-lifestyle-grid, .profile-view-page .pd-basic-grid { gap: 14px; }
+.profile-view-page .pd-field-card, .profile-view-page .pd-lifestyle-chip, .profile-view-page .pd-basic-item {
+ display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 14px;
+ padding: 16px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--pv-tint); min-width: 0;
+}
+.profile-view-page .pd-field-card > svg, .profile-view-page .pd-lifestyle-chip > svg {
+ width: 18px; height: 18px; flex-shrink: 0; color: var(--pv-accent);
+}
+.profile-view-page .pd-field-content, .profile-view-page .pd-lifestyle-chip > div { min-width: 0; flex: 1; }
+.profile-view-page .pd-field-card .pd-info-label, .profile-view-page .pd-lc-label, .profile-view-page .pd-basic-item dt {
+ display: block; margin: 0 0 5px; font-size: 11px; font-weight: 600; line-height: 1.5;
+ letter-spacing: .3px; text-transform: none; color: var(--color-text-muted);
+}
+.profile-view-page .pd-field-card .pd-info-value, .profile-view-page .pd-lc-value, .profile-view-page .pd-basic-item dd {
+ display: block; margin: 0; font-size: 14px; font-weight: 600; line-height: 1.7; color: var(--color-text); overflow-wrap: anywhere;
+}
+.profile-view-page .pd-field-card .pd-info-value.pd-locked { color: var(--color-text-muted); }
+.profile-view-page .pd-basic-item-icon { width: 18px; height: 18px; background: transparent; border-radius: 0; }
+.profile-view-page #sec-about .pd-about-text { padding: 16px; margin: 0; background: var(--pv-tint); border: 1px solid var(--color-border); border-radius: 12px; }
+@media (max-width: 640px) { .profile-view-page .pd-lifestyle-grid { grid-template-columns: minmax(0, 1fr); } }

@@ -252,21 +252,33 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="calendar-days" aria-hidden="true"></i> Date of Birth</span>
-                            <span class="pd-info-value">{{ $usr->birth_date ?: '-' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="calendar-days" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Date of Birth</span>
+                                <span class="pd-info-value">{{ $usr->birth_date ?: '-' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="clock-3" aria-hidden="true"></i> Time of Birth</span>
-                            <span class="pd-info-value">{{ $usr->birth_time ?: '-' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="clock-3" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Time of Birth</span>
+                                <span class="pd-info-value">{{ $usr->birth_time ?: '-' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="map-pin" aria-hidden="true"></i> Place of Birth</span>
-                            <span class="pd-info-value">{{ $usr->birth_place ?: '-' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="map-pin" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Place of Birth</span>
+                                <span class="pd-info-value">{{ $usr->birth_place ?: '-' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="sparkles" aria-hidden="true"></i> Manglik</span>
-                            <span class="pd-info-value">{{ $usr->manglik ?: '-' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="sparkles" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Manglik</span>
+                                <span class="pd-info-value">{{ $usr->manglik ?: '-' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,25 +294,40 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Community</span>
-                            <span class="pd-info-value">{{$usr->cast}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Community</span>
+                                <span class="pd-info-value">{{$usr->cast}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users-round" aria-hidden="true"></i> Sub Community</span>
-                            <span class="pd-info-value">{{$usr->sub_cast}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users-round" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Sub Community</span>
+                                <span class="pd-info-value">{{$usr->sub_cast}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="git-branch" aria-hidden="true"></i> Gotra</span>
-                            <span class="pd-info-value">{{$usr->gotra}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="git-branch" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Gotra</span>
+                                <span class="pd-info-value">{{$usr->gotra}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Native Place</span>
-                            <span class="pd-info-value">{{$usr->native_place}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Native Place</span>
+                                <span class="pd-info-value">{{$usr->native_place}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="languages" aria-hidden="true"></i> Mother Tongue</span>
-                            <span class="pd-info-value">{{$usr->mother_tongue}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="languages" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother Tongue</span>
+                                <span class="pd-info-value">{{$usr->mother_tongue}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -316,25 +343,28 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-contact-row">
-                            <div>
-                                <span class="pd-info-label"><i data-lucide="phone" aria-hidden="true"></i> Contact Number</span>
+                        <div class="pd-info-row pd-contact-row pd-field-card">
+                            <i data-lucide="phone" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Contact Number</span>
                                 <span class="pd-info-value{{ $usr->contact_unlocked ? '' : ' pd-locked' }}" id="mobileValue">
                                     {{ $usr->contact_unlocked ? ($usr->mobile_number ?: '-') : $usr->mobile_number_masked }}
                                 </span>
                             </div>
                         </div>
-                        <div class="pd-info-row pd-contact-row">
-                            <div>
-                                <span class="pd-info-label"><i data-lucide="message-circle" aria-hidden="true"></i> WhatsApp</span>
+                        <div class="pd-info-row pd-contact-row pd-field-card">
+                            <i data-lucide="message-circle" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">WhatsApp</span>
                                 <span class="pd-info-value{{ $usr->contact_unlocked ? '' : ' pd-locked' }}" id="waValue">
                                     {{ $usr->contact_unlocked ? ($usr->whatsapp_number ?: '-') : $usr->whatsapp_number_masked }}
                                 </span>
                             </div>
                         </div>
-                        <div class="pd-info-row pd-contact-row">
-                            <div>
-                                <span class="pd-info-label"><i data-lucide="mail" aria-hidden="true"></i> Email</span>
+                        <div class="pd-info-row pd-contact-row pd-field-card">
+                            <i data-lucide="mail" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Email</span>
                                 <span class="pd-info-value{{ $usr->contact_unlocked ? '' : ' pd-locked' }}" id="emailValue">
                                     {{ $usr->contact_unlocked ? ($usr->email ?: '-') : $usr->email_masked }}
                                 </span>
@@ -362,37 +392,61 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-info-row--full">
-                            <span class="pd-info-label"><i data-lucide="book-open" aria-hidden="true"></i> About Education & Career</span>
-                            <span class="pd-info-value">{{$usr->about_my_education}}</span>
+                        <div class="pd-info-row pd-info-row--full pd-field-card">
+                            <i data-lucide="book-open" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About Education & Career</span>
+                                <span class="pd-info-value">{{$usr->about_my_education}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="graduation-cap" aria-hidden="true"></i> Education</span>
-                            <span class="pd-info-value">{{$usr->education}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="graduation-cap" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Education</span>
+                                <span class="pd-info-value">{{$usr->education}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="award" aria-hidden="true"></i> Other Qualification</span>
-                            <span class="pd-info-value">{{$usr->any_other_qualifications}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="award" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Other Qualification</span>
+                                <span class="pd-info-value">{{$usr->any_other_qualifications}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="building-2" aria-hidden="true"></i> Employed In</span>
-                            <span class="pd-info-value">{{$usr->employed_in}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="building-2" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Employed In</span>
+                                <span class="pd-info-value">{{$usr->employed_in}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Occupation</span>
-                            <span class="pd-info-value">{{$usr->occupation}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Occupation</span>
+                                <span class="pd-info-value">{{$usr->occupation}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="building-2" aria-hidden="true"></i> Currently Working At</span>
-                            <span class="pd-info-value">{{$usr->organization_name}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="building-2" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Currently Working At</span>
+                                <span class="pd-info-value">{{$usr->organization_name}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="map-pin" aria-hidden="true"></i> Job Location</span>
-                            <span class="pd-info-value">{{$usr->job_location}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="map-pin" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Job Location</span>
+                                <span class="pd-info-value">{{$usr->job_location}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="indian-rupee" aria-hidden="true"></i> Annual Income</span>
-                            <span class="pd-info-value">{{$usr->annual_income}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="indian-rupee" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Annual Income</span>
+                                <span class="pd-info-value">{{$usr->annual_income}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -408,33 +462,54 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-info-row--full">
-                            <span class="pd-info-label"><i data-lucide="heart-handshake" aria-hidden="true"></i> About My Family</span>
-                            <span class="pd-info-value">{{$usr->about_family}}</span>
+                        <div class="pd-info-row pd-info-row--full pd-field-card">
+                            <i data-lucide="heart-handshake" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About My Family</span>
+                                <span class="pd-info-value">{{$usr->about_family}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Father's Occupation</span>
-                            <span class="pd-info-value">{{$usr->father_occupation}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Father's Occupation</span>
+                                <span class="pd-info-value">{{$usr->father_occupation}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Mother's Occupation</span>
-                            <span class="pd-info-value">{{$usr->mother_occupation}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother's Occupation</span>
+                                <span class="pd-info-value">{{$usr->mother_occupation}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Brothers</span>
-                            <span class="pd-info-value">{{$usr->no_of_brothers}} ({{ $usr->married_brothers }} Married)</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Brothers</span>
+                                <span class="pd-info-value">{{$usr->no_of_brothers}} ({{ $usr->married_brothers }} Married)</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Sisters</span>
-                            <span class="pd-info-value">{{$usr->no_of_sisters}} ({{ $usr->married_sisters }} Married)</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Sisters</span>
+                                <span class="pd-info-value">{{$usr->no_of_sisters}} ({{ $usr->married_sisters }} Married)</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Native Place</span>
-                            <span class="pd-info-value">{{$usr->native_place}},{{$usr->state_living_in}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Native Place</span>
+                                <span class="pd-info-value">{{$usr->native_place}},{{$usr->state_living_in}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Family Type</span>
-                            <span class="pd-info-value">{{$usr->family_type}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Family Type</span>
+                                <span class="pd-info-value">{{$usr->family_type}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -492,45 +567,72 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-info-row--full">
-                            <span class="pd-info-label"><i data-lucide="heart" aria-hidden="true"></i> About My Partner</span>
-                            <span class="pd-info-value">{{$usr->about_my_partner}}</span>
+                        <div class="pd-info-row pd-info-row--full pd-field-card">
+                            <i data-lucide="heart" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About My Partner</span>
+                                <span class="pd-info-value">{{$usr->about_my_partner}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="calendar-heart" aria-hidden="true"></i> Age Range</span>
-                            <span class="pd-info-value">{{$usr->partner_age_from}} - {{$usr->partner_age_to}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="calendar-heart" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Age Range</span>
+                                <span class="pd-info-value">{{$usr->partner_age_from}} - {{$usr->partner_age_to}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="ruler" aria-hidden="true"></i> Height Range</span>
-                            <span class="pd-info-value">{{$usr->partner_height_from}} - {{$usr->partner_height_to}}"</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="ruler" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Height Range</span>
+                                <span class="pd-info-value">{{$usr->partner_height_from}} - {{$usr->partner_height_to}}"</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="heart-handshake" aria-hidden="true"></i> Marital Status</span>
-                            <span class="pd-info-value">{{$usr->looking_for}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="heart-handshake" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Marital Status</span>
+                                <span class="pd-info-value">{{$usr->looking_for}}</span>
+                            </div>
                         </div>
                         <div class="pd-info-row">
                             <span class="pd-info-label">Religion & Mother Tongue</span>
                             <span class="pd-info-value">{{$usr->partner_religion}} | {{$usr->partner_mothertongue}}</span>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Community</span>
-                            <span class="pd-info-value">{{$usr->partner_cast}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Community</span>
+                                <span class="pd-info-value">{{$usr->partner_cast}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="sparkles" aria-hidden="true"></i> Is Manglik</span>
-                            <span class="pd-info-value">{{$usr->is_partner_manglik}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="sparkles" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Is Manglik</span>
+                                <span class="pd-info-value">{{$usr->is_partner_manglik}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="graduation-cap" aria-hidden="true"></i> Highest Qualification</span>
-                            <span class="pd-info-value">{{$usr->partner_education}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="graduation-cap" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Highest Qualification</span>
+                                <span class="pd-info-value">{{$usr->partner_education}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Partner Occupation</span>
-                            <span class="pd-info-value">{{$usr->partner_occupation}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Partner Occupation</span>
+                                <span class="pd-info-value">{{$usr->partner_occupation}}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="indian-rupee" aria-hidden="true"></i> Annual Income</span>
-                            <span class="pd-info-value">{{$usr->partner_annual_income_from}} - {{$usr->partner_annual_income_to}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="indian-rupee" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Annual Income</span>
+                                <span class="pd-info-value">{{$usr->partner_annual_income_from}} - {{$usr->partner_annual_income_to}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

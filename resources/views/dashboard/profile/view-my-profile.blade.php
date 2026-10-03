@@ -130,25 +130,37 @@
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="calendar-days" aria-hidden="true"></i> Date of Birth</span>
-                            <span class="pd-info-value">{{ filled($profile->date) ? $profile->date : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="calendar-days" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Date of Birth</span>
+                                <span class="pd-info-value">{{ filled($profile->date) ? $profile->date : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="clock-3" aria-hidden="true"></i> Time of Birth</span>
-                            <span class="pd-info-value" id="tobValue">
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="clock-3" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Time of Birth</span>
+                                <span class="pd-info-value" id="tobValue">
                                 {{ filled($profile->time) ? $profile->time : 'Not provided' }}
                             </span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="map-pin" aria-hidden="true"></i> Place of Birth</span>
-                            <span class="pd-info-value" id="pobValue">
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="map-pin" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Place of Birth</span>
+                                <span class="pd-info-value" id="pobValue">
                                 {{ filled($profile->birth_place) ? $profile->birth_place : 'Not provided' }}
                             </span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="sparkles" aria-hidden="true"></i> Manglik</span>
-                            <span class="pd-info-value">{{ filled($profile->manglik) ? $profile->manglik : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="sparkles" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Manglik</span>
+                                <span class="pd-info-value">{{ filled($profile->manglik) ? $profile->manglik : 'Not provided' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -164,25 +176,40 @@
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Community</span>
-                            <span class="pd-info-value">{{ filled($profile->cast) ? $profile->cast : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Community</span>
+                                <span class="pd-info-value">{{ filled($profile->cast) ? $profile->cast : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users-round" aria-hidden="true"></i> Sub Community</span>
-                            <span class="pd-info-value">{{ filled($profile->sub_cast) ? $profile->sub_cast : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users-round" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Sub Community</span>
+                                <span class="pd-info-value">{{ filled($profile->sub_cast) ? $profile->sub_cast : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="git-branch" aria-hidden="true"></i> Gotra</span>
-                            <span class="pd-info-value">{{ filled($profile->gotra) ? $profile->gotra : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="git-branch" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Gotra</span>
+                                <span class="pd-info-value">{{ filled($profile->gotra) ? $profile->gotra : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Native Place</span>
-                            <span class="pd-info-value">{{ filled($profile->native_place) ? $profile->native_place : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Native Place</span>
+                                <span class="pd-info-value">{{ filled($profile->native_place) ? $profile->native_place : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="languages" aria-hidden="true"></i> Mother Tongue</span>
-                            <span class="pd-info-value">{{ filled($profile->mother_tongue) ? $profile->mother_tongue : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="languages" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother Tongue</span>
+                                <span class="pd-info-value">{{ filled($profile->mother_tongue) ? $profile->mother_tongue : 'Not provided' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,29 +225,41 @@
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="phone" aria-hidden="true"></i> Contact Number</span>
-                            <span class="pd-info-value" id="mobileValue">
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="phone" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Contact Number</span>
+                                <span class="pd-info-value" id="mobileValue">
                                 {{ filled($profile->mobile_number) ? $profile->mobile_number : 'Not provided' }}
                             </span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="message-circle" aria-hidden="true"></i> WhatsApp Number</span>
-                            <span class="pd-info-value" id="waValue">
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="message-circle" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">WhatsApp Number</span>
+                                <span class="pd-info-value" id="waValue">
                                 {{ filled($profile->whatsapp_number) ? $profile->whatsapp_number : 'Not provided' }}
                             </span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="phone" aria-hidden="true"></i> Alternate Number</span>
-                            <span class="pd-info-value" id="alternateNumberValue">
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="phone" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Alternate Number</span>
+                                <span class="pd-info-value" id="alternateNumberValue">
                                 {{ filled($profile->alternate_number) ? $profile->alternate_number : 'Not provided' }}
                             </span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="mail" aria-hidden="true"></i> Email</span>
-                            <span class="pd-info-value" id="emailValue">
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="mail" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Email</span>
+                                <span class="pd-info-value" id="emailValue">
                                 {{ filled($profile->email) ? $profile->email : 'Not provided' }}
                             </span>
+                            </div>
                         </div>
                     </div>
                     <!-- <div class="pd-unlock-strip" id="contactUnlock">
@@ -242,45 +281,75 @@
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-info-row--full">
-                            <span class="pd-info-label"><i data-lucide="book-open" aria-hidden="true"></i> About Education & Career</span>
-                            <span class="pd-info-value">{{ filled($profile->about_my_education) ? $profile->about_my_education : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-info-row--full pd-field-card">
+                            <i data-lucide="book-open" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About Education & Career</span>
+                                <span class="pd-info-value">{{ filled($profile->about_my_education) ? $profile->about_my_education : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="graduation-cap" aria-hidden="true"></i> Education</span>
-                            <span class="pd-info-value">{{ filled($profile->education) ? $profile->education : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="graduation-cap" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Education</span>
+                                <span class="pd-info-value">{{ filled($profile->education) ? $profile->education : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> About My Career</span>
-                            <span class="pd-info-value">{{ filled($profile->about_my_career) ? $profile->about_my_career : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About My Career</span>
+                                <span class="pd-info-value">{{ filled($profile->about_my_career) ? $profile->about_my_career : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="award" aria-hidden="true"></i> Other Qualification</span>
-                            <span class="pd-info-value">{{ filled($profile->any_other_qualifications) ? $profile->any_other_qualifications : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="award" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Other Qualification</span>
+                                <span class="pd-info-value">{{ filled($profile->any_other_qualifications) ? $profile->any_other_qualifications : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="building-2" aria-hidden="true"></i> Employed In</span>
-                            <span class="pd-info-value">{{ filled($profile->employed_in) ? $profile->employed_in : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="building-2" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Employed In</span>
+                                <span class="pd-info-value">{{ filled($profile->employed_in) ? $profile->employed_in : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Occupation</span>
-                            <span class="pd-info-value">{{ filled($profile->occupation) ? $profile->occupation : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Occupation</span>
+                                <span class="pd-info-value">{{ filled($profile->occupation) ? $profile->occupation : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="badge" aria-hidden="true"></i> Designation</span>
-                            <span class="pd-info-value">{{ filled($profile->designation) ? $profile->designation : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="badge" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Designation</span>
+                                <span class="pd-info-value">{{ filled($profile->designation) ? $profile->designation : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="building-2" aria-hidden="true"></i> Currently Working At</span>
-                            <span class="pd-info-value">{{ filled($profile->organization_name) ? $profile->organization_name : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="building-2" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Currently Working At</span>
+                                <span class="pd-info-value">{{ filled($profile->organization_name) ? $profile->organization_name : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="map-pin" aria-hidden="true"></i> Job Location</span>
-                            <span class="pd-info-value">{{ filled($profile->job_location) ? $profile->job_location : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="map-pin" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Job Location</span>
+                                <span class="pd-info-value">{{ filled($profile->job_location) ? $profile->job_location : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="indian-rupee" aria-hidden="true"></i> Annual Income</span>
-                            <span class="pd-info-value">{{ filled($profile->annual_income) ? $profile->annual_income : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="indian-rupee" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Annual Income</span>
+                                <span class="pd-info-value">{{ filled($profile->annual_income) ? $profile->annual_income : 'Not provided' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -296,45 +365,75 @@
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-info-row--full">
-                            <span class="pd-info-label"><i data-lucide="heart-handshake" aria-hidden="true"></i> About My Family</span>
-                            <span class="pd-info-value">{{ filled($profile->about_family) ? $profile->about_family : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-info-row--full pd-field-card">
+                            <i data-lucide="heart-handshake" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About My Family</span>
+                                <span class="pd-info-value">{{ filled($profile->about_family) ? $profile->about_family : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="user-round" aria-hidden="true"></i> Father's Name</span>
-                            <span class="pd-info-value">{{ filled($profile->father_name) ? $profile->father_name : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="user-round" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Father's Name</span>
+                                <span class="pd-info-value">{{ filled($profile->father_name) ? $profile->father_name : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="user-round" aria-hidden="true"></i> Mother's Name</span>
-                            <span class="pd-info-value">{{ filled($profile->mother_name) ? $profile->mother_name : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="user-round" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother's Name</span>
+                                <span class="pd-info-value">{{ filled($profile->mother_name) ? $profile->mother_name : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Family Status</span>
-                            <span class="pd-info-value">{{ filled($profile->family_status) ? $profile->family_status : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Family Status</span>
+                                <span class="pd-info-value">{{ filled($profile->family_status) ? $profile->family_status : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Father's Occupation</span>
-                            <span class="pd-info-value">{{ filled($profile->father_occupation) ? $profile->father_occupation : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Father's Occupation</span>
+                                <span class="pd-info-value">{{ filled($profile->father_occupation) ? $profile->father_occupation : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Mother's Occupation</span>
-                            <span class="pd-info-value">{{ filled($profile->mother_occupation) ? $profile->mother_occupation : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother's Occupation</span>
+                                <span class="pd-info-value">{{ filled($profile->mother_occupation) ? $profile->mother_occupation : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Brothers</span>
-                            <span class="pd-info-value">{{ filled($profile->no_of_brothers) ? $profile->no_of_brothers : 'Not provided' }} | ( {{ filled($profile->married_brothers) ? $profile->married_brothers : 'Not provided' }} Married)</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Brothers</span>
+                                <span class="pd-info-value">{{ filled($profile->no_of_brothers) ? $profile->no_of_brothers : 'Not provided' }} | ( {{ filled($profile->married_brothers) ? $profile->married_brothers : 'Not provided' }} Married)</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Sisters</span>
-                            <span class="pd-info-value">{{ filled($profile->no_of_sisters) ? $profile->no_of_sisters : 'Not provided' }} | ( {{ filled($profile->married_sisters) ? $profile->married_sisters : 'Not provided' }} Married)</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Sisters</span>
+                                <span class="pd-info-value">{{ filled($profile->no_of_sisters) ? $profile->no_of_sisters : 'Not provided' }} | ( {{ filled($profile->married_sisters) ? $profile->married_sisters : 'Not provided' }} Married)</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Native Place</span>
-                            <span class="pd-info-value">{{ filled($profile->native_place) ? $profile->native_place : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Native Place</span>
+                                <span class="pd-info-value">{{ filled($profile->native_place) ? $profile->native_place : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="house" aria-hidden="true"></i> Family Type</span>
-                            <span class="pd-info-value">{{ filled($profile->family_type) ? $profile->family_type : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="house" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Family Type</span>
+                                <span class="pd-info-value">{{ filled($profile->family_type) ? $profile->family_type : 'Not provided' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -392,49 +491,82 @@
                 </div>
                 <div class="pd-section-body">
                     <div class="pd-info-grid">
-                        <div class="pd-info-row pd-info-row--full">
-                            <span class="pd-info-label"><i data-lucide="heart" aria-hidden="true"></i> About My Partner</span>
-                            <span class="pd-info-value">{{ filled($profile->about_my_partner) ? $profile->about_my_partner : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-info-row--full pd-field-card">
+                            <i data-lucide="heart" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">About My Partner</span>
+                                <span class="pd-info-value">{{ filled($profile->about_my_partner) ? $profile->about_my_partner : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="calendar-heart" aria-hidden="true"></i> Age Range</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_age_from) ? $profile->partner_age_from : 'Not provided' }} - {{ filled($profile->partner_age_to) ? $profile->partner_age_to : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="calendar-heart" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Age Range</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_age_from) ? $profile->partner_age_from : 'Not provided' }} - {{ filled($profile->partner_age_to) ? $profile->partner_age_to : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="ruler" aria-hidden="true"></i> Height Range</span>
-                            <span class="pd-info-value">{{ \App\Support\HeightFormatter::formatPartnerRange($profile->partner_height_from) }} – {{ \App\Support\HeightFormatter::formatPartnerRange($profile->partner_height_to) }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="ruler" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Height Range</span>
+                                <span class="pd-info-value">{{ \App\Support\HeightFormatter::formatPartnerRange($profile->partner_height_from) }} – {{ \App\Support\HeightFormatter::formatPartnerRange($profile->partner_height_to) }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="heart-handshake" aria-hidden="true"></i> Marital Status</span>
-                            <span class="pd-info-value">{{ filled($profile->looking_for) ? $profile->looking_for : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="heart-handshake" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Marital Status</span>
+                                <span class="pd-info-value">{{ filled($profile->looking_for) ? $profile->looking_for : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="sun" aria-hidden="true"></i> Religion</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_religion) ? $profile->partner_religion : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="sun" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Religion</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_religion) ? $profile->partner_religion : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="languages" aria-hidden="true"></i> Mother Tongue</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_mothertongue) ? $profile->partner_mothertongue : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="languages" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother Tongue</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_mothertongue) ? $profile->partner_mothertongue : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="users" aria-hidden="true"></i> Community</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_cast) ? $profile->partner_cast : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="users" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Community</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_cast) ? $profile->partner_cast : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="sparkles" aria-hidden="true"></i> Is Manglik</span>
-                            <span class="pd-info-value">{{ filled($profile->is_partner_manglik) ? $profile->is_partner_manglik : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="sparkles" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Is Manglik</span>
+                                <span class="pd-info-value">{{ filled($profile->is_partner_manglik) ? $profile->is_partner_manglik : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="graduation-cap" aria-hidden="true"></i> Highest Qualification</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_education) ? $profile->partner_education : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="graduation-cap" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Highest Qualification</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_education) ? $profile->partner_education : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="briefcase-business" aria-hidden="true"></i> Partner Occupation</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_occupation) ? $profile->partner_occupation : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="briefcase-business" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Partner Occupation</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_occupation) ? $profile->partner_occupation : 'Not provided' }}</span>
+                            </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label"><i data-lucide="indian-rupee" aria-hidden="true"></i> Annual Income</span>
-                            <span class="pd-info-value">{{ filled($profile->partner_annual_income_from) ? $profile->partner_annual_income_from : 'Not provided' }} - {{ filled($profile->partner_annual_income_to) ? $profile->partner_annual_income_to : 'Not provided' }}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="indian-rupee" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Annual Income</span>
+                                <span class="pd-info-value">{{ filled($profile->partner_annual_income_from) ? $profile->partner_annual_income_from : 'Not provided' }} - {{ filled($profile->partner_annual_income_to) ? $profile->partner_annual_income_to : 'Not provided' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
