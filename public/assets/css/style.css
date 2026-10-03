@@ -1305,7 +1305,7 @@ a, button, [role="button"] {
 }
 .pqv-avatar-wrap { position: relative; flex-shrink: 0; }
 .pqv-avatar {
-  width: 68px; height: 68px;
+  width: 104px; height: 104px;
   border-radius: var(--radius-full);
   object-fit: cover;
   border: 2px solid color-mix(in srgb, var(--pqv-accent) 30%, var(--color-border));

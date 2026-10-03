@@ -175,8 +175,7 @@
       <div class="pqv-heading"><span class="pqv-overline">YOUR ACCOUNT</span><h2>Everything at a glance.</h2></div>
       <div class="pqv-user-row">
         <div class="pqv-avatar-wrap">
-          <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="60" height="60" loading="lazy" class="pqv-avatar" id="quickViewProfileAvatar" />
-          <span class="pqv-avatar-camera" aria-hidden="true"><i data-lucide="camera" width="11" height="11"></i></span>
+          <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="104" height="104" loading="lazy" class="pqv-avatar" id="quickViewProfileAvatar" />
         </div>
         <div class="pqv-user-text">
           <div class="pqv-name-row">
