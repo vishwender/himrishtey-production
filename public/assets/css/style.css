@@ -1243,11 +1243,16 @@ a, button, [role="button"] {
 .pqv-backdrop.active { opacity: 1; pointer-events: all; }
 
 .profile-quickview {
+  --pqv-accent: var(--site-primary, var(--color-primary));
+  --pqv-tint: color-mix(in srgb, var(--pqv-accent) 7%, var(--color-surface));
+  max-height: calc(100dvh - var(--navbar-height, 64px) - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   position: fixed;
   top: calc(var(--navbar-height) + var(--space-2));
   right: var(--space-4);
   z-index: 1100;
-  width: 340px;
+  width: 380px;
   max-width: calc(100vw - var(--space-8));
   background: var(--color-surface);
   border-radius: var(--radius-xl);
@@ -1265,13 +1270,16 @@ a, button, [role="button"] {
   transform: translateY(0) scale(1);
 }
 
-.pqv-inner { padding: var(--space-5); }
+.pqv-inner { padding: 24px; }
+.pqv-heading { text-align: center; padding: 4px 28px 22px; }
+.pqv-overline { display: block; color: var(--pqv-accent); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; margin-bottom: 8px; }
+.pqv-heading h2 { font-size: 19px; line-height: 1.35; font-weight: 700; margin: 0; color: var(--color-text); }
 
 .pqv-close {
   position: absolute;
   top: var(--space-4);
   right: var(--space-4);
-  width: 28px; height: 28px;
+  width: 32px; height: 32px;
   border-radius: var(--radius-full);
   background: var(--color-surface-offset);
   color: var(--color-text-muted);
@@ -1286,21 +1294,27 @@ a, button, [role="button"] {
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
-  margin-bottom: var(--space-4);
-  padding-right: var(--space-6);
+  margin-bottom: 0;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--pqv-tint), var(--color-surface));
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .pqv-avatar-wrap { position: relative; flex-shrink: 0; }
 .pqv-avatar {
-  width: 56px; height: 56px;
+  width: 68px; height: 68px;
   border-radius: var(--radius-full);
   object-fit: cover;
-  border: 2px solid var(--color-primary);
+  border: 2px solid color-mix(in srgb, var(--pqv-accent) 30%, var(--color-border));
 }
 .pqv-avatar-camera {
   position: absolute;
   bottom: -2px; right: -2px;
   width: 20px; height: 20px;
-  background: var(--color-text);
+  background: var(--pqv-accent);
   color: white;
   border-radius: var(--radius-full);
   display: flex;
@@ -1308,42 +1322,47 @@ a, button, [role="button"] {
   justify-content: center;
   border: 1px solid var(--color-surface);
 }
-.pqv-user-text { flex: 1; min-width: 0; }
-.pqv-name-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); margin-bottom: 2px; }
-.pqv-name { font-size: var(--text-base); font-weight: 700; color: var(--color-text); }
+.pqv-user-text { width: 100%; min-width: 0; }
+.pqv-name-row { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 8px; }
+.pqv-name { font-size: 17px; font-weight: 700; color: var(--color-text); overflow-wrap: anywhere; }
 .pqv-profile-id { font-size: var(--text-xs); color: var(--color-text-faint); font-weight: 500; white-space: nowrap; }
-.pqv-email { display: block; font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.pqv-email { display: block; font-size: 12px; color: var(--color-text-muted); margin-bottom: 14px; overflow-wrap: anywhere; }
 .pqv-link-btn {
   display: inline-flex;
   align-items: center;
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-text-medium);
-  padding: 3px 10px;
-  border-radius: var(--radius-sm);
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--pqv-accent);
+  background: var(--color-surface);
+  padding: 8px 12px;
+  border-radius: 9px;
   border: 1px solid var(--color-border);
 }
-.pqv-link-btn:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
+.pqv-link-btn:hover { border-color: var(--pqv-accent); color: var(--pqv-accent); background: var(--pqv-tint); }
 
-.pqv-divider { border-color: var(--color-divider); margin: var(--space-4) 0; }
+.pqv-divider { display: none; }
 
-.pqv-info-row { display: flex; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-1); }
+.pqv-info-row { display: flex; align-items: flex-start; gap: 12px; margin-top: 14px; padding: 16px; border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-surface); }
 .pqv-info-icon {
   width: 44px; height: 44px;
   border-radius: var(--radius-md);
-  background: var(--color-surface-offset);
+  background: var(--pqv-tint);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-muted);
+  color: var(--pqv-accent);
   flex-shrink: 0;
 }
 .pqv-info-content { flex: 1; min-width: 0; }
 .pqv-info-title { font-size: var(--text-sm); font-weight: 700; color: var(--color-text); display: block; margin-bottom: 2px; }
-.pqv-info-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
-.pqv-info-meta-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+.pqv-info-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.pqv-info-meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 .pqv-info-label { font-size: var(--text-xs); color: var(--color-text-faint); }
-.pqv-info-value { font-size: var(--text-base); font-weight: 700; color: var(--color-text); font-variant-numeric: tabular-nums; }
+.pqv-info-value { font-size: var(--text-base); font-weight: 700; color: var(--color-text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .pqv-badge {
   font-size: var(--text-xs);
   font-weight: 700;
@@ -1366,6 +1385,9 @@ a, button, [role="button"] {
 .pqv-footer-links a { font-size: var(--text-xs); color: var(--color-text-faint); }
 .pqv-footer-links a:hover { color: var(--color-primary); }
 .pqv-footer-links span { color: var(--color-text-faint); font-size: var(--text-xs); }
+
+.profile-quickview :is(a, button):focus-visible { outline: 3px solid var(--pqv-accent); outline-offset: 3px; }
+@media (max-width: 480px) { .pqv-inner { padding: 18px; } .pqv-info-row { padding: 14px; } }
 
 /* ============================================================
    SITE FOOTER

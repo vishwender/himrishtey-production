@@ -172,6 +172,7 @@
         <i data-lucide="x" width="18" height="18"></i>
       </button>
 
+      <div class="pqv-heading"><span class="pqv-overline">YOUR ACCOUNT</span><h2>Everything at a glance.</h2></div>
       <div class="pqv-user-row">
         <div class="pqv-avatar-wrap">
           <img src="{{ $dashboardMember?->photo ? \App\Website\Services\ProfilePhotoUrl::get($dashboardMember->photo) : asset('images/profile_photos/boy.jpg') }}" alt="{{ $dashboardMember?->full_name ?? 'User' }}" width="60" height="60" loading="lazy" class="pqv-avatar" id="quickViewProfileAvatar" />
@@ -183,7 +184,7 @@
             <span class="pqv-profile-id">{{ $dashboardMember?->profile_id ?? 'N/A' }}</span>
           </div>
           <span class="pqv-email">{{ $dashboardMember?->email ?? 'email@example.com' }}</span>
-          <a href="{{route('view-my-profile')}}" class="pqv-link-btn">View Your Profile</a>
+          <a href="{{route('view-my-profile')}}" class="pqv-link-btn">View Your Profile <i data-lucide="arrow-up-right" width="14" height="14" aria-hidden="true"></i></a>
         </div>
       </div>
 
@@ -197,7 +198,7 @@
             <span class="pqv-info-label">Wallet Balance</span>
             <strong class="pqv-info-value">₹{{ $dashboardMember?->wallet_balance ?? '0' }}</strong>
           </div>
-          <a href="{{route('wallet.index')}}" class="pqv-link-btn">View Wallet</a>
+          <a href="{{route('wallet.index')}}" class="pqv-link-btn">View Wallet <i data-lucide="arrow-up-right" width="14" height="14" aria-hidden="true"></i></a>
         </div>
       </div>
 
@@ -214,7 +215,7 @@
             <span class="pqv-info-label">Plan name</span>
             <strong class="pqv-info-value">{{ $dashboardPlan?->plan_name ?? 'Free' }}</strong>
           </div>
-          <a href="{{route('memberships')}}" class="pqv-link-btn">View Membership Plans</a>
+          <a href="{{route('memberships')}}" class="pqv-link-btn">View Membership Plans <i data-lucide="arrow-up-right" width="14" height="14" aria-hidden="true"></i></a>
         </div>
       </div>
 
