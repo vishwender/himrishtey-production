@@ -1508,10 +1508,11 @@
 .pd-modal-cancel:hover { background: rgba(0,0,0,0.04); }
 
 .pd-modal-confirm {
+  --unlock-accent: var(--site-primary, var(--color-primary, #D92768));
   flex: 2;
   min-height: 48px;
   border-radius: 14px;
-  background: var(--color-primary, #D92768);
+  background: var(--unlock-accent);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -1520,7 +1521,9 @@
   transition: background 0.18s;
 }
 
-.pd-modal-confirm:hover { background: #be1f59; }
+.pd-modal-confirm:hover { background: color-mix(in srgb, var(--unlock-accent) 85%, #000); }
+.pd-modal-confirm:focus-visible { outline: 3px solid var(--unlock-accent); outline-offset: 3px; }
+.pd-modal-confirm:disabled { opacity: .65; cursor: wait; }
 
 /* ── REPORT BOTTOM SHEET ─────────────────────────────────────── */
 .pd-sheet-overlay {
@@ -1682,3 +1685,6 @@ body.pd-sharing { overflow: hidden; }
   object-position: center top;
   flex: none;
 }
+
+#unlockModalOverlay .pd-modal-avatar { width: 64px; height: 64px; flex-shrink: 0; overflow: hidden; background: var(--color-surface-offset); }
+#unlockModalOverlay .pd-modal-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: inherit; }

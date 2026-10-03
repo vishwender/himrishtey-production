@@ -825,7 +825,9 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
         <div class="pd-modal-body">
             <div class="pd-modal-profile">
                 <div class="pd-modal-avatar">
-                    <i data-lucide="user" width="28" height="28"></i>
+                    <img src="{{ $usr->photo ?: $profileFallback }}"
+                        onerror="this.onerror=null;this.src='{{ $profileFallback }}';"
+                        alt="{{ $usr->full_name }}" width="64" height="64">
                 </div>
                 <strong>{{ $usr->full_name }}</strong>
             </div>
