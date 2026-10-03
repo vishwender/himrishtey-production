@@ -3,19 +3,25 @@
 @section('title','Interest Box - ' . $siteName)
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/memberships.css') }}?v={{ filemtime(public_path('assets/css/memberships.css')) }}">
 <link rel="stylesheet" href="{{ asset('assets/css/interests.css') }}?v={{ filemtime(public_path('assets/css/interests.css')) }}" />
 @endsection
 
 @section('content')
 <!-- ── MAIN ── -->
-<div class="main-content" id="int-main">
+<div class="mp-page int-page" id="int-main" aria-labelledby="interest-heading">
+    <header class="mp-heading">
+        <span class="mp-eyebrow"><i data-lucide="heart-handshake" aria-hidden="true"></i> CONNECTIONS START HERE</span>
+        <h1 id="interest-heading">A little interest.<br><span>A meaningful beginning.</span></h1>
+        <p>See who’s interested, follow your connections, and take the next step.</p>
+    </header>
 
     <!-- PAGE HEADER -->
-    <div class="int-page-header container-xxl">
+    <div class="int-page-header">
         <div class="int-page-title-row">
             <div class="int-page-title-wrap">
-                <i data-lucide="inbox" width="22" height="22" class="int-title-icon" aria-hidden="true"></i>
-                <h1 class="int-page-title">Interest Box</h1>
+                <span class="mp-small-icon"><i data-lucide="inbox" aria-hidden="true"></i></span>
+                <div><span class="mp-overline">YOUR CONNECTIONS</span><h2 class="int-page-title">Interest box</h2></div>
             </div>
 
             <!-- Received / Sent Toggle -->
@@ -68,7 +74,7 @@
     </div>
 
     <!-- TAB PANELS -->
-    <div class="int-panels-wrap container-xxl">
+    <div class="int-panels-wrap">
 
         <!-- PENDING -->
         <section class="int-panel" id="panelPending" role="tabpanel" aria-labelledby="tabPending">

@@ -603,3 +603,39 @@
   background: var(--color-surface-dynamic, #2d2c2a);
   color: var(--color-text);
 }
+/* Membership-style presentation; interest controls and card structure stay intact. */
+#int-main.int-page { max-width: 1240px; margin: 0 auto; padding: clamp(24px, 4vw, 56px) clamp(4px, 2vw, 24px) 60px; }
+#int-main .int-page-header { padding: 24px; gap: 20px; background: var(--color-surface); border: 1px solid var(--mp-border); border-radius: 20px; box-shadow: 0 5px 20px rgba(25, 15, 25, .025); }
+#int-main .int-page-title-wrap { gap: 14px; }
+#int-main .int-page-title { font-size: 23px; }
+#int-main .int-toggle-wrap { border-radius: 12px; padding: 4px; background: var(--mp-tint); }
+#int-main .int-toggle-btn { min-height: 40px; border-radius: 9px; font-size: 13px; }
+#int-main .int-toggle-btn.active { background: var(--mp-accent); color: #fff; box-shadow: none; }
+#int-main .int-summary-row { gap: 10px; padding-top: 18px; border-top: 1px solid var(--mp-border); }
+#int-main .int-summary-chip { padding: 7px 12px; font-size: 11px; }
+#int-main .int-tabbar-wrap { gap: 8px; padding: 8px; margin-top: 24px; border: 1px solid var(--mp-border); border-radius: 14px; background: var(--color-surface); }
+#int-main .int-tab { min-height: 44px; padding: 10px 18px; margin: 0; border: 1px solid transparent; border-radius: 9px; font-size: 13px; }
+#int-main .int-tab.active { background: var(--mp-tint); color: var(--mp-accent); border-color: color-mix(in srgb, var(--mp-accent) 18%, transparent); }
+#int-main .int-panels-wrap { padding: 24px 0 0; }
+#int-main .profile-card, #int-main .int-skel-card { border-radius: 20px; border-color: var(--mp-border); box-shadow: 0 5px 20px rgba(25, 15, 25, .025); }
+#int-main .profile-card:hover { transform: translateY(-2px); border-color: var(--mp-accent); box-shadow: 0 8px 30px color-mix(in srgb, var(--mp-accent) 8%, transparent); }
+#int-main .profile-card-body { padding: 16px; }
+#int-main .int-card-actions { padding: 12px 16px 16px; }
+#int-main .int-action-btn { min-height: 36px; border-radius: 9px; }
+#int-main .int-empty { padding: 48px 24px; background: var(--color-surface); border: 1px dashed var(--mp-border); border-radius: 20px; }
+#int-main .int-empty-icon:not(.accepted):not(.rejected) { background: var(--mp-tint); color: var(--mp-accent); }
+#int-main :is(.int-toggle-btn, .int-tab, .int-action-btn, .profile-card):focus-visible { outline: 3px solid var(--mp-accent); outline-offset: 3px; }
+#int-main :is(.int-toggle-btn, .int-tab) svg { width: 16px; height: 16px; }
+#int-main .int-summary-chip svg { width: 13px; height: 13px; }
+#int-main .int-empty-icon svg { width: 32px; height: 32px; }
+@media (max-width: 640px) {
+  #int-main .int-page-header { padding: 20px; }
+  #int-main .int-page-title-row { align-items: stretch; flex-direction: column; gap: 20px; }
+  #int-main .int-toggle-btn { flex: 1; justify-content: center; }
+  #int-main .int-tabbar-wrap { gap: 4px; }
+  #int-main .int-tab { flex: 1; justify-content: center; padding: 10px 8px; font-size: 12px; gap: 5px; }
+  #int-main .int-tab span:first-of-type { display: inline; }
+  #int-main .int-tab > svg { display: none; }
+  #int-main .profile-card-body { padding: 10px; }
+  #int-main .int-card-actions { padding: 10px; gap: 6px; }
+}
