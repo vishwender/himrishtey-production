@@ -345,6 +345,11 @@ function initProfileLike() {
 let interestState = "none"; // none | sent | received | matched | rejected
 
 function handleInterestAction() {
+    const sendButton = document.getElementById("sendInterestBtn");
+    if (sendButton?.dataset.membershipActive === "false") {
+        showToast("Please activate your membership to send interest.");
+        return;
+    }
 
     if (interestState === "none") {
 
@@ -445,7 +450,7 @@ function updateInterestUI() {
   const s = states[interestState] || states.none;
 
   if (sendBtn) {
-    sendBtn.style.background = s.color || "var(--color-primary, #D92768)";
+    sendBtn.style.setProperty("--interest-state-color", s.color || "var(--site-primary, var(--color-primary, #D92768))");
     sendBtn.innerHTML = `<i data-lucide="${s.icon}" width="17" height="17"></i> ${s.label}`;
   }
   if (bottomBtn) {

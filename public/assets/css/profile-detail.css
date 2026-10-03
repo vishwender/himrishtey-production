@@ -1041,12 +1041,18 @@
 }
 
 .pd-btn-interest {
-  background: var(--color-primary, #D92768);
+  --interest-accent: var(--interest-state-color, var(--site-primary, var(--color-primary, #D92768)));
+  background: var(--interest-accent);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(217,39,104,0.28);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--interest-accent) 28%, transparent);
 }
 
-.pd-btn-interest:hover { background: #be1f59; transform: translateY(-1px); }
+.pd-btn-interest:hover {
+  background: color-mix(in srgb, var(--interest-accent) 85%, #000);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.pd-btn-interest:focus-visible { outline: 3px solid var(--interest-accent); outline-offset: 4px; }
 
 .pd-btn-shortlist {
   background: transparent;

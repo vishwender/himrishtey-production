@@ -558,19 +558,12 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                         View Gallery
                     </button>
 
-                    @if($usr->is_free_member)
-
-                    <a href="{{ route('memberships') }}" class="pd-btn-interest">
-                        <i data-lucide="crown" width="17" height="17"></i>
-                        Activate Membership to Send Interest
-                    </a>
-
-                    @else
-
                     <button
+                        type="button"
                         class="pd-btn-interest"
                         id="sendInterestBtn"
                         data-profile-id="{{ $usr->id }}"
+                        data-membership-active="{{ $usr->is_free_member ? 'false' : 'true' }}"
                         onclick="handleInterestAction()">
                         <i data-lucide="send" width="17" height="17"></i>
                         Send Interest
@@ -578,6 +571,7 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
 
 
 
+                    @if(! $usr->is_free_member)
                     <!-- Shortlist -->
                     <button
                         class="pd-btn-shortlist"
