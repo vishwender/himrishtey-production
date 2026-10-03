@@ -1,9 +1,10 @@
 <!-- ShortListed Profile -->
-<section class="profile-row-section matching-bg container-xxl" aria-label="Shortlisted Profiles">
+<section class="profile-row-section matching-bg container-xxl home-profile-section" aria-label="Shortlisted Profiles">
     <div class="section-header">
         <div class="section-title-group">
+            <span class="home-section-eyebrow"><i data-lucide="bookmark" aria-hidden="true"></i> KEEP THEM CLOSE</span>
             <h2 class="section-title">Shortlisted Profiles</h2>
-
+            <p class="home-section-description">Revisit the people who caught your attention.</p>
         </div>
         <a href="{{ route('recent-profiles', ['profile' => 'shortlist']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>

@@ -2,6 +2,10 @@
 
 @section('title', 'Dashboard - ' . $siteName)
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/home-profile-sections.css') }}?v={{ filemtime(public_path('assets/css/home-profile-sections.css')) }}">
+@endsection
+
 @section('content')
 
 <!-- PAGE ACTIONS -->

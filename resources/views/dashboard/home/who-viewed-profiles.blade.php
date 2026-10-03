@@ -1,8 +1,10 @@
 <!-- Who Viewed My Profile -->
-<section class="profile-row-section matching-bg container-xxl" aria-label="Who Viewed My Profile">
+<section class="profile-row-section matching-bg container-xxl home-profile-section" aria-label="Who Viewed My Profile">
     <div class="section-header">
         <div class="section-title-group">
+            <span class="home-section-eyebrow"><i data-lucide="eye" aria-hidden="true"></i> A LITTLE CURIOSITY</span>
             <h2 class="section-title">Who Viewed My Profile</h2>
+            <p class="home-section-description">See who stopped by to get to know you.</p>
         </div>
         <a href="{{ route('recent-profiles', ['profile' => 'viewed']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>

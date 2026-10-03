@@ -1,0 +1,32 @@
+/* Scoped to the four refreshed homepage profile rows. */
+.home-profile-section.profile-row-section.matching-bg {
+    --home-accent: var(--site-primary, #b92c3d);
+    --home-tint: color-mix(in srgb, var(--home-accent) 7%, var(--color-surface, #fff));
+    width: calc(100% - 32px); max-width: 1240px; margin: 0 auto 32px;
+    padding: clamp(24px, 3vw, 36px) 0 16px;
+    background: linear-gradient(180deg, var(--home-tint), var(--color-surface) 65%);
+    border: 1px solid var(--color-border); border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(25, 15, 25, .025);
+}
+.home-profile-section .section-header { flex-direction: column; text-align: center; gap: 18px; margin-bottom: 28px; }
+.home-profile-section .section-title-group { flex-direction: column; gap: 0; min-width: 0; }
+.home-section-eyebrow { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 13px; border: 1px solid color-mix(in srgb, var(--home-accent) 18%, transparent); border-radius: 30px; background: var(--home-tint); color: var(--home-accent); font-size: 10px; font-weight: 750; letter-spacing: 1.7px; }
+.home-section-eyebrow svg { width: 15px; height: 15px; flex-shrink: 0; }
+.home-profile-section .section-title { margin: 18px 0 10px; font-size: clamp(24px, 3vw, 34px); line-height: 1.2; letter-spacing: -.8px; font-weight: 750; color: var(--home-accent); }
+.home-section-description { max-width: 530px; margin: 0; color: var(--color-text-muted); font-size: 14px; line-height: 1.75; }
+.home-profile-section .section-badge { margin-top: 12px; background: var(--home-tint); color: var(--home-accent); font-size: 10px; }
+.home-profile-section .section-view-all { min-height: 40px; padding: 10px 16px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface); color: var(--home-accent); font-size: 12px; text-decoration: none; }
+.home-profile-section .section-view-all:hover { border-color: var(--home-accent); background: var(--home-tint); }
+.home-profile-section .dashboard-profile-card { border-radius: 20px; box-shadow: 0 5px 20px rgba(25, 15, 25, .025); transition: border-color .2s, box-shadow .2s; }
+.home-profile-section .dashboard-profile-card:hover { border-color: var(--home-accent); box-shadow: 0 8px 24px color-mix(in srgb, var(--home-accent) 8%, transparent); }
+.home-profile-section .profile-empty-state { width: 100%; flex-shrink: 0; padding: 32px 20px; border: 1px dashed var(--color-border); border-radius: 16px; background: var(--color-surface); text-align: center; }
+.home-profile-section .profile-empty-icon { color: var(--home-accent); }
+.home-profile-section .profile-empty-state p { color: var(--color-text-muted); font-size: 13px; line-height: 1.8; }
+.home-profile-section .profile-empty-state .btn-primary { background: var(--home-accent); border-color: var(--home-accent); border-radius: 10px; font-size: 13px; padding: 12px 16px; }
+.home-profile-section :is(a, button):focus-visible { outline: 3px solid var(--home-accent); outline-offset: 3px; }
+@media (max-width: 640px) {
+    .home-profile-section.profile-row-section.matching-bg { width: calc(100% - 16px); margin-bottom: 24px; }
+    .home-profile-section .section-header { margin-bottom: 22px; }
+    .home-section-description { font-size: 13px; }
+    .home-section-eyebrow { letter-spacing: 1.2px; }
+}

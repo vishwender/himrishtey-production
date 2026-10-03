@@ -1,9 +1,11 @@
 <!-- Matching Profiles -->
-<section class="profile-row-section matching-bg container-xxl" aria-label="Matching Profiles">
+<section class="profile-row-section matching-bg container-xxl home-profile-section" aria-label="Matching Profiles">
     <div class="section-header">
         <div class="section-title-group">
+            <span class="home-section-eyebrow"><i data-lucide="heart-handshake" aria-hidden="true"></i> CHOSEN FOR YOU</span>
             <h2 class="section-title">Matching Profiles</h2>
-            <span class="section-badge primary">For You</span>
+            <p class="home-section-description">Meet people who share your preferences and hopes for the future.</p>
+            <span class="section-badge">For You</span>
         </div>
         <a href="{{ route('recent-profiles', ['profile' => 'matching']) }}" class="section-view-all">View All <i data-lucide="arrow-right" width="14" height="14"></i></a>
     </div>
