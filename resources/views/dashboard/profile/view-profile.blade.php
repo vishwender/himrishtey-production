@@ -217,15 +217,29 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                     <h2 class="pd-section-title">Basic Details</h2>
                 </div>
                 <div class="pd-section-body">
-                    <p class="pd-about-text">
-                        {{ $usr->about_me }}
-                    </p>
-                    <p class="pd-meta-line">
-                        Created by <strong>{{$usr->profile_created_for}}</strong> &nbsp;·&nbsp; {{$usr->age_years}} years &nbsp;·&nbsp; Profile ID: <strong>{{$usr->profile_id }}</strong> &nbsp;·&nbsp; {{$usr->religion }} &nbsp;·&nbsp; {{$usr->cast}} &nbsp;·&nbsp; {{$usr->city_living_in}}
-                    </p>
-                    <div class="pd-tags">
-                        <span class="pd-tag">{{$usr->marital_status}}</span>
+                    @php
+                    $basicDetails = [
+                        ['user-round', 'Created by', $usr->profile_created_for],
+                        ['calendar-heart', 'Age', $usr->age_years !== null ? $usr->age_years . ' years' : null],
+                        ['badge', 'Profile ID', $usr->profile_id],
+                        ['heart-handshake', 'Marital status', $usr->marital_status],
+                        ['sun', 'Religion', $usr->religion],
+                        ['users-round', 'Community', $usr->cast],
+                        ['map-pin', 'Lives in', $usr->city_living_in],
+                    ];
+                    @endphp
+                    <div class="pd-basic-intro">
+                        <span class="pd-basic-intro-icon"><i data-lucide="message-square-heart" aria-hidden="true"></i></span>
+                        <div><h3>A little about me</h3><p>{{ filled($usr->about_me) ? $usr->about_me : 'Not provided' }}</p></div>
                     </div>
+                    <dl class="pd-basic-grid">
+                        @foreach($basicDetails as [$icon, $label, $value])
+                        <div class="pd-basic-item">
+                            <span class="pd-basic-item-icon"><i data-lucide="{{ $icon }}" aria-hidden="true"></i></span>
+                            <div><dt>{{ $label }}</dt><dd>{{ filled($value) ? $value : 'Not provided' }}</dd></div>
+                        </div>
+                        @endforeach
+                    </dl>
                 </div>
             </div>
             <!-- ── ASTRO & KUNDLI ── -->

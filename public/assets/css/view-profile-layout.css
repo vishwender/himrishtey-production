@@ -40,3 +40,21 @@
  .profile-view-page .pd-section-header, .profile-view-page .pd-section-body, .profile-view-page .pd-action-card { padding: 20px; }
  .profile-view-page .pd-info-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Basic details: introduction followed by readable icon-led facts. */
+.profile-view-page .pd-basic-intro { display: flex; align-items: start; gap: 14px; padding: 20px; margin-bottom: 24px; background: var(--pv-tint); border: 1px solid var(--color-border); border-radius: 14px; }
+.profile-view-page .pd-basic-intro-icon, .profile-view-page .pd-basic-item-icon { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px; color: var(--pv-accent); background: var(--pv-tint); }
+.profile-view-page .pd-basic-intro-icon { background: var(--color-surface); }
+.profile-view-page .pd-basic-intro-icon svg, .profile-view-page .pd-basic-item-icon svg { width: 18px; height: 18px; }
+.profile-view-page .pd-basic-intro > div { min-width: 0; }
+.profile-view-page .pd-basic-intro h3 { font-size: 14px; font-weight: 700; margin: 0 0 8px; }
+.profile-view-page .pd-basic-intro p { margin: 0; font-size: 14px; line-height: 1.8; color: var(--color-text-muted); white-space: pre-line; overflow-wrap: anywhere; }
+.profile-view-page .pd-basic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.profile-view-page .pd-basic-item { display: flex; align-items: start; gap: 12px; padding: 16px; border: 1px solid var(--color-border); border-radius: 12px; }
+.profile-view-page .pd-basic-item > div { min-width: 0; }
+.profile-view-page .pd-basic-item dt { margin: 0 0 5px; color: var(--color-text-muted); font-size: 11px; font-weight: 500; }
+.profile-view-page .pd-basic-item dd { margin: 0; color: var(--color-text); font-size: 13px; font-weight: 650; line-height: 1.6; overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+ .profile-view-page .pd-basic-grid { grid-template-columns: minmax(0, 1fr); }
+ .profile-view-page .pd-basic-intro { padding: 16px; }
+}

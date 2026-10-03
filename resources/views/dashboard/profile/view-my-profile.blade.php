@@ -95,15 +95,29 @@
                     <h2 class="pd-section-title">Basic Details</h2>
                 </div>
                 <div class="pd-section-body">
-                    <p class="pd-about-text">
-                        {{ filled($profile->about_me) ? $profile->about_me : 'Not provided' }}
-                    </p>
-                    <p class="pd-meta-line">
-                        Profile created for <strong>{{ filled($profile->profile_created_for) ? $profile->profile_created_for : 'Not provided' }}</strong> &nbsp;·&nbsp; {{ $profile->age_years !== null ? $profile->age_years . ' years' : 'Age not provided' }} &nbsp;·&nbsp; Profile ID: <strong>{{ filled($profile->profile_id) ? $profile->profile_id : 'Not provided' }}</strong> &nbsp;·&nbsp; {{ filled($profile->religion) ? $profile->religion : 'Not provided' }} &nbsp;·&nbsp; {{ filled($profile->cast) ? $profile->cast : 'Not provided' }} &nbsp;·&nbsp; {{ filled($profile->city_living_in) ? $profile->city_living_in : 'Not provided' }}
-                    </p>
-                    <div class="pd-tags">
-                        <span class="pd-tag">{{ filled($profile->marital_status) ? $profile->marital_status : 'Not provided' }}</span>
+                    @php
+                    $basicDetails = [
+                        ['user-round', 'Profile created for', $profile->profile_created_for],
+                        ['calendar-heart', 'Age', $profile->age_years !== null ? $profile->age_years . ' years' : null],
+                        ['badge', 'Profile ID', $profile->profile_id],
+                        ['heart-handshake', 'Marital status', $profile->marital_status],
+                        ['sun', 'Religion', $profile->religion],
+                        ['users-round', 'Community', $profile->cast],
+                        ['map-pin', 'Lives in', $profile->city_living_in],
+                    ];
+                    @endphp
+                    <div class="pd-basic-intro">
+                        <span class="pd-basic-intro-icon"><i data-lucide="message-square-heart" aria-hidden="true"></i></span>
+                        <div><h3>A little about me</h3><p>{{ filled($profile->about_me) ? $profile->about_me : 'Not provided' }}</p></div>
                     </div>
+                    <dl class="pd-basic-grid">
+                        @foreach($basicDetails as [$icon, $label, $value])
+                        <div class="pd-basic-item">
+                            <span class="pd-basic-item-icon"><i data-lucide="{{ $icon }}" aria-hidden="true"></i></span>
+                            <div><dt>{{ $label }}</dt><dd>{{ filled($value) ? $value : 'Not provided' }}</dd></div>
+                        </div>
+                        @endforeach
+                    </dl>
                 </div>
             </div>
             <!-- ── ASTRO & KUNDLI ── -->
