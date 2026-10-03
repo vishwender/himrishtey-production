@@ -11,6 +11,9 @@
 @section('content')
 <!-- ========== MAIN ========== -->
 <div class="mp-page wlt-main" aria-labelledby="wallet-heading">
+    <a href="{{ route('home') }}" class="mp-back">
+        <i data-lucide="arrow-left" aria-hidden="true"></i> Back to dashboard
+    </a>
 
     <header class="mp-heading">
         <span class="mp-eyebrow"><i data-lucide="wallet" aria-hidden="true"></i> READY FOR YOUR NEXT STEP</span>
