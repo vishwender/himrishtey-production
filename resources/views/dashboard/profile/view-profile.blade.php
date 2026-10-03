@@ -320,28 +320,25 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                             <div>
                                 <span class="pd-info-label"><i data-lucide="phone" aria-hidden="true"></i> Contact Number</span>
                                 <span class="pd-info-value{{ $usr->contact_unlocked ? '' : ' pd-locked' }}" id="mobileValue">
-                                    @unless($usr->contact_unlocked)<i data-lucide="lock" width="14" height="14"></i>@endunless{{ $usr->contact_unlocked ? ($usr->mobile_number ?: '-') : $usr->mobile_number_masked }}
+                                    {{ $usr->contact_unlocked ? ($usr->mobile_number ?: '-') : $usr->mobile_number_masked }}
                                 </span>
                             </div>
-                            @unless($usr->contact_unlocked)<i data-lucide="lock" width="16" height="16" class="pd-row-lock"></i>@endunless
                         </div>
                         <div class="pd-info-row pd-contact-row">
                             <div>
                                 <span class="pd-info-label"><i data-lucide="message-circle" aria-hidden="true"></i> WhatsApp</span>
                                 <span class="pd-info-value{{ $usr->contact_unlocked ? '' : ' pd-locked' }}" id="waValue">
-                                    @unless($usr->contact_unlocked)<i data-lucide="lock" width="14" height="14"></i>@endunless{{ $usr->contact_unlocked ? ($usr->whatsapp_number ?: '-') : $usr->whatsapp_number_masked }}
+                                    {{ $usr->contact_unlocked ? ($usr->whatsapp_number ?: '-') : $usr->whatsapp_number_masked }}
                                 </span>
                             </div>
-                            @unless($usr->contact_unlocked)<i data-lucide="lock" width="16" height="16" class="pd-row-lock"></i>@endunless
                         </div>
                         <div class="pd-info-row pd-contact-row">
                             <div>
                                 <span class="pd-info-label"><i data-lucide="mail" aria-hidden="true"></i> Email</span>
                                 <span class="pd-info-value{{ $usr->contact_unlocked ? '' : ' pd-locked' }}" id="emailValue">
-                                    @unless($usr->contact_unlocked)<i data-lucide="lock" width="14" height="14"></i>@endunless{{ $usr->contact_unlocked ? ($usr->email ?: '-') : $usr->email_masked }}
+                                    {{ $usr->contact_unlocked ? ($usr->email ?: '-') : $usr->email_masked }}
                                 </span>
                             </div>
-                            @unless($usr->contact_unlocked)<i data-lucide="lock" width="16" height="16" class="pd-row-lock"></i>@endunless
                         </div>
                     </div>
                     @unless($usr->contact_unlocked)
