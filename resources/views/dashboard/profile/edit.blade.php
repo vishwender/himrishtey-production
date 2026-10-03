@@ -2,6 +2,7 @@
 @section('title', 'Edit Profile - ' . $siteName)
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/memberships.css') }}?v={{ filemtime(public_path('assets/css/memberships.css')) }}">
 <link rel="stylesheet" href="{{ asset('assets/css/edit-profile.css') }}?v={{ filemtime(public_path('assets/css/edit-profile.css')) }}" />
 @endsection
 
@@ -16,18 +17,20 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
 @section('content')
 
 <!-- ========== MAIN LAYOUT ========== -->
-<div class="ep-main">
+<div class="mp-page ep-main" aria-labelledby="edit-profile-heading">
     <a class="ep-back-link" href="{{ route('home') }}">
         <i data-lucide="arrow-left" width="16" height="16" aria-hidden="true"></i>
         Back to dashboard
     </a>
 
-    <!-- Page Header -->
+    <header class="mp-heading">
+        <span class="mp-eyebrow"><i data-lucide="heart-handshake" aria-hidden="true"></i> LET YOUR STORY SHINE</span>
+        <h1 id="edit-profile-heading">A little more about you.<br><span>A step closer to your person.</span></h1>
+        <p>Keep your profile up to date and help the right person get to know you.</p>
+    </header>
+
     <div class="ep-page-header">
-        <div>
-            <h1 class="ep-page-title">Edit Profile</h1>
-            <p class="ep-page-subtitle">Keep your profile complete to get better matches</p>
-        </div>
+        <div><span class="mp-overline">YOUR STORY</span><h2 class="ep-page-title">Edit profile</h2></div>
         <!-- Overall completion bar -->
         <div class="ep-overall-completion">
             <span class="ep-completion-label">Profile Completion</span>

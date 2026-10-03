@@ -4,14 +4,10 @@
    ========================================= */
 
 /* ---- Layout ---- */
-.ep-main {
-  margin-top: var(--navbar-height, 64px);
-  padding: var(--space-6) var(--space-6);
-  min-height: calc(100dvh - var(--navbar-height, 64px));
-  background: var(--color-bg);
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
+.ep-main.mp-page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 56px) clamp(4px, 2vw, 24px) 60px;
 }
 
 /* ---- Page Header ---- */
@@ -20,25 +16,17 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
+  gap: 16px;
+  margin-bottom: 22px;
 }
-
-.ep-page-title {
-  font-family: var(--font-display, 'Inter', sans-serif);
-  font-size: var(--text-xl);
-  color: var(--color-text);
-  margin: 0;
-}
-
-.ep-page-subtitle {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  margin: var(--space-1) 0 0;
-}
+.ep-page-title { font-size: 23px; font-weight: 700; color: var(--color-text); margin: 0; }
 
 /* ---- Completion Bar ---- */
 .ep-overall-completion {
+  padding: 12px 16px;
+  background: var(--mp-tint);
+  border: 1px solid var(--mp-border);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -60,7 +48,7 @@
 
 .ep-completion-bar {
   height: 100%;
-  background: var(--color-primary);
+  background: var(--mp-accent);
   border-radius: var(--radius-full);
   transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -68,13 +56,13 @@
 .ep-completion-pct {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--mp-accent);
 }
 
 /* ---- Two-column layout ---- */
 .ep-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 240px minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   gap: 0 var(--space-6);
   align-items: start;
@@ -96,10 +84,10 @@
   position: sticky;
   top: calc(var(--navbar-height, 64px) + var(--space-4));
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: 20px;
   border: 1px solid var(--color-border);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 5px 20px rgba(25, 15, 25, .025);
 }
 
 .ep-tab-btn {
@@ -126,9 +114,9 @@
 }
 
 .ep-tab-btn.active {
-  color: var(--color-primary);
-  background: color-mix(in oklch, var(--color-primary) 8%, var(--color-surface));
-  border-left-color: var(--color-primary);
+  color: var(--mp-accent);
+  background: var(--mp-tint);
+  border-left-color: var(--mp-accent);
   font-weight: 600;
 }
 
@@ -189,17 +177,18 @@
   color: var(--color-text);
 }
 .ep-mobile-tab.active {
-  background: var(--color-primary);
-  color: #fff;
-  border-color: var(--color-primary);
+  background: var(--mp-tint);
+  color: var(--mp-accent);
+  border-color: var(--mp-accent);
 }
 
 /* ---- Tab Content Area ---- */
 .ep-tab-content {
+  min-width: 0;
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: 20px;
   border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 5px 20px rgba(25, 15, 25, .025);
   min-height: 500px;
   position: relative;
 }
@@ -237,6 +226,7 @@
   border-bottom: 1px solid var(--color-divider);
 }
 
+.ep-section-title > svg { color: var(--mp-accent); }
 .ep-section-title {
   display: flex;
   align-items: center;
@@ -249,7 +239,7 @@
 
 /* ---- Read-only Info Cards ---- */
 .ep-info-card {
-  background: var(--color-surface-offset);
+  background: var(--mp-tint);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
@@ -280,7 +270,7 @@
   align-items: center;
   gap: var(--space-1);
   font-size: var(--text-xs);
-  color: var(--color-primary);
+  color: var(--mp-accent);
   text-decoration: none;
   margin-top: var(--space-2);
 }
@@ -335,8 +325,8 @@
 .ep-input:focus,
 .ep-select:focus,
 .ep-textarea:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 18%, transparent);
+  border-color: var(--mp-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--mp-accent) 18%, transparent);
 }
 
 .ep-input::placeholder,
@@ -390,12 +380,12 @@
 }
 .ep-multiselect-trigger:hover,
 .ep-multiselect-trigger:focus {
-  border-color: var(--color-primary);
+  border-color: var(--mp-accent);
   outline: none;
 }
 .ep-multiselect-trigger.open {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 18%, transparent);
+  border-color: var(--mp-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--mp-accent) 18%, transparent);
 }
 
 .ep-multiselect-value {
@@ -433,7 +423,7 @@
   background: var(--color-surface-offset);
 }
 .ep-multiselect-dropdown input[type="checkbox"] {
-  accent-color: var(--color-primary);
+  accent-color: var(--mp-accent);
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -449,7 +439,7 @@
 
 .ep-range {
   width: 100%;
-  accent-color: var(--color-primary);
+  accent-color: var(--mp-accent);
   cursor: pointer;
   height: 4px;
 }
@@ -465,11 +455,12 @@
 }
 
 .ep-save-btn {
+  min-height: 46px;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  background: var(--color-primary);
+  background: var(--mp-accent);
   color: #fff;
   border: none;
   border-radius: var(--radius-md);
@@ -480,7 +471,7 @@
   transition: background var(--transition-interactive), box-shadow var(--transition-interactive), transform 0.1s;
 }
 .ep-save-btn:hover {
-  background: var(--color-primary-hover);
+  background: color-mix(in srgb, var(--mp-accent) 85%, #000);
   box-shadow: var(--shadow-md);
 }
 .ep-save-btn:active {
@@ -546,6 +537,7 @@
   }
 
   .ep-save-btn {
+  min-height: 46px;
     width: 100%;
     justify-content: center;
   }
@@ -585,6 +577,8 @@
   font-size: 13px;
   text-decoration: none;
 }
-.ep-back-link:hover { color: var(--site-primary, var(--color-primary)); }
-.ep-back-link:focus-visible { outline: 2px solid var(--site-primary, var(--color-primary)); outline-offset: 4px; }
+.ep-back-link:hover { color: var(--site-primary, var(--mp-accent)); }
+.ep-back-link:focus-visible { outline: 2px solid var(--site-primary, var(--mp-accent)); outline-offset: 4px; }
 .ep-back-link svg { width: 16px; height: 16px; }
+
+.ep-main :is(.ep-tab-btn, .ep-mobile-tab, .ep-save-btn):focus-visible { outline: 3px solid var(--mp-accent); outline-offset: 3px; }
