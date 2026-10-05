@@ -155,7 +155,7 @@ class MyMemberController extends Controller
         $plan = MembershipPlan::where('id', $id)->first();
         $rm = User::where('username', $rm)->first();
         $data['profile_created_for'] = ProfileCreatedFor::all();
-        $data['heights'] = Height::all();
+        $data['heights'] = \App\Support\HeightOptions::sorted(Height::all());
         $data['religions'] = Religion::all();
         $data['casts'] = Cast::all();
         $data['marital_statuses'] = MaritalStatus::all();
@@ -280,7 +280,7 @@ class MyMemberController extends Controller
         $data['mother_tongues'] = MotherTongue::all();
         $data['educations'] = Education::all();
         $data['employers'] = Employer::all();
-        $data['heights'] = Height::all();
+        $data['heights'] = \App\Support\HeightOptions::sorted(Height::all());
 
         $memberGender = $member->gender;
         $today = Carbon::now();
@@ -411,7 +411,7 @@ class MyMemberController extends Controller
     {
 
         $member = Auth::guard('member')->user();
-        $heights = Height::orderBy('height_value')->get();
+        $heights = \App\Support\HeightOptions::sorted(Height::all());
         $educations = Education::orderBy('education')->get();
         $occupations = Occupation::where('status', '1')->orderBy('occupation')->get();
         $employedIn = Employer::orderBy('employer')->get();

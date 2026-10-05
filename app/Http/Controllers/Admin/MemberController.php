@@ -850,9 +850,7 @@ class MemberController extends Controller
             ->orderBy('mother_tongue')
             ->get();
 
-        $heights = Height::query()
-            ->orderBy('height_value')
-            ->get();
+        $heights = \App\Support\HeightOptions::sorted(Height::all());
 
         $countries = Country::query()
             ->orderByRaw("CASE WHEN LOWER(name) = 'india' THEN 0 ELSE 1 END")
@@ -2365,7 +2363,7 @@ class MemberController extends Controller
             $photo->photo_url = $photoService->url($photo->photo);
         }
 
-        $heights = Height::query()->orderBy('height_value')->get();
+        $heights = \App\Support\HeightOptions::sorted(Height::all());
         $maritalStatuses = MaritalStatus::query()->orderBy('marital_status')->get();
         $religions = Religion::query()->orderBy('religion')->get();
         $motherTongues = MotherTongue::query()->orderBy('mother_tongue')->get();
