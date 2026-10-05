@@ -13,7 +13,7 @@
       community: ['Brahmin','Agarwal','Bhandari','Arora','Aryasamaj','Bahi','Bhatia','Chaudhary - Ghirth','Dhiman - Vishwakarma','Gaddi','Garhwali Rajput','Goswami','Gujjar','Gupta','Jaat','Kamboj','Kashmiri Pandit (Brahmin)','Kashyap','Kayasth','Khatri','Koli','Kshatriya','Labana','Lingayat','Lohana','Lohar','Maratha','Marwari','Mehra','Nai - Barbar','Naidu','Nair','Punjabi','Rajput','Rana','Rawat','Reddy','Saini','Scheduled Caste','Sindhi','Sood','Vaishnav','Valmiki','Yadav','Any','Other'],
       tongue: ['Punjabi', 'Hindi', 'Himachali/Pahadi', 'Marathi'],
       state: ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttarakhand','Uttar Pradesh','West Bengal','Chandigarh','Delhi','Puducherry'],
-      education: ['10th / Matric','12th / Intermediate','ITI','Diploma','B.A.','B.Com.','B.Sc.','BCA','BBA','B.Tech / BE','MBBS','B.Ed','LLB','CA / CS / ICWA','MBA','M.A.','M.Sc.','MCA','M.Tech / ME','MD / MS (Medical)','Ph.D.','Any'],
+      education: [...new Set([...(window.advancedSearchEducations || []), 'Any'])],
       employed: ['Govt Job', 'Private', 'Defence', 'Business', 'Self Employed', 'Not Employed']
     };
 

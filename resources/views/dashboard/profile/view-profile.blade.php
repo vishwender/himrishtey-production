@@ -595,9 +595,19 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
                                 <span class="pd-info-value">{{$usr->looking_for}}</span>
                             </div>
                         </div>
-                        <div class="pd-info-row">
-                            <span class="pd-info-label">Religion & Mother Tongue</span>
-                            <span class="pd-info-value">{{$usr->partner_religion}} | {{$usr->partner_mothertongue}}</span>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="sun" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Religion</span>
+                                <span class="pd-info-value">{{ filled($usr->partner_religion) ? $usr->partner_religion : 'Not provided' }}</span>
+                            </div>
+                        </div>
+                        <div class="pd-info-row pd-field-card">
+                            <i data-lucide="languages" aria-hidden="true"></i>
+                            <div class="pd-field-content">
+                                <span class="pd-info-label">Mother Tongue</span>
+                                <span class="pd-info-value">{{ filled($usr->partner_mothertongue) ? $usr->partner_mothertongue : 'Not provided' }}</span>
+                            </div>
                         </div>
                         <div class="pd-info-row pd-field-card">
                             <i data-lucide="users" aria-hidden="true"></i>

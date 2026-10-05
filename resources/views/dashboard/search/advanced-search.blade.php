@@ -335,6 +335,7 @@
 @section('scripts')
 <script>
     window.searchResultsUrl = @json(route('search-results'));
+    window.advancedSearchEducations = {{ \Illuminate\Support\Js::from($data['educations']->pluck('education')->filter(fn ($education) => is_string($education) && trim($education) !== '')->unique()->values()) }};
 </script>
 <script src="{{asset('assets/js/advanced-search.js') }}?v={{ filemtime(public_path('assets/js/advanced-search.js')) }}"></script>
 @endsection
