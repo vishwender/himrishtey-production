@@ -332,8 +332,8 @@ class ProfileController extends Controller
             $diff = $birthDate->diff(Carbon::parse($today));
             $users[$key]['age_years'] = $diff->y;
             $users[$key]['age_months'] = $diff->m;
-            if (! empty($recent->photo) && $recent->photo_approved === 'Yes') {
-                $users[$key]['photo'] = ProfilePhotoUrl::get($recent->photo);
+            if (! empty($recent->photo) && in_array(strtolower(trim((string) $recent->photo_approved)), ['yes', ''], true)) {
+                $users[$key]['photo'] = ProfilePhotoUrl::get(str_contains($recent->photo, '/') ? $recent->photo : 'photos/photo/'.$recent->photo);
             } elseif ($recent->gender === 'Male') {
                 $users[$key]['photo'] = '/images/profile_photos/boy.jpg';
             } elseif ($recent->gender === 'Female') {
@@ -420,8 +420,8 @@ class ProfileController extends Controller
             $profile['age_years'] = $diff->y;
             $profile['age_months'] = $diff->m;
 
-            if (! empty($recent->photo) && $recent->photo_approved === 'Yes') {
-                $profile['photo'] = ProfilePhotoUrl::get($recent->photo);
+            if (! empty($recent->photo) && in_array(strtolower(trim((string) $recent->photo_approved)), ['yes', ''], true)) {
+                $profile['photo'] = ProfilePhotoUrl::get(str_contains($recent->photo, '/') ? $recent->photo : 'photos/photo/'.$recent->photo);
             } elseif ($recent->gender === 'Male') {
                 $profile['photo'] = '/images/profile_photos/boy.jpg';
             } elseif ($recent->gender === 'Female') {
