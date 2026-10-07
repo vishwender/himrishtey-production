@@ -417,6 +417,30 @@ function buildStoryCard(story) {
     });
   }
 
+function renderStoryDetail(target, html) {
+    const parsed = new DOMParser().parseFromString(String(html ?? ''), 'text/html');
+    const allowed = new Set(['P', 'BR', 'STRONG', 'B', 'EM', 'I', 'U', 'UL', 'OL', 'LI', 'BLOCKQUOTE']);
+    const blocked = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED']);
+
+    function append(parent, node) {
+        if (node.nodeType === 3) {
+            parent.appendChild(document.createTextNode(node.textContent));
+            return;
+        }
+        if (node.nodeType !== 1 || blocked.has(node.tagName)) return;
+        // Rebuild formatting elements without copying attributes or embedded media.
+        const destination = allowed.has(node.tagName)
+            ? document.createElement(node.tagName.toLowerCase())
+            : parent;
+        for (const child of node.childNodes) append(destination, child);
+        if (destination !== parent) parent.appendChild(destination);
+    }
+
+    const content = document.createDocumentFragment();
+    for (const node of parsed.body.childNodes) append(content, node);
+    target.replaceChildren(content);
+}
+
 function openLightbox(story) {
 
     const lightbox = document.getElementById('ssLightbox');
@@ -442,8 +466,7 @@ function openLightbox(story) {
 
     if (detail) {
 
-        detail.textContent =
-            story.detail;
+        renderStoryDetail(detail, story.detail);
     }
 
     lightbox.removeAttribute('hidden');

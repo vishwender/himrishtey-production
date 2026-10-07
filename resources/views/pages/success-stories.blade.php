@@ -151,7 +151,7 @@
       </div>
       <div class="ss-lightbox-body">
         <h3 class="ss-lightbox-couple" id="ssLightboxCouple"></h3>
-        <p class="ss-lightbox-detail" id="ssLightboxDetail"></p>
+        <div class="ss-lightbox-detail" id="ssLightboxDetail"></div>
       </div>
     </div>
   </div>
@@ -164,5 +164,5 @@
 </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/js/success-stories.js') }}" defer></script>
+<script src="{{ asset('assets/js/success-stories.js') }}?v={{ filemtime(public_path('assets/js/success-stories.js')) }}" defer></script>
 @endpush
