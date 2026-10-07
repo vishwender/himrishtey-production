@@ -19,6 +19,17 @@
         </a>
     </div>
 
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <strong>Please fix the following errors:</strong>
+        <ul class="mb-0 mt-2">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="card">
         <div class="card-header">
             <strong>Success Story Details</strong>
@@ -173,22 +184,5 @@
 @endsection
 @push('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const editorElement = document.querySelector('#detail');
-
-        if (editorElement) {
-            ClassicEditor
-                .create(editorElement)
-                .then(editor => {
-                    console.log('CKEditor loaded successfully');
-                })
-                .catch(error => {
-                    console.error('CKEditor error:', error);
-                });
-        }
-
-    });
-</script>
+<script src="{{ asset('assets/js/admin-success-story-editor.js') }}?v={{ filemtime(public_path('assets/js/admin-success-story-editor.js')) }}"></script>
 @endpush

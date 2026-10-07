@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SuccessStory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Services\SuccessStoryPhoto;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class SuccessStoryController extends Controller
 {
@@ -40,18 +42,7 @@ class SuccessStoryController extends Controller
         $story->status = $request->boolean('status');
 
         if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-
-            $filename = 'ss-photo-'.time().'.'.
-                $file->getClientOriginalExtension();
-
-            $file->storeAs(
-                'success-stories',
-                $filename,
-                'public'
-            );
-
-            $story->photo = $filename;
+            $story->photo = $this->uploadPhoto($request->file('photo'));
         }
 
         $story->save();
@@ -88,30 +79,16 @@ class SuccessStoryController extends Controller
         $story->detail = $validated['detail'];
         $story->status = $request->boolean('status');
 
+        $oldPhoto = $story->photo;
         if ($request->hasFile('photo')) {
-
-            // Delete old photo
-            if ($story->photo) {
-                Storage::disk('public')->delete(
-                    'success-stories/'.$story->photo
-                );
-            }
-
-            $file = $request->file('photo');
-
-            $filename = 'ss-photo-'.time().'.'.
-                $file->getClientOriginalExtension();
-
-            $file->storeAs(
-                'success-stories',
-                $filename,
-                'public'
-            );
-
-            $story->photo = $filename;
+            $story->photo = $this->uploadPhoto($request->file('photo'));
         }
 
         $story->save();
+
+        if ($request->hasFile('photo')) {
+            SuccessStoryPhoto::delete($oldPhoto);
+        }
 
         return redirect()
             ->route('admin.success-stories.index')
@@ -122,17 +99,21 @@ class SuccessStoryController extends Controller
     {
         $story = SuccessStory::findOrFail($id);
 
-        if ($story->photo) {
-            Storage::disk('public')->delete(
-                'success-stories/'.$story->photo
-            );
-        }
-
+        $photo = $story->photo;
         $story->delete();
+        SuccessStoryPhoto::delete($photo);
 
         return redirect()
             ->route('admin.success-stories.index')
             ->with('success', 'Success story deleted successfully.');
+    }
+
+    private function uploadPhoto(UploadedFile $file): string
+    {
+        $filename = 'ss-photo-'.Str::uuid().'.'.$file->extension();
+        $file->move(public_path('uploads/success-stories'), $filename);
+
+        return $filename;
     }
 
     public function status($id)

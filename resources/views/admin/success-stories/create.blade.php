@@ -210,32 +210,10 @@
 
 {{-- CKEditor --}}
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script src="{{ asset('assets/js/admin-success-story-editor.js') }}?v={{ filemtime(public_path('assets/js/admin-success-story-editor.js')) }}"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
-        ClassicEditor
-            .create(document.querySelector('#detail'), {
-                toolbar: [
-                    'heading',
-                    '|',
-                    'bold',
-                    'italic',
-                    'underline',
-                    '|',
-                    'bulletedList',
-                    'numberedList',
-                    '|',
-                    'link',
-                    'blockQuote',
-                    '|',
-                    'undo',
-                    'redo'
-                ]
-            })
-            .catch(error => {
-                console.error(error);
-            });
 
         const photoInput = document.getElementById('photo');
         const previewContainer = document.getElementById('photoPreview');
