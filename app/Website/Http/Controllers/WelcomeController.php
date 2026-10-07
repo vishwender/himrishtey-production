@@ -26,7 +26,7 @@ class WelcomeController extends Controller
             'data' => $this->pageData->homeSummary(),
             'featuredProfiles' => $this->profiles->get(),
             'searchCities' => $this->cities->get(),
-            'successStories' => SuccessStory::where('status', 1)->orderByDesc('id')->limit(2)->get(),
+            'successStories' => SuccessStory::where('status', 1)->inRandomOrder()->limit(2)->get(),
         ]);
     }
 
