@@ -18,7 +18,7 @@
           </h1>
           <p class="ss-page-subtitle">Celebrate the couples who found meaningful connections through {{ $siteName }}.</p>
         </div>
-        <button class="ss-add-btn public-cta public-cta-primary" id="ssAddStoryBtn" aria-label="Add your success story">
+        <button class="ss-add-btn public-cta public-cta-primary" id="ssAddStoryBtn" data-authenticated="{{ auth('member')->check() ? 'true' : 'false' }}" data-login-url="{{ route('login-form') }}" aria-label="Add your success story">
           <i data-lucide="plus-circle" width="18" height="18"></i>
           Share Your Story
         </button>
@@ -56,7 +56,7 @@
       </div>
       <h2 class="ss-empty-title">Be the first to share!</h2>
       <p class="ss-empty-desc">No stories have been published yet. Found your match on {{ $siteName }}? We'd love to celebrate with you.</p>
-      <button class="ss-empty-cta public-cta public-cta-primary" id="ssEmptyAddBtn">
+      <button class="ss-empty-cta public-cta public-cta-primary" id="ssEmptyAddBtn" data-authenticated="{{ auth('member')->check() ? 'true' : 'false' }}" data-login-url="{{ route('login-form') }}">
         <i data-lucide="plus-circle" width="16" height="16"></i>
         Share Your Story
       </button>

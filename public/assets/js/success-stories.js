@@ -272,7 +272,12 @@ function buildStoryCard(story) {
 
     let base64Image = '';
 
-    function openModal() {
+    function openModal(event) {
+      const button = event.currentTarget;
+      if (button.dataset.authenticated !== 'true') {
+        window.location.assign(button.dataset.loginUrl);
+        return;
+      }
       overlay.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
       if (typeof lucide !== 'undefined') lucide.createIcons();
