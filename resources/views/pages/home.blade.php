@@ -622,10 +622,16 @@
                  <div class="story-grid">
                      @forelse ($successStories as $story)
                      <article>
-                         <img src="{{ \App\Services\SuccessStoryPhoto::url($story->photo) }}"
-                             alt="{{ $story->groom_name }} and {{ $story->bride_name }}"
-                             loading="lazy"
-                             onerror="this.onerror=null;this.src='{{ asset('uploads/success-stories/default-story.png') }}';">
+                         <span class="story-photo">
+                             <img class="story-photo-backdrop"
+                                 src="{{ \App\Services\SuccessStoryPhoto::url($story->photo) }}"
+                                 alt="" aria-hidden="true" loading="lazy">
+                             <img class="story-photo-image"
+                                 src="{{ \App\Services\SuccessStoryPhoto::url($story->photo) }}"
+                                 alt="{{ $story->groom_name }} and {{ $story->bride_name }}"
+                                 loading="lazy"
+                                 onerror="this.onerror=null;this.src='{{ asset('uploads/success-stories/default-story.png') }}';">
+                         </span>
                          <div>
                              <b>{{ $story->groom_name }} &amp; {{ $story->bride_name }}</b>
                              <p>{{ \Illuminate\Support\Str::limit(strip_tags($story->detail ?? ''), 220) }}</p>

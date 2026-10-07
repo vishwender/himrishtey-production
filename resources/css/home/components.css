@@ -45,11 +45,10 @@
         rgba(44, 24, 27, 0.08);
 }
 
-.story-grid article > img {
+.story-grid article > .story-photo {
     width: 100%;
     height: 180px;
     min-height: 0;
-    object-fit: cover;
 }
 
 .story-grid article > div {
@@ -511,7 +510,7 @@ html[data-theme="dark"] .theme-moon {
         grid-template-columns: 1fr;
     }
 
-    .story-grid article > img {
+    .story-grid article > .story-photo {
         height: 160px;
     }
 
@@ -632,4 +631,30 @@ html[data-theme="dark"] .theme-moon {
     padding: 0;
     overflow: visible;
     stroke-width: 1.8;
+}
+
+/* Show the complete wedding photo over a soft background of the same image. */
+.story-grid .story-photo {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.story-grid .story-photo-backdrop {
+    position: absolute;
+    inset: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    object-fit: cover;
+    filter: blur(18px) brightness(0.75);
+    opacity: 0.65;
+}
+
+.story-grid .story-photo-image {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center top;
 }
