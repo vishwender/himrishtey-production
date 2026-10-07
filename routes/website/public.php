@@ -2,6 +2,7 @@
 
 use App\Website\Http\Controllers\BlogController;
 use App\Website\Http\Controllers\ContactController;
+use App\Website\Http\Controllers\HomeController;
 use App\Website\Http\Controllers\SitemapController;
 use App\Website\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/design-preview', [WelcomeController::class, 'designPreview'])->name('design-preview');
 Route::get('about-us', [WelcomeController::class, 'about'])->name('about-us');
 Route::get('success-stories', [WelcomeController::class, 'success_stories'])->name('success-stories');
+Route::get('/success-stories/data', [HomeController::class, 'successStories'])->name('success-stories.data');
 Route::get('contact-us', [ContactController::class, 'show'])->name('contact-us');
 Route::post('contact-us', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact-us.submit');
 Route::get('privacy-policy', [WelcomeController::class, 'privacy_policy'])->name('privacy-policy');

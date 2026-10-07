@@ -39,7 +39,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:member');
+        $this->middleware('auth:member')->except('successStories');
     }
 
     /**
@@ -2122,10 +2122,8 @@ class HomeController extends Controller
 
     public function successStories()
     {
-        $userId = auth()->id();
-
         $success_stories = SuccessStory::where('status', 1)
-            ->get()
+            ->get(['id', 'groom_name', 'bride_name', 'detail', 'photo'])
             ->map(function ($story) {
 
                 $story->photo = $story->photo

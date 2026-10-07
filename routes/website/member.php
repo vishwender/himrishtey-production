@@ -25,7 +25,6 @@ Route::middleware('auth:member')->group(function () {
     Route::get('user-rating', [HomeController::class, 'rating'])->name('user-rating');
     Route::post('user-rate', [HomeController::class, 'rating_store'])->name('user-rate');
     Route::get('member/success-stories', [HomeController::class, 'success_stories'])->name('member.success-stories');
-    Route::get('/success-stories/data', [HomeController::class, 'successStories'])->name('success-stories.data');
     Route::post('stories_store', [HomeController::class, 'stories_store'])->name('stories_store');
     Route::put('/success-stories/{id}', [HomeController::class, 'update'])->name('stories_update');
     Route::delete('/success-stories/{id}', [HomeController::class, 'destroy'])->name('stories_delete');
