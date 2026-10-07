@@ -61,7 +61,7 @@
          <section class="hero" style="--hero-image: url('{{ asset($siteHeroBackground) }}');">
              <img class="hero-mobile-image" src="{{ asset($siteHeroBackground) }}" alt="" fetchpriority="high">
              <div class="hero-copy">
-                 <h1>Find someone<br><em>who feels like home.</em></h1>
+                 <h1>{{ $siteHeroTitle }}<br><em>{{ $siteHeroTitleSecondary }}</em></h1>
                  <p>Meaningful connections. Genuine profiles.<br> A simple way to find your life partner.</p>
                  <div class="hero-buttons">
                      <a class="solid public-cta public-cta-primary" href="#featured">
