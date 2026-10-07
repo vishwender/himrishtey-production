@@ -157,6 +157,7 @@
 }
 
 .ss-card-img {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -336,7 +337,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: min(760px, calc(100dvh - var(--space-8)));
+  max-height: calc(100dvh - var(--space-8));
 }
 
 @keyframes ss-modal-in {
@@ -648,13 +649,27 @@
 .ss-lightbox-close:hover { background: rgba(0,0,0,0.8); }
 
 .ss-lightbox-img-wrap {
+  position: relative;
   width: 100%;
-  height: 55%;
+  height: clamp(220px, 36dvh, 320px);
   overflow: hidden;
   background: var(--color-surface-offset);
   flex-shrink: 0;
 }
+.ss-card-img-backdrop,
+.ss-lightbox-img-backdrop {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  object-fit: cover;
+  filter: blur(18px) brightness(0.75);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 .ss-lightbox-img {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -663,13 +678,18 @@
 }
 
 .ss-lightbox-body {
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
   padding: var(--space-5) var(--space-6) var(--space-6);
   overflow-y: auto;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .ss-lightbox-couple {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
   font-family: var(--font-display, 'Inter', sans-serif);
   font-size: var(--text-lg);
   color: var(--color-text);
@@ -677,11 +697,14 @@
 }
 
 .ss-lightbox-detail {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  color: var(--color-text);
   line-height: 1.75;
   margin: 0;
 }
+
+.ss-lightbox-detail > :first-child { margin-top: 0; }
+.ss-lightbox-detail > :last-child { margin-bottom: 0; }
 
 /* =============================================
    TOAST
@@ -732,7 +755,8 @@
 
   .ss-page-subtitle { padding-left: 0; }
 
-  .ss-lightbox-img-wrap { height: 50%; }
+  .ss-lightbox-img-wrap { height: clamp(200px, 32dvh, 260px); }
+  .ss-lightbox-body { padding: 1.25rem; }
 }
 
 /* Public page treatment: keep this page in the landing site's warm, editorial theme. */

@@ -147,9 +147,10 @@
         <i data-lucide="x" width="20" height="20"></i>
       </button>
       <div class="ss-lightbox-img-wrap">
+        <img class="ss-lightbox-img-backdrop" id="ssLightboxBackdropImg" src="" alt="" aria-hidden="true" />
         <img class="ss-lightbox-img" id="ssLightboxImg" src="" alt="" loading="lazy" />
       </div>
-      <div class="ss-lightbox-body">
+      <div class="ss-lightbox-body" tabindex="0" role="region" aria-label="Full success story">
         <h3 class="ss-lightbox-couple" id="ssLightboxCouple"></h3>
         <div class="ss-lightbox-detail" id="ssLightboxDetail"></div>
       </div>

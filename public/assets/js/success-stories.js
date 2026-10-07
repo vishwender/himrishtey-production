@@ -163,6 +163,7 @@ function buildStoryCard(story) {
     article.innerHTML = `
         <div class="ss-card-img-wrap">
 
+            <img class="ss-card-img-backdrop" alt="" aria-hidden="true" loading="lazy" />
             <img
                 class="ss-card-img"
                 src="${story.photo}"
@@ -219,6 +220,8 @@ function buildStoryCard(story) {
 
         </div>
     `;
+
+    article.querySelector('.ss-card-img-backdrop').src = story.photo;
 
     // A plain preview keeps saved paragraph markup inside the card's line limit.
     const preview = new DOMParser().parseFromString(String(story.detail ?? ''), 'text/html');
@@ -447,6 +450,7 @@ function openLightbox(story) {
 
     const lightbox = document.getElementById('ssLightbox');
     const img = document.getElementById('ssLightboxImg');
+    const backdropImg = document.getElementById('ssLightboxBackdropImg');
     const couple = document.getElementById('ssLightboxCouple');
     const detail = document.getElementById('ssLightboxDetail');
 
@@ -459,6 +463,8 @@ function openLightbox(story) {
         img.alt =
             `${story.groom_name} and ${story.bride_name}`;
     }
+
+    if (backdropImg) backdropImg.src = story.photo;
 
     if (couple) {
 
