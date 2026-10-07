@@ -259,6 +259,8 @@ textarea {
 }
 
 .hero h1 {
+    max-width: min(640px, 56%);
+    overflow-wrap: break-word;
     margin: 0;
 
     font-family: "Inter", sans-serif;
@@ -273,6 +275,8 @@ textarea {
 }
 
 .hero-copy > p {
+    max-width: min(560px, 52%);
+    overflow-wrap: break-word;
     margin: 22px 0;
 
     color: #534d4b;

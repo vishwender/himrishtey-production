@@ -62,7 +62,11 @@
              <img class="hero-mobile-image" src="{{ asset($siteHeroBackground) }}" alt="" fetchpriority="high">
              <div class="hero-copy">
                  <h1>{{ $siteHeroTitle }}<br><em>{{ $siteHeroTitleSecondary }}</em></h1>
-                 <p>Meaningful connections. Genuine profiles.<br> A simple way to find your life partner.</p>
+                 <p>
+                     @foreach(preg_split('/<br\s*\/?\s*>|\r\n|\r|\n/i', $siteHeroSubtitle) as $line)
+                         {{ $line }}@unless($loop->last)<br>@endunless
+                     @endforeach
+                 </p>
                  <div class="hero-buttons">
                      <a class="solid public-cta public-cta-primary" href="#featured">
                          <i data-lucide="heart" aria-hidden="true"></i>Find Matches

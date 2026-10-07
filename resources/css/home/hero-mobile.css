@@ -29,12 +29,14 @@
     }
 
     .hero .hero-copy h1 {
+        max-width: 100%;
         font-size: clamp(32px, 8.5vw, 42px);
         line-height: 1.12;
         overflow-wrap: break-word;
     }
 
     .hero .hero-copy > p {
+        max-width: 100%;
         margin: 18px 0;
         font-size: 15px;
     }
