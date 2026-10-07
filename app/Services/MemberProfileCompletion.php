@@ -4,95 +4,99 @@ namespace App\Services;
 
 class MemberProfileCompletion
 {
-    private const FIELDS = [
-        'full_name',
-        'email',
-        'mobile_number',
-        'alternate_number',
-        'whatsapp_number',
-        'birth_date_time',
-        'height',
-        'gender',
-        'blood_group',
-        'health_info',
-        'birth_place',
-        'religion',
-        'mother_tongue',
-        'cast',
-        'sub_cast',
-        'gotra',
-        'manglik',
-        'marital_status',
-        'no_of_child',
-        'about_my_education',
-        'education',
-        'any_other_qualifications',
-        'about_my_career',
-        'employed_in',
-        'occupation',
-        'designation',
-        'organization_name',
-        'job_location',
-        'annual_income',
-        'country_living_in',
-        'state_living_in',
-        'city_living_in',
-        'address_living_in',
-        'native_place',
-        'family_type',
-        'family_status',
-        'father_name',
-        'father_occupation',
-        'mother_name',
-        'mother_occupation',
-        'no_of_brothers',
-        'no_of_sisters',
-        'married_brothers',
-        'married_sisters',
-        'family_income',
-        'about_family',
-        'diet',
-        'is_drinking',
-        'is_smoking',
-        'about_me',
-        'any_disability',
-        'looking_for',
-        'partner_age_from',
-        'partner_age_to',
-        'partner_country',
-        'partner_religion',
-        'partner_cast',
-        'partner_height_from',
-        'partner_height_to',
-        'partner_education',
-        'partner_mothertongue',
-        'partner_annual_income_from',
-        'partner_annual_income_to',
-        'is_partner_manglik',
-        'partner_occupation',
-        'partner_state',
-        'partner_city',
-        'partner_diet',
-        'is_partner_smoking',
-        'is_partner_drinking',
-        'about_my_partner',
-    ];
+    public function sections(object $member): array
+    {
+        return [
+            'basic-info' => [
+                'title' => 'Basic Info',
+                'completed' => filled($member->about_me)
+                    && filled($member->profile_created_for)
+                    && filled($member->birth_date_time)
+                    && filled($member->height)
+                    && filled($member->religion)
+                    && filled($member->cast)
+                    && filled($member->marital_status)
+                    && filled($member->country_living_in)
+                    && filled($member->state_living_in)
+                    && filled($member->city_living_in),
+            ],
+            'astro' => [
+                'title' => 'Astro & Kundali',
+                'completed' => filled($member->manglik) && filled($member->birth_place),
+            ],
+            'education' => [
+                'title' => 'Education & Career',
+                'completed' => filled($member->about_my_education)
+                    && filled($member->education)
+                    && filled($member->any_other_qualifications)
+                    && filled($member->employed_in)
+                    && filled($member->organization_name)
+                    && filled($member->job_location)
+                    && filled($member->occupation)
+                    && filled($member->annual_income),
+            ],
+            'family' => [
+                'title' => 'Family',
+                'completed' => filled($member->about_family)
+                    && filled($member->family_status)
+                    && filled($member->native_place)
+                    && filled($member->father_name)
+                    && filled($member->father_occupation)
+                    && filled($member->mother_name)
+                    && filled($member->mother_occupation)
+                    && filled($member->no_of_brothers)
+                    && filled($member->married_brothers)
+                    && filled($member->no_of_sisters)
+                    && filled($member->married_sisters),
+            ],
+            'lifestyle' => [
+                'title' => 'Lifestyle',
+                'completed' => filled($member->diet)
+                    && filled($member->is_smoking)
+                    && filled($member->is_drinking)
+                    && filled($member->any_disability)
+                    && ($member->any_disability !== 'Yes' || filled($member->disability_detail)),
+            ],
+            'religion' => [
+                'title' => 'Religion & Community',
+                'completed' => filled($member->gotra) && filled($member->sub_cast),
+            ],
+            'preferences' => [
+                'title' => 'Partner Preference',
+                'completed' => filled($member->looking_for)
+                    && filled($member->partner_age_from)
+                    && filled($member->partner_age_to)
+                    && filled($member->partner_height_from)
+                    && filled($member->partner_height_to)
+                    && filled($member->partner_religion)
+                    && filled($member->partner_cast)
+                    && filled($member->partner_mothertongue)
+                    && filled($member->partner_education)
+                    && filled($member->partner_occupation)
+                    && filled($member->partner_annual_income_from)
+                    && filled($member->partner_annual_income_to)
+                    && filled($member->is_partner_smoking)
+                    && filled($member->is_partner_drinking)
+                    && filled($member->partner_diet)
+                    && filled($member->is_partner_manglik)
+                    && filled($member->about_my_partner),
+            ],
+            'contact' => [
+                'title' => 'Contact Info',
+                'completed' => filled($member->mobile_number) && filled($member->email),
+            ],
+        ];
+    }
 
     public function summary(object $member): array
     {
-        $completed = 0;
-        foreach (self::FIELDS as $field) {
-            $value = $member->{$field} ?? null;
-            if ($value !== null && trim((string) $value) !== '') {
-                $completed++;
-            }
-        }
-
-        $total = count(self::FIELDS);
+        $sections = $this->sections($member);
+        $completed = collect($sections)->where('completed', true)->count();
+        $total = count($sections);
 
         return [
-            'completedFields' => $completed,
-            'totalFields' => $total,
+            'completedSections' => $completed,
+            'totalSections' => $total,
             'profileCompletion' => (int) round($completed / $total * 100),
         ];
     }

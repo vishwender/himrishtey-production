@@ -750,8 +750,8 @@ class MemberController extends Controller
         */
 
         [
-            'completedFields' => $completedFields,
-            'totalFields' => $totalFields,
+            'completedSections' => $completedSections,
+            'totalSections' => $totalSections,
             'profileCompletion' => $profileCompletion,
         ] = app(MemberProfileCompletion::class)->summary($member);
 
@@ -795,8 +795,8 @@ class MemberController extends Controller
             'member' => $member,
             'galleryPhotos' => $galleryPhotos,
             'profileCompletion' => $profileCompletion,
-            'completedFields' => $completedFields,
-            'totalFields' => $totalFields,
+            'completedSections' => $completedSections,
+            'totalSections' => $totalSections,
             'plans' => $plans,
             'membershipPlan' => $membershipPlan,
             'membershipExpiryDate' => $membershipExpiryDate,

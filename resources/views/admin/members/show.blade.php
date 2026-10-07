@@ -286,10 +286,10 @@
 
                     <div class="small text-muted mt-2">
 
-                        {{ $completedFields }}
+                        {{ $completedSections }}
                         of
-                        {{ $totalFields }}
-                        profile fields completed
+                        {{ $totalSections }}
+                        profile sections completed
 
                     </div>
 
