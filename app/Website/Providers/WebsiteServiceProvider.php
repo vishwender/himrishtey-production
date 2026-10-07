@@ -38,6 +38,8 @@ class WebsiteServiceProvider extends ServiceProvider
             $view->with('siteTagline', $site['tagline'] ?? 'Connecting hearts across Himachal Pradesh & beyond.');
             $view->with('siteFooterText', $site['footer_text'] ?? 'Trusted matrimony services for families.');
             $view->with('siteLogo', $site['logo'] ?? 'assets/images/himrishtey-logo.png');
+            $view->with('siteAboutIntroTitle', $site['about_intro_title'] ?? 'A modern platform,');
+            $view->with('siteAboutIntroTitleSecondary', $site['about_intro_title_secondary'] ?? 'grounded in family values.');
             $view->with('siteHeroBadge', $site['hero_badge'] ?? "Himachal Pradesh's Most Trusted Matrimony");
             $view->with('siteHeroTitle', $site['hero_title'] ?? 'We Connect Hearts, Not Just Relationships');
             $view->with('siteHeroTitleSecondary', $site['hero_title_secondary'] ?? 'Find your forever from the hills.');

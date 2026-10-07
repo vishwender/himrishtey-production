@@ -411,7 +411,7 @@
     }
 </style>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -475,10 +475,27 @@
             }
 
 
-            ClassicEditor
+            CKEDITOR.ClassicEditor
                 .create(element, {
+                    plugins: CKEDITOR.ClassicEditor.builtinPlugins.filter(plugin => [
+                        'Essentials', 'Paragraph', 'Heading', 'Bold', 'Italic',
+                        'Underline', 'Strikethrough', 'FontSize', 'FontFamily',
+                        'FontColor', 'FontBackgroundColor', 'Alignment', 'List',
+                        'Indent', 'IndentBlock', 'Link', 'Table', 'TableToolbar',
+                        'BlockQuote', 'HorizontalLine', 'RemoveFormat',
+                        'SourceEditing', 'GeneralHtmlSupport', 'PasteFromOffice'
+                    ].includes(plugin.pluginName)),
+                    htmlSupport: {
+                        allow: [{ name: /.*/, attributes: true, classes: true, styles: true }],
+                        disallow: [
+                            { name: /^(script|iframe|object|embed)$/ },
+                            { attributes: /^on/i }
+                        ]
+                    },
 
                     toolbar: [
+                        'sourceEditing',
+                        '|',
                         'undo',
                         'redo',
                         '|',
@@ -542,10 +559,12 @@
 
                 .then(function(editor) {
 
-                    console.log(
-                        'CKEditor initialized:',
-                        fieldId
-                    );
+                    // The required source textarea is hidden by the editor.
+                    element.required = false;
+                    const sync = () => { element.value = editor.getData(); };
+                    editor.model.document.on('change:data', sync);
+                    element.form.addEventListener('submit', sync);
+                    sync();
 
                 })
 
