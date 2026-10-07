@@ -205,9 +205,7 @@ function buildStoryCard(story) {
                 ${story.groom_name} &amp; ${story.bride_name}
             </h3>
 
-            <p class="ss-card-detail">
-                ${story.detail}
-            </p>
+            <p class="ss-card-detail"></p>
 
             <button
                 type="button"
@@ -221,6 +219,10 @@ function buildStoryCard(story) {
 
         </div>
     `;
+
+    // A plain preview keeps saved paragraph markup inside the card's line limit.
+    const preview = new DOMParser().parseFromString(String(story.detail ?? ''), 'text/html');
+    article.querySelector('.ss-card-detail').textContent = preview.body.textContent;
 
     article.addEventListener('click', function (e) {
 

@@ -123,7 +123,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: var(--space-5);
-  align-items: start;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 
 /* =============================================
@@ -158,11 +159,10 @@
 .ss-card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  object-fit: contain;
+  object-position: center top;
   display: block;
 }
-.ss-card:hover .ss-card-img { transform: scale(1.04); }
 
 /* Theme-colored overlay on hover */
 .ss-card-img-overlay {
@@ -205,6 +205,11 @@
 }
 
 .ss-card-couple {
+  height: 2.6em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-family: var(--font-display, 'Inter', sans-serif);
   font-size: var(--text-base);
   font-weight: 600;
@@ -214,6 +219,8 @@
 }
 
 .ss-card-detail {
+  height: 4.8em;
+  flex-shrink: 0;
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   margin: 0;
@@ -329,7 +336,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-height: calc(100dvh - var(--space-8));
+  height: min(760px, calc(100dvh - var(--space-8)));
 }
 
 @keyframes ss-modal-in {
@@ -642,20 +649,22 @@
 
 .ss-lightbox-img-wrap {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 55%;
   overflow: hidden;
   background: var(--color-surface-offset);
   flex-shrink: 0;
-  max-height: 55vh;
 }
 .ss-lightbox-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center top;
   display: block;
 }
 
 .ss-lightbox-body {
+  flex: 1;
+  min-height: 0;
   padding: var(--space-5) var(--space-6) var(--space-6);
   overflow-y: auto;
 }
@@ -723,7 +732,7 @@
 
   .ss-page-subtitle { padding-left: 0; }
 
-  .ss-lightbox-img-wrap { max-height: 45vw; }
+  .ss-lightbox-img-wrap { height: 50%; }
 }
 
 /* Public page treatment: keep this page in the landing site's warm, editorial theme. */
