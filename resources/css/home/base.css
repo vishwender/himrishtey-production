@@ -237,7 +237,8 @@ textarea {
 */
 
 .hero {
-    height: 440px;
+    min-height: 440px;
+    height: auto;
     position: relative;
     background-image: var(--hero-image);
 
@@ -252,10 +253,11 @@ textarea {
 
 .hero-copy {
     width: min(1160px, calc(100% - 40px));
-    height: 100%;
+    height: auto;
 
     margin-inline: auto;
     padding-top: 65px;
+    padding-bottom: 120px;
 }
 
 .hero h1 {
@@ -1095,7 +1097,8 @@ footer,
     */
 
     .hero {
-        height: 570px;
+        min-height: 570px;
+        height: auto;
 
         background-position:
             62% center;

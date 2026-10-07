@@ -3,6 +3,7 @@
     .public-site .hero {
         width: 100%;
         min-width: 0;
+        min-height: 0;
         height: auto;
         background-image: none;
         background-color: var(--surface, #fff);

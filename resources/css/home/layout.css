@@ -35,7 +35,8 @@
     */
 
     .hero {
-        height: 540px;
+        min-height: 540px;
+        height: auto;
     }
 
     .hero-copy {
