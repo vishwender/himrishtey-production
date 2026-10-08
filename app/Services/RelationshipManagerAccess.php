@@ -66,7 +66,7 @@ class RelationshipManagerAccess
             return true;
         }
 
-        return $this->scope(SiteMember::withoutGlobalScopes())
+        return SiteMember::withoutGlobalScopes()
             ->whereKey($memberId)
             ->exists();
     }
