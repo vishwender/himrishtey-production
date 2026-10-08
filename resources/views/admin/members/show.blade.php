@@ -243,7 +243,7 @@ if ($membershipPlan && $membershipExpiryDate) {
                     </small>
 
                     <strong>
-                        {{ $member->birth_date_time ?: '-' }}
+                        {{ $member->birth_date_time ? \Carbon\Carbon::parse($member->birth_date_time)->format('Y-m-d g:i A') : '-' }}
                     </strong>
 
                 </div>

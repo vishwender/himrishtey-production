@@ -914,7 +914,7 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
 
                         {{-- Registration --}}
                         <td>
-                            {{ $member->registration_date }}
+                            {{ $member->registration_date ? \Carbon\Carbon::parse($member->registration_date)->format('Y-m-d g:i A') : '—' }}
                         </td>
 
                         <td>
