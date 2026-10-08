@@ -34,8 +34,8 @@
             About Us
         </a>
 
-        <a href="{{ route('blog.index') }}">
-            Blog
+        <a href="{{ route('contact-us') }}">
+            Contact Us
         </a>
 
     </nav>
