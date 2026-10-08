@@ -139,6 +139,7 @@
     min-height: 34px;
     padding: 6px 10px;
     border: 1px solid rgba(255, 255, 255, 0.28);
+    background: #ffffff;
     border-radius: 9999px;
     color: rgba(255, 255, 255, 0.86);
     font-size: 12px;
@@ -162,28 +163,29 @@
 }
 
 .public-footer .footer-social svg.social-facebook,
-.public-footer .footer-social svg.social-youtube {
+.public-footer .footer-social svg.social-youtube,
+.public-footer .footer-social svg.social-pinterest {
     fill: currentColor;
     stroke: none;
 }
 
-.public-footer .footer-social a:hover svg.social-facebook {
+.public-footer .footer-social svg.social-facebook {
     color: #1877f2;
 }
 
-.public-footer .footer-social a:hover svg.social-x {
+.public-footer .footer-social svg.social-x {
     color: #000000;
 }
 
-.public-footer .footer-social a:hover svg.social-instagram {
+.public-footer .footer-social svg.social-instagram {
     color: #e4405f;
 }
 
-.public-footer .footer-social a:hover svg.social-youtube {
+.public-footer .footer-social svg.social-youtube {
     color: #ff0000;
 }
 
-.public-footer .footer-social a:hover svg.social-youtube path:last-child {
+.public-footer .footer-social svg.social-youtube path:last-child {
     fill: #ffffff;
 }
 
@@ -408,3 +410,5 @@
     }
 
 }
+.public-footer .footer-social svg.social-pinterest { color: #e60023; }
+.public-footer .footer-social a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
