@@ -990,19 +990,23 @@
                             Disability
                         </label>
 
+                        @php
+                        $disabilitySelection = old('any_disability', \App\Support\DisabilityValue::selection($member->any_disability));
+                        $disabilityDescription = old('health_info', \App\Support\DisabilityValue::description($member->any_disability, $member->health_info ?? null));
+                        @endphp
                         <select name="any_disability" id="any_disability" class="form-select">
                             <option value="">Select</option>
                             @foreach(['Yes', 'No'] as $value)
-                            <option value="{{ $value }}" @selected(old('any_disability', $member->any_disability) == $value)>{{ $value }}</option>
+                            <option value="{{ $value }}" @selected($disabilitySelection == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
 
                     </div>
 
-                    <div class="col-md-6 {{ old('any_disability', $member->any_disability) === 'Yes' ? '' : 'd-none' }}" id="disability_description_group">
+                    <div class="col-md-6 {{ $disabilitySelection === 'Yes' ? '' : 'd-none' }}" id="disability_description_group">
                         <label for="health_info" class="form-label">Describe Disability</label>
                         <input type="text" name="health_info" id="health_info" class="form-control"
-                            value="{{ old('health_info', $member->health_info ?? '') }}" maxlength="255">
+                            value="{{ $disabilityDescription }}" maxlength="255">
                     </div>
 
 

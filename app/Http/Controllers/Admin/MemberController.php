@@ -1135,6 +1135,8 @@ class MemberController extends Controller
             'health_info.required_if' => 'Please describe the disability.',
         ]);
 
+        $validated = \App\Support\DisabilityValue::normalize($validated);
+
         $submittedProfileRanges = collect($validated['profile_ranges'] ?? []);
 
         foreach ($submittedProfileRanges as $index => $range) {
@@ -2914,6 +2916,8 @@ class MemberController extends Controller
             'birth_date_time.before_or_equal' => 'The member must be at least 18 years old.',
             'health_info.required_if' => 'Please describe the disability.',
         ]);
+
+        $validated = \App\Support\DisabilityValue::normalize($validated);
 
         $submittedProfileRanges = collect($validated['profile_ranges'] ?? []);
 
