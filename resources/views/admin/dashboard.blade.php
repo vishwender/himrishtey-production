@@ -60,6 +60,7 @@ $relationshipManagerRestricted = app(\App\Services\RelationshipManagerAccess::cl
 
 
     @include('admin.dashboard.delete-request-notification')
+    @include('admin.dashboard.membership-expiry-notification')
 
     {{-- ================================================================
         CURRENT SITE

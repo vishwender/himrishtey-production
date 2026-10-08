@@ -17,6 +17,8 @@ class DashboardController extends Controller
         $rotationsOnly = $admin?->isMemberManager() ?? false;
         $stats = $rotationsOnly ? [] : $dashboardService->statistics();
 
+        $membershipExpiringCount = app(\App\Services\MembershipExpiry::class)->expiringCount(7);
+
         $pendingDeleteRequestCount = 0;
 
         if ($admin?->hasPermission('view-delete-profile-request')) {
@@ -132,6 +134,7 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', compact(
             'stats',
+            'membershipExpiringCount',
             'pendingDeleteRequestCount',
             'rotationsOnly',
             'rotationNotifications',
