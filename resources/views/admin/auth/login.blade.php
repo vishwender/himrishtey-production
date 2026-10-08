@@ -23,7 +23,12 @@
         .login-mark { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; margin-bottom: 14px; border-radius: 16px; background: linear-gradient(135deg, #9479ff, #6040ed); color: #fff; font-size: 1.35rem; box-shadow: 0 8px 18px rgba(96, 64, 237, .22); }
         h2 { margin: 0 0 6px; font-family: 'Outfit', sans-serif; }
         .login-brand p { margin: 0; color: #78809a; font-size: .92rem; }
-        input[type="email"], input[type="password"] { width: 100%; box-sizing: border-box; margin: 6px 0 18px; padding: 12px 13px; border: 1px solid #dfe2ec; border-radius: 9px; font: inherit; }
+        input[type="email"], #admin-password { width: 100%; box-sizing: border-box; margin: 6px 0 18px; padding: 12px 13px; border: 1px solid #dfe2ec; border-radius: 9px; font: inherit; }
+        .password-field { position: relative; margin: 6px 0 18px; }
+        .password-field #admin-password { margin: 0; padding-right: 48px; }
+        .password-toggle { position: absolute; top: 0; right: 4px; bottom: 0; width: 40px; border: 0; border-radius: 7px; background: transparent; color: #78809a; cursor: pointer; font-size: 18px; }
+        .password-toggle:hover { color: #6040ed; }
+        .password-toggle:focus-visible { outline: 2px solid #6040ed; outline-offset: -3px; }
         input:focus { outline: 0; border-color: #9a86ff; box-shadow: 0 0 0 4px rgba(109, 74, 255, .12); }
         label { color: #454b64; font-size: .88rem; font-weight: 600; }
         .remember { display: flex; align-items: center; gap: 8px; margin: 0 0 22px; font-weight: 500; }
@@ -63,12 +68,19 @@
                 value="{{ old('email') }}"
                 required>
 
-            <label>Password</label>
+            <label for="admin-password">Password</label>
 
+            <div class="password-field">
             <input
+                id="admin-password"
                 type="password"
                 name="password"
+                autocomplete="current-password"
                 required>
+            <button type="button" class="password-toggle" id="toggle-admin-password" aria-label="Show password" aria-controls="admin-password" aria-pressed="false" hidden>
+                <i class="bi bi-eye" aria-hidden="true"></i>
+            </button>
+            </div>
 
             <label class="remember">
                 <input
@@ -87,6 +99,18 @@
 
     </div>
 
+<script>
+    const passwordInput = document.getElementById('admin-password');
+    const passwordToggle = document.getElementById('toggle-admin-password');
+    passwordToggle.hidden = false;
+    passwordToggle.addEventListener('click', () => {
+        const showPassword = passwordInput.type === 'password';
+        passwordInput.type = showPassword ? 'text' : 'password';
+        passwordToggle.setAttribute('aria-label', showPassword ? 'Hide password' : 'Show password');
+        passwordToggle.setAttribute('aria-pressed', String(showPassword));
+        passwordToggle.querySelector('i').className = showPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+    });
+</script>
 </body>
 
 </html>
