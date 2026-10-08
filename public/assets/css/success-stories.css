@@ -44,6 +44,30 @@
   padding-left: calc(26px + var(--space-3));
 }
 
+.ss-heading-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(240px, 100%);
+  margin: 12px 0;
+  color: var(--brand, var(--color-primary));
+}
+
+.ss-heading-ornament::before,
+.ss-heading-ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+
+.ss-heading-ornament::after {
+  background: linear-gradient(90deg, currentColor, transparent);
+}
+
+.ss-heading-ornament svg { flex-shrink: 0; }
+
 /* Add Story Button */
 .ss-add-btn {
   display: inline-flex;

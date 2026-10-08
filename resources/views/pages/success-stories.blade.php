@@ -16,6 +16,7 @@
             <i data-lucide="heart-handshake" width="26" height="26" class="ss-title-icon" aria-hidden="true"></i>
             <span class="ss-title-text">Matches that <span class="heading-accent">last forever.</span></span>
           </h1>
+          <div class="ss-heading-ornament" aria-hidden="true"><i data-lucide="heart" width="20" height="20"></i></div>
           <p class="ss-page-subtitle">Celebrate the couples who found meaningful connections through {{ $siteName }}.</p>
         </div>
         <button class="ss-add-btn public-cta public-cta-primary" id="ssAddStoryBtn" data-authenticated="{{ auth('member')->check() ? 'true' : 'false' }}" data-login-url="{{ route('login-form') }}" aria-label="Add your success story">

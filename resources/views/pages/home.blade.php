@@ -622,7 +622,17 @@
          <div class="home-info-background">
              <section class="stories wrap" id="stories">
                  <h2>Real stories. <span class="heading-accent">Real happiness.</span></h2>
-                 <div class="ornament"><i data-lucide="heart" aria-hidden="true"></i></div>
+                 <svg class="story-heading-art" width="260" height="24" viewBox="0 0 260 24" aria-hidden="true"
+                     style="display:block;width:260px;max-width:100%;height:24px;margin:10px auto 28px;color:var(--brand);">
+                     <defs>
+                         <linearGradient id="story-line-left"><stop stop-color="currentColor" stop-opacity="0"/><stop offset="1" stop-color="currentColor"/></linearGradient>
+                         <linearGradient id="story-line-right"><stop stop-color="currentColor"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient>
+                     </defs>
+                     <path d="M0 12H110" fill="none" stroke="url(#story-line-left)" stroke-width="1"/>
+                     <path d="M150 12H260" fill="none" stroke="url(#story-line-right)" stroke-width="1"/>
+                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"
+                         transform="translate(120 2) scale(.833333)" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                 </svg>
                  <div class="story-grid">
                      @forelse ($successStories as $story)
                      <article>

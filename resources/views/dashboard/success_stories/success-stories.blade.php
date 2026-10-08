@@ -17,6 +17,7 @@
                 <i data-lucide="heart-handshake" width="26" height="26" class="ss-title-icon" aria-hidden="true"></i>
                 Success Stories
             </h1>
+          <div class="ss-heading-ornament" aria-hidden="true"><i data-lucide="heart" width="20" height="20"></i></div>
             <p class="ss-page-subtitle">Real couples, real happiness — from {{ $siteName }}</p>
         </div>
         <button class="ss-add-btn" id="ssAddStoryBtn" data-authenticated="{{ auth('member')->check() ? 'true' : 'false' }}" data-login-url="{{ route('login-form') }}" aria-label="Add your success story">
