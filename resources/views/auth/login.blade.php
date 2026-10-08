@@ -19,7 +19,7 @@
           <i data-lucide="shield-check" width="14" height="14"></i>
           {{ $siteHeroBadge }}
         </div>
-        <h1 class="login-hero-title">{{ $siteHeroTitle }}</h1>
+        <h1 class="login-hero-title">Find Your Perfect Match.</h1>
         <p class="login-hero-subtitle">{{ $siteTagline }}</p>
         <div class="login-hero-promise"><i data-lucide="heart-handshake" width="18" height="18"></i><span>Genuine profiles · Family-first support · Private by design</span></div>
       </div>
