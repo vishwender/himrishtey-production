@@ -4,6 +4,13 @@
 
 <div class="container-fluid">
 
+    <div class="mb-3">
+        <a href="{{ route('admin.members.show', $member->id) }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
+            Back to Profile
+        </a>
+    </div>
+
     {{-- =========================================================
         Member Header
     ========================================================== --}}

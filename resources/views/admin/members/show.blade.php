@@ -136,7 +136,7 @@
                 <div class="crm-header-metrics">
                     @foreach([
                         ['key' => 'profile_views', 'route' => 'profile-views', 'label' => 'Profile views', 'icon' => 'eye'],
-                        ['key' => 'contact_views', 'route' => 'contact-views', 'label' => 'Contact views', 'icon' => 'person-lines'],
+                        ['key' => 'contact_views', 'route' => 'contact-views', 'label' => 'Contact views', 'icon' => 'person-lines-fill'],
                         ['key' => 'sent_interests', 'route' => 'sent-interests', 'label' => 'Sent interests', 'icon' => 'send'],
                     ] as $metric)
                     <a class="crm-header-metric" href="{{ route('admin.activities.member', ['memberId' => $member->id, 'activity' => $metric['route']]) }}">
@@ -681,7 +681,7 @@
 
         <div class="card-header bg-white py-3">
             <h5 class="mb-0">
-                <i class="crm-icon bi bi-person-lines me-2"></i>
+                <i class="crm-icon bi bi-heart-pulse me-2" aria-hidden="true"></i>
                 Lifestyle & Health
             </h5>
         </div>
@@ -2327,7 +2327,7 @@
                             class="crm-icon rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
-                            <i class="bi bi-person-lines fs-5"></i>
+                            <i class="bi bi-person-lines-fill fs-5"></i>
 
                         </div>
 
