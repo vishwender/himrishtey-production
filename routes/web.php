@@ -168,6 +168,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             */
 
             Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+            Route::get('/members/membership-expiry', [\App\Http\Controllers\Admin\MembershipExpiryController::class, 'index'])->name('members.membership-expiry');
 
             Route::get('/members/{id}/print', [MemberController::class, 'printProfile'])->whereNumber('id')->name('members.print');
 

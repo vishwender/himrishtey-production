@@ -726,6 +726,13 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
                 @endif
 
+                @if($currentSite)
+                <a href="{{ route('admin.members.membership-expiry') }}" class="{{ request()->routeIs('admin.members.membership-expiry') ? 'active' : '' }}">
+                    <i class="bi bi-calendar-event me-2" aria-hidden="true"></i>
+                    Membership Expiry
+                </a>
+                @endif
+
                 @if($currentSite && auth('admin')->user()?->hasRole('super-admin'))
                 <a href="{{ route('admin.contact-messages.index') }}" class="{{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}"><i class="bi bi-envelope me-2"></i><span id="contact-unread-dot" class="me-2" hidden><span class="d-inline-block bg-danger rounded-circle" style="width: 8px; height: 8px;" aria-hidden="true"></span><span class="visually-hidden">Unread messages: </span></span>Contact Messages</a>
                 @endif

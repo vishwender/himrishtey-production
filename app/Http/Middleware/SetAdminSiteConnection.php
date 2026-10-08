@@ -77,7 +77,8 @@ class SetAdminSiteConnection
         |--------------------------------------------------------------------------
         */
 
-        if ($request->user('admin')?->isMemberManager()
+        if ($request->routeIs('admin.members.membership-expiry')
+            || $request->user('admin')?->isMemberManager()
             || app(RelationshipManagerAccess::class)->isRestricted()) {
             abort_unless($request->user('admin')->hasSiteAccess($site->id), 403, 'You do not have access to this site.');
         }

@@ -23,6 +23,7 @@ class EnsureContentManagerAccess
         }
 
         if (! $request->routeIs(
+            'admin.members.membership-expiry',
             'admin.blog-posts.*',
             'admin.success-stories.*',
             'admin.pages.*'
