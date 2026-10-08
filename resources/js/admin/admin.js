@@ -105,22 +105,83 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebarToggle = document.getElementById('sidebarToggle');
 
     if (adminWrapper && sidebarToggle) {
-        const sidebarIsCollapsed =
-            localStorage.getItem('admin-sidebar-collapsed') === 'true';
+        const sidebar = document.getElementById('adminSidebar');
+        const mobileSidebar = window.matchMedia('(max-width: 767.98px)');
+        setSidebarState(true);
+        mobileSidebar.addEventListener('change', () => setSidebarState(true));
 
-        setSidebarState(sidebarIsCollapsed);
-
-        sidebarToggle.addEventListener('click', function () {
-            const isCollapsed =
-                adminWrapper.classList.toggle('sidebar-collapsed');
-
-            localStorage.setItem(
-                'admin-sidebar-collapsed',
-                String(isCollapsed)
-            );
-
-            updateSidebarToggle(isCollapsed);
+        sidebarToggle.addEventListener('click', () => {
+            setSidebarState(!adminWrapper.classList.contains('sidebar-collapsed'));
         });
+
+        sidebar?.querySelectorAll('a, .nav-group-toggle, .nav-dropdown-toggle, [type="submit"]').forEach(item => {
+            const label = item.textContent.trim().replace(/\s+/g, ' ');
+            item.setAttribute('aria-label', label);
+            item.setAttribute('title', label);
+        });
+
+        const flyout = document.createElement('div');
+        flyout.className = 'sidebar-flyout';
+        flyout.hidden = true;
+        document.body.appendChild(flyout);
+        let activeFlyout = null;
+
+        const closeFlyout = (restoreFocus = false) => {
+            if (!activeFlyout) return;
+            const { button, menu, placeholder, expanded } = activeFlyout;
+            placeholder.replaceWith(menu);
+            button.setAttribute('aria-expanded', expanded);
+            button.removeAttribute('aria-controls');
+            flyout.replaceChildren();
+            flyout.hidden = true;
+            activeFlyout = null;
+            if (restoreFocus) button.focus();
+        };
+
+        sidebar?.querySelectorAll('.nav-group-toggle, .nav-dropdown-toggle').forEach((button, index) => {
+            button.addEventListener('click', event => {
+                if (mobileSidebar.matches || !adminWrapper.classList.contains('sidebar-collapsed')) return;
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                const wasOpen = activeFlyout?.button === button;
+                closeFlyout();
+                if (wasOpen) return;
+                const menu = button.parentElement.querySelector(':scope > .nav-submenu, :scope > .nav-dropdown-menu');
+                if (!menu) return;
+                const placeholder = document.createComment('Sidebar submenu');
+                const expanded = button.getAttribute('aria-expanded') || 'false';
+                menu.replaceWith(placeholder);
+                const heading = document.createElement('div');
+                heading.className = 'sidebar-flyout-heading';
+                heading.textContent = button.getAttribute('aria-label');
+                flyout.id = `sidebar-flyout-${index}`;
+                flyout.replaceChildren(heading, menu);
+                flyout.hidden = false;
+                button.setAttribute('aria-expanded', 'true');
+                button.setAttribute('aria-controls', flyout.id);
+                activeFlyout = { button, menu, placeholder, expanded };
+                const bounds = button.getBoundingClientRect();
+                flyout.style.left = `${sidebar.getBoundingClientRect().right + 8}px`;
+                flyout.style.top = `${Math.max(8, Math.min(bounds.top, window.innerHeight - flyout.offsetHeight - 8))}px`;
+                menu.querySelector('a, button')?.focus();
+            }, true);
+        });
+
+        document.addEventListener('click', event => {
+            if (activeFlyout && !flyout.contains(event.target) && !activeFlyout.button.contains(event.target)) closeFlyout();
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && activeFlyout) {
+                event.preventDefault();
+                closeFlyout(true);
+            }
+        });
+        document.addEventListener('focusin', event => {
+            if (activeFlyout && !flyout.contains(event.target) && event.target !== activeFlyout.button) closeFlyout();
+        });
+        sidebar?.addEventListener('scroll', () => closeFlyout());
+        window.addEventListener('resize', () => closeFlyout());
+        sidebarToggle.addEventListener('click', () => closeFlyout());
     }
 
     function setSidebarState(isCollapsed) {
@@ -132,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebarToggle.setAttribute('aria-expanded', String(!isCollapsed));
         sidebarToggle.setAttribute(
             'aria-label',
-            isCollapsed ? 'Show sidebar' : 'Hide sidebar'
+            isCollapsed ? 'Open full menu' : 'Collapse menu'
         );
 
         const icon = sidebarToggle.querySelector('i');

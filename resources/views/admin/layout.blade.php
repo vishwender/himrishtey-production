@@ -49,7 +49,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
 <body>
 
-    <div class="admin-wrapper d-flex">
+    <div class="admin-wrapper d-flex sidebar-collapsed">
 
         {{-- Sidebar --}}
         <aside class="sidebar" id="adminSidebar">
@@ -726,6 +726,10 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
                 @endif
 
+                @if($currentSite && auth('admin')->user()?->hasRole('super-admin'))
+                <a href="{{ route('admin.contact-messages.index') }}" class="{{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}"><i class="bi bi-envelope me-2"></i><span id="contact-unread-dot" class="me-2" hidden><span class="d-inline-block bg-danger rounded-circle" style="width: 8px; height: 8px;" aria-hidden="true"></span><span class="visually-hidden">Unread messages: </span></span>Contact Messages</a>
+                @endif
+
                 <div class="nav-group {{ request()->routeIs('admin.settings.*') ? 'is-open' : '' }}">
                     <button type="button" class="nav-group-toggle {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                         <i class="bi bi-gear me-2"></i>
@@ -739,9 +743,6 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                     </div>
                 </div>
 
-                @if($currentSite && auth('admin')->user()?->hasRole('super-admin'))
-                <a href="{{ route('admin.contact-messages.index') }}" class="{{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}"><i class="bi bi-envelope me-2"></i><span id="contact-unread-dot" class="me-2" hidden><span class="d-inline-block bg-danger rounded-circle" style="width: 8px; height: 8px;" aria-hidden="true"></span><span class="visually-hidden">Unread messages: </span></span>Contact Messages</a>
-                @endif
             </nav>
 
 
@@ -781,10 +782,10 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                             type="button"
                             id="sidebarToggle"
                             class="btn btn-light sidebar-toggle"
-                            aria-label="Hide sidebar"
+                            aria-label="Open full menu"
                             aria-controls="adminSidebar"
-                            aria-expanded="true">
-                            <i class="bi bi-layout-sidebar-inset"></i>
+                            aria-expanded="false">
+                            <i class="bi bi-layout-sidebar" aria-hidden="true"></i>
                         </button>
 
                         <strong>

@@ -75,6 +75,7 @@ h6,
    ========================================================= */
 
 .sidebar {
+    scrollbar-width: none;
     position: sticky;
     top: 0;
     width: 268px;
@@ -94,6 +95,10 @@ h6,
         width .25s ease,
         flex-basis .25s ease,
         opacity .2s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
 }
 
 .admin-wrapper.sidebar-collapsed .sidebar {
@@ -1103,3 +1108,28 @@ a {
         animation-iteration-count: 1 !important;
     }
 }
+
+/* Desktop icon rail opens only through the menu button. */
+@media (min-width: 768px) {
+    .admin-wrapper.sidebar-collapsed .sidebar { width: 72px; flex-basis: 72px; opacity: 1; overflow-y: auto; overflow-x: hidden; pointer-events: auto; }
+    .sidebar a, .sidebar .nav-group-toggle, .sidebar .nav-dropdown-toggle { white-space: nowrap; }
+    .admin-wrapper.sidebar-collapsed .sidebar .brand { padding: 24px 20px; font-size: 0; }
+    .admin-wrapper.sidebar-collapsed .sidebar .brand::before { margin: 0; }
+    .admin-wrapper.sidebar-collapsed .sidebar nav { padding: 14px 10px; }
+    .admin-wrapper.sidebar-collapsed .sidebar :is(a, .nav-group-toggle, .nav-dropdown-toggle, .btn-link) { justify-content: center; padding: 13px 0 !important; font-size: 0; }
+    .admin-wrapper.sidebar-collapsed .sidebar :is(a, .nav-group-toggle, .nav-dropdown-toggle, .btn-link) > span { display: none; }
+    .admin-wrapper.sidebar-collapsed .sidebar :is(a, .nav-group-toggle, .nav-dropdown-toggle, .btn-link) > .bi { margin: 0 !important; font-size: 18px; width: 22px; text-align: center; }
+    .admin-wrapper.sidebar-collapsed .sidebar :is(.bi-chevron-down, .nav-submenu, .nav-dropdown-menu) { display: none; }
+    .sidebar a:focus-visible, .sidebar button:focus-visible { outline: 2px solid #a78bfa; outline-offset: -2px; }
+}
+@media (prefers-reduced-motion: reduce) { .sidebar { transition: none; } }
+
+.sidebar-flyout { position: fixed; z-index: 1040; width: 250px; max-width: calc(100vw - 96px); max-height: calc(100dvh - 16px); overflow-y: auto; scrollbar-width: none; padding: 10px; border: 1px solid #343b60; border-radius: 12px; background: #1f2546; color: #fff; box-shadow: 0 12px 36px #14182f40; }
+.sidebar-flyout[hidden] { display: none; }
+.sidebar-flyout::-webkit-scrollbar { display: none; }
+.sidebar-flyout-heading { padding: 8px 12px 12px; margin-bottom: 6px; border-bottom: 1px solid #ffffff18; font-weight: 600; font-size: 13px; }
+.sidebar-flyout :is(.nav-submenu, .nav-dropdown-menu) { display: block; }
+.sidebar-flyout a { display: flex; align-items: center; gap: 10px; padding: 11px 12px; margin: 3px 0; border-radius: 8px; color: #bfc5dd; font-size: 13px; text-decoration: none; }
+.sidebar-flyout a > .bi { width: 20px; margin-right: 0 !important; font-size: 16px; text-align: center; }
+.sidebar-flyout a:is(:hover, :focus-visible, .active) { background: #977cff24; color: #fff; }
+.sidebar-flyout a:focus-visible { outline: 2px solid #a78bfa; outline-offset: -2px; }
