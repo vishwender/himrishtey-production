@@ -1141,6 +1141,15 @@ a {
 .members-page .table td { vertical-align: middle; }
 .members-page .table td :is(.btn, .badge) { white-space: nowrap; }
 .members-page .member-section .card-header h5 { gap: 8px; }
+.members-table .members-actions { position: sticky; right: 0; z-index: 2; min-width: 110px; background-color: var(--app-surface); box-shadow: inset 1px 0 0 var(--app-border); }
+.members-table thead .members-actions { z-index: 3; background-color: var(--bs-table-bg, var(--app-surface)); }
+[data-theme="dark"] .members-table thead .members-actions { background-color: #252a40; }
+.members-table tbody tr:hover .members-actions { background-color: var(--bs-table-hover-bg); }
+.members-table .members-actions .btn-outline-secondary { color: var(--app-ink); border-color: var(--app-border); background-color: var(--app-surface); }
+.members-table .members-actions .btn-outline-secondary:hover,
+.members-table .members-actions .btn-outline-secondary[aria-expanded="true"] { color: #fff; border-color: var(--app-primary); background-color: var(--app-primary); }
+.members-table .members-actions .btn-outline-secondary:focus-visible { outline: 2px solid var(--app-primary); outline-offset: 2px; }
+.members-actions-flyout { z-index: 1050; max-height: calc(100dvh - 24px); overflow-y: auto; }
 @media (max-width: 575.98px) {
     .members-page { padding-left: 0; padding-right: 0; }
     .members-page .card-body { padding: 16px; }

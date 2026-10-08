@@ -798,7 +798,7 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
 
         <div class="table-responsive">
 
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 members-table">
 
                 <thead class="table-light">
 
@@ -840,7 +840,7 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                         <th>Status</th>
                         @endif
 
-                        <th class="text-end">
+                        <th class="text-end members-actions">
                             Action
                         </th>
 
@@ -994,7 +994,7 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
 
                         @endif
 
-                        <td class="text-end">
+                        <td class="text-end members-actions">
 
                             <div class="dropdown">
 

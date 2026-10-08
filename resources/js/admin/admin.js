@@ -1,5 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Keep action menus outside the horizontally scrolling table so they are
+    // not clipped by its scroll container or sticky action cells.
+    document.querySelectorAll('.members-table .members-actions .dropdown').forEach(dropdown => {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('[data-bs-toggle="dropdown"]');
+        if (!menu || !toggle) return;
+        let placeholder = null;
+        toggle.addEventListener('show.bs.dropdown', () => {
+            placeholder = document.createComment('Member action menu');
+            menu.replaceWith(placeholder);
+            menu.classList.add('members-actions-flyout');
+            document.body.appendChild(menu);
+        });
+        toggle.addEventListener('hidden.bs.dropdown', () => {
+            placeholder?.replaceWith(menu);
+            menu.classList.remove('members-actions-flyout');
+            placeholder = null;
+        });
+        menu.addEventListener('keydown', event => {
+            if (!['Escape', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+            event.preventDefault();
+            event.stopPropagation();
+            if (event.key === 'Escape') {
+                window.bootstrap.Dropdown.getInstance(toggle)?.hide();
+                toggle.focus();
+                return;
+            }
+            const items = [...menu.querySelectorAll('.dropdown-item:not(:disabled):not(.disabled)')];
+            const index = items.indexOf(document.activeElement);
+            const next = event.key === 'ArrowDown' ? Math.min(index + 1, items.length - 1) : (index < 0 ? items.length - 1 : Math.max(index - 1, 0));
+            items[next]?.focus();
+        });
+    });
+
     const deleteRequestModal = document.getElementById('deleteRequestModal');
 
     if (deleteRequestModal) {
