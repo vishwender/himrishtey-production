@@ -42,6 +42,7 @@ return [
             'support_address' => env('SITE1_SUPPORT_ADDRESS', '1st Floor, Manali, Mandi - Pathankot Road, Opp. Palam Hardware Kalu Ki Hatti, Bag Uparla, Palampur, Himachal Pradesh 176102'),
             'social' => [
                 'facebook' => env('SITE1_SOCIAL_FACEBOOK', 'https://www.facebook.com/himrishtey'),
+                'pinterest' => env('SITE1_SOCIAL_PINTEREST'),
                 'x' => env('SITE1_SOCIAL_X', 'https://x.com/himrishte'),
                 'instagram' => env('SITE1_SOCIAL_INSTAGRAM', 'https://www.instagram.com/himrishtey/'),
                 'youtube' => env('SITE1_SOCIAL_YOUTUBE', 'https://www.youtube.com/channel/UCwIe3GhJL-_c0bQ80eFv6RQ'),
@@ -61,7 +62,7 @@ return [
         ],
         'dogririshtey.com' => [
             'search_state' => 'Jammu and Kashmir',
-            'hosts' => ['trusting-turquoise-chihuahua.97-74-95-195.cpanel.site'],
+            'hosts' => [''],
             'name' => env('SITE2_NAME', 'Dogri Rishtey'),
             'display_name' => env('SITE2_DISPLAY_NAME', 'Dogri Rishtey'),
             'google_analytics_id' => env('SITE2_GOOGLE_ANALYTICS_ID'),
@@ -96,6 +97,7 @@ return [
             'support_address' => env('SITE2_SUPPORT_ADDRESS'),
             'social' => [
                 'facebook' => env('SITE2_SOCIAL_FACEBOOK'),
+                'pinterest' => env('SITE2_SOCIAL_PINTEREST'),
                 'x' => env('SITE2_SOCIAL_X'),
                 'instagram' => env('SITE2_SOCIAL_INSTAGRAM'),
                 'youtube' => env('SITE2_SOCIAL_YOUTUBE'),
@@ -106,7 +108,7 @@ return [
         ],
         'gallpakki.com' => [
             'search_state' => 'Punjab',
-            'hosts' => ['production.ddev.site'],
+            'hosts' => [''],
             'name' => env('SITE3_NAME', 'Gallpakki'),
             'display_name' => env('SITE3_DISPLAY_NAME', 'Gallpakki'),
             'google_analytics_id' => env('SITE3_GOOGLE_ANALYTICS_ID'),
@@ -141,6 +143,7 @@ return [
             'support_address' => env('SITE3_SUPPORT_ADDRESS'),
             'social' => [
                 'facebook' => env('SITE3_SOCIAL_FACEBOOK'),
+                'pinterest' => env('SITE3_SOCIAL_PINTEREST'),
                 'x' => env('SITE3_SOCIAL_X'),
                 'instagram' => env('SITE3_SOCIAL_INSTAGRAM'),
                 'youtube' => env('SITE3_SOCIAL_YOUTUBE'),
@@ -151,7 +154,7 @@ return [
         ],
         'devbhoomirishtey.com' => [
             'search_state' => 'Uttarakhand',
-            'hosts' => ['himrishtey-production.ddev.site'],
+            'hosts' => [''],
             'name' => env('SITE4_NAME', 'Dev Bhoomi Rishtey'),
             'display_name' => env('SITE4_DISPLAY_NAME', 'Dev Bhoomi Rishtey'),
             'google_analytics_id' => env('SITE4_GOOGLE_ANALYTICS_ID'),
@@ -186,6 +189,7 @@ return [
             'support_address' => env('SITE4_SUPPORT_ADDRESS'),
             'social' => [
                 'facebook' => env('SITE4_SOCIAL_FACEBOOK'),
+                'pinterest' => env('SITE4_SOCIAL_PINTEREST'),
                 'x' => env('SITE4_SOCIAL_X'),
                 'instagram' => env('SITE4_SOCIAL_INSTAGRAM'),
                 'youtube' => env('SITE4_SOCIAL_YOUTUBE'),
