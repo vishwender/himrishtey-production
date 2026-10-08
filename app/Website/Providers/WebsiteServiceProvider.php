@@ -62,7 +62,7 @@ class WebsiteServiceProvider extends ServiceProvider
             $view->with('siteSocial', $site['social'] ?? []);
             $view->with('siteAndroidAppUrl', $site['android_app_url'] ?? null);
             $view->with('siteAndroidAppQr', $site['android_app_qr'] ?? null);
-            $view->with('siteIosAppQr', $site['ios_app_qr'] ?? null);
+            $view->with('siteIosAppQr', $site['ios_app_qr'] ?? 'assets/images/qr/ios-app-himrishtey.png');
             $view->with('siteIosAppUrl', $site['ios_app_url'] ?? null);
             $view->with('siteCurrent', $site);
         });
