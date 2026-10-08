@@ -31,9 +31,7 @@ class SitemapController extends Controller
             ];
         }
 
-        $xml = ltrim(
-            view('sitemap', compact('urls'))->render()
-        );
+        $xml = ltrim(view('sitemap', compact('urls'))->render());
 
         return response($xml, 200, [
             'Content-Type' => 'application/xml; charset=UTF-8',
@@ -63,14 +61,18 @@ class SitemapController extends Controller
             '/'
         );
 
-        // Dev Bhoomi Rishtey uses WWW as its canonical domain.
-        if (
-            parse_url($baseUrl, PHP_URL_HOST)
-            === 'devbhoomirishtey.com'
-        ) {
-            return 'https://www.devbhoomirishtey.com';
-        }
+        $host = parse_url($baseUrl, PHP_URL_HOST);
 
-        return $baseUrl;
+        return match ($host) {
+            'devbhoomirishtey.com',
+            'www.devbhoomirishtey.com'
+            => 'https://www.devbhoomirishtey.com',
+
+            'dogririshtey.com',
+            'www.dogririshtey.com'
+            => 'https://dogririshtey.com',
+
+            default => $baseUrl,
+        };
     }
 }
