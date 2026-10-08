@@ -843,7 +843,7 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
             </div>
             <div class="pd-modal-row">
                 <span>Profile view price</span>
-                <span>₹ {{ $usr->profile_view_price }}</span>
+                <span>{{ $usr->profile_view_price === null ? 'Rate unavailable — contact support' : '₹ '.$usr->profile_view_price }}</span>
             </div>
             <div class="pd-modal-wallet">
                 <div>
@@ -858,7 +858,7 @@ $publicShareText = \App\Website\Services\ProfileShareData::text($usr, $publicSha
             <button class="pd-modal-cancel" onclick="closeUnlockModal()">Cancel</button>
             <button class="pd-modal-confirm" data-profile-id="{{ $usr->id }}"
                 data-unlock-url="{{ route('unlock.contact', $usr->id) }}"
-                data-unlock-price="{{ $usr->profile_view_price }}" id="unlockConfirmBtn" onclick="confirmUnlock()">
+                data-unlock-price="{{ $usr->profile_view_price }}" id="unlockConfirmBtn" onclick="confirmUnlock()" @disabled($usr->profile_view_price === null)>
                 Unlock
             </button>
         </div>

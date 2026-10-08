@@ -20,7 +20,7 @@ use App\Website\Services\EmailService;
 use App\Website\Services\NimbusSmsService;
 use App\Website\Services\ProfilePhotoStorage;
 use App\Website\Services\ProfilePhotoUrl;
-use App\Website\Services\ProfileUnlockPricing;
+use App\Services\ProfileContactUnlock;
 use App\Website\Services\PushNotificationService;
 use Auth;
 use Carbon\Carbon;
@@ -1879,7 +1879,11 @@ class HomeController extends Controller
 
         $viewedProfileCount = $this->viewedProfileCount($data['user_id']);
         $usr->viewed_profile = (string) $viewedProfileCount;
-        $usr->profile_view_price = ProfileUnlockPricing::priceForViewCount($viewedProfileCount);
+        try {
+            $usr->profile_view_price = app(ProfileContactUnlock::class)->price((int) $data['user_id'])['price'];
+        } catch (\RuntimeException $exception) {
+            $usr->profile_view_price = null;
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -2257,8 +2261,10 @@ class HomeController extends Controller
 
         $usr = DB::connection('site')->table('members')
             ->where('id', $profileId)
-            ->where('profile_hide', '!=', 'yes')
-            ->where('active', 'Yes')
+            ->where(function ($query) {
+                $query->whereNull('profile_hide')->orWhere('profile_hide', '')->orWhereRaw("LOWER(TRIM(profile_hide)) = 'no'");
+            })
+            ->whereRaw("LOWER(TRIM(active)) = 'yes'")
             ->first();
 
         if (! $usr) {
@@ -2268,61 +2274,11 @@ class HomeController extends Controller
             ], 404);
         }
 
-        $result = DB::connection('site')->transaction(function () use ($userId, $profileId) {
-            // This row always exists and provides a stable per-member lock, even
-            // when the member has no wallet row or the calculated price is zero.
-            $member = DB::connection('site')->table('members')
-                ->where('id', $userId)
-                ->lockForUpdate()
-                ->first();
-
-            // Check the current database status before reading contacts or charging the wallet.
-            if (! $member || strtolower(trim((string) $member->active)) !== 'yes') {
-                return ['inactive_membership' => true];
-            }
-
-            $wallet = MemberWallet::where('member_id', $userId)
-                ->latest('id')
-                ->lockForUpdate()
-                ->first();
-
-            // The member lock serializes unlocks for this member. Check the
-            // contact only after acquiring it so concurrent requests cannot both
-            // observe a missing viewed_contacts row and charge twice.
-            $alreadyUnlocked = DB::connection('site')->table('viewed_contacts')
-                ->where('member_id', $userId)
-                ->where('profile_id', $profileId)
-                ->exists();
-
-            if ($alreadyUnlocked) {
-                return ['wallet' => $wallet, 'already_unlocked' => true];
-            }
-
-            // Calculate the price again on the server so the amount displayed in
-            // the browser can never be changed to reduce the wallet deduction.
-            $unlockPrice = ProfileUnlockPricing::priceForViewCount(
-                $this->viewedProfileCount($userId)
-            );
-
-            if (! $wallet || (int) $wallet->wallet_balance < $unlockPrice) {
-                return ['insufficient_balance' => true];
-            }
-
-            $wallet = MemberWallet::create([
-                'member_id' => $userId,
-                'amount_added' => 0,
-                'amount_deducted' => $unlockPrice,
-                'wallet_balance' => (int) $wallet->wallet_balance - $unlockPrice,
-            ]);
-
-            DB::connection('site')->table('viewed_contacts')->insert([
-                'member_id' => $userId,
-                'profile_id' => $profileId,
-                'viewed_date' => now(),
-            ]);
-
-            return ['wallet' => $wallet, 'already_unlocked' => false];
-        }, 3);
+        try {
+            $result = app(ProfileContactUnlock::class)->unlock($userId, $profileId);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 422);
+        }
 
         if (! empty($result['inactive_membership'])) {
             return response()->json([
@@ -2346,7 +2302,7 @@ class HomeController extends Controller
             'mobile_number' => $usr->mobile_number,
             'whatsapp_number' => $usr->whatsapp_number,
             'email' => $usr->email,
-            'wallet_balance' => (int) ($result['wallet']->wallet_balance ?? 0),
+            'wallet_balance' => $result['wallet_balance'] ?? 0,
             'already_unlocked' => (bool) ($result['already_unlocked'] ?? false),
         ]);
     }
