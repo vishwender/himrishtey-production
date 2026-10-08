@@ -3,6 +3,7 @@
 @section('content')
 
 @push('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/admin-member-profile.css') }}">
 <style>
     .member-profile-section .card-header {
         padding: 1.5rem 1.5rem 0;
@@ -17,49 +18,10 @@
         font-size: 1.1rem;
     }
 
-    .member-profile-section .card-header h5>i {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 42px;
-        height: 42px;
-        margin-right: 1rem !important;
-        border-radius: 50%;
-        background: var(--bs-primary-bg-subtle);
-        color: var(--bs-primary);
-        font-size: 1.15rem;
-    }
-
     .member-profile-section .card-body {
         padding: 1.5rem;
     }
 
-    .profile-collapsible-section>.card-header {
-        position: relative;
-        padding-right: 4rem !important;
-        cursor: pointer;
-    }
-
-    .profile-section-toggle {
-        position: absolute;
-        top: 50%;
-        right: 1rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        padding: 0;
-        transform: translateY(-50%);
-    }
-
-    .profile-section-toggle i {
-        transition: transform .2s ease;
-    }
-
-    .profile-section-toggle[aria-expanded="false"] i {
-        transform: rotate(-90deg);
-    }
 </style>
 @endpush
 
@@ -78,17 +40,17 @@
 
 @endif
 
-<div class="container-fluid py-4">
+<div class="container-fluid py-4 crm-profile">
 
     {{-- Page Header --}}
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
 
         <div>
-            <h1 class="h3 mb-1">Member Profile</h1>
+            <div class="crm-eyebrow">MEMBER WORKSPACE</div>
+            <h1 class="h3 mb-1">Member Profile <span class="text-muted">— {{ $member->profile_id }}</span></h1>
 
             <div class="text-muted">
-                Profile ID:
-                <strong>{{ $member->profile_id }}</strong>
+                {{ app(\App\Services\SiteManager::class)->current()?->name }} / Members / View Profile
             </div>
         </div>
 
@@ -139,175 +101,88 @@
     </div>
 
 
-    {{-- Profile Header Card --}}
-    <div class="card border-0 shadow-sm mb-4">
-
-        <div class="card-body p-4">
-
-            <div class="row align-items-center">
-
-                {{-- Profile Photo --}}
-                <div class="col-md-2 text-center mb-3 mb-md-0">
-
-                    @if($member->photo_url)
-
-                    <img
-                        src="{{ $member->photo_url }}"
-                        alt="{{ $member->full_name }}"
-                        class="w-100 h-100 rounded object-fit-cover"
-                        loading="lazy"
-                        style="
-                                width: 130px;
-                                height: 130px;
-                                object-fit: cover;
-                            ">
-
-                    @else
-
-                    <div
-                        class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto"
-                        style="
-                                width: 130px;
-                                height: 130px;
-                            ">
-                        <span class="text-muted">
-                            No Photo
-                        </span>
-                    </div>
-
-                    @endif
-
-                </div>
-
-
-                {{-- Basic Information --}}
-                <div class="col-md-6">
-
-                    <h2 class="h4 mb-2">
-                        {{ $member->full_name }}
-                    </h2>
-
-                    <div class="mb-2">
-
-                        <span class="badge bg-light text-dark border me-1">
-                            {{ $member->profile_id }}
-                        </span>
-
-                        @if(strtolower(trim($member->active ?? '')) === 'yes')
-
-                        <span class="badge bg-success">
-                            Active
-                        </span>
-
-                        @else
-
-                        <span class="badge bg-secondary">
-                            Inactive
-                        </span>
-
-                        @endif
-
-                    </div>
-
-
-                    <div class="text-muted">
-
-                        @if(!empty($member->gender))
-                        <span class="me-3">
-                            {{ $member->gender }}
-                        </span>
-                        @endif
-
-                        @if(!empty($member->birth_date_time))
-                        <span class="me-3">
-                            {{ $member->birth_date_time }}
-                        </span>
-                        @endif
-
-                    </div>
-
-
-                    @if(!empty($member->mobile_number))
-
-                    <div class="mt-2">
-
-                        <strong>Mobile:</strong>
-                        {{ $member->mobile_number }}
-
-                    </div>
-
-                    @endif
-
-
-                    @if(!empty($member->email))
-
-                    <div>
-
-                        <strong>Email:</strong>
-                        {{ $member->email }}
-
-                    </div>
-
-                    @endif
-
-                </div>
-
-
-                {{-- Profile Completion --}}
-                <div class="col-md-4 mt-4 mt-md-0">
-
-                    <div class="d-flex justify-content-between mb-2">
-
-                        <span class="fw-semibold">
-                            Profile Completion
-                        </span>
-
-                        <span class="fw-bold">
-                            {{ $profileCompletion }}%
-                        </span>
-
-                    </div>
-
-
-                    <div
-                        class="progress"
-                        style="height: 10px;">
-
-                        <div
-                            class="progress-bar"
-                            role="progressbar"
-                            style="width: {{ $profileCompletion }}%;"
-                            aria-valuenow="{{ $profileCompletion }}"
-                            aria-valuemin="0"
-                            aria-valuemax="100"></div>
-
-                    </div>
-
-
-                    <div class="small text-muted mt-2">
-
-                        {{ $completedSections }}
-                        of
-                        {{ $totalSections }}
-                        profile sections completed
-
-                    </div>
-
-                </div>
-
+    <div class="crm-workspace">
+    <header class="crm-summary" aria-label="Member summary">
+        <div class="crm-contact-header">
+            <div class="crm-avatar">
+                @if($member->photo_url)
+                <button type="button" class="crm-photo-open" data-bs-toggle="modal" data-bs-target="#profileImageModal" aria-label="View full photo of {{ $member->full_name }}">
+                    <img src="{{ $member->photo_url }}" alt="{{ $member->full_name }}" loading="lazy">
+                    <span class="crm-photo-expand"><i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
+                </button>
+                @else
+                <div class="crm-avatar-placeholder"><i class="bi bi-person" aria-hidden="true"></i></div>
+                @endif
+                <span class="crm-presence {{ strtolower(trim($member->active ?? '')) === 'yes' ? 'is-active' : '' }}" title="{{ $member->active === 'Banned' ? 'Banned' : (strtolower(trim($member->active ?? '')) === 'yes' ? 'Active' : 'Inactive') }}"></span>
             </div>
-
+            <div class="crm-contact-info">
+                <div class="crm-contact-title">
+                    <h2>{{ $member->full_name ?: 'Member Name' }}</h2>
+                    <span class="badge {{ strtolower(trim($member->active ?? '')) === 'yes' ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary' }}">{{ $member->active === 'Banned' ? 'Banned' : (strtolower(trim($member->active ?? '')) === 'yes' ? 'Active' : 'Inactive') }}</span>
+                    <span class="crm-contact-id">{{ $member->profile_id }}</span>
+                </div>
+                <div class="crm-contact-meta">
+                    <span><i class="bi bi-person-badge" aria-hidden="true"></i>{{ $membershipPlan?->plan_name ?: 'Free Member' }}</span>
+                    @if(!empty($member->gender))
+                    <span><i class="bi bi-person" aria-hidden="true"></i>{{ $member->gender }}</span>
+                    @endif
+                    @if(!empty($member->mobile_number))
+                    <span><i class="bi bi-telephone" aria-hidden="true"></i>{{ $member->mobile_number }}</span>
+                    @endif
+                    @if(!empty($member->email))
+                    <span><i class="bi bi-envelope" aria-hidden="true"></i>{{ $member->email }}</span>
+                    @endif
+                </div>
+                <div class="crm-header-metrics">
+                    @foreach([
+                        ['key' => 'profile_views', 'route' => 'profile-views', 'label' => 'Profile views', 'icon' => 'eye'],
+                        ['key' => 'contact_views', 'route' => 'contact-views', 'label' => 'Contact views', 'icon' => 'person-lines'],
+                        ['key' => 'sent_interests', 'route' => 'sent-interests', 'label' => 'Sent interests', 'icon' => 'send'],
+                    ] as $metric)
+                    <a class="crm-header-metric" href="{{ route('admin.activities.member', ['memberId' => $member->id, 'activity' => $metric['route']]) }}">
+                        <span class="crm-icon crm-metric-icon"><i class="bi bi-{{ $metric['icon'] }}" aria-hidden="true"></i></span>
+                        <span><strong>{{ $activityCounts[$metric['key']] ?? 0 }}</strong><small>{{ $metric['label'] }}</small></span>
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+            <div class="crm-header-completion">
+                <div class="d-flex justify-content-between gap-3 mb-2"><span>Profile completion</span><strong>{{ $profileCompletion }}%</strong></div>
+                <div class="progress" role="progressbar" aria-label="Profile completion" aria-valuenow="{{ $profileCompletion }}" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: {{ $profileCompletion }}%"></div></div>
+                <small>{{ $completedSections }} of {{ $totalSections }} sections complete</small>
+            </div>
         </div>
-
-    </div>
-
+    </header>
+    <div class="crm-details">
+        <nav class="crm-tabs" aria-label="Profile sections" hidden>
+            @foreach(['overview' => 'Overview', 'family' => 'Family', 'preferences' => 'Preferences', 'photos' => 'Photos', 'activity' => 'Activity', 'membership' => 'Membership'] as $tabKey => $tabLabel)
+            <button type="button" class="crm-tab" data-profile-tab="{{ $tabKey }}" aria-pressed="{{ $tabKey === 'overview' ? 'true' : 'false' }}"><i class="bi bi-{{ ['overview' => 'person', 'family' => 'people', 'preferences' => 'heart', 'photos' => 'images', 'activity' => 'activity', 'membership' => 'credit-card'][$tabKey] }}" aria-hidden="true"></i><span>{{ $tabLabel }}</span></button>
+            @endforeach
+        </nav>
+    <section class="card mb-4" data-crm-section="photos">
+        <div class="card-header"><h5 class="mb-0"><i class="crm-icon bi bi-images me-2"></i>Member Photos</h5></div>
+        <div class="card-body">
+            <div class="crm-photo-grid">
+                @if($member->photo_url)
+                <figure><a href="{{ $member->photo_url }}" target="_blank" rel="noopener"><img src="{{ $member->photo_url }}" alt="{{ $member->full_name }} — profile photo" loading="lazy"></a><figcaption>Profile photo</figcaption></figure>
+                @endif
+                @foreach($galleryPhotos as $photo)
+                <figure><a href="{{ $photo->photo_url }}" target="_blank" rel="noopener"><img src="{{ $photo->photo_url }}" alt="{{ $member->full_name }} — gallery photo {{ $loop->iteration }}" loading="lazy"></a><figcaption>{{ $photo->photo_approved === 'Yes' ? 'Approved' : 'Pending approval' }}</figcaption></figure>
+                @endforeach
+            </div>
+            @if(!$member->photo_url && $galleryPhotos->isEmpty())
+            <div class="crm-empty"><i class="bi bi-images" aria-hidden="true"></i><p>No photos added yet.</p></div>
+            @endif
+            <a class="btn btn-outline-primary mt-3" href="{{ route('admin.members.edit', $member->id) }}">Manage profile photos <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+    </section>
     {{-- Basic Information --}}
-    <div class="card border-0 shadow-sm mb-4 member-profile-section">
+    <div class="card border-0 shadow-sm mb-4 member-profile-section" data-crm-section="overview">
 
         <div class="card-header bg-white py-3">
 
             <h5 class="mb-0">
-                <i class="bi bi-person me-2"></i>
+                <i class="crm-icon bi bi-person me-2"></i>
                 Basic Information
             </h5>
 
@@ -441,11 +316,11 @@
     </div>
 
     {{-- About Me --}}
-    <div class="card border-0 shadow-sm mb-4 member-profile-section">
+    <div class="card border-0 shadow-sm mb-4 member-profile-section" data-crm-section="overview">
 
         <div class="card-header bg-white py-3">
             <h5 class="mb-0">
-                <i class="bi bi-chat-heart me-2"></i>
+                <i class="crm-icon bi bi-chat-heart me-2"></i>
                 About Me
             </h5>
         </div>
@@ -472,12 +347,12 @@
 
 
     {{-- Education & Career --}}
-    <div class="card border-0 shadow-sm mb-4 member-profile-section">
+    <div class="card border-0 shadow-sm mb-4 member-profile-section" data-crm-section="overview">
 
         <div class="card-header bg-white py-3">
 
             <h5 class="mb-0">
-                <i class="bi bi-mortarboard me-2"></i>
+                <i class="crm-icon bi bi-mortarboard me-2"></i>
                 Education & Career
             </h5>
 
@@ -629,12 +504,12 @@
 
 
     {{-- Location --}}
-    <div class="card border-0 shadow-sm mb-4 member-profile-section">
+    <div class="card border-0 shadow-sm mb-4 member-profile-section" data-crm-section="overview">
 
         <div class="card-header bg-white py-3">
 
             <h5 class="mb-0">
-                <i class="bi bi-geo-alt me-2"></i>
+                <i class="crm-icon bi bi-geo-alt me-2"></i>
                 Location
             </h5>
 
@@ -715,11 +590,11 @@
     </div>
 
     {{-- Family Information --}}
-    <div class="card border-0 shadow-sm mb-4 member-profile-section">
+    <div class="card border-0 shadow-sm mb-4 member-profile-section" data-crm-section="family">
 
         <div class="card-header bg-white py-3">
             <h5 class="mb-0">
-                <i class="bi bi-house-heart me-2"></i>
+                <i class="crm-icon bi bi-house-heart me-2"></i>
                 Family Information
             </h5>
         </div>
@@ -802,11 +677,11 @@
     </div>
 
     {{-- Lifestyle --}}
-    <div class="card border-0 shadow-sm mb-4 member-profile-section">
+    <div class="card border-0 shadow-sm mb-4 member-profile-section" data-crm-section="overview">
 
         <div class="card-header bg-white py-3">
             <h5 class="mb-0">
-                <i class="bi bi-person-lines-fill me-2"></i>
+                <i class="crm-icon bi bi-person-lines me-2"></i>
                 Lifestyle & Health
             </h5>
         </div>
@@ -853,13 +728,13 @@
 
     </div>
     {{-- Partner Preferences --}}
-    <div class="card border-0 shadow-sm mb-4 member-partner-preferences">
+    <div class="card border-0 shadow-sm mb-4 member-partner-preferences" data-crm-section="preferences">
 
         <div class="card-header bg-white border-0 pt-4 px-4">
 
             <div class="d-flex align-items-center">
 
-                <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center me-3"
+                <div class="crm-icon rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center me-3"
                     style="width:42px;height:42px;">
                     <i class="bi bi-heart fs-5"></i>
                 </div>
@@ -1169,7 +1044,7 @@
 
         @endphp
 
-        <div class="card border-0 shadow-sm mb-4">
+        <div class="card border-0 shadow-sm mb-4" data-crm-section="membership">
 
         <div class="card-header bg-white py-3">
 
@@ -1764,10 +1639,10 @@
         </div>
 </div>
 
-<div id="identity-proof" class="card border-0 shadow-sm mb-4">
+<div id="identity-proof" class="card border-0 shadow-sm mb-4" data-crm-section="overview">
     <div class="card-header bg-white">
         <h5 class="mb-0">
-            <i class="bi bi-person-vcard me-2"></i>
+            <i class="crm-icon bi bi-person-vcard me-2"></i>
             Identity Proof
         </h5>
     </div>
@@ -1807,7 +1682,7 @@
     ACCOUNT STATUS
 ========================================================= --}}
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4" data-crm-section="overview">
 
     <div class="card-header bg-white py-3">
 
@@ -1816,7 +1691,7 @@
             <div>
 
                 <h5 class="mb-0">
-                    <i class="bi bi-shield-check me-2"></i>
+                    <i class="crm-icon bi bi-shield-check me-2"></i>
                     Account Status
                 </h5>
 
@@ -2017,10 +1892,10 @@
     PROFILE VIEW RATES
 ========================================================= --}}
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4" data-crm-section="membership">
     <div class="card-header bg-white py-3">
         <h5 class="mb-0">
-            <i class="bi bi-currency-rupee me-2"></i>
+            <i class="crm-icon bi bi-currency-rupee me-2"></i>
             Profile View Rate
         </h5>
     </div>
@@ -2058,7 +1933,7 @@
     MEMBERSHIP PAYMENT HISTORY
 ========================================================= --}}
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4" data-crm-section="membership">
 
     <div class="card-header bg-white py-3">
 
@@ -2067,7 +1942,7 @@
             <div>
 
                 <h5 class="mb-0">
-                    <i class="bi bi-credit-card me-2"></i>
+                    <i class="crm-icon bi bi-credit-card me-2"></i>
                     Payment History
                 </h5>
 
@@ -2239,7 +2114,7 @@
     ACTIVITY OVERVIEW
 ========================================================= --}}
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4" data-crm-section="activity">
 
     <div class="card-header bg-white py-3">
 
@@ -2248,7 +2123,7 @@
             <div>
 
                 <h5 class="mb-0">
-                    <i class="bi bi-activity me-2"></i>
+                    <i class="crm-icon bi bi-activity me-2"></i>
                     Activity Overview
                 </h5>
 
@@ -2297,7 +2172,7 @@
                     <div class="border rounded-3 p-3 h-100 text-center">
 
                         <div
-                            class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center mx-auto mb-2"
+                            class="crm-icon rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
                             <i class="bi bi-bookmark fs-5"></i>
@@ -2335,7 +2210,7 @@
                     <div class="border rounded-3 p-3 h-100 text-center">
 
                         <div
-                            class="rounded-circle bg-info-subtle text-info d-flex align-items-center justify-content-center mx-auto mb-2"
+                            class="crm-icon rounded-circle bg-info-subtle text-info d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
                             <i class="bi bi-send fs-5"></i>
@@ -2373,7 +2248,7 @@
                     <div class="border rounded-3 p-3 h-100 text-center">
 
                         <div
-                            class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center mx-auto mb-2"
+                            class="crm-icon rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
                             <i class="bi bi-inbox fs-5"></i>
@@ -2411,7 +2286,7 @@
                     <div class="border rounded-3 p-3 h-100 text-center">
 
                         <div
-                            class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center mx-auto mb-2"
+                            class="crm-icon rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
                             <i class="bi bi-eye fs-5"></i>
@@ -2449,10 +2324,10 @@
                     <div class="border rounded-3 p-3 h-100 text-center">
 
                         <div
-                            class="rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center mx-auto mb-2"
+                            class="crm-icon rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
-                            <i class="bi bi-person-lines-fill fs-5"></i>
+                            <i class="bi bi-person-lines fs-5"></i>
 
                         </div>
 
@@ -2487,7 +2362,7 @@
                     <div class="border rounded-3 p-3 h-100 text-center">
 
                         <div
-                            class="rounded-circle bg-secondary-subtle text-secondary d-flex align-items-center justify-content-center mx-auto mb-2"
+                            class="crm-icon rounded-circle bg-secondary-subtle text-secondary d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width:44px;height:44px;">
 
                             <i class="bi bi-wallet2 fs-5"></i>
@@ -2518,7 +2393,7 @@
     RELATIONSHIP MANAGER
 ========================================================= --}}
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4" data-crm-section="overview">
 
     <div class="card-header bg-white py-3">
 
@@ -2527,7 +2402,7 @@
             <div>
 
                 <h5 class="mb-0">
-                    <i class="bi bi-person-badge me-2"></i>
+                    <i class="crm-icon bi bi-person-badge me-2"></i>
                     Relationship Manager
                 </h5>
 
@@ -2661,14 +2536,14 @@
     MEMBER LOGS
 ========================================================= --}}
 
-<div id="member-logs" class="card border-0 shadow-sm mb-4 member-logs-card">
+<div id="member-logs" class="card border-0 shadow-sm mb-4 member-logs-card" data-crm-section="activity">
 
     <div class="card-header bg-white py-3">
 
         <div class="d-flex align-items-center">
 
             <div
-                class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center me-3"
+                class="crm-icon rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center me-3"
                 style="width:42px;height:42px;">
 
                 <i class="bi bi-sticky fs-5"></i>
@@ -2784,10 +2659,7 @@
 
 </div>
 
-<script>
-    document.querySelector('.container-fluid.py-4 > .card')
-        ?.after(document.getElementById('member-logs'));
-</script>
+
 
 <div class="d-flex flex-wrap align-items-start gap-2 mt-3">
 
@@ -2904,6 +2776,8 @@
 </div>
 
 </div>
+</div>
+</div>
 
 <div
     class="modal fade"
@@ -2972,6 +2846,21 @@
     </div>
 </div>
 
+@if($member->photo_url)
+<div class="modal fade" id="profileImageModal" tabindex="-1" aria-labelledby="profileImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileImageModalLabel">{{ $member->full_name ?: 'Member' }} — Profile Photo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{ $member->photo_url }}" alt="Full profile photo of {{ $member->full_name }}" class="crm-full-profile-image" loading="lazy">
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 {{-- =========================================================
@@ -2999,7 +2888,7 @@
                         class="modal-title"
                         id="changeMembershipModalLabel">
 
-                        <i class="bi bi-award me-2"></i>
+                        <i class="crm-icon bi bi-award me-2"></i>
                         Change Membership
 
                     </h5>
@@ -3247,111 +3136,7 @@
 </div>
 
 @push('scripts')
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const profileContainer = document.querySelector('.container-fluid.py-4');
-
-        if (!profileContainer || typeof bootstrap === 'undefined') {
-            return;
-        }
-
-        const storageKey = 'member-profile-sections-{{ (int) $member->id }}';
-        let collapsedSections = [];
-
-        try {
-            collapsedSections = JSON.parse(sessionStorage.getItem(storageKey) || '[]');
-        } catch (error) {
-            collapsedSections = [];
-        }
-
-        const saveState = function() {
-            const collapsed = Array.from(
-                profileContainer.querySelectorAll('.profile-section-toggle[aria-expanded="false"]')
-            ).map(function(button) {
-                return button.dataset.sectionKey;
-            });
-
-            sessionStorage.setItem(storageKey, JSON.stringify(collapsed));
-        };
-
-        profileContainer.querySelectorAll(':scope > .card').forEach(function(card, index) {
-            const header = Array.from(card.children).find(function(child) {
-                return child.classList.contains('card-header');
-            });
-            const body = Array.from(card.children).find(function(child) {
-                return child.classList.contains('card-body');
-            });
-
-            if (!header || !body) {
-                return;
-            }
-
-            const heading = header.querySelector('h2, h3, h4, h5, h6');
-            const sectionName = heading?.textContent.trim() || `Section ${index + 1}`;
-            const sectionKey = card.id || sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            const collapseId = `profile-section-${index + 1}`;
-            const startsCollapsed = collapsedSections.includes(sectionKey);
-
-            card.classList.add('profile-collapsible-section');
-            body.id = collapseId;
-            body.classList.add('collapse');
-            body.classList.toggle('show', !startsCollapsed);
-
-            const toggle = document.createElement('button');
-            toggle.type = 'button';
-            toggle.className = 'btn btn-sm btn-outline-secondary profile-section-toggle';
-            toggle.setAttribute('aria-controls', collapseId);
-            toggle.setAttribute('aria-expanded', String(!startsCollapsed));
-            toggle.setAttribute('aria-label', `${startsCollapsed ? 'Expand' : 'Collapse'} ${sectionName}`);
-            toggle.dataset.sectionKey = sectionKey;
-            toggle.innerHTML = '<i class="bi bi-chevron-down" aria-hidden="true"></i>';
-            header.appendChild(toggle);
-
-            const collapse = bootstrap.Collapse.getOrCreateInstance(body, {
-                toggle: false
-            });
-            const toggleSection = function() {
-                collapse.toggle();
-            };
-
-            toggle.addEventListener('click', toggleSection);
-            header.addEventListener('click', function(event) {
-                if (event.target.closest('a, button, input, select, textarea, label')) {
-                    return;
-                }
-
-                toggleSection();
-            });
-
-            body.addEventListener('shown.bs.collapse', function() {
-                toggle.setAttribute('aria-expanded', 'true');
-                toggle.setAttribute('aria-label', `Collapse ${sectionName}`);
-                saveState();
-            });
-            body.addEventListener('hidden.bs.collapse', function() {
-                toggle.setAttribute('aria-expanded', 'false');
-                toggle.setAttribute('aria-label', `Expand ${sectionName}`);
-                saveState();
-            });
-        });
-
-        if (window.location.hash) {
-            const target = document.querySelector(window.location.hash);
-            const section = target?.closest('.profile-collapsible-section');
-            const body = section && Array.from(section.children).find(function(child) {
-                return child.classList.contains('card-body');
-            });
-
-            if (body) {
-                bootstrap.Collapse.getOrCreateInstance(body, {
-                    toggle: false
-                }).show();
-            }
-        }
-    });
-</script>
-
+<script src="{{ asset('assets/js/admin-member-profile.js') }}" defer></script>
 @endpush
 
 @push('scripts')

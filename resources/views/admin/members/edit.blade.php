@@ -74,6 +74,8 @@
     @endif
 
 
+    @include('admin.members.partials.photo-management')
+
     <form
         id="member-edit-form"
         action="{{ route('admin.members.update', $member->id) }}"
@@ -1764,7 +1766,6 @@
 
     </form>
 
-    @include('admin.members.partials.photo-management')
 
     @include('admin.members.partials.identity-proof')
 
