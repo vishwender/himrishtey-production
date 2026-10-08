@@ -101,6 +101,23 @@
     </div>
 
 
+@php
+$membershipStatus = 'none';
+$membershipStatusLabel = 'No Membership';
+$membershipStatusClass = 'secondary';
+$membershipDaysRemaining = null;
+$membershipNoticeDate = null;
+if ($membershipPlan && $membershipExpiryDate) {
+    $membershipToday = \Carbon\CarbonImmutable::now('Asia/Kolkata')->startOfDay();
+    $membershipNoticeDate = \Carbon\CarbonImmutable::parse($membershipExpiryDate->format('Y-m-d'), 'Asia/Kolkata')->startOfDay();
+    $membershipDaysRemaining = (int) $membershipToday->diffInDays($membershipNoticeDate, false);
+    $membershipStatus = $membershipDaysRemaining < 0 ? 'expired' : ($membershipDaysRemaining <= 7 ? 'expiring' : 'active');
+    $membershipStatusLabel = ['expired' => 'Expired', 'expiring' => 'Expiring Soon', 'active' => 'Active'][$membershipStatus];
+    $membershipStatusClass = ['expired' => 'danger', 'expiring' => 'warning', 'active' => 'success'][$membershipStatus];
+}
+@endphp
+    @include('admin.members.partials.membership-notice')
+
     <div class="crm-workspace">
     <header class="crm-summary" aria-label="Member summary">
         <div class="crm-contact-header">
@@ -1005,46 +1022,9 @@
     MEMBERSHIP & ACCOUNT INFORMATION
 ========================================================= --}}
 
-    @php
 
-    $membershipStatus = 'none';
-    $membershipStatusLabel = 'No Membership';
-    $membershipStatusClass = 'secondary';
-    $membershipDaysRemaining = null;
 
-    if ($membershipPlan && $membershipExpiryDate) {
-
-    $today = \Carbon\Carbon::today();
-
-    $membershipDaysRemaining = $today->diffInDays(
-    $membershipExpiryDate,
-    false
-    );
-
-    if ($membershipDaysRemaining < 0) {
-
-        $membershipStatus='expired' ;
-        $membershipStatusLabel='Expired' ;
-        $membershipStatusClass='danger' ;
-
-        } elseif ($membershipDaysRemaining <=7) {
-
-        $membershipStatus='expiring' ;
-        $membershipStatusLabel='Expiring Soon' ;
-        $membershipStatusClass='warning' ;
-
-        } else {
-
-        $membershipStatus='active' ;
-        $membershipStatusLabel='Active' ;
-        $membershipStatusClass='success' ;
-        }
-
-        }
-
-        @endphp
-
-        <div class="card border-0 shadow-sm mb-4" data-crm-section="membership">
+        <div id="membership-details" class="card border-0 shadow-sm mb-4" data-crm-section="membership">
 
         <div class="card-header bg-white py-3">
 
