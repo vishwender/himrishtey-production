@@ -1133,3 +1133,19 @@ a {
 .sidebar-flyout a > .bi { width: 20px; margin-right: 0 !important; font-size: 16px; text-align: center; }
 .sidebar-flyout a:is(:hover, :focus-visible, .active) { background: #977cff24; color: #fff; }
 .sidebar-flyout a:focus-visible { outline: 2px solid #a78bfa; outline-offset: -2px; }
+
+/* Member page headers and tables remain readable at narrow widths. */
+.members-page-header > div { min-width: 0; overflow-wrap: anywhere; }
+.members-page-header > a, .members-page-header > div:last-child > a { white-space: nowrap; }
+.members-page .table th { white-space: nowrap; }
+.members-page .table td { vertical-align: middle; }
+.members-page .table td :is(.btn, .badge) { white-space: nowrap; }
+.members-page .member-section .card-header h5 { gap: 8px; }
+@media (max-width: 575.98px) {
+    .members-page { padding-left: 0; padding-right: 0; }
+    .members-page .card-body { padding: 16px; }
+    .members-page-header { align-items: flex-start !important; }
+    .members-page .badge.text-wrap { max-width: 100%; overflow-wrap: anywhere; }
+    .members-page #assign-new-members { flex-wrap: wrap; width: 100%; }
+    .members-page #assign-new-members select { min-width: 0; max-width: 100%; }
+}

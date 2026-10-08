@@ -4,10 +4,10 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid members-page">
 
     {{-- Header --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 members-page-header">
 
         <div>
             <h1 class="h3 mb-1">
@@ -395,7 +395,7 @@
     {{-- Buttons --}}
     <div class="col-12">
 
-        <div class="d-flex gap-2">
+        <div class="d-flex flex-wrap gap-2">
 
             <button
                 type="submit"
@@ -465,7 +465,7 @@ request()->filled('sort');
 
             @if(request()->filled('search'))
 
-            <span class="badge bg-primary d-flex align-items-center gap-1">
+            <span class="badge bg-primary d-flex align-items-center gap-1 text-wrap text-start">
 
                 Search:
                 {{ request('search') }}
@@ -487,7 +487,7 @@ request()->filled('sort');
             @endif
 
             @if(request()->filled('gender'))
-            <span class="badge bg-primary d-flex align-items-center gap-1">
+            <span class="badge bg-primary d-flex align-items-center gap-1 text-wrap text-start">
                 Gender: {{ request('gender') }}
                 <a
                     href="{{ request()->fullUrlWithQuery(['gender' => null, 'page' => null]) }}"
@@ -503,7 +503,7 @@ request()->filled('sort');
 
             @if(request()->filled('relationship_manager'))
 
-            <span class="badge bg-primary d-flex align-items-center gap-1">
+            <span class="badge bg-primary d-flex align-items-center gap-1 text-wrap text-start">
 
                 Relationship Manager:
                 {{ request('relationship_manager') === '__unassigned'
@@ -672,7 +672,7 @@ request()->filled('sort');
             @endphp
 
 
-            <span class="badge bg-primary d-flex align-items-center gap-1">
+            <span class="badge bg-primary d-flex align-items-center gap-1 text-wrap text-start">
 
                 Plan:
 
@@ -769,10 +769,10 @@ request()->filled('sort');
 
 
 @if($newMembersOnly)
-<div class="d-flex align-items-center gap-3 mb-3">
+<div class="d-flex flex-wrap align-items-center gap-3 mb-3">
     <span class="badge bg-primary">{{ $members->total() }} new members</span>
     @if(auth('admin')->user()?->hasPermission('edit-member') && !app(\App\Services\RelationshipManagerAccess::class)->isRestricted())
-    <form id="assign-new-members" method="POST" action="{{ route('admin.members.new.assign-staff') }}" class="d-flex gap-2">
+    <form id="assign-new-members" method="POST" action="{{ route('admin.members.new.assign-staff') }}" class="d-flex flex-wrap gap-2">
         @csrf
         <select name="staff_id" class="form-select" aria-label="Assign staff" required>
             <option value="">Select staff</option>

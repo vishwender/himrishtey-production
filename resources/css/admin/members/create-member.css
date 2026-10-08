@@ -90,3 +90,11 @@
     border-color: var(--app-primary, #6d4aff);
     box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
 }
+
+[data-bs-theme="dark"] :is(.form-section, .upload-card, .image-preview, .upload-card input[type="file"]) {
+    background: var(--bs-body-bg);
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] :is(.form-section-header h3, .upload-card .form-label) { color: var(--bs-body-color); }
+[data-bs-theme="dark"] :is(.form-section-header p, .upload-placeholder) { color: var(--bs-secondary-color); }

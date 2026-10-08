@@ -2153,14 +2153,14 @@
 
     <div class="card-body">
 
-        <div class="row g-3">
+        <div class="crm-activity-grid">
 
 
             {{-- =================================================
                 SHORTLISTED
             ================================================== --}}
 
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="crm-activity-cell">
 
                 <a
                     href="{{ route('admin.activities.member', [
@@ -2183,7 +2183,7 @@
                             Shortlisted
                         </small>
 
-                        <h5 class="mb-0 mt-1 text-dark">
+                        <h5 class="mb-0 mt-1 text-body">
                             {{ $activityCounts['shortlisted'] }}
                         </h5>
 
@@ -2198,7 +2198,7 @@
                 SENT INTERESTS
             ================================================== --}}
 
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="crm-activity-cell">
 
                 <a
                     href="{{ route('admin.activities.member', [
@@ -2221,7 +2221,7 @@
                             Sent Interests
                         </small>
 
-                        <h5 class="mb-0 mt-1 text-dark">
+                        <h5 class="mb-0 mt-1 text-body">
                             {{ $activityCounts['sent_interests'] }}
                         </h5>
 
@@ -2236,7 +2236,7 @@
                 RECEIVED INTERESTS
             ================================================== --}}
 
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="crm-activity-cell">
 
                 <a
                     href="{{ route('admin.activities.member', [
@@ -2259,7 +2259,7 @@
                             Received
                         </small>
 
-                        <h5 class="mb-0 mt-1 text-dark">
+                        <h5 class="mb-0 mt-1 text-body">
                             {{ $activityCounts['received_interests'] }}
                         </h5>
 
@@ -2274,7 +2274,7 @@
                 PROFILE VIEWS
             ================================================== --}}
 
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="crm-activity-cell">
 
                 <a
                     href="{{ route('admin.activities.member', [
@@ -2297,7 +2297,7 @@
                             Profile Views
                         </small>
 
-                        <h5 class="mb-0 mt-1 text-dark">
+                        <h5 class="mb-0 mt-1 text-body">
                             {{ $activityCounts['profile_views'] }}
                         </h5>
 
@@ -2312,7 +2312,7 @@
                 CONTACT VIEWS
             ================================================== --}}
 
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="crm-activity-cell">
 
                 <a
                     href="{{ route('admin.activities.member', [
@@ -2335,7 +2335,7 @@
                             Contact Views
                         </small>
 
-                        <h5 class="mb-0 mt-1 text-dark">
+                        <h5 class="mb-0 mt-1 text-body">
                             {{ $activityCounts['contact_views'] }}
                         </h5>
 
@@ -2350,7 +2350,7 @@
                 PAYMENTS
             ================================================== --}}
 
-            <div class="col-6 col-md-4 col-lg-2">
+            <div class="crm-activity-cell">
 
                 <a
                     href="{{ route('admin.activities.member', [
@@ -2373,7 +2373,7 @@
                             Payments
                         </small>
 
-                        <h5 class="mb-0 mt-1 text-dark">
+                        <h5 class="mb-0 mt-1 text-body">
                             {{ $activityCounts['wallet_payments'] }}
                         </h5>
 

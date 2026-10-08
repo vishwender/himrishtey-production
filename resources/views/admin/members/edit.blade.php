@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid members-page">
 
     {{-- Page Header --}}
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 members-page-header">
 
         <div>
 
