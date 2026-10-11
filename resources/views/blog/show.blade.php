@@ -13,9 +13,14 @@
   <article>
     <header class="article-header">
       <div class="container-xl article-header-inner">
-        <a class="article-back" href="{{ route('blog.index') }}"><i data-lucide="arrow-left" width="16" height="16"></i> All articles</a>
-        <span class="blog-kicker">{{ $siteName }} Journal</span>
-        <h1>{{ $post->title }}</h1>
+        <nav class="article-navigation" aria-label="Blog navigation">
+          <a class="article-back" href="{{ route('blog.index') }}">
+            <i data-lucide="arrow-left" width="16" height="16" aria-hidden="true"></i>
+            <span>All articles</span>
+          </a>
+        </nav>
+        @php($titleParts = explode(':', $post->title, 2))
+        <h1 class="article-title">@if(count($titleParts) === 2)<span class="article-title-highlight">{{ $titleParts[0] }}</span>:{{ $titleParts[1] }}@else{{ $post->title }}@endif</h1>
         <time datetime="{{ $post->publication_date->toDateString() }}">Published {{ $post->publication_date->format('F j, Y') }}</time>
       </div>
     </header>

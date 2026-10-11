@@ -56,10 +56,15 @@
 .blog-empty h2 { font-family: "Inter", sans-serif; }
 .blog-empty p { color: var(--blog-muted); }
 
-.article-header-inner { max-width: 900px; padding: 72px 24px 78px; text-align: center; }
-.article-header h1 { font-size: clamp(2.25rem, 5vw, 4rem); }
+.article-header-inner { max-width: 900px; padding: 72px 24px 78px; text-align: left; }
+.article-header h1.article-title { margin: 16px 0 0; font-size: clamp(1.8rem, 2.8vw, 2.3rem); font-weight: 700; line-height: 1.25; letter-spacing: -.02em; text-align: left; }
+.article-title-highlight { color: var(--brand, var(--blog-wine)); }
 .article-header time { display: block; margin-top: 20px; color: rgba(255,255,255,.76); }
-.article-back { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 32px; color: #fff; font-weight: 600; text-decoration: none; }
+.article-navigation { display: flex; justify-content: flex-start; margin-bottom: 24px; }
+.article-back { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border: 1px solid currentColor; border-radius: 8px; color: #fff; font-size: .9rem; font-weight: 600; line-height: 1.25; text-decoration: none; }
+.article-back svg { flex-shrink: 0; }
+.article-back:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
+.article-back:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .article-shell { max-width: 900px; padding: 58px 24px 78px; }
 .article-featured-image { overflow: hidden; margin: -105px 0 46px; border: 7px solid #fff; border-radius: 22px; background: #fff; box-shadow: 0 18px 55px rgba(45,20,30,.18); }
 .article-featured-image img { display: block; width: 100%; max-height: 520px; object-fit: cover; }
