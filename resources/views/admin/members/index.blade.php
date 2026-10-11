@@ -789,7 +789,7 @@ request()->filled('sort');
 @php
 $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
     && (app(\App\Services\RelationshipManagerAccess::class)->isRestricted()
-        || (auth('admin')->user()?->isMemberManager()
+        || (auth('admin')->user()?->isSiteAdmin()
             && request('relationship_manager') === auth('admin')->user()->name));
 @endphp
 <div class="card border-0 shadow-sm">
@@ -1229,7 +1229,7 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                                     </li>
 
 
-                                    @if(auth('admin')->user()?->hasAnyRole(['super-admin', 'member-manager']))
+                                    @if(auth('admin')->user()?->hasAnyRole(['super-admin', 'admin']))
                                     <li>
                                         <form method="POST" action="{{ route('admin.members.ban.update', $member->id) }}" class="member-action-form" data-confirm-title="Change Ban Status" data-confirm="{{ $member->active === 'Banned' ? 'Unban and activate this member?' : 'Ban this member?' }}">
                                             @csrf

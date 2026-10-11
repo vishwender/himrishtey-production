@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Site;
+use App\Services\RelationshipManagerAccess;
 use App\Services\SiteDatabaseService;
 use App\Services\SiteManager;
 use Illuminate\Http\Request;
@@ -29,9 +30,7 @@ class SiteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (! $admin->sites()
-            ->where('sites.id', $site->id)
-            ->exists()) {
+        if (! $admin->hasSiteAccess($site->id)) {
 
             abort(403, 'You do not have access to this site.');
         }
@@ -75,8 +74,12 @@ class SiteController extends Controller
             ? 'admin.blog-posts.index'
             : 'admin.dashboard';
 
-        if ($admin->isMemberManager()) {
+        if ($admin->isSiteAdmin()) {
             $destination = 'admin.dashboard';
+        }
+
+        if (app(RelationshipManagerAccess::class)->isRestricted()) {
+            $destination = 'admin.members.index';
         }
 
         return redirect()

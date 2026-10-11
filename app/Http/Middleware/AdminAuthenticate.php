@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\AdminRoutePermissions;
+use App\Services\RelationshipManagerAccess;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +35,17 @@ class AdminAuthenticate
                 ]);
         }
 
-        if ($admin->isMemberManager()) {
+        if ($admin->isSiteAdmin()) {
             abort_unless($request->routeIs(
                 'admin.dashboard', 'admin.members.*', 'admin.activities.*', 'admin.rotations.*',
                 'admin.delete-profile-requests.*', 'admin.site.*',
                 'admin.settings.password.*', 'admin.logout'
-            ), 403, 'Member managers can only access member management.');
+            ), 403, 'Admins can only access member management.');
         }
+
+        app(RelationshipManagerAccess::class)->ensureRouteAccess($request);
+        app(EnsureContentManagerAccess::class)->ensureRouteAccess($request);
+        app(AdminRoutePermissions::class)->authorize($request);
 
         return $next($request);
     }

@@ -9,6 +9,9 @@
     <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
     <title>@yield('title', e($siteMetaTitle))</title>
     <meta name="description" content="@yield('description', e($siteMetaDescription))">
+    @if (trim($siteMetaKeywords) !== '')
+        <meta name="keywords" content="{{ $siteMetaKeywords }}">
+    @endif
     <script>
         try {
             const savedTheme = localStorage.getItem('site-theme') || localStorage.getItem('public-theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');

@@ -123,6 +123,8 @@ class SiteContext
                 ),
         ]);
 
+        $currentSite = SiteContentSettings::apply($currentSite);
+
         // The central default connection must remain unchanged for admin accounts and API applications.
         Config::set('site.current', $currentSite);
         Config::set('app.name', $currentSite['display_name']);

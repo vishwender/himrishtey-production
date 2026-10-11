@@ -26,15 +26,7 @@ class EnsureRelationshipManagerMemberAccess
             return $next($request);
         }
 
-        if (! $request->routeIs(
-            'admin.dashboard',
-            'admin.members.*',
-            'admin.activities.*',
-            'admin.rotations.*',
-            'admin.delete-profile-requests.*'
-        )) {
-            abort(403, 'Relationship managers can only access member management pages.');
-        }
+        $this->access->ensureRouteAccess($request);
 
         if ($request->routeIs('admin.members.relationship-manager.update')) {
             abort(403, 'Relationship managers cannot reassign members.');

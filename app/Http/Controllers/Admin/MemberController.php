@@ -47,7 +47,7 @@ class MemberController extends Controller
      */
     public function printProfile(int $id): View
     {
-        abort_unless(auth('admin')->user()?->hasAnyRole(['super-admin', 'member-manager']), 403);
+        abort_unless(auth('admin')->user()?->hasAnyRole(['super-admin', 'admin']), 403);
 
         return view('admin.members.print', ['member' => SiteMember::findOrFail($id)]);
     }
@@ -667,10 +667,7 @@ class MemberController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            'contact_views' => DB::connection('site')
-                ->table('contact_viewed')
-                ->where('member_id', $member->id)
-                ->count(),
+            'contact_views' => app(\App\Services\MemberContactActivity::class)->query((int) $member->id)->count(),
 
             /*
             |--------------------------------------------------------------------------
@@ -679,7 +676,7 @@ class MemberController extends Controller
             */
 
             'wallet_payments' => DB::connection('site')
-                ->table('payments')
+                ->table('member_wallet_payments')
                 ->where('member_id', $member->id)
                 ->count(),
 
@@ -1897,7 +1894,7 @@ class MemberController extends Controller
      */
     public function updateBan(Request $request, int $id): RedirectResponse
     {
-        abort_unless(auth('admin')->user()?->hasAnyRole(['super-admin', 'member-manager']), 403);
+        abort_unless(auth('admin')->user()?->hasAnyRole(['super-admin', 'admin']), 403);
         $validated = $request->validate(['banned' => ['required', 'boolean']]);
         $member = SiteMember::query()->findOrFail($id);
         $oldValue = $member->active;

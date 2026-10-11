@@ -1875,6 +1875,8 @@ class HomeController extends Controller
                 $profilemain,
                 $usr
             );
+        } else {
+            app(\App\Services\MemberActivityHistory::class)->modelEvent($profile_viewed_check, 'viewed');
         }
 
         $viewedProfileCount = $this->viewedProfileCount($data['user_id']);

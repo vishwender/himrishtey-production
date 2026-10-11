@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\RelationshipManagerAccess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -45,8 +46,12 @@ class AuthController extends Controller
                 ]);
             }
 
-            if ($admin->isMemberManager()) {
+            if ($admin->isSiteAdmin()) {
                 return redirect()->route('admin.dashboard');
+            }
+
+            if (app(RelationshipManagerAccess::class)->isRestricted()) {
+                return redirect()->route('admin.members.index');
             }
 
             if ($admin->hasRole('content-manager') && ! $admin->hasRole('super-admin')) {

@@ -64,6 +64,7 @@ class ProfileContactUnlock
             $db->table('viewed_contacts')->insert([
                 'member_id' => $memberId, 'profile_id' => $profileId, 'viewed_date' => now(),
             ]);
+            app(MemberActivityHistory::class)->record($db, 'viewed_contacts', $memberId, $profileId, 'unlocked');
 
             return ['already_unlocked' => false, 'coins_deducted' => $price, 'wallet_balance' => $newBalance] + $pricing;
         }, 3);

@@ -13,6 +13,7 @@ class InstagramFeedService
     {
         $instagram = config('site.current.instagram', []);
         $accessToken = $instagram['access_token'] ?? null;
+        $limit = (int) ($instagram['feed_limit'] ?? $limit);
 
         if (! ($instagram['enabled'] ?? false) || empty($accessToken) || $limit < 1) {
             return collect();
@@ -28,7 +29,7 @@ class InstagramFeedService
 
         if (! isset($cached[$limit]) || ! is_array($cached[$limit])) {
             $cached[$limit] = $this->fetchMedia($accessToken, $limit);
-            Cache::put($key, $cached, now()->addMinutes((int) config('instagram.cache_minutes', 60)));
+            Cache::put($key, $cached, now()->addMinutes((int) config('site.current.instagram.cache_minutes', config('instagram.cache_minutes', 60))));
         }
 
         return collect($cached[$limit]);
@@ -38,7 +39,9 @@ class InstagramFeedService
     {
         try {
             $response = Http::timeout(15)->retry(2, 500)->get(
-                'https://graph.instagram.com/me/media',
+                rtrim(config('site.current.instagram.api_base_url', 'https://graph.instagram.com'), '/').
+                    (config('site.current.instagram.api_version') ? '/'.config('site.current.instagram.api_version') : '').
+                    '/'.(config('site.current.instagram.user_id') ?: 'me').'/media',
                 [
                     'fields' => 'id,caption,media_type,media_product_type,media_url,thumbnail_url,permalink,timestamp',
                     'limit' => $limit,

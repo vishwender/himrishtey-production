@@ -272,7 +272,7 @@ class MemberRotationController extends Controller
 
         MemberRotation::create([
             'member_id' => $member->id,
-            'admin_id' => $admin->isMemberManager() ? $admin->id : $validated['user_id'],
+            'admin_id' => $admin->isSiteAdmin() ? $admin->id : $validated['user_id'],
             'days' => $validated['days'],
             'time' => $validated['time'] ?? null,
             'next_rotation_at' => $validated['next_rotation_at'],
@@ -364,7 +364,7 @@ class MemberRotationController extends Controller
     private function authorizeRotationOwner(MemberRotation $rotation): void
     {
         $admin = Auth::guard('admin')->user();
-        if ($admin?->isMemberManager()) {
+        if ($admin?->isSiteAdmin()) {
             abort_unless((int) $rotation->admin_id === (int) $admin->id, 403, 'You can only manage your own rotations.');
         }
     }

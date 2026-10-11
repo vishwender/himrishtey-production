@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SiteMember;
+use App\Services\MemberContactActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -67,6 +68,16 @@ class MemberActivityController extends Controller
             ->findOrFail($memberId);
 
         $activity = $request->get('activity', 'shortlisted');
+
+        if ($activity === 'history') {
+            $data = DB::connection('site')->table('member_activity_history as h')
+                ->leftJoin('members as m', 'm.id', '=', 'h.target_member_id')
+                ->where(fn ($query) => $query->where('h.member_id', $member->id)->orWhere('h.target_member_id', $member->id))
+                ->select(['h.*', 'm.profile_id as target_profile_id', 'm.full_name as target_full_name'])
+                ->orderByDesc('h.id')->paginate(20)->withQueryString();
+
+            return view('admin.activities.history', compact('member', 'data'));
+        }
 
         $data = match ($activity) {
 
@@ -239,31 +250,8 @@ class MemberActivityController extends Controller
      */
     private function contactViews($memberId)
     {
-        return DB::connection('site')
-            ->table('contact_viewed as cv')
-
-            ->leftJoin(
-                'members as m',
-                'm.id',
-                '=',
-                'cv.viewed_profile_id'
-            )
-
-            ->where('cv.member_id', $memberId)
-
-            ->select([
-                'cv.id',
-                'cv.viewed_profile_id',
-
-                'm.profile_id as viewed_profile_id_display',
-                'm.full_name as viewed_full_name',
-            ])
-
-            ->orderByDesc('cv.id')
-
-            ->paginate(20)
-
-            ->withQueryString();
+        return app(MemberContactActivity::class)->query((int) $memberId)
+            ->orderByDesc('cv.id')->paginate(20)->withQueryString();
     }
 
     /**
@@ -288,6 +276,7 @@ class MemberActivityController extends Controller
                 'remarks',
             ])
 
+            ->selectRaw("CASE WHEN SUBSTR(payment_id, 1, 6) = 'order_' THEN 'Pending order' ELSE 'Recorded payment' END as activity_status")
             ->orderByDesc('payment_date')
 
             ->paginate(20)

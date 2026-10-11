@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\RolePermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -78,39 +79,26 @@ class Admin extends Authenticatable
         );
     }
 
-    /** Member managers have full member operations within their assigned sites. */
-    public function isMemberManager(): bool
+    /** Admins have full member operations within their assigned sites. */
+    public function isSiteAdmin(): bool
     {
-        return $this->hasRole('member-manager') && ! $this->hasRole('super-admin');
+        return $this->hasRole('admin') && ! $this->hasRole('super-admin');
     }
-
-    public const MEMBER_MANAGER_PERMISSIONS = [
-        'view-members', 'create-members', 'edit-members', 'edit-member',
-        'view-photos', 'manage-member-photos', 'manage-member-status',
-        'manage-member-visibility', 'manage-member-trusted', 'manage-member-promoted',
-        'advanced-search-members', 'view-own-rotations',
-        'create-rotations', 'add-rotations', 'edit-rotations', 'complete-rotations',
-        'cancel-rotations', 'delete-rotations', 'raise-delete-request',
-        'view-delete-profile-request', 'approve-profile-delete-request',
-        'reject-profile-delete-request', 'bulk-profile-delete-requests',
-    ];
 
     public function hasPermission(string $permission): bool
     {
-        if ($this->isMemberManager()) {
-            return in_array($permission, self::MEMBER_MANAGER_PERMISSIONS, true);
-        }
-
-        $this->loadMissing('roles.permissions');
-
-        // Super Admin has every permission.
-        if ($this->roles->contains('slug', 'super-admin')) {
+        if ($permission === 'change-password') {
             return true;
         }
 
-        return $this->roles->contains(
-            fn (Role $role) => $role->permissions->contains('slug', $permission)
-        );
+        $this->loadMissing('roles');
+        if ($this->hasRole('super-admin')) {
+            return true;
+        }
+
+        return $this->roles->contains(fn (Role $role) => in_array(
+            $permission, RolePermissions::forRole($role->slug), true
+        ));
     }
 
     public function hasPermissions(array $permissions): bool

@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\MemberActivityController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\MemberPhotoController;
 use App\Http\Controllers\Admin\MemberRotationController;
+use App\Http\Controllers\Admin\MembershipExpiryController;
 use App\Http\Controllers\Admin\MembershipPlanController;
 use App\Http\Controllers\Admin\MembershipTypeController;
 use App\Http\Controllers\Admin\MotherTongueController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileRangeController;
 use App\Http\Controllers\Admin\ReligionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SiteContentSettingsController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\SiteStatsController;
 use App\Http\Controllers\Admin\StaffActivityController;
@@ -40,8 +42,8 @@ use App\Http\Controllers\Admin\SuccessStoryController;
 use App\Http\Controllers\Admin\UserRatingController;
 use App\Http\Controllers\Admin\WalletOfferController;
 use App\Http\Controllers\SharedProfileController;
-use App\Website\Http\Controllers\WelcomeController;
 use App\Website\Http\Controllers\SitemapController;
+use App\Website\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
@@ -91,7 +93,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::middleware('admin.auth')->group(function () {
+    Route::middleware(['admin.auth', 'admin.audit'])->group(function () {
 
         /*
         |--------------------------------------------------------------------------
@@ -114,10 +116,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/site/select', function () {
 
             return view('admin.sites.select', [
-                'sites' => auth('admin')->user()
-                    ->sites()
-                    ->where('status', true)
-                    ->get(),
+                'sites' => auth('admin')->user()->hasRole('super-admin')
+                    ? \App\Models\Site::where('status', true)->get()
+                    : auth('admin')->user()->sites()->where('status', true)->get(),
             ]);
         })->name('site.select');
 
@@ -154,6 +155,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+            Route::get('/settings/site-content', [SiteContentSettingsController::class, 'edit'])
+                ->middleware('role:super-admin,content-manager')->name('settings.content.edit');
+            Route::put('/settings/site-content', [SiteContentSettingsController::class, 'update'])
+                ->middleware('role:super-admin,content-manager')->name('settings.content.update');
+
             Route::get('/api-documentation', [ApiDocumentationController::class, 'index'])
                 ->name('api-documentation.index');
 
@@ -168,7 +174,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             */
 
             Route::get('/members', [MemberController::class, 'index'])->name('members.index');
-            Route::get('/members/membership-expiry', [\App\Http\Controllers\Admin\MembershipExpiryController::class, 'index'])->name('members.membership-expiry');
+            Route::get('/members/membership-expiry', [MembershipExpiryController::class, 'index'])->name('members.membership-expiry');
 
             Route::get('/members/{id}/print', [MemberController::class, 'printProfile'])->whereNumber('id')->name('members.print');
 
@@ -266,7 +272,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/rotations', [MemberRotationController::class, 'index'])->name('rotations.index');
 
             Route::patch('/rotations/{rotation}/complete', [MemberRotationController::class, 'complete'])
-                ->middleware('permission:edit-rotations')
+                ->middleware('permission:complete-rotations')
                 ->name('rotations.complete');
 
             Route::delete('/rotations/{rotation}', [MemberRotationController::class, 'destroy'])
@@ -464,7 +470,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/membership-plans/{id}', [MembershipPlanController::class, 'destroy'])->name('membership-plans.destroy');
 
             Route::get('/pages', [PageController::class, 'index'])
-                ->middleware('permission.any:view-content-management,add-pages,edit-pages,delete-pages')
+                ->middleware('permission.any:view-content-management,edit-pages')
                 ->name('pages.index');
 
             Route::put('/pages', [PageController::class, 'update'])
@@ -560,6 +566,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::prefix('staff-users')
                 ->name('staff-users.')
+                ->middleware('role:super-admin')
                 ->group(function () {
 
                     Route::get('/', [StaffUserController::class, 'index'])
@@ -586,6 +593,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::prefix('roles')
                 ->name('roles.')
+                ->middleware('role:super-admin')
                 ->group(function () {
 
                     Route::get('/', [RoleController::class, 'index'])
@@ -609,6 +617,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::prefix('permissions')
                 ->name('permissions.')
+                ->middleware('role:super-admin')
                 ->group(function () {
 
                     Route::get('/', [PermissionController::class, 'index'])

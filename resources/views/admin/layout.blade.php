@@ -41,7 +41,7 @@
 </head>
 @php
 $currentSite = app(\App\Services\SiteManager::class)->current();
-$memberManagerRestricted = auth('admin')->user()?->isMemberManager();
+$adminRestricted = auth('admin')->user()?->isSiteAdmin();
 $relationshipManagerRestricted = app(\App\Services\RelationshipManagerAccess::class)->isRestricted();
 $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 && ! auth('admin')->user()?->hasRole('super-admin');
@@ -61,14 +61,16 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
             <nav class="mt-3">
 
-                @if($relationshipManagerRestricted || $memberManagerRestricted)
+                @if($relationshipManagerRestricted || $adminRestricted)
 
+                @if(!$relationshipManagerRestricted)
                 <a
                     href="{{ route('admin.dashboard') }}"
                     class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-speedometer2 me-2"></i>
                     Dashboard
                 </a>
+                @endif
 
                 <div class="nav-group {{ request()->routeIs('admin.members.*', 'admin.activities.*', 'admin.rotations.*') ? 'is-open' : '' }}">
 
@@ -158,55 +160,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
                 @elseif($contentManagerRestricted)
 
-                <div class="nav-group is-open">
-
-                    <button
-                        type="button"
-                        class="nav-group-toggle active"
-                        aria-expanded="true">
-                        <i class="bi bi-file-earmark-text me-2"></i>
-                        Content Management
-                        <i class="bi bi-chevron-down ms-auto"></i>
-                    </button>
-
-                    <div class="nav-submenu">
-
-                        @if(auth('admin')->user()?->hasAnyPermission(['view-content-management', 'add-blogs', 'edit-blogs', 'delete-blogs']))
-
-                        <a
-                            href="{{ route('admin.blog-posts.index') }}"
-                            class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
-                            <i class="bi bi-journal-text me-2"></i>
-                            Blogs
-                        </a>
-
-                        @endif
-
-                        @if(auth('admin')->user()?->hasAnyPermission(['view-content-management', 'add-success-stories', 'edit-success-stories', 'delete-success-stories']))
-
-                        <a
-                            href="{{ route('admin.success-stories.index') }}"
-                            class="{{ request()->routeIs('admin.success-stories.*') ? 'active' : '' }}">
-                            <i class="bi bi-heart-fill me-2"></i>
-                            Success Stories
-                        </a>
-
-                        @endif
-
-                        @if(auth('admin')->user()?->hasAnyPermission(['view-content-management', 'add-pages', 'edit-pages', 'delete-pages']))
-
-                        <a
-                            href="{{ route('admin.pages.index') }}"
-                            class="{{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
-                            <i class="bi bi-file-earmark-text me-2"></i>
-                            Pages
-                        </a>
-
-                        @endif
-
-                    </div>
-
-                </div>
+                {{-- Content links are available in Settings below. --}}
 
                 @else
 
@@ -537,12 +491,13 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
                 </div>
 
+                @if(auth('admin')->user()?->hasRole('super-admin'))
                 {{-- Staff Management --}}
-                <div class="nav-group {{ request()->routeIs('admin.staff-users.*', 'admin.roles.*', 'admin.permissions.*') ? 'is-open' : '' }}">
+                <div class="nav-group {{ request()->routeIs('admin.staff-users.*', 'admin.roles.*', 'admin.permissions.*', 'admin.staff-activity.*', 'admin.staff.activity') ? 'is-open' : '' }}">
 
                     <button
                         type="button"
-                        class="nav-group-toggle {{ request()->routeIs('admin.staff-users.*', 'admin.roles.*', 'admin.permissions.*') ? 'active' : '' }}">
+                        class="nav-group-toggle {{ request()->routeIs('admin.staff-users.*', 'admin.roles.*', 'admin.permissions.*', 'admin.staff-activity.*', 'admin.staff.activity') ? 'active' : '' }}">
 
                         <i class="bi bi-people"></i>
 
@@ -570,6 +525,10 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
                         </a>
 
+
+                        <a href="{{ route('admin.staff-activity.index') }}" class="{{ request()->routeIs('admin.staff-activity.*', 'admin.staff.activity') ? 'active' : '' }}">
+                            <i class="bi bi-clock-history"></i> Staff Activity
+                        </a>
 
                         {{-- Roles --}}
                         <a
@@ -601,6 +560,8 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                     </div>
 
                 </div>
+
+                @endif
 
                 @if(auth('admin')->user()?->hasPermission('view-payments'))
 
@@ -659,56 +620,6 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                 </a>--}}
 
 
-                {{-- Content Management --}}
-                <div class="nav-group">
-
-                    <button
-                        type="button"
-                        class="nav-group-toggle">
-
-                        <i class="bi bi-file-earmark-text"></i>
-
-                        <span class="flex-grow-1">
-                            Content Management
-                        </span>
-
-                        <i class="bi bi-chevron-down"></i>
-
-                    </button>
-
-                    <div class="nav-submenu">
-
-                        <a
-                            href="{{ route('admin.blog-posts.index') }}"
-                            class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
-
-                            <i class="bi bi-journal-text"></i>
-
-                            <span>
-                                Blogs
-                            </span>
-
-                        </a>
-                        {{-- Success Stories --}}
-                        <a href="{{ route('admin.success-stories.index') }}"
-                            class="{{ request()->routeIs('admin.success-stories.*') ? 'active' : '' }}">
-                            <i class="bi bi-heart-fill"></i>
-                            <span>Success Stories</span>
-                        </a>
-                        {{-- Pages --}}
-                        <a
-                            href="{{ route('admin.pages.index') }}"
-                            class="{{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
-
-                            <i class="bi bi-file-earmark-text"></i>
-
-                            Pages
-
-                        </a>
-
-                    </div>
-
-                </div>
                 <a
                     href="{{ route('admin.delete-profile-requests.index') }}"
                     class="nav-dropdown-item {{ request()->routeIs('admin.delete-profile-requests.*') ? 'active' : '' }}">
@@ -726,7 +637,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
 
                 @endif
 
-                @if($currentSite)
+                @if($currentSite && !$relationshipManagerRestricted && !$contentManagerRestricted)
                 <a href="{{ route('admin.members.membership-expiry') }}" class="{{ request()->routeIs('admin.members.membership-expiry') ? 'active' : '' }}">
                     <i class="bi bi-calendar-event me-2" aria-hidden="true"></i>
                     Membership Expiry
@@ -737,13 +648,30 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                 <a href="{{ route('admin.contact-messages.index') }}" class="{{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}"><i class="bi bi-envelope me-2"></i><span id="contact-unread-dot" class="me-2" hidden><span class="d-inline-block bg-danger rounded-circle" style="width: 8px; height: 8px;" aria-hidden="true"></span><span class="visually-hidden">Unread messages: </span></span>Contact Messages</a>
                 @endif
 
-                <div class="nav-group {{ request()->routeIs('admin.settings.*') ? 'is-open' : '' }}">
-                    <button type="button" class="nav-group-toggle {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                @php
+                    $settingsMenuActive = request()->routeIs('admin.settings.*', 'admin.blog-posts.*', 'admin.success-stories.*', 'admin.pages.*');
+                @endphp
+                <div class="nav-group {{ $settingsMenuActive ? 'is-open' : '' }}">
+                    <button type="button" class="nav-group-toggle {{ $settingsMenuActive ? 'active' : '' }}" aria-expanded="{{ $settingsMenuActive ? 'true' : 'false' }}">
                         <i class="bi bi-gear me-2"></i>
                         <span class="flex-grow-1">Settings</span>
                         <i class="bi bi-chevron-down nav-group-chevron"></i>
                     </button>
                     <div class="nav-submenu">
+                        @if($currentSite && auth('admin')->user()?->hasAnyRole(['super-admin', 'content-manager']))
+                        <a href="{{ route('admin.settings.content.edit') }}" class="{{ request()->routeIs('admin.settings.content.*') ? 'active' : '' }}"><i class="bi bi-sliders"></i> Site Content</a>
+                        @endif
+                        @if(!$relationshipManagerRestricted && !$adminRestricted)
+                        @if(!$contentManagerRestricted || auth('admin')->user()?->hasAnyPermission(['view-content-management', 'add-blogs', 'edit-blogs', 'delete-blogs']))
+                        <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}"><i class="bi bi-journal-text"></i> Blogs</a>
+                        @endif
+                        @if(!$contentManagerRestricted || auth('admin')->user()?->hasAnyPermission(['view-content-management', 'add-success-stories', 'edit-success-stories', 'delete-success-stories']))
+                        <a href="{{ route('admin.success-stories.index') }}" class="{{ request()->routeIs('admin.success-stories.*') ? 'active' : '' }}"><i class="bi bi-heart-fill"></i> Success Stories</a>
+                        @endif
+                        @if(!$contentManagerRestricted || auth('admin')->user()?->hasAnyPermission(['view-content-management', 'edit-pages']))
+                        <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> Pages</a>
+                        @endif
+                        @endif
                         <a href="{{ route('admin.settings.password.edit') }}" class="{{ request()->routeIs('admin.settings.password.*') ? 'active' : '' }}">
                             <i class="bi bi-key"></i> Change Password
                         </a>

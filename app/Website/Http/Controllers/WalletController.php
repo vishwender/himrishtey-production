@@ -133,6 +133,10 @@ class WalletController extends Controller
             'payment_id' => $order['id'],
 
         ]);
+        app(\App\Services\MemberActivityHistory::class)->record(
+            DB::connection('site'), 'member_wallet_payments', (int) $user->id, null, 'order-created',
+            metadata: ['payment_id' => $order['id'], 'amount' => $amount]
+        );
 
         return response()->json([
 

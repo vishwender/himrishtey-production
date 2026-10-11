@@ -5,6 +5,7 @@
 <div class="container-fluid">
 
     <div class="mb-3">
+        <a href="{{ route('admin.activities.member', ['memberId' => $member->id, 'activity' => 'history']) }}" class="btn btn-outline-primary">Activity History</a>
         <a href="{{ route('admin.members.show', $member->id) }}" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
             Back to Profile
@@ -155,7 +156,7 @@
                 </a>
 
 
-                {{-- Wallet Payments --}}
+                {{-- Wallet Payments and Orders --}}
                 <a
                     href="{{ route('admin.activities.member', [
                         'memberId' => $member->id,
@@ -164,7 +165,7 @@
                     class="btn {{ $activity === 'wallet-payments' ? 'btn-primary' : 'btn-outline-primary' }}">
 
                     <i class="bi bi-wallet2 me-1"></i>
-                    Wallet Payments
+                    Wallet Payments and Orders
 
                 </a>
 
@@ -231,7 +232,7 @@
                 @case('wallet-payments')
 
                 <i class="bi bi-wallet2 me-2"></i>
-                Wallet Payments
+                Wallet Payments and Orders
 
                 @break
 
@@ -324,7 +325,7 @@
 
 
                         {{-- =================================================
-                                Wallet Payments
+                                Wallet Payments and Orders
                             ================================================== --}}
 
                         @elseif($activity === 'wallet-payments')
@@ -332,6 +333,7 @@
                         <tr>
                             <th>#</th>
                             <th>Payment ID</th>
+                            <th>Status</th>
                             <th>Amount</th>
                             <th>Remarks</th>
                             <th>Date</th>
@@ -554,6 +556,7 @@
                             <td>
                                 {{ $row->payment_id }}
                             </td>
+                            <td>{{ $row->activity_status }}</td>
 
                             <td>
                                 ₹{{ number_format((float) $row->amount, 2) }}

@@ -14,7 +14,7 @@ class DashboardController extends Controller
     public function index(SiteDashboardService $dashboardService)
     {
         $admin = Auth::guard('admin')->user();
-        $rotationsOnly = $admin?->isMemberManager() ?? false;
+        $rotationsOnly = $admin?->isSiteAdmin() ?? false;
         $stats = $rotationsOnly ? [] : $dashboardService->statistics();
 
         $membershipExpiringCount = app(\App\Services\MembershipExpiry::class)->expiringCount(7);

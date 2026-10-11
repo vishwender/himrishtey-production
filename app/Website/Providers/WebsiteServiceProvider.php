@@ -34,6 +34,7 @@ class WebsiteServiceProvider extends ServiceProvider
 
             $view->with('siteName', $siteName);
             $view->with('siteMetaTitle', ($site['meta_title'] ?? null) ?: $siteName.' — Find someone who feels like home');
+            $view->with('siteMetaKeywords', $site['meta_keywords'] ?? '');
             $view->with('siteMetaDescription', ($site['meta_description'] ?? null) ?: 'Find genuine matrimonial profiles with '.$siteName.'. Discover brides, grooms, and trusted matchmaking services for your perfect life partner.');
             $view->with('siteTagline', $site['tagline'] ?? 'Connecting hearts across Himachal Pradesh & beyond.');
             $view->with('siteFooterText', $site['footer_text'] ?? 'Trusted matrimony services for families.');

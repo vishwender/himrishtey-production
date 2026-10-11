@@ -10,6 +10,9 @@
     <title>@yield('title', e($siteMetaTitle))</title>
 
     <meta name="description" content="@yield('description', e($siteMetaDescription))">
+    @if (trim($siteMetaKeywords) !== '')
+        <meta name="keywords" content="{{ $siteMetaKeywords }}">
+    @endif
 
     {{-- Theme must be applied before page renders --}}
     <script>

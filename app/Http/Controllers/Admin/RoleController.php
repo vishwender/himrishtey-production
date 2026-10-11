@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Services\RolePermissions;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -34,58 +35,12 @@ class RoleController extends Controller
 
     public function create()
     {
-        $permissions = Permission::orderBy('name')->get();
-
-        return view('admin.roles.create', compact(
-            'permissions'
-        ));
+        abort(403, 'The four system roles are fixed.');
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:roles,slug',
-            ],
-
-            'description' => [
-                'nullable',
-                'string',
-            ],
-
-            'permissions' => [
-                'nullable',
-                'array',
-            ],
-
-            'permissions.*' => [
-                'integer',
-                'exists:permissions,id',
-            ],
-        ]);
-
-        $role = Role::create([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'description' => $validated['description'] ?? null,
-        ]);
-
-        $role->permissions()->sync(
-            $validated['permissions'] ?? []
-        );
-
-        return redirect()
-            ->route('admin.roles.index')
-            ->with('success', 'Role created successfully.');
+        abort(403, 'The four system roles are fixed.');
     }
 
     public function edit(Role $role)
@@ -105,19 +60,20 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
+        abort_unless(array_key_exists($role->slug, Role::SUPPORTED), 404);
+
         $validated = $request->validate([
             'name' => [
                 'required',
                 'string',
-                'max:255',
+                Rule::in([Role::SUPPORTED[$role->slug]]),
             ],
 
             'slug' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('roles', 'slug')
-                    ->ignore($role->id),
+                Rule::in([$role->slug]),
             ],
 
             'description' => [
@@ -132,7 +88,7 @@ class RoleController extends Controller
 
             'permissions.*' => [
                 'integer',
-                'exists:permissions,id',
+                Rule::exists('permissions', 'id')->whereIn('slug', RolePermissions::forRole($role->slug)),
             ],
         ]);
 
@@ -143,7 +99,7 @@ class RoleController extends Controller
         ]);
 
         $role->permissions()->sync(
-            $validated['permissions'] ?? []
+            Permission::whereIn('slug', RolePermissions::forRole($role->slug))->pluck('id')->all()
         );
 
         return redirect()
@@ -153,20 +109,6 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
-        if ($role->admins()->exists()) {
-            return redirect()
-                ->route('admin.roles.index')
-                ->with(
-                    'error',
-                    'This role is assigned to staff users and cannot be deleted.'
-                );
-        }
-
-        $role->permissions()->detach();
-        $role->delete();
-
-        return redirect()
-            ->route('admin.roles.index')
-            ->with('success', 'Role deleted successfully.');
+        abort(403, 'The four system roles cannot be deleted.');
     }
 }

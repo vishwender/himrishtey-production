@@ -49,7 +49,7 @@ class StaffUserController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('name')->get();
+        $roles = Role::whereIn('slug', array_keys(Role::SUPPORTED))->orderBy('name')->get();
 
         $sites = Site::where('status', true)
             ->orderBy('name')
@@ -89,7 +89,7 @@ class StaffUserController extends Controller
 
             'role_id' => [
                 'required',
-                'exists:roles,id',
+                Rule::exists('roles', 'id')->whereIn('slug', array_keys(Role::SUPPORTED)),
             ],
 
             'sites' => [
@@ -148,7 +148,7 @@ class StaffUserController extends Controller
             'sites',
         ]);
 
-        $roles = Role::orderBy('name')->get();
+        $roles = Role::whereIn('slug', array_keys(Role::SUPPORTED))->orderBy('name')->get();
 
         $sites = Site::where('status', true)
             ->orderBy('name')
@@ -190,7 +190,7 @@ class StaffUserController extends Controller
 
             'role_id' => [
                 'required',
-                'exists:roles,id',
+                Rule::exists('roles', 'id')->whereIn('slug', array_keys(Role::SUPPORTED)),
             ],
 
             'sites' => [

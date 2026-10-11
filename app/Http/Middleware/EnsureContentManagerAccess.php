@@ -16,14 +16,25 @@ class EnsureContentManagerAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $this->ensureRouteAccess($request);
+
+        return $next($request);
+    }
+
+    public function ensureRouteAccess(Request $request): void
+    {
         $admin = Auth::guard('admin')->user();
 
-        if (! $admin || $admin->isMemberManager() || $admin->hasRole('super-admin') || ! $admin->hasRole('content-manager')) {
-            return $next($request);
+        if (! $admin || $admin->isSiteAdmin() || $admin->hasRole('super-admin') || ! $admin->hasRole('content-manager')) {
+            return;
         }
 
         if (! $request->routeIs(
-            'admin.members.membership-expiry',
+            'admin.settings.content.*',
+            'admin.settings.password.*',
+            'admin.site.select',
+            'admin.site.switch',
+            'admin.logout',
             'admin.blog-posts.*',
             'admin.success-stories.*',
             'admin.pages.*'
@@ -31,6 +42,5 @@ class EnsureContentManagerAccess
             abort(403, 'Content managers can only access content management pages.');
         }
 
-        return $next($request);
     }
 }

@@ -81,7 +81,7 @@
                             type="text"
                             name="name"
                             class="form-control"
-                            value="{{ old('name', $role->name) }}"
+                            value="{{ $role->name }}" readonly
                             placeholder="e.g. Content Manager"
                             maxlength="255"
                             required>
@@ -100,14 +100,13 @@
                             type="text"
                             name="slug"
                             class="form-control"
-                            value="{{ old('slug', $role->slug) }}"
+                            value="{{ $role->slug }}" readonly
                             placeholder="e.g. content-manager"
                             maxlength="255"
                             required>
 
                         <div class="form-text">
-                            Use a unique slug such as
-                            <code>content-manager</code>.
+                            System role names and slugs cannot be changed.
                         </div>
 
                     </div>
@@ -143,36 +142,12 @@
                             </h6>
 
                             <small class="text-muted">
-                                Select the permissions this role should have.
+                                Permissions are fixed for this role.
                             </small>
 
                         </div>
 
-                        @if($permissions->count())
 
-                        <div class="d-flex gap-2">
-
-                            <button
-                                type="button"
-                                class="btn btn-sm btn-outline-primary"
-                                id="selectAllPermissions">
-
-                                Select All
-
-                            </button>
-
-                            <button
-                                type="button"
-                                class="btn btn-sm btn-outline-secondary"
-                                id="clearAllPermissions">
-
-                                Clear All
-
-                            </button>
-
-                        </div>
-
-                        @endif
 
                     </div>
 
@@ -191,16 +166,13 @@
 
                                     <input
                                         class="form-check-input permission-checkbox"
-                                        type="checkbox"
+                                        type="checkbox" disabled
                                         name="permissions[]"
                                         value="{{ $permission->id }}"
                                         id="permission{{ $permission->id }}"
                                         {{ in_array(
                                                     $permission->id,
-                                                    old(
-                                                        'permissions',
-                                                        $selectedPermissions ?? []
-                                                    )
+                                                    $selectedPermissions ?? []
                                                 ) ? 'checked' : '' }}>
 
                                     <label
@@ -330,50 +302,6 @@
 </div>
 
 
-{{-- Permission Selection JS --}}
-@push('scripts')
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const selectAllButton =
-            document.getElementById('selectAllPermissions');
-
-        const clearAllButton =
-            document.getElementById('clearAllPermissions');
-
-        const checkboxes =
-            document.querySelectorAll('.permission-checkbox');
-
-
-        if (selectAllButton) {
-
-            selectAllButton.addEventListener('click', function() {
-
-                checkboxes.forEach(function(checkbox) {
-                    checkbox.checked = true;
-                });
-
-            });
-
-        }
-
-
-        if (clearAllButton) {
-
-            clearAllButton.addEventListener('click', function() {
-
-                checkboxes.forEach(function(checkbox) {
-                    checkbox.checked = false;
-                });
-
-            });
-
-        }
-
-    });
-</script>
-
-@endpush
 
 @endsection

@@ -11,16 +11,11 @@
             <h1 class="mb-1">Roles</h1>
 
             <p class="text-muted mb-0">
-                Manage staff roles and their access levels.
+                Four fixed roles. Edit their descriptions and permissions.
             </p>
         </div>
 
-        <a
-            href="{{ route('admin.roles.create') }}"
-            class="btn btn-primary">
-            <i class="bi bi-plus-lg me-1"></i>
-            Add Role
-        </a>
+
 
     </div>
 
@@ -274,31 +269,7 @@
                                     </a>
 
 
-                                    {{-- Delete --}}
-                                    <form
-                                        method="POST"
-                                        action="{{ route(
-                                                'admin.roles.destroy',
-                                                $role->id
-                                            ) }}"
-                                        onsubmit="return confirm(
-                                                'Are you sure you want to delete this role?'
-                                            );">
 
-                                        @csrf
-
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-sm btn-outline-danger"
-                                            title="Delete">
-
-                                            <i class="bi bi-trash"></i>
-
-                                        </button>
-
-                                    </form>
 
                                 </div>
 

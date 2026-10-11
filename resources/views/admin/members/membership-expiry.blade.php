@@ -35,7 +35,7 @@
                     <td><span class="badge {{ $remaining < 0 ? 'bg-danger-subtle text-danger' : 'bg-warning-subtle text-warning' }}">{{ $remaining < 0 ? 'Expired '.abs($remaining).' days ago' : ($remaining === 0 ? 'Expires today' : $remaining.' days left') }}</span></td>
                     <td>{{ $member->relationship_manager ?: 'Unassigned' }}</td>
                     <td class="members-actions text-end">
-                        @if(!auth('admin')->user()?->hasRole('content-manager') || auth('admin')->user()?->hasAnyRole(['super-admin', 'member-manager', 'relationship-manager']))
+                        @if(!auth('admin')->user()?->hasRole('content-manager') || auth('admin')->user()?->hasAnyRole(['super-admin', 'admin', 'relationship-manager']))
                         <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.members.show', ['id' => $member->id, 'return' => request()->fullUrl()]) }}">View Profile</a>
                         @else <span class="text-muted">{{ $member->active ?: 'Inactive' }}</span> @endif
                     </td>

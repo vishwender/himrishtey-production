@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    public const SUPPORTED = [
+        'super-admin' => 'Super Admin',
+        'admin' => 'Admin',
+        'relationship-manager' => 'Relationship Manager',
+        'content-manager' => 'Content Manager',
+    ];
+
     protected $fillable = [
         'name',
         'slug',
