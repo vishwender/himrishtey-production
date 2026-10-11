@@ -208,7 +208,7 @@
 
                                 <img
                                     src="{{ asset(
-                                            'storage/blog/' .
+                                            'uploads/blogs/' .
                                             $post->featured_image
                                         ) }}"
                                     alt="{{ $post->title }}"

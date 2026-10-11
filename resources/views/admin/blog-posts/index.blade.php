@@ -209,7 +209,7 @@
                                 @if($post->featured_image)
 
                                 <img
-                                    src="{{ asset('storage/blog/' . $post->featured_image) }}"
+                                    src="{{ asset('uploads/blogs/' . $post->featured_image) }}"
                                     alt="{{ $post->title }}"
                                     style="
                                                 width:70px;

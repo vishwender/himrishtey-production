@@ -23,7 +23,7 @@
     <div class="container-xl article-shell">
       @if ($post->featured_image)
         <figure class="article-featured-image">
-          <img src="{{ asset('storage/blog/' . $post->featured_image) }}" alt="{{ $post->title }}">
+          <img src="{{ asset('uploads/blogs/' . $post->featured_image) }}" alt="{{ $post->title }}">
         </figure>
       @endif
 

@@ -41,12 +41,12 @@
 
         <article class="blog-card">
 
-          @if(!empty($post->image))
+          @if(!empty($post->featured_image))
           <a
             class="blog-card-image"
             href="{{ route('blog.show', $post->slug) }}">
             <img
-              src="{{ asset($post->image) }}"
+              src="{{ asset('uploads/blogs/' . $post->featured_image) }}"
               alt="{{ $post->title }}"
               loading="lazy">
           </a>

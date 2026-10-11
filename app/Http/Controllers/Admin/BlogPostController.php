@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -132,11 +132,7 @@ class BlogPostController extends Controller
                 '.'.
                 $file->getClientOriginalExtension();
 
-            $file->storeAs(
-                'blog',
-                $filename,
-                'public'
-            );
+            $file->move(public_path('uploads/blogs'), $filename);
 
             $featuredImage = $filename;
         }
@@ -278,20 +274,6 @@ class BlogPostController extends Controller
 
         if ($request->hasFile('featured_image')) {
 
-            /*
-             * Delete old image
-             */
-            if (
-                $post->featured_image &&
-                Storage::disk('public')->exists(
-                    'blog/'.$post->featured_image
-                )
-            ) {
-                Storage::disk('public')->delete(
-                    'blog/'.$post->featured_image
-                );
-            }
-
             $file = $request->file('featured_image');
 
             $filename =
@@ -302,11 +284,11 @@ class BlogPostController extends Controller
                 '.'.
                 $file->getClientOriginalExtension();
 
-            $file->storeAs(
-                'blog',
-                $filename,
-                'public'
-            );
+            $file->move(public_path('uploads/blogs'), $filename);
+
+            if ($post->featured_image) {
+                File::delete(public_path('uploads/blogs/'.basename($post->featured_image)));
+            }
 
             $featuredImage = $filename;
         }
@@ -422,15 +404,8 @@ class BlogPostController extends Controller
         /*
          * Delete featured image
          */
-        if (
-            $post->featured_image &&
-            Storage::disk('public')->exists(
-                'blog/'.$post->featured_image
-            )
-        ) {
-            Storage::disk('public')->delete(
-                'blog/'.$post->featured_image
-            );
+        if ($post->featured_image) {
+            File::delete(public_path('uploads/blogs/'.basename($post->featured_image)));
         }
 
         $post->delete();
