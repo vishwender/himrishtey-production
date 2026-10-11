@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        app(RotationAdminOwnership::class)->prepare(DB::connection('site'));
+        app(RotationAdminOwnership::class)->prepare(DB::connection($this->getConnection()));
     }
 
     public function down(): void
