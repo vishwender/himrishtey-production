@@ -23,14 +23,30 @@
     </div></div>
     <div class="card"><div class="card-body p-0"><div class="table-responsive">
         <table class="table table-hover align-middle mb-0 members-table">
-            <thead class="table-light"><tr><th>Profile ID</th><th>Member</th><th>Mobile</th><th>Membership type</th><th>Activation plan</th><th>Activated</th><th>Expires</th><th>Expiry status</th><th>Relationship manager</th><th class="members-actions text-end">Profile</th></tr></thead>
+            <thead class="table-light"><tr><th>Photo</th><th>Profile ID</th><th>Member</th><th>Membership type</th><th>Activation plan</th><th>Activated</th><th>Expires</th><th>Expiry status</th><th>Relationship manager</th><th class="members-actions text-end">Profile</th></tr></thead>
             <tbody>@forelse($members as $member)
                 @php
                 $expiry = \Carbon\CarbonImmutable::parse($member->expiry_date, 'Asia/Kolkata');
                 $remaining = (int) $today->diffInDays($expiry, false);
                 @endphp
                 <tr>
-                    <td class="text-nowrap">{{ $member->profile_id }}</td><td>{{ $member->full_name }}</td><td class="text-nowrap">{{ $member->mobile_number ?: '—' }}</td><td>{{ $member->type_name ?: '—' }}</td><td>{{ $member->plan_name }}<small class="d-block text-muted">{{ $member->duration_days }} days</small></td>
+                    <td>@php
+$tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->photo ?? null);
+@endphp
+<div class="rounded bg-body-secondary d-flex align-items-center justify-content-center overflow-hidden" style="width:56px;height:64px;">
+    @if($tablePhotoUrl)
+    <img src="{{ $tablePhotoUrl }}" alt="{{ $member->full_name }}" width="56" height="64" style="object-fit:cover;" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.classList.remove('d-none');">
+    @endif
+    <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
+</div></td><td class="text-nowrap">{{ $member->profile_id }}</td><td><strong>{{ $member->full_name }}</strong>
+<div class="small text-muted mt-1 d-flex align-items-center gap-2">
+    <i class="bi bi-envelope" aria-hidden="true" title="Email"></i>
+    <span>{{ $member->email ?: '—' }}</span>
+</div>
+<div class="small text-muted mt-1 d-flex align-items-center gap-2">
+    <i class="bi bi-telephone" aria-hidden="true" title="Phone"></i>
+    <span>{{ $member->mobile_number ?: '—' }}</span>
+</div></td><td>{{ $member->type_name ?: '—' }}</td><td>{{ $member->plan_name }}<small class="d-block text-muted">{{ $member->duration_days }} days</small></td>
                     <td class="text-nowrap">{{ \Carbon\CarbonImmutable::parse($member->plan_activation_date)->format('d M Y') }}</td><td class="text-nowrap">{{ $expiry->format('d M Y') }}</td>
                     <td><span class="badge {{ $remaining < 0 ? 'bg-danger-subtle text-danger' : 'bg-warning-subtle text-warning' }}">{{ $remaining < 0 ? 'Expired '.abs($remaining).' days ago' : ($remaining === 0 ? 'Expires today' : $remaining.' days left') }}</span></td>
                     <td>{{ $member->relationship_manager ?: 'Unassigned' }}</td>

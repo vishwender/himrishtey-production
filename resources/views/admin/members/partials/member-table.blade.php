@@ -12,10 +12,9 @@
 
                 <thead>
                     <tr>
+                        <th>Photo</th>
                         <th>Profile ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
+                        <th>Member</th>
                         <th>Gender</th>
                         <th>Age</th>
                         <th>Status</th>
@@ -29,21 +28,28 @@
 
                     <tr>
 
+                        <td>@php
+$tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->photo ?? null);
+@endphp
+<div class="rounded bg-body-secondary d-flex align-items-center justify-content-center overflow-hidden" style="width:56px;height:64px;">
+    @if($tablePhotoUrl)
+    <img src="{{ $tablePhotoUrl }}" alt="{{ $member->full_name }}" width="56" height="64" style="object-fit:cover;" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.classList.remove('d-none');">
+    @endif
+    <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
+</div></td>
                         <td>
                             {{ $member->profile_id }}
                         </td>
 
-                        <td>
-                            {{ $member->full_name }}
-                        </td>
-
-                        <td>
-                            {{ $member->email }}
-                        </td>
-
-                        <td>
-                            {{ $member->mobile_number }}
-                        </td>
+                        <td><strong>{{ $member->full_name }}</strong>
+<div class="small text-muted mt-1 d-flex align-items-center gap-2">
+    <i class="bi bi-envelope" aria-hidden="true" title="Email"></i>
+    <span>{{ $member->email ?: '—' }}</span>
+</div>
+<div class="small text-muted mt-1 d-flex align-items-center gap-2">
+    <i class="bi bi-telephone" aria-hidden="true" title="Phone"></i>
+    <span>{{ $member->mobile_number ?: '—' }}</span>
+</div></td>
 
                         <td>
                             {{ $member->gender }}
@@ -71,7 +77,7 @@
                     @empty
 
                     <tr>
-                        <td colspan="8" class="text-center py-4">
+                        <td colspan="7" class="text-center py-4">
                             No members found.
                         </td>
                     </tr>

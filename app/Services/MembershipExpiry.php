@@ -27,7 +27,7 @@ class MembershipExpiry
                 $query->whereNull('m.active')->orWhereRaw("LOWER(TRIM(m.active)) != 'deleted'");
             })
             ->select([
-                'm.id', 'm.profile_id', 'm.full_name', 'm.mobile_number', 'm.email',
+                'm.id', 'm.profile_id', 'm.full_name', 'm.mobile_number', 'm.email', 'm.photo',
                 'm.active', 'm.plan_activation_date', 'm.relationship_manager',
                 'p.id as plan_id', 'p.plan_name', 'p.duration_days',
                 'p.membership_type as type_id', 't.plan_name as type_name',

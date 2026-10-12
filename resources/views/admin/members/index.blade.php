@@ -807,17 +807,13 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                         @if($newMembersOnly)
                         <th><input type="checkbox" id="select-new-members" aria-label="Select all members on this page"></th>
                         @endif
-                        @if($bannedMembersOnly)
                         <th>Photo</th>
+                        @if($bannedMembersOnly)
                         <th>Completed</th>
                         @endif
 
                         <th>Profile ID</th>
                         <th>{{ $newMembersOnly ? 'Name' : 'Member' }}</th>
-
-                        @unless($newMembersOnly)
-                        <th>Mobile</th>
-                        @endunless
 
                         <th>Gender</th>
 
@@ -858,14 +854,16 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                         @if($newMembersOnly)
                         <td><input type="checkbox" class="new-member-checkbox" name="member_ids[]" value="{{ $member->id }}" form="assign-new-members" aria-label="Select {{ $member->profile_id }}"></td>
                         @endif
+                        <td>@php
+$tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->photo ?? null);
+@endphp
+<div class="rounded bg-body-secondary d-flex align-items-center justify-content-center overflow-hidden" style="width:56px;height:64px;">
+    @if($tablePhotoUrl)
+    <img src="{{ $tablePhotoUrl }}" alt="{{ $member->full_name }}" width="56" height="64" style="object-fit:cover;" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.classList.remove('d-none');">
+    @endif
+    <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
+</div></td>
                         @if($bannedMembersOnly)
-                        <td>
-                            @if($member->photo)
-                            <img src="{{ app(\App\Services\MemberPhotoService::class)->url($member->photo) }}" alt="{{ $member->full_name }}" width="64" height="64" class="rounded object-fit-cover" loading="lazy">
-                            @else
-                            <span class="text-muted">No photo</span>
-                            @endif
-                        </td>
                         <td>{{ $member->profile_completed ?? 0 }}%</td>
                         @endif
                         {{-- Profile ID --}}
@@ -878,33 +876,16 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                         </td>
 
 
-                        {{-- Member --}}
-                        <td>
-
-                            <div>
-
-                                <strong>
-                                    {{ $member->full_name }}
-                                </strong>
-
-                                @unless($newMembersOnly)
-                                <div class="small text-muted">
-                                    {{ $member->email }}
-                                </div>
-                                @endunless
-
-                            </div>
-
-                        </td>
-
-
-                        {{-- Mobile --}}
-                        @unless($newMembersOnly)
-                        <td>
-                            {{ $member->mobile_number }}
-                        </td>
-                        @endunless
-
+                        {{-- Member contact details --}}
+                        <td><strong>{{ $member->full_name }}</strong>
+<div class="small text-muted mt-1 d-flex align-items-center gap-2">
+    <i class="bi bi-envelope" aria-hidden="true" title="Email"></i>
+    <span>{{ $member->email ?: '—' }}</span>
+</div>
+<div class="small text-muted mt-1 d-flex align-items-center gap-2">
+    <i class="bi bi-telephone" aria-hidden="true" title="Phone"></i>
+    <span>{{ $member->mobile_number ?: '—' }}</span>
+</div></td>
 
                         {{-- Gender --}}
                         <td>
@@ -1272,7 +1253,7 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                     <tr>
 
                         <td
-                            colspan="{{ ($newMembersOnly ? 10 : ($bannedMembersOnly ? 11 : 9)) - ($hideRelationshipManagerColumn ? 1 : 0) }}"
+                            colspan="{{ ($newMembersOnly ? 11 : ($bannedMembersOnly ? 10 : 9)) - ($hideRelationshipManagerColumn ? 1 : 0) }}"
                             class="text-center py-5 text-muted">
                             No members found.
                         </td>
