@@ -1137,10 +1137,13 @@ class MemberController extends Controller
             'member_type' => ['nullable', 'required_with:plan_id', 'string', Rule::exists('site.membership_type', 'plan_name')],
             'plan_id' => [
                 'nullable', 'required_with:member_type', 'integer',
-                Rule::exists('site.membership_plans', 'id')->where(fn ($query) => $query->whereIn(
-                    'membership_type',
-                    DB::connection('site')->table('membership_type')->select('id')->where('plan_name', $request->input('member_type'))
-                )),
+                // Legacy members use plan_id = 0 for Free membership without a plan row.
+                preg_match('/^free(?:\s|$)/i', trim((string) $request->input('member_type'))) === 1 && (string) $request->input('plan_id') === '0'
+                    ? Rule::in([0])
+                    : Rule::exists('site.membership_plans', 'id')->where(fn ($query) => $query->whereIn(
+                        'membership_type',
+                        DB::connection('site')->table('membership_type')->select('id')->where('plan_name', $request->input('member_type'))
+                    )),
             ],
 
             'profile_ranges' => ['nullable', 'array', 'max:20'],

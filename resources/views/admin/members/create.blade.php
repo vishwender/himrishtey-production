@@ -2987,12 +2987,16 @@
 
 
                     {{-- Membership --}}
+                    @php
+                    $defaultMembershipType = $membershipTypes->first(fn ($type) => preg_match('/^free(?:\s|$)/i', trim($type->plan_name)) === 1)?->plan_name ?? '';
+                    $selectedMembershipType = old('member_type', $defaultMembershipType);
+                    @endphp
                     <div class="col-md-4">
                         <label for="member_type" class="form-label">Membership Type</label>
                         <select name="member_type" id="member_type" class="form-select @error('member_type') is-invalid @enderror">
                             <option value="">Select Membership Type</option>
                             @foreach($membershipTypes as $type)
-                            <option value="{{ $type->plan_name }}" data-type-id="{{ $type->id }}" @selected((string) old('member_type') === (string) $type->plan_name)>{{ $type->plan_name }}</option>
+                            <option value="{{ $type->plan_name }}" data-type-id="{{ $type->id }}" @selected((string) $selectedMembershipType === (string) $type->plan_name)>{{ $type->plan_name }}</option>
                             @endforeach
                         </select>
                         @error('member_type')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -3001,7 +3005,8 @@
                     <div class="col-md-4">
                         <label for="plan_id" class="form-label">Membership Plan</label>
                         <select name="plan_id" id="plan_id" class="form-select @error('plan_id') is-invalid @enderror">
-                            <option value="">Select Membership Plan</option>
+                            <option value="">Free</option>
+                            <option value="0" data-free-plan="true" @selected(preg_match('/^free(?:\s|$)/i', trim((string) $selectedMembershipType)) === 1 && (string) old('plan_id', '0') === '0')>Free</option>
                             @foreach($membershipPlans as $plan)
                             <option value="{{ $plan->id }}" data-type-id="{{ $plan->membership_type }}" @selected((string) old('plan_id') === (string) $plan->id)>{{ $plan->plan_name }}</option>
                             @endforeach
