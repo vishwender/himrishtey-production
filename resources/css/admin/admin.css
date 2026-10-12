@@ -713,7 +713,9 @@ a:focus-visible {
     }
 
     .sidebar .mt-4 {
-        display: none;
+        display: block;
+        margin-top: 0 !important;
+        padding: 12px 8px;
     }
 
     .topbar {
