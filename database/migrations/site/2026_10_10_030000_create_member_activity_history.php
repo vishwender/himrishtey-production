@@ -8,10 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (Schema::hasTable('member_activity_history')) {
+        $schema = Schema::connection($this->getConnection());
+        if ($schema->hasTable('member_activity_history')) {
             return;
         }
-        Schema::create('member_activity_history', function (Blueprint $table) {
+        $schema->create('member_activity_history', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('member_id')->index();
             $table->unsignedBigInteger('target_member_id')->nullable()->index();
@@ -25,6 +26,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('member_activity_history');
+        Schema::connection($this->getConnection())->dropIfExists('member_activity_history');
     }
 };

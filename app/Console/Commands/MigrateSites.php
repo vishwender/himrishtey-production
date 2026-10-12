@@ -14,6 +14,8 @@ class MigrateSites extends Command
 
     public function handle(SiteDatabaseService $databases): int
     {
+        // Laravel switches the default connection while running site migrations.
+        config(['site.migration_central_connection' => config('database.default')]);
         $codes = $this->option('site');
         $sites = Site::query()->when($codes, fn ($query) => $query->whereIn('code', $codes))->get();
         if ($sites->isEmpty() || array_diff($codes, $sites->pluck('code')->all())) {

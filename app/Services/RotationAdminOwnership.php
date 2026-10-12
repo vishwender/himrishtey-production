@@ -25,7 +25,7 @@ class RotationAdminOwnership
             return 0;
         }
 
-        $admins = Admin::query()->get(['id', 'email'])
+        $admins = Admin::on(config('site.migration_central_connection', config('database.default')))->get(['id', 'email'])
             ->groupBy(fn ($admin) => strtolower(trim((string) $admin->email)));
         $users = $connection->table('users')->get(['id', 'email'])
             ->groupBy(fn ($user) => strtolower(trim((string) $user->email)));

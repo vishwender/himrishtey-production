@@ -70,6 +70,15 @@ class MemberActivityController extends Controller
         $activity = $request->get('activity', 'shortlisted');
 
         if ($activity === 'history') {
+            if (! DB::connection('site')->getSchemaBuilder()->hasTable('member_activity_history')) {
+                $historyUnavailable = true;
+                $data = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 20, 1, [
+                    'path' => $request->url(), 'query' => $request->query(),
+                ]);
+
+                return view('admin.activities.history', compact('member', 'data', 'historyUnavailable'));
+            }
+
             $data = DB::connection('site')->table('member_activity_history as h')
                 ->leftJoin('members as m', 'm.id', '=', 'h.target_member_id')
                 ->where(fn ($query) => $query->where('h.member_id', $member->id)->orWhere('h.target_member_id', $member->id))

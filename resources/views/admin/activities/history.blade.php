@@ -4,6 +4,9 @@
 <div class="container-fluid py-4">
     <h1>Activity History</h1>
     <p>{{ $member->full_name }} · {{ $member->profile_id }}</p>
+    @if($historyUnavailable ?? false)
+    <div class="alert alert-warning" role="alert">Activity history is not enabled for this site yet. The site's database migrations must be applied before new events can be recorded.</div>
+    @endif
     <p class="text-muted">Changes recorded since activity history was enabled. Removed items remain in this history.</p>
     <a class="btn btn-outline-secondary mb-3" href="{{ route('admin.activities.member', $member->id) }}">Back to Member Activity</a>
     <div class="card table-responsive"><table class="table mb-0"><thead><tr><th>Activity</th><th>Change</th><th>Direction</th><th>Related member</th><th>Details</th><th>Date</th></tr></thead><tbody>
