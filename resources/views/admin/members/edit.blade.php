@@ -110,93 +110,111 @@
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="full_name">
                             Full Name
                         </label>
 
                         <input
                             type="text"
-                            name="full_name"
-                            class="form-control"
+                            name="full_name" id="full_name"
+                            class="form-control @error('full_name') is-invalid @enderror"
                             value="{{ old('full_name', $member->full_name) }}"
-                            required>
+                            required aria-invalid="{{ $errors->has('full_name') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('full_name') ? 'full_name_error' : '' }}">
+                        @error('full_name')
+                        <div id="full_name_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="email">
                             Email
                         </label>
 
                         <input
                             type="email"
-                            name="email"
-                            class="form-control"
+                            name="email" id="email"
+                            class="form-control @error('email') is-invalid @enderror"
                             value="{{ old('email', $member->email) }}"
-                            required>
+                            required aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('email') ? 'email_error' : '' }}">
+                        @error('email')
+                        <div id="email_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="mobile_number">
                             Mobile Number
                         </label>
 
                         <input
                             type="text"
-                            name="mobile_number"
-                            class="form-control"
+                            name="mobile_number" id="mobile_number"
+                            class="form-control @error('mobile_number') is-invalid @enderror"
                             value="{{ old('mobile_number', $member->mobile_number) }}"
-                            required>
+                            required aria-invalid="{{ $errors->has('mobile_number') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('mobile_number') ? 'mobile_number_error' : '' }}">
+                        @error('mobile_number')
+                        <div id="mobile_number_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="alternate_number">
                             Alternate Number
                         </label>
 
                         <input
                             type="text"
-                            name="alternate_number"
-                            class="form-control"
-                            value="{{ old('alternate_number', $member->alternate_number) }}">
+                            name="alternate_number" id="alternate_number"
+                            class="form-control @error('alternate_number') is-invalid @enderror"
+                            value="{{ old('alternate_number', $member->alternate_number) }}" aria-invalid="{{ $errors->has('alternate_number') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('alternate_number') ? 'alternate_number_error' : '' }}">
+                        @error('alternate_number')
+                        <div id="alternate_number_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="whatsapp_number">
                             WhatsApp Number
                         </label>
 
                         <input
                             type="text"
-                            name="whatsapp_number"
-                            class="form-control"
-                            value="{{ old('whatsapp_number', $member->whatsapp_number) }}">
+                            name="whatsapp_number" id="whatsapp_number"
+                            class="form-control @error('whatsapp_number') is-invalid @enderror"
+                            value="{{ old('whatsapp_number', $member->whatsapp_number) }}" aria-invalid="{{ $errors->has('whatsapp_number') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('whatsapp_number') ? 'whatsapp_number_error' : '' }}">
+                        @error('whatsapp_number')
+                        <div id="whatsapp_number_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="gender">
                             Gender
                         </label>
 
                         <input
                             type="text"
-                            name="gender"
-                            class="form-control"
-                            value="{{ old('gender', $member->gender) }}">
+                            name="gender" id="gender"
+                            class="form-control @error('gender') is-invalid @enderror"
+                            value="{{ old('gender', $member->gender) }}" aria-invalid="{{ $errors->has('gender') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('gender') ? 'gender_error' : '' }}">
+                        @error('gender')
+                        <div id="gender_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -211,26 +229,32 @@
                             type="datetime-local"
                             id="birth_date_time"
                             name="birth_date_time"
-                            class="form-control"
+                            class="form-control @error('birth_date_time') is-invalid @enderror"
                             value="{{ old('birth_date_time', $member->birth_date_time ? \Carbon\Carbon::parse($member->birth_date_time)->format('Y-m-d\TH:i') : '') }}"
-                            max="{{ today()->subYearsNoOverflow(18)->endOfDay()->format('Y-m-d\TH:i') }}">
-                        <div class="form-text">The member must be at least 18 years old.</div>
+                            max="{{ today()->subYearsNoOverflow(18)->endOfDay()->format('Y-m-d\TH:i') }}" aria-invalid="{{ $errors->has('birth_date_time') ? 'true' : 'false' }}" aria-describedby="birth_date_time_help{{ $errors->has('birth_date_time') ? ' birth_date_time_error' : '' }}">
+                        @error('birth_date_time')
+                        <div id="birth_date_time_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
+                        <div id="birth_date_time_help" class="form-text">The member must be at least 18 years old.</div>
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="height">
                             Height
                         </label>
 
-                        <select name="height" class="form-select">
+                        <select name="height" id="height" class="form-select @error('height') is-invalid @enderror" aria-invalid="{{ $errors->has('height') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('height') ? 'height_error' : '' }}">
                             <option value="">Select Height</option>
                             @foreach($heights as $height)
                             <option value="{{ $height->height_value ?? $height->height }}" @selected(old('height', $member->height) == ($height->height_value ?? $height->height))>{{ \App\Support\HeightFormatter::format($height->height) }}</option>
                             @endforeach
                         </select>
+                        @error('height')
+                        <div id="height_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -241,28 +265,34 @@
                             Blood Group
                         </label>
 
-                        <select name="blood_group" id="blood_group" class="form-select">
+                        <select name="blood_group" id="blood_group" class="form-select @error('blood_group') is-invalid @enderror" aria-invalid="{{ $errors->has('blood_group') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('blood_group') ? 'blood_group_error' : '' }}">
                             <option value="">Select Blood Group</option>
                             @foreach(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $blood)
                             <option value="{{ $blood }}" @selected(old('blood_group', $member->blood_group) == $blood)>{{ $blood }}</option>
                             @endforeach
                         </select>
+                        @error('blood_group')
+                        <div id="blood_group_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="marital_status">
                             Marital Status
                         </label>
 
-                        <select name="marital_status" class="form-select">
+                        <select name="marital_status" id="marital_status" class="form-select @error('marital_status') is-invalid @enderror" aria-invalid="{{ $errors->has('marital_status') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('marital_status') ? 'marital_status_error' : '' }}">
                             <option value="">Select Marital Status</option>
                             @foreach($maritalStatuses as $status)
                             <option value="{{ $status->marital_status }}" @selected(old('marital_status', $member->marital_status) == $status->marital_status)>{{ $status->marital_status }}</option>
                             @endforeach
                         </select>
+                        @error('marital_status')
+                        <div id="marital_status_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -295,94 +325,112 @@
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="religion">
                             Religion
                         </label>
 
-                        <select name="religion" class="form-select">
+                        <select name="religion" id="religion" class="form-select @error('religion') is-invalid @enderror" aria-invalid="{{ $errors->has('religion') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('religion') ? 'religion_error' : '' }}">
                             <option value="">Select Religion</option>
                             @foreach($religions as $religion)
                             <option value="{{ $religion->religion }}" @selected(old('religion', $member->religion) == $religion->religion)>{{ $religion->religion }}</option>
                             @endforeach
                         </select>
+                        @error('religion')
+                        <div id="religion_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="mother_tongue">
                             Mother Tongue
                         </label>
 
-                        <select name="mother_tongue" class="form-select">
+                        <select name="mother_tongue" id="mother_tongue" class="form-select @error('mother_tongue') is-invalid @enderror" aria-invalid="{{ $errors->has('mother_tongue') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('mother_tongue') ? 'mother_tongue_error' : '' }}">
                             <option value="">Select Mother Tongue</option>
                             @foreach($motherTongues as $motherTongue)
                             <option value="{{ $motherTongue->mother_tongue }}" @selected(old('mother_tongue', $member->mother_tongue) == $motherTongue->mother_tongue)>{{ $motherTongue->mother_tongue }}</option>
                             @endforeach
                         </select>
+                        @error('mother_tongue')
+                        <div id="mother_tongue_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="cast">
                             Caste
                         </label>
 
-                        <select name="cast" class="form-select">
+                        <select name="cast" id="cast" class="form-select @error('cast') is-invalid @enderror" aria-invalid="{{ $errors->has('cast') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('cast') ? 'cast_error' : '' }}">
                             <option value="">Select Caste</option>
                             @foreach($casts as $cast)
                             <option value="{{ $cast->cast }}" @selected(old('cast', $member->cast) == $cast->cast)>{{ $cast->cast }}</option>
                             @endforeach
                         </select>
+                        @error('cast')
+                        <div id="cast_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="sub_cast">
                             Sub Caste
                         </label>
 
                         <input
                             type="text"
-                            name="sub_cast"
-                            class="form-control"
-                            value="{{ old('sub_cast', $member->sub_cast) }}">
+                            name="sub_cast" id="sub_cast"
+                            class="form-control @error('sub_cast') is-invalid @enderror"
+                            value="{{ old('sub_cast', $member->sub_cast) }}" aria-invalid="{{ $errors->has('sub_cast') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('sub_cast') ? 'sub_cast_error' : '' }}">
+                        @error('sub_cast')
+                        <div id="sub_cast_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="gotra">
                             Gotra
                         </label>
 
                         <input
                             type="text"
-                            name="gotra"
-                            class="form-control"
-                            value="{{ old('gotra', $member->gotra) }}">
+                            name="gotra" id="gotra"
+                            class="form-control @error('gotra') is-invalid @enderror"
+                            value="{{ old('gotra', $member->gotra) }}" aria-invalid="{{ $errors->has('gotra') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('gotra') ? 'gotra_error' : '' }}">
+                        @error('gotra')
+                        <div id="gotra_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="manglik">
                             Manglik
                         </label>
 
-                        <select name="manglik" class="form-select">
+                        <select name="manglik" id="manglik" class="form-select @error('manglik') is-invalid @enderror" aria-invalid="{{ $errors->has('manglik') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('manglik') ? 'manglik_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(['Yes', 'No'] as $value)
                             <option value="{{ $value }}" @selected(old('manglik', $member->manglik) == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
+                        @error('manglik')
+                        <div id="manglik_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -415,11 +463,11 @@
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="education">
                             Education
                         </label>
 
-                        <select name="education" class="form-select">
+                        <select name="education" id="education" class="form-select @error('education') is-invalid @enderror" aria-invalid="{{ $errors->has('education') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('education') ? 'education_error' : '' }}">
                             <option value="">Select Education</option>
                             @if(old('education', $member->education) && ! $educations->contains('education', old('education', $member->education)))
                                 <option selected value="{{ old('education', $member->education) }}">{{ old('education', $member->education) }}</option>
@@ -428,35 +476,44 @@
                             <option value="{{ $education->education }}" @selected(old('education', $member->education) == $education->education)>{{ $education->education }}</option>
                             @endforeach
                         </select>
+                        @error('education')
+                        <div id="education_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="any_other_qualifications">
                             Other Qualifications
                         </label>
 
                         <input
                             type="text"
-                            name="any_other_qualifications"
-                            class="form-control"
-                            value="{{ old('any_other_qualifications', $member->any_other_qualifications) }}">
+                            name="any_other_qualifications" id="any_other_qualifications"
+                            class="form-control @error('any_other_qualifications') is-invalid @enderror"
+                            value="{{ old('any_other_qualifications', $member->any_other_qualifications) }}" aria-invalid="{{ $errors->has('any_other_qualifications') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('any_other_qualifications') ? 'any_other_qualifications_error' : '' }}">
+                        @error('any_other_qualifications')
+                        <div id="any_other_qualifications_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-12">
 
-                        <label class="form-label">
+                        <label class="form-label" for="about_my_education">
                             About Education
                         </label>
 
                         <textarea
-                            name="about_my_education"
+                            name="about_my_education" id="about_my_education"
                             rows="3"
-                            class="form-control">{{ old('about_my_education', $member->about_my_education) }}</textarea>
+                            class="form-control @error('about_my_education') is-invalid @enderror" aria-invalid="{{ $errors->has('about_my_education') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('about_my_education') ? 'about_my_education_error' : '' }}">{{ old('about_my_education', $member->about_my_education) }}</textarea>
+                        @error('about_my_education')
+                        <div id="about_my_education_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -489,104 +546,125 @@
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="employed_in">
                             Employed In
                         </label>
 
-                        <select name="employed_in" class="form-select">
+                        <select name="employed_in" id="employed_in" class="form-select @error('employed_in') is-invalid @enderror" aria-invalid="{{ $errors->has('employed_in') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('employed_in') ? 'employed_in_error' : '' }}">
                             <option value="">Select Employer Type</option>
                             @foreach($employers as $employer)
                             <option value="{{ $employer->employer }}" @selected(old('employed_in', $member->employed_in) == $employer->employer)>{{ $employer->employer }}</option>
                             @endforeach
                         </select>
+                        @error('employed_in')
+                        <div id="employed_in_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="occupation">
                             Occupation
                         </label>
 
-                        <select name="occupation" class="form-select">
+                        <select name="occupation" id="occupation" class="form-select @error('occupation') is-invalid @enderror" aria-invalid="{{ $errors->has('occupation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('occupation') ? 'occupation_error' : '' }}">
                             <option value="">Select Occupation</option>
                             @foreach($occupations as $occupation)
                             <option value="{{ $occupation->occupation }}" @selected(old('occupation', $member->occupation) == $occupation->occupation)>{{ $occupation->occupation }}</option>
                             @endforeach
                         </select>
+                        @error('occupation')
+                        <div id="occupation_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="designation">
                             Designation
                         </label>
 
                         <input
                             type="text"
-                            name="designation"
-                            class="form-control"
-                            value="{{ old('designation', $member->designation) }}">
+                            name="designation" id="designation"
+                            class="form-control @error('designation') is-invalid @enderror"
+                            value="{{ old('designation', $member->designation) }}" aria-invalid="{{ $errors->has('designation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('designation') ? 'designation_error' : '' }}">
+                        @error('designation')
+                        <div id="designation_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="organization_name">
                             Organization
                         </label>
 
                         <input
                             type="text"
-                            name="organization_name"
-                            class="form-control"
-                            value="{{ old('organization_name', $member->organization_name) }}">
+                            name="organization_name" id="organization_name"
+                            class="form-control @error('organization_name') is-invalid @enderror"
+                            value="{{ old('organization_name', $member->organization_name) }}" aria-invalid="{{ $errors->has('organization_name') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('organization_name') ? 'organization_name_error' : '' }}">
+                        @error('organization_name')
+                        <div id="organization_name_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="job_location">
                             Job Location
                         </label>
 
                         <input
                             type="text"
-                            name="job_location"
-                            class="form-control"
-                            value="{{ old('job_location', $member->job_location) }}">
+                            name="job_location" id="job_location"
+                            class="form-control @error('job_location') is-invalid @enderror"
+                            value="{{ old('job_location', $member->job_location) }}" aria-invalid="{{ $errors->has('job_location') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('job_location') ? 'job_location_error' : '' }}">
+                        @error('job_location')
+                        <div id="job_location_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="annual_income">
                             Annual Income
                         </label>
 
-                        <select name="annual_income" class="form-select">
+                        <select name="annual_income" id="annual_income" class="form-select @error('annual_income') is-invalid @enderror" aria-invalid="{{ $errors->has('annual_income') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('annual_income') ? 'annual_income_error' : '' }}">
                             @include('partials.annual-income-options', ['selected' => old('annual_income', $member->annual_income)])
                         </select>
+                        @error('annual_income')
+                        <div id="annual_income_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-12">
 
-                        <label class="form-label">
+                        <label class="form-label" for="about_my_career">
                             About Career
                         </label>
 
                         <textarea
-                            name="about_my_career"
+                            name="about_my_career" id="about_my_career"
                             rows="3"
-                            class="form-control">{{ old('about_my_career', $member->about_my_career) }}</textarea>
+                            class="form-control @error('about_my_career') is-invalid @enderror" aria-invalid="{{ $errors->has('about_my_career') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('about_my_career') ? 'about_my_career_error' : '' }}">{{ old('about_my_career', $member->about_my_career) }}</textarea>
+                        @error('about_my_career')
+                        <div id="about_my_career_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -619,78 +697,93 @@
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="country_living_in">
                             Country
                         </label>
 
-                        <select name="country_living_in" id="country_living_in" class="form-select">
+                        <select name="country_living_in" id="country_living_in" class="form-select @error('country_living_in') is-invalid @enderror" aria-invalid="{{ $errors->has('country_living_in') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('country_living_in') ? 'country_living_in_error' : '' }}">
                             <option value="">Select Country</option>
                             @foreach($countries as $country)
                             <option value="{{ $country->name }}" data-id="{{ $country->id }}" @selected(old('country_living_in', $member->country_living_in) == $country->name)>{{ $country->name }}</option>
                             @endforeach
                         </select>
+                        @error('country_living_in')
+                        <div id="country_living_in_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="state_living_in">
                             State
                         </label>
 
-                        <select name="state_living_in" id="state_living_in" class="form-select" data-current="{{ old('state_living_in', $member->state_living_in) }}">
+                        <select name="state_living_in" id="state_living_in" class="form-select @error('state_living_in') is-invalid @enderror" data-current="{{ old('state_living_in', $member->state_living_in) }}" aria-invalid="{{ $errors->has('state_living_in') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('state_living_in') ? 'state_living_in_error' : '' }}">
                             @if(old('state_living_in', $member->state_living_in))
                                 <option selected value="{{ old('state_living_in', $member->state_living_in) }}">{{ old('state_living_in', $member->state_living_in) }}</option>
                             @endif
                             <option value="">Select Country First</option>
                         </select>
+                        @error('state_living_in')
+                        <div id="state_living_in_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="city_living_in">
                             City
                         </label>
 
-                        <select name="city_living_in" id="city_living_in" class="form-select" data-current="{{ old('city_living_in', $member->city_living_in) }}">
+                        <select name="city_living_in" id="city_living_in" class="form-select @error('city_living_in') is-invalid @enderror" data-current="{{ old('city_living_in', $member->city_living_in) }}" aria-invalid="{{ $errors->has('city_living_in') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('city_living_in') ? 'city_living_in_error' : '' }}">
                             @if(old('city_living_in', $member->city_living_in))
                                 <option selected value="{{ old('city_living_in', $member->city_living_in) }}">{{ old('city_living_in', $member->city_living_in) }}</option>
                             @endif
                             <option value="">Select State First</option>
                         </select>
+                        @error('city_living_in')
+                        <div id="city_living_in_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="native_place">
                             Native Place
                         </label>
 
                         <input
                             type="text"
-                            name="native_place"
-                            class="form-control"
-                            value="{{ old('native_place', $member->native_place) }}">
+                            name="native_place" id="native_place"
+                            class="form-control @error('native_place') is-invalid @enderror"
+                            value="{{ old('native_place', $member->native_place) }}" aria-invalid="{{ $errors->has('native_place') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('native_place') ? 'native_place_error' : '' }}">
+                        @error('native_place')
+                        <div id="native_place_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="address_living_in">
                             Address
                         </label>
 
                         <input
                             type="text"
-                            name="address_living_in"
-                            class="form-control"
-                            value="{{ old('address_living_in', $member->address_living_in) }}">
+                            name="address_living_in" id="address_living_in"
+                            class="form-control @error('address_living_in') is-invalid @enderror"
+                            value="{{ old('address_living_in', $member->address_living_in) }}" aria-invalid="{{ $errors->has('address_living_in') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('address_living_in') ? 'address_living_in_error' : '' }}">
+                        @error('address_living_in')
+                        <div id="address_living_in_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -723,14 +816,14 @@
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="family_type">
                             Family Type
                         </label>
 
                         <select
                             name="family_type"
                             id="family_type"
-                            class="form-select">
+                            class="form-select @error('family_type') is-invalid @enderror" aria-invalid="{{ $errors->has('family_type') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('family_type') ? 'family_type_error' : '' }}">
 
                             <option value="">
                                 Select
@@ -753,22 +846,28 @@
                             </option>
 
                         </select>
+                        @error('family_type')
+                        <div id="family_type_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="family_status">
                             Family Status
                         </label>
 
-                        <select name="family_status" class="form-select">
+                        <select name="family_status" id="family_status" class="form-select @error('family_status') is-invalid @enderror" aria-invalid="{{ $errors->has('family_status') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('family_status') ? 'family_status_error' : '' }}">
                             <option value="">Select Family Status</option>
                             @foreach($familyStatuses as $status)
                             <option value="{{ $status->value }}" @selected(old('family_status', $member->family_status) == $status->value)>{{ $status->value }}</option>
                             @endforeach
                         </select>
+                        @error('family_status')
+                        <div id="family_status_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -776,121 +875,145 @@
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="father_name">
                             Father Name
                         </label>
 
                         <input
                             type="text"
-                            name="father_name"
-                            class="form-control"
-                            value="{{ old('father_name', $member->father_name) }}">
+                            name="father_name" id="father_name"
+                            class="form-control @error('father_name') is-invalid @enderror"
+                            value="{{ old('father_name', $member->father_name) }}" aria-invalid="{{ $errors->has('father_name') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('father_name') ? 'father_name_error' : '' }}">
+                        @error('father_name')
+                        <div id="father_name_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="father_occupation">
                             Father Occupation
                         </label>
 
                         <input
                             type="text"
-                            name="father_occupation"
-                            class="form-control"
-                            value="{{ old('father_occupation', $member->father_occupation) }}">
+                            name="father_occupation" id="father_occupation"
+                            class="form-control @error('father_occupation') is-invalid @enderror"
+                            value="{{ old('father_occupation', $member->father_occupation) }}" aria-invalid="{{ $errors->has('father_occupation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('father_occupation') ? 'father_occupation_error' : '' }}">
+                        @error('father_occupation')
+                        <div id="father_occupation_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="mother_name">
                             Mother Name
                         </label>
 
                         <input
                             type="text"
-                            name="mother_name"
-                            class="form-control"
-                            value="{{ old('mother_name', $member->mother_name) }}">
+                            name="mother_name" id="mother_name"
+                            class="form-control @error('mother_name') is-invalid @enderror"
+                            value="{{ old('mother_name', $member->mother_name) }}" aria-invalid="{{ $errors->has('mother_name') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('mother_name') ? 'mother_name_error' : '' }}">
+                        @error('mother_name')
+                        <div id="mother_name_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="mother_occupation">
                             Mother Occupation
                         </label>
 
                         <input
                             type="text"
-                            name="mother_occupation"
-                            class="form-control"
-                            value="{{ old('mother_occupation', $member->mother_occupation) }}">
+                            name="mother_occupation" id="mother_occupation"
+                            class="form-control @error('mother_occupation') is-invalid @enderror"
+                            value="{{ old('mother_occupation', $member->mother_occupation) }}" aria-invalid="{{ $errors->has('mother_occupation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('mother_occupation') ? 'mother_occupation_error' : '' }}">
+                        @error('mother_occupation')
+                        <div id="mother_occupation_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="no_of_brothers">
                             Brother
                         </label>
 
-                        <select name="no_of_brothers" id="no_of_brothers" class="form-select">
+                        <select name="no_of_brothers" id="no_of_brothers" class="form-select @error('no_of_brothers') is-invalid @enderror" aria-invalid="{{ $errors->has('no_of_brothers') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('no_of_brothers') ? 'no_of_brothers_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(range(0, 5) as $number)
                             <option value="{{ $number }}" @selected(old('no_of_brothers', $member->no_of_brothers) == $number)>{{ $number }}</option>
                             @endforeach
                         </select>
+                        @error('no_of_brothers')
+                        <div id="no_of_brothers_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="married_brothers">
                             Married Brother
                         </label>
 
-                        <select name="married_brothers" id="married_brothers" class="form-select">
+                        <select name="married_brothers" id="married_brothers" class="form-select @error('married_brothers') is-invalid @enderror" aria-invalid="{{ $errors->has('married_brothers') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('married_brothers') ? 'married_brothers_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(range(0, 5) as $number)
                             <option value="{{ $number }}" @selected(old('married_brothers', $member->married_brothers) == $number)>{{ $number }}</option>
                             @endforeach
                         </select>
+                        @error('married_brothers')
+                        <div id="married_brothers_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                         <input type="hidden" id="married_brothers_zero" value="0" disabled>
 
                     </div>
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="no_of_sisters">
                             Sister
                         </label>
 
-                        <select name="no_of_sisters" id="no_of_sisters" class="form-select">
+                        <select name="no_of_sisters" id="no_of_sisters" class="form-select @error('no_of_sisters') is-invalid @enderror" aria-invalid="{{ $errors->has('no_of_sisters') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('no_of_sisters') ? 'no_of_sisters_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(range(0, 5) as $number)
                             <option value="{{ $number }}" @selected(old('no_of_sisters', $member->no_of_sisters) == $number)>{{ $number }}</option>
                             @endforeach
                         </select>
+                        @error('no_of_sisters')
+                        <div id="no_of_sisters_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="married_sisters">
                             Married Sister
                         </label>
 
-                        <select name="married_sisters" id="married_sisters" class="form-select">
+                        <select name="married_sisters" id="married_sisters" class="form-select @error('married_sisters') is-invalid @enderror" aria-invalid="{{ $errors->has('married_sisters') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('married_sisters') ? 'married_sisters_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(range(0, 5) as $number)
                             <option value="{{ $number }}" @selected(old('married_sisters', $member->married_sisters) == $number)>{{ $number }}</option>
                             @endforeach
                         </select>
+                        @error('married_sisters')
+                        <div id="married_sisters_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                         <input type="hidden" id="married_sisters_zero" value="0" disabled>
 
                     </div>
@@ -898,14 +1021,17 @@
 
                     <div class="col-12">
 
-                        <label class="form-label">
+                        <label class="form-label" for="about_family">
                             About Family
                         </label>
 
                         <textarea
-                            name="about_family"
+                            name="about_family" id="about_family"
                             rows="3"
-                            class="form-control">{{ old('about_family', $member->about_family) }}</textarea>
+                            class="form-control @error('about_family') is-invalid @enderror" aria-invalid="{{ $errors->has('about_family') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('about_family') ? 'about_family_error' : '' }}">{{ old('about_family', $member->about_family) }}</textarea>
+                        @error('about_family')
+                        <div id="about_family_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -938,55 +1064,64 @@
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="diet">
                             Diet
                         </label>
 
-                        <select name="diet" class="form-select">
+                        <select name="diet" id="diet" class="form-select @error('diet') is-invalid @enderror" aria-invalid="{{ $errors->has('diet') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('diet') ? 'diet_error' : '' }}">
                             <option value="">Select Diet</option>
                             @foreach(['Veg', 'Veg & Non Veg', 'Non Veg'] as $value)
                             <option value="{{ $value }}" @selected(old('diet', $member->diet) == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
+                        @error('diet')
+                        <div id="diet_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="is_drinking">
                             Drinking
                         </label>
 
-                        <select name="is_drinking" class="form-select">
+                        <select name="is_drinking" id="is_drinking" class="form-select @error('is_drinking') is-invalid @enderror" aria-invalid="{{ $errors->has('is_drinking') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('is_drinking') ? 'is_drinking_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(['Yes', 'No', 'Occasionally'] as $value)
                             <option value="{{ $value }}" @selected(old('is_drinking', $member->is_drinking) == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
+                        @error('is_drinking')
+                        <div id="is_drinking_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="is_smoking">
                             Smoking
                         </label>
 
-                        <select name="is_smoking" class="form-select">
+                        <select name="is_smoking" id="is_smoking" class="form-select @error('is_smoking') is-invalid @enderror" aria-invalid="{{ $errors->has('is_smoking') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('is_smoking') ? 'is_smoking_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(['Yes', 'No', 'Occasionally'] as $value)
                             <option value="{{ $value }}" @selected(old('is_smoking', $member->is_smoking) == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
+                        @error('is_smoking')
+                        <div id="is_smoking_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="any_disability">
                             Disability
                         </label>
 
@@ -994,32 +1129,41 @@
                         $disabilitySelection = old('any_disability', \App\Support\DisabilityValue::selection($member->any_disability));
                         $disabilityDescription = old('health_info', \App\Support\DisabilityValue::description($member->any_disability, $member->health_info ?? null));
                         @endphp
-                        <select name="any_disability" id="any_disability" class="form-select">
+                        <select name="any_disability" id="any_disability" class="form-select @error('any_disability') is-invalid @enderror" aria-invalid="{{ $errors->has('any_disability') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('any_disability') ? 'any_disability_error' : '' }}">
                             <option value="">Select</option>
                             @foreach(['Yes', 'No'] as $value)
                             <option value="{{ $value }}" @selected($disabilitySelection == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
+                        @error('any_disability')
+                        <div id="any_disability_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
                     <div class="col-md-6 {{ $disabilitySelection === 'Yes' ? '' : 'd-none' }}" id="disability_description_group">
                         <label for="health_info" class="form-label">Describe Disability</label>
-                        <input type="text" name="health_info" id="health_info" class="form-control"
-                            value="{{ $disabilityDescription }}" maxlength="255">
+                        <input type="text" name="health_info" id="health_info" class="form-control @error('health_info') is-invalid @enderror"
+                            value="{{ $disabilityDescription }}" maxlength="255" aria-invalid="{{ $errors->has('health_info') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('health_info') ? 'health_info_error' : '' }}">
+                        @error('health_info')
+                        <div id="health_info_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                     </div>
 
 
                     <div class="col-12">
 
-                        <label class="form-label">
+                        <label class="form-label" for="about_me">
                             About Me
                         </label>
 
                         <textarea
-                            name="about_me"
+                            name="about_me" id="about_me"
                             rows="4"
-                            class="form-control">{{ old('about_me', $member->about_me) }}</textarea>
+                            class="form-control @error('about_me') is-invalid @enderror" aria-invalid="{{ $errors->has('about_me') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('about_me') ? 'about_me_error' : '' }}">{{ old('about_me', $member->about_me) }}</textarea>
+                        @error('about_me')
+                        <div id="about_me_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1052,13 +1196,13 @@
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="plan_id">
                             Membership Plan
                         </label>
 
                         <select
-                            name="plan_id"
-                            class="form-select">
+                            name="plan_id" id="plan_id"
+                            class="form-select @error('plan_id') is-invalid @enderror" aria-invalid="{{ $errors->has('plan_id') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('plan_id') ? 'plan_id_error' : '' }}">
 
                             <option value="">
                                 No Plan
@@ -1081,19 +1225,22 @@
                             @endforeach
 
                         </select>
+                        @error('plan_id')
+                        <div id="plan_id_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="profile_hide">
                             Profile Visibility
                         </label>
 
                         <select
-                            name="profile_hide"
-                            class="form-select">
+                            name="profile_hide" id="profile_hide"
+                            class="form-select @error('profile_hide') is-invalid @enderror" aria-invalid="{{ $errors->has('profile_hide') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('profile_hide') ? 'profile_hide_error' : '' }}">
 
                             <option
                                 value="No"
@@ -1108,20 +1255,23 @@
                             </option>
 
                         </select>
+                        @error('profile_hide')
+                        <div id="profile_hide_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-4">
 
-                        <label class="form-label">
+                        <label class="form-label" for="relationship_manager">
                             Relationship Manager
                         </label>
 
                         @if(app(\App\Services\RelationshipManagerAccess::class)->isRestricted())
 
                         <input
-                            type="text"
+                            type="text" id="relationship_manager"
                             class="form-control"
                             value="{{ $member->relationship_manager }}"
                             disabled>
@@ -1129,8 +1279,8 @@
                         @else
 
                         <select
-                            name="relationship_manager"
-                            class="form-select @error('relationship_manager') is-invalid @enderror">
+                            name="relationship_manager" id="relationship_manager"
+                            class="form-select @error('relationship_manager') is-invalid @enderror" aria-invalid="{{ $errors->has('relationship_manager') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('relationship_manager') ? 'relationship_manager_error' : '' }}">
 
                             <option value="">
                                 — No Relationship Manager —
@@ -1147,13 +1297,8 @@
                             @endforeach
 
                         </select>
-
                         @error('relationship_manager')
-
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-
+                        <div id="relationship_manager_error" class="invalid-feedback" role="alert">{{ $message }}</div>
                         @enderror
 
                         @endif
@@ -1163,14 +1308,17 @@
 
                     <div class="col-12">
 
-                        <label class="form-label">
+                        <label class="form-label" for="remarks">
                             Admin Remarks
                         </label>
 
                         <textarea
-                            name="remarks"
+                            name="remarks" id="remarks"
                             rows="3"
-                            class="form-control">{{ old('remarks', $member->remarks) }}</textarea>
+                            class="form-control @error('remarks') is-invalid @enderror" aria-invalid="{{ $errors->has('remarks') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('remarks') ? 'remarks_error' : '' }}">{{ old('remarks', $member->remarks) }}</textarea>
+                        @error('remarks')
+                        <div id="remarks_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1236,12 +1384,15 @@
                             Looking For
                         </label>
 
-                        <select name="looking_for" id="looking_for" class="form-select">
+                        <select name="looking_for" id="looking_for" class="form-select @error('looking_for') is-invalid @enderror" aria-invalid="{{ $errors->has('looking_for') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('looking_for') ? 'looking_for_error' : '' }}">
                             <option value="">Select Marital Status</option>
                             @foreach($maritalStatuses as $status)
                             <option value="{{ $status->marital_status }}" @selected(old('looking_for', $member->looking_for) == $status->marital_status)>{{ $status->marital_status }}</option>
                             @endforeach
                         </select>
+                        @error('looking_for')
+                        <div id="looking_for_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1255,13 +1406,16 @@
 
                         <input
                             type="number" min="18"
-                            class="form-control"
+                            class="form-control @error('partner_age_from') is-invalid @enderror"
                             id="partner_age_from"
                             name="partner_age_from"
                             value="{{ old('partner_age_from', $member->partner_age_from) }}"
                             min="18"
                             max="100"
-                            placeholder="Example: 25">
+                            placeholder="Example: 25" aria-invalid="{{ $errors->has('partner_age_from') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_age_from') ? 'partner_age_from_error' : '' }}">
+                        @error('partner_age_from')
+                        <div id="partner_age_from_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1275,13 +1429,16 @@
 
                         <input
                             type="number" min="18"
-                            class="form-control"
+                            class="form-control @error('partner_age_to') is-invalid @enderror"
                             id="partner_age_to"
                             name="partner_age_to"
                             value="{{ old('partner_age_to', $member->partner_age_to) }}"
                             min="18"
                             max="100"
-                            placeholder="Example: 30">
+                            placeholder="Example: 30" aria-invalid="{{ $errors->has('partner_age_to') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_age_to') ? 'partner_age_to_error' : '' }}">
+                        @error('partner_age_to')
+                        <div id="partner_age_to_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1289,32 +1446,38 @@
                     {{-- Partner Height From --}}
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="partner_height_from">
                             Height From
                         </label>
 
-                        <select name="partner_height_from" class="form-select">
+                        <select name="partner_height_from" id="partner_height_from" class="form-select @error('partner_height_from') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_height_from') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_height_from') ? 'partner_height_from_error' : '' }}">
                             <option value="">Select Height</option>
                             @foreach($heights as $height)
                             <option value="{{ $height->height_value ?? $height->height }}" @selected(old('partner_height_from', $member->partner_height_from) == ($height->height_value ?? $height->height))>{{ \App\Support\HeightFormatter::format($height->height) }}</option>
                             @endforeach
                         </select>
+                        @error('partner_height_from')
+                        <div id="partner_height_from_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
 
                     <div class="col-md-6">
 
-                        <label class="form-label">
+                        <label class="form-label" for="partner_height_to">
                             Height To
                         </label>
 
-                        <select name="partner_height_to" class="form-select">
+                        <select name="partner_height_to" id="partner_height_to" class="form-select @error('partner_height_to') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_height_to') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_height_to') ? 'partner_height_to_error' : '' }}">
                             <option value="">Select Height</option>
                             @foreach($heights as $height)
                             <option value="{{ $height->height_value ?? $height->height }}" @selected(old('partner_height_to', $member->partner_height_to) == ($height->height_value ?? $height->height))>{{ \App\Support\HeightFormatter::format($height->height) }}</option>
                             @endforeach
                         </select>
+                        @error('partner_height_to')
+                        <div id="partner_height_to_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1343,12 +1506,15 @@
                             Country
                         </label>
 
-                        <select name="partner_country" id="partner_country" class="form-select">
+                        <select name="partner_country" id="partner_country" class="form-select @error('partner_country') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_country') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_country') ? 'partner_country_error' : '' }}">
                             <option value="">Select Country</option>
                             @foreach($countries as $country)
                             <option value="{{ $country->name }}" data-id="{{ $country->id }}" @selected(old('partner_country', $member->partner_country) == $country->name)>{{ $country->name }}</option>
                             @endforeach
                         </select>
+                        @error('partner_country')
+                        <div id="partner_country_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1360,12 +1526,15 @@
                             State
                         </label>
 
-                        <select name="partner_state" id="partner_state" class="form-select" data-current="{{ old('partner_state', $member->partner_state) }}">
+                        <select name="partner_state" id="partner_state" class="form-select @error('partner_state') is-invalid @enderror" data-current="{{ old('partner_state', $member->partner_state) }}" aria-invalid="{{ $errors->has('partner_state') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_state') ? 'partner_state_error' : '' }}">
                             @if(old('partner_state', $member->partner_state))
                                 <option selected value="{{ old('partner_state', $member->partner_state) }}">{{ old('partner_state', $member->partner_state) }}</option>
                             @endif
                             <option value="">Select Country First</option>
                         </select>
+                        @error('partner_state')
+                        <div id="partner_state_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1377,12 +1546,15 @@
                             City
                         </label>
 
-                        <select name="partner_city" id="partner_city" class="form-select" data-current="{{ old('partner_city', $member->partner_city) }}">
+                        <select name="partner_city" id="partner_city" class="form-select @error('partner_city') is-invalid @enderror" data-current="{{ old('partner_city', $member->partner_city) }}" aria-invalid="{{ $errors->has('partner_city') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_city') ? 'partner_city_error' : '' }}">
                             @if(old('partner_city', $member->partner_city))
                                 <option selected value="{{ old('partner_city', $member->partner_city) }}">{{ old('partner_city', $member->partner_city) }}</option>
                             @endif
                             <option value="">Select State First</option>
                         </select>
+                        @error('partner_city')
+                        <div id="partner_city_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1411,12 +1583,15 @@
                             Religion
                         </label>
 
-                        <select name="partner_religion" id="partner_religion" class="form-select">
+                        <select name="partner_religion" id="partner_religion" class="form-select @error('partner_religion') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_religion') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_religion') ? 'partner_religion_error' : '' }}">
                             <option value="">Select Religion</option>
                             @foreach($religions as $religion)
                             <option value="{{ $religion->religion }}" @selected(old('partner_religion', $member->partner_religion) == $religion->religion)>{{ $religion->religion }}</option>
                             @endforeach
                         </select>
+                        @error('partner_religion')
+                        <div id="partner_religion_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1428,12 +1603,15 @@
                             Caste
                         </label>
 
-                        <select name="partner_cast" id="partner_cast" class="form-select">
+                        <select name="partner_cast" id="partner_cast" class="form-select @error('partner_cast') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_cast') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_cast') ? 'partner_cast_error' : '' }}">
                             <option value="">Select Caste</option>
                             @foreach($casts as $cast)
                             <option value="{{ $cast->cast }}" @selected(old('partner_cast', $member->partner_cast) == $cast->cast)>{{ $cast->cast }}</option>
                             @endforeach
                         </select>
+                        @error('partner_cast')
+                        <div id="partner_cast_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1445,7 +1623,7 @@
                             Mother Tongue
                         </label>
 
-                        <select name="partner_mothertongue" id="partner_mothertongue" class="form-select">
+                        <select name="partner_mothertongue" id="partner_mothertongue" class="form-select @error('partner_mothertongue') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_mothertongue') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_mothertongue') ? 'partner_mothertongue_error' : '' }}">
                             <option value="">Select Mother Tongue</option>
                             @if(old('partner_mothertongue', $member->partner_mothertongue) && ! $motherTongues->contains('mother_tongue', old('partner_mothertongue', $member->partner_mothertongue)))
                                 <option selected value="{{ old('partner_mothertongue', $member->partner_mothertongue) }}">{{ old('partner_mothertongue', $member->partner_mothertongue) }}</option>
@@ -1454,6 +1632,9 @@
                             <option value="{{ $motherTongue->mother_tongue }}" @selected(old('partner_mothertongue', $member->partner_mothertongue) == $motherTongue->mother_tongue)>{{ $motherTongue->mother_tongue }}</option>
                             @endforeach
                         </select>
+                        @error('partner_mothertongue')
+                        <div id="partner_mothertongue_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1466,9 +1647,9 @@
                         </label>
 
                         <select
-                            class="form-select"
+                            class="form-select @error('is_partner_manglik') is-invalid @enderror"
                             id="is_partner_manglik"
-                            name="is_partner_manglik">
+                            name="is_partner_manglik" aria-invalid="{{ $errors->has('is_partner_manglik') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('is_partner_manglik') ? 'is_partner_manglik_error' : '' }}">
 
                             <option value="">
                                 Select Preference
@@ -1487,6 +1668,9 @@
                             </option>
 
                         </select>
+                        @error('is_partner_manglik')
+                        <div id="is_partner_manglik_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1515,7 +1699,7 @@
                             Education
                         </label>
 
-                        <select name="partner_education" id="partner_education" class="form-select">
+                        <select name="partner_education" id="partner_education" class="form-select @error('partner_education') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_education') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_education') ? 'partner_education_error' : '' }}">
                             <option value="">Select Education</option>
                             @if(old('partner_education', $member->partner_education) && ! $educations->contains('education', old('partner_education', $member->partner_education)))
                                 <option selected value="{{ old('partner_education', $member->partner_education) }}">{{ old('partner_education', $member->partner_education) }}</option>
@@ -1524,6 +1708,9 @@
                             <option value="{{ $education->education }}" @selected(old('partner_education', $member->partner_education) == $education->education)>{{ $education->education }}</option>
                             @endforeach
                         </select>
+                        @error('partner_education')
+                        <div id="partner_education_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1535,12 +1722,15 @@
                             Occupation
                         </label>
 
-                        <select name="partner_occupation" id="partner_occupation" class="form-select">
+                        <select name="partner_occupation" id="partner_occupation" class="form-select @error('partner_occupation') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_occupation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_occupation') ? 'partner_occupation_error' : '' }}">
                             <option value="">Select Occupation</option>
                             @foreach($occupations as $occupation)
                             <option value="{{ $occupation->occupation }}" @selected(old('partner_occupation', $member->partner_occupation) == $occupation->occupation)>{{ $occupation->occupation }}</option>
                             @endforeach
                         </select>
+                        @error('partner_occupation')
+                        <div id="partner_occupation_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1552,9 +1742,12 @@
                             Annual Income From
                         </label>
 
-                        <select name="partner_annual_income_from" id="partner_annual_income_from" class="form-select">
+                        <select name="partner_annual_income_from" id="partner_annual_income_from" class="form-select @error('partner_annual_income_from') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_annual_income_from') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_annual_income_from') ? 'partner_annual_income_from_error' : '' }}">
                             @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
                         </select>
+                        @error('partner_annual_income_from')
+                        <div id="partner_annual_income_from_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1566,9 +1759,12 @@
                             Annual Income To
                         </label>
 
-                        <select name="partner_annual_income_to" id="partner_annual_income_to" class="form-select">
+                        <select name="partner_annual_income_to" id="partner_annual_income_to" class="form-select @error('partner_annual_income_to') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_annual_income_to') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_annual_income_to') ? 'partner_annual_income_to_error' : '' }}">
                             @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
                         </select>
+                        @error('partner_annual_income_to')
+                        <div id="partner_annual_income_to_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1597,12 +1793,15 @@
                             Diet
                         </label>
 
-                        <select name="partner_diet" id="partner_diet" class="form-select">
+                        <select name="partner_diet" id="partner_diet" class="form-select @error('partner_diet') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_diet') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_diet') ? 'partner_diet_error' : '' }}">
                             <option value="">Select Diet</option>
                             @foreach(['Veg', 'Veg & Non Veg', 'Non Veg'] as $value)
                             <option value="{{ $value }}" @selected(old('partner_diet', $member->partner_diet) == $value)>{{ $value }}</option>
                             @endforeach
                         </select>
+                        @error('partner_diet')
+                        <div id="partner_diet_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1615,9 +1814,9 @@
                         </label>
 
                         <select
-                            class="form-select"
+                            class="form-select @error('is_partner_smoking') is-invalid @enderror"
                             id="is_partner_smoking"
-                            name="is_partner_smoking">
+                            name="is_partner_smoking" aria-invalid="{{ $errors->has('is_partner_smoking') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('is_partner_smoking') ? 'is_partner_smoking_error' : '' }}">
 
                             <option value="">
                                 Select Preference
@@ -1628,6 +1827,9 @@
                             @endforeach
 
                         </select>
+                        @error('is_partner_smoking')
+                        <div id="is_partner_smoking_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1640,9 +1842,9 @@
                         </label>
 
                         <select
-                            class="form-select"
+                            class="form-select @error('is_partner_drinking') is-invalid @enderror"
                             id="is_partner_drinking"
-                            name="is_partner_drinking">
+                            name="is_partner_drinking" aria-invalid="{{ $errors->has('is_partner_drinking') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('is_partner_drinking') ? 'is_partner_drinking_error' : '' }}">
 
                             <option value="">
                                 Select Preference
@@ -1653,6 +1855,9 @@
                             @endforeach
 
                         </select>
+                        @error('is_partner_drinking')
+                        <div id="is_partner_drinking_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1680,11 +1885,14 @@
                         </label>
 
                         <textarea
-                            class="form-control"
+                            class="form-control @error('about_my_partner') is-invalid @enderror"
                             id="about_my_partner"
                             name="about_my_partner"
                             rows="5"
-                            placeholder="Describe the kind of partner you are looking for...">{{ old('about_my_partner', $member->about_my_partner) }}</textarea>
+                            placeholder="Describe the kind of partner you are looking for..." aria-invalid="{{ $errors->has('about_my_partner') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('about_my_partner') ? 'about_my_partner_error' : '' }}">{{ old('about_my_partner', $member->about_my_partner) }}</textarea>
+                        @error('about_my_partner')
+                        <div id="about_my_partner_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
 
                     </div>
 
@@ -1730,25 +1938,34 @@
                 @foreach($profileRangeRows as $index => $range)
                 <div class="profile-range-row row g-2 mb-3 align-items-center">
                     <div class="col-md-4">
-                        <label class="form-label d-md-none" for="profile_range_from_{{ $index }}">From</label>
+                        <label class="form-label d-md-none" for="profile_range_from_{{ $index }}" id="profile_range_from_{{ $index }}_label">From</label>
                         <input type="number" name="profile_ranges[{{ $index }}][range_from]" id="profile_range_from_{{ $index }}"
                             class="form-control @error('profile_ranges.'.$index.'.range_from') is-invalid @enderror"
-                            value="{{ $range['range_from'] ?? '' }}" min="1">
+                            value="{{ $range['range_from'] ?? '' }}" min="1" aria-labelledby="profile_range_from_{{ $index }}_label" aria-invalid="{{ $errors->has('profile_ranges.'.$index.'.range_from') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('profile_ranges.'.$index.'.range_from') ? 'profile_range_from_'.$index.'_error' : '' }}">
+                        @error('profile_ranges.'.$index.'.range_from')
+                        <div id="profile_range_from_{{ $index }}_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label d-md-none" for="profile_range_to_{{ $index }}">To</label>
+                        <label class="form-label d-md-none" for="profile_range_to_{{ $index }}" id="profile_range_to_{{ $index }}_label">To</label>
                         <input type="number" name="profile_ranges[{{ $index }}][range_to]" id="profile_range_to_{{ $index }}"
                             class="form-control @error('profile_ranges.'.$index.'.range_to') is-invalid @enderror"
-                            value="{{ $range['range_to'] ?? '' }}" min="1">
+                            value="{{ $range['range_to'] ?? '' }}" min="1" aria-labelledby="profile_range_to_{{ $index }}_label" aria-invalid="{{ $errors->has('profile_ranges.'.$index.'.range_to') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('profile_ranges.'.$index.'.range_to') ? 'profile_range_to_'.$index.'_error' : '' }}">
+                        @error('profile_ranges.'.$index.'.range_to')
+                        <div id="profile_range_to_{{ $index }}_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label d-md-none" for="profile_range_price_{{ $index }}">Price</label>
+                        <label class="form-label d-md-none" for="profile_range_price_{{ $index }}" id="profile_range_price_{{ $index }}_label">Price</label>
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
                             <input type="number" name="profile_ranges[{{ $index }}][price]"
                                 id="profile_range_price_{{ $index }}"
                                 class="form-control @error('profile_ranges.'.$index.'.price') is-invalid @enderror"
-                                value="{{ $range['price'] ?? '' }}" min="0" max="1000000" step="0.01">
+                                value="{{ $range['price'] ?? '' }}" min="0" max="1000000" step="0.01" aria-labelledby="profile_range_price_{{ $index }}_label" aria-invalid="{{ $errors->has('profile_ranges.'.$index.'.price') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('profile_ranges.'.$index.'.price') ? 'profile_range_price_'.$index.'_error' : '' }}">
+                        @error('profile_ranges.'.$index.'.price')
+                        <div id="profile_range_price_{{ $index }}_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                         </div>
                     </div>
                     <div class="col-12 text-end">
@@ -1893,18 +2110,18 @@
             row.className = 'profile-range-row row g-2 mb-3 align-items-center';
             row.innerHTML = `
                 <div class="col-md-4">
-                    <label class="form-label d-md-none" for="profile_range_from_${index}">From</label>
-                    <input type="number" name="profile_ranges[${index}][range_from]" id="profile_range_from_${index}" class="form-control" min="1">
+                    <label class="form-label d-md-none" for="profile_range_from_${index}" id="profile_range_from_${index}_label">From</label>
+                    <input type="number" name="profile_ranges[${index}][range_from]" id="profile_range_from_${index}" aria-labelledby="profile_range_from_${index}_label" class="form-control" min="1">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label d-md-none" for="profile_range_to_${index}">To</label>
-                    <input type="number" name="profile_ranges[${index}][range_to]" id="profile_range_to_${index}" class="form-control" min="1">
+                    <label class="form-label d-md-none" for="profile_range_to_${index}" id="profile_range_to_${index}_label">To</label>
+                    <input type="number" name="profile_ranges[${index}][range_to]" id="profile_range_to_${index}" aria-labelledby="profile_range_to_${index}_label" class="form-control" min="1">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label d-md-none" for="profile_range_price_${index}">Price</label>
+                    <label class="form-label d-md-none" for="profile_range_price_${index}" id="profile_range_price_${index}_label">Price</label>
                     <div class="input-group">
                         <span class="input-group-text">₹</span>
-                        <input type="number" name="profile_ranges[${index}][price]" id="profile_range_price_${index}" class="form-control" min="0" max="1000000" step="0.01">
+                        <input type="number" name="profile_ranges[${index}][price]" id="profile_range_price_${index}" aria-labelledby="profile_range_price_${index}_label" class="form-control" min="0" max="1000000" step="0.01">
                     </div>
                 </div>
                 <div class="col-12 text-end">

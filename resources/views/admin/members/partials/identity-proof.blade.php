@@ -30,10 +30,12 @@
                 <label for="id_proof" class="form-label">{{ $hasProof ? 'Replace Identity Proof' : 'Upload Identity Proof' }}</label>
                 <input type="file" name="id_proof" id="id_proof" form="member-edit-form"
                     class="form-control @error('id_proof') is-invalid @enderror"
+                    aria-invalid="{{ $errors->has('id_proof') ? 'true' : 'false' }}"
+                    aria-describedby="id_proof_help{{ $errors->has('id_proof') ? ' id_proof_error' : '' }}"
                     accept=".jpg,.jpeg,.png,.webp">
-                <div class="form-text">JPG, JPEG, PNG or WebP. Maximum size: 5 MB.</div>
+                <div id="id_proof_help" class="form-text">JPG, JPEG, PNG or WebP. Maximum size: 5 MB.</div>
                 @error('id_proof')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div id="id_proof_error" class="invalid-feedback" role="alert">{{ $message }}</div>
                 @enderror
                 @if($hasProof)
                     <a href="{{ $proofUrl }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary mt-3">

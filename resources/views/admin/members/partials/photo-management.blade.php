@@ -35,9 +35,14 @@
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         <label for="member_photo" class="form-label">Select Photo</label>
-                        <input type="file" class="form-control" id="member_photo" name="photo"
+                        <input type="file" class="form-control @error('photo') is-invalid @enderror" id="member_photo" name="photo"
+                            aria-invalid="{{ $errors->has('photo') ? 'true' : 'false' }}"
+                            aria-describedby="member_photo_help{{ $errors->has('photo') ? ' member_photo_error' : '' }}"
                             accept=".jpg,.jpeg,.png,.webp" required>
-                        <div class="form-text mb-3">JPG, JPEG, PNG or WebP. Maximum size: 10 MB.</div>
+                        <div id="member_photo_help" class="form-text mb-3">JPG, JPEG, PNG or WebP. Maximum size: 10 MB.</div>
+                        @error('photo')
+                        <div id="member_photo_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                         <div id="photoPreviewContainer" class="mb-3 d-none">
                             <img id="photoPreview" src="" alt="Photo preview" class="rounded object-fit-cover"
                                 style="width:180px;height:180px;">
