@@ -1254,7 +1254,7 @@
                         </label>
 
                         <input
-                            type="number"
+                            type="number" min="18"
                             class="form-control"
                             id="partner_age_from"
                             name="partner_age_from"
@@ -1274,7 +1274,7 @@
                         </label>
 
                         <input
-                            type="number"
+                            type="number" min="18"
                             class="form-control"
                             id="partner_age_to"
                             name="partner_age_to"

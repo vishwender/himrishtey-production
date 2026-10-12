@@ -238,7 +238,7 @@ class MemberRotationController extends Controller
             'user_id' => [
                 \Illuminate\Validation\Rule::exists('admins', 'id')->where('status', true),
                 'required',
-                'integer',
+                'integer', 'min:0',
             ],
 
             'days' => [

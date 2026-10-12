@@ -564,7 +564,7 @@
                                                     </label>
 
                                                     <input
-                                                        type="number"
+                                                        type="number" min="0"
                                                         name="duration_days"
                                                         class="form-control"
                                                         value="{{ $plan->duration_days }}"
@@ -582,7 +582,7 @@
                                                     </label>
 
                                                     <input
-                                                        type="number"
+                                                        type="number" min="0"
                                                         name="view_contact"
                                                         class="form-control"
                                                         value="{{ $plan->view_contact }}"
@@ -600,7 +600,7 @@
                                                     </label>
 
                                                     <input
-                                                        type="number"
+                                                        type="number" min="0"
                                                         name="view_profile"
                                                         class="form-control"
                                                         value="{{ $plan->view_profile }}"
@@ -624,7 +624,7 @@
                                                         </span>
 
                                                         <input
-                                                            type="number"
+                                                            type="number" min="0"
                                                             name="plan_cost"
                                                             class="form-control plan-cost"
                                                             value="{{ $plan->plan_cost }}"
@@ -646,7 +646,7 @@
                                                     <div class="input-group">
 
                                                         <input
-                                                            type="number"
+                                                            type="number" min="0"
                                                             name="discount_percentage"
                                                             class="form-control discount-percent"
                                                             value="{{ $plan->discount_percentage }}"

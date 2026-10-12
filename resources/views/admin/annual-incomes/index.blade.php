@@ -307,7 +307,7 @@
                                                 </label>
 
                                                 <input
-                                                    type="number"
+                                                    type="number" min="0"
                                                     name="display_order"
                                                     class="form-control"
                                                     value="{{ $income->display_order }}"

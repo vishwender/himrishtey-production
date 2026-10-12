@@ -111,6 +111,7 @@
         passwordToggle.querySelector('i').className = showPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
     });
 </script>
+<script src="{{ asset('assets/js/number-inputs.js') }}" defer></script>
 </body>
 
 </html>

@@ -390,7 +390,7 @@ class DeleteProfileRequestController extends Controller
 
             'request_ids.*' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
             ],
 
             'action' => [

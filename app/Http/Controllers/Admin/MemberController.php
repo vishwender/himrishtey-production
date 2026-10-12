@@ -60,8 +60,8 @@ class MemberController extends Controller
 
         $validated = $request->validate([
             'member_ids' => ['required', 'array', 'min:1', 'max:100'],
-            'member_ids.*' => ['required', 'integer', 'distinct'],
-            'staff_id' => ['required', 'integer'],
+            'member_ids.*' => ['required', 'integer', 'min:0', 'distinct'],
+            'staff_id' => ['required', 'integer', 'min:0'],
         ]);
 
         $staff = Admin::query()->where('status', true)->whereNotNull('name')->where('name', '<>', '')->find($validated['staff_id']);
@@ -927,7 +927,6 @@ class MemberController extends Controller
                 'sub_cast',
                 'gotra',
                 'manglik',
-                'no_of_child',
                 'about_my_education',
                 'any_other_qualifications',
                 'about_my_career',
@@ -955,8 +954,6 @@ class MemberController extends Controller
                 'about_me',
                 'any_disability',
                 'looking_for',
-                'partner_age_from',
-                'partner_age_to',
                 'partner_country',
                 'partner_religion',
                 'partner_cast',
@@ -1024,6 +1021,9 @@ class MemberController extends Controller
                 'before_or_equal:' . now()->subYears(18)->toDateTimeString(),
             ],
 
+            'no_of_child' => ['nullable', 'integer', 'min:0'],
+            'partner_age_from' => ['nullable', 'integer', 'min:18', 'max:100'],
+            'partner_age_to' => ['nullable', 'integer', 'min:18', 'max:100'],
             'no_of_brothers' => ['nullable', 'integer', 'min:0', 'max:100'],
             'married_brothers' => ['nullable', 'integer', 'min:0', 'max:100', 'lte:no_of_brothers'],
             'no_of_sisters' => ['nullable', 'integer', 'min:0', 'max:100'],
@@ -2692,6 +2692,7 @@ class MemberController extends Controller
                 'max:255',
             ],
 
+            'no_of_child' => ['nullable', 'integer', 'min:0'],
             'no_of_brothers' => [
                 'nullable',
                 'integer',

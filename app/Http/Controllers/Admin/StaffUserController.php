@@ -98,7 +98,7 @@ class StaffUserController extends Controller
             ],
 
             'sites.*' => [
-                'integer',
+                'integer', 'min:0',
                 'exists:sites,id',
             ],
         ]);
@@ -199,7 +199,7 @@ class StaffUserController extends Controller
             ],
 
             'sites.*' => [
-                'integer',
+                'integer', 'min:0',
                 'exists:sites,id',
             ],
         ]);

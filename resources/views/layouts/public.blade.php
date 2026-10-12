@@ -64,6 +64,7 @@
 
     @stack('scripts')
 
+<script src="{{ asset('assets/js/number-inputs.js') }}" defer></script>
 </body>
 
 </html>

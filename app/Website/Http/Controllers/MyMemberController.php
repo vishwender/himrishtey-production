@@ -447,6 +447,18 @@ class MyMemberController extends Controller
 
     public function update_profile(Request $request)
     {
+        $request->validate([
+            'no_of_child' => ['nullable', 'integer', 'min:0'],
+            'no_of_brothers' => ['nullable', 'integer', 'min:0'],
+            'no_of_sisters' => ['nullable', 'integer', 'min:0'],
+            'married_brothers' => ['nullable', 'integer', 'min:0'],
+            'married_sisters' => ['nullable', 'integer', 'min:0'],
+            'partner_age_from' => ['nullable', 'integer', 'min:0'],
+            'partner_age_to' => ['nullable', 'integer', 'min:0'],
+            'partner_height_from' => ['nullable', 'numeric', 'min:0'],
+            'partner_height_to' => ['nullable', 'numeric', 'min:0'],
+        ]);
+
         $member = Auth::guard('member')->user();
         $user = Member::findOrFail($member->id);
 

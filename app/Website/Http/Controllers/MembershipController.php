@@ -112,7 +112,7 @@ class MembershipController extends Controller
             'razorpay_order_id' => 'required|string',
             'razorpay_payment_id' => 'required|string',
             'razorpay_signature' => 'required|string',
-            'plan_id' => 'required|integer',
+            'plan_id' => 'required|integer|min:0',
         ]);
 
         $api = $this->paymentApi();

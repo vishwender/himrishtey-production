@@ -285,6 +285,7 @@
   <script src="{{ asset('assets/js/dashboard-profile-card.js') }}?v={{ filemtime(public_path('assets/js/dashboard-profile-card.js')) }}"></script>
   <script src="{{ asset('assets/js/profile-card-actions.js') }}?v={{ filemtime(public_path('assets/js/profile-card-actions.js')) }}"></script>
   @yield('scripts')
+<script src="{{ asset('assets/js/number-inputs.js') }}" defer></script>
 </body>
 
 </html>

@@ -663,6 +663,7 @@
      </main>
      @include('partials.public-footer')
      @include('partials.app-popup')
- </body>
+ <script src="{{ asset('assets/js/number-inputs.js') }}" defer></script>
+</body>
 
  </html>

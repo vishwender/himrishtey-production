@@ -2504,7 +2504,7 @@
                             name="partner_annual_income_from"
                             id="partner_annual_income_from"
                             class="form-select">
-                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from')])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('partner_annual_income_from')])
                         </select>
 
                     </div>
@@ -2527,7 +2527,7 @@
                             name="partner_annual_income_to"
                             id="partner_annual_income_to"
                             class="form-select">
-                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to')])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('partner_annual_income_to')])
                         </select>
 
                     </div>

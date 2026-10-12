@@ -123,5 +123,6 @@
     </section>
     <footer class="footer"><span>&copy; {{ date('Y') }} {{ config('app.name') }}. Internal operations portal.</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Authorised staff only</span></footer>
 </div>
+<script src="{{ asset('assets/js/number-inputs.js') }}" defer></script>
 </body>
 </html>

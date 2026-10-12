@@ -61,7 +61,7 @@ class MembershipPlanController extends Controller
         $validated = $request->validate([
             'membership_type' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
                 'exists:site.membership_type,id',
             ],
 
@@ -132,7 +132,7 @@ class MembershipPlanController extends Controller
         $validated = $request->validate([
             'membership_type' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
                 'exists:site.membership_type,id',
             ],
 

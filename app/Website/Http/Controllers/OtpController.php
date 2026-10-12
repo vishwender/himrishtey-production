@@ -159,7 +159,7 @@ class OtpController extends Controller
     public function verifyLoginOtp(Request $request)
     {
         $request->validate([
-            'otp' => 'required|numeric',
+            'otp' => 'required|numeric|min:0',
         ]);
 
         if (now()->greaterThan(session('otp_expires_at'))) {

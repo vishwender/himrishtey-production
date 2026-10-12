@@ -1541,7 +1541,7 @@ class HomeController extends Controller
     {
         // dd($request->status);
         $request->validate([
-            'member_id' => 'required|integer',
+            'member_id' => 'required|integer|min:0',
             'status' => 'required|in:0,1,2', // 0=Pending, 1=Accepted, 2=Rejected
         ]);
 

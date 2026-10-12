@@ -53,7 +53,7 @@ class MemberActivationController extends Controller
         $data = $request->validate([
             'plan_id' => ['required', 'integer', 'min:0'],
             'plan_activation_date' => ['required', 'date_format:Y-m-d'],
-            'staff_id' => ['required', 'integer'],
+            'staff_id' => ['required', 'integer', 'min:0'],
             'profile_hide' => ['required', Rule::in(['Yes', 'No'])],
             'profile_view_count' => ['required', 'integer', 'min:0', 'max:2147483647'],
             'wallet_amount' => ['required', 'numeric', 'min:0', 'max:1000000', 'decimal:0,2'],

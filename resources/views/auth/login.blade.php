@@ -110,7 +110,7 @@
 
               <div class="input-wrap">
                 <input
-                  type="number"
+                  type="number" min="0"
                   id="loginCaptcha"
                   name="captcha"
                   class="form-input"
@@ -404,7 +404,7 @@
               </div>
 
               <input
-                type="number"
+                type="number" min="0"
                 id="regCaptcha"
                 class="form-input"
                 placeholder="Enter your answer">

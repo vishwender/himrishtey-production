@@ -44,7 +44,7 @@ class ProfileRangeController extends Controller
 
             'range_to' => [
                 'required',
-                'numeric',
+                'numeric', 'min:0',
                 'gte:range_from',
             ],
 
@@ -90,7 +90,7 @@ class ProfileRangeController extends Controller
 
             'range_to' => [
                 'required',
-                'numeric',
+                'numeric', 'min:0',
                 'gte:range_from',
             ],
 

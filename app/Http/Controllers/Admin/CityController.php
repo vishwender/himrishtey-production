@@ -83,7 +83,7 @@ class CityController extends Controller
 
             'state_id' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
                 'exists:site.states,id',
             ],
         ], [
@@ -118,7 +118,7 @@ class CityController extends Controller
 
             'state_id' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
                 'exists:site.states,id',
             ],
         ], [

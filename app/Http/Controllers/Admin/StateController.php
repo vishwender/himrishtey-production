@@ -60,7 +60,7 @@ class StateController extends Controller
 
             'country_id' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
                 'exists:site.countries,id',
             ],
         ], [
@@ -95,7 +95,7 @@ class StateController extends Controller
 
             'country_id' => [
                 'required',
-                'integer',
+                'integer', 'min:0',
                 'exists:site.countries,id',
             ],
         ], [

@@ -60,7 +60,7 @@ class WalletController extends Controller
     public function buyOffer(Request $request)
     {
         $request->validate([
-            'offer_id' => 'required|integer',
+            'offer_id' => 'required|integer|min:0',
         ]);
 
         $user = auth()->guard('member')->user();

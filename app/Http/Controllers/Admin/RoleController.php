@@ -87,7 +87,7 @@ class RoleController extends Controller
             ],
 
             'permissions.*' => [
-                'integer',
+                'integer', 'min:0',
                 Rule::exists('permissions', 'id')->whereIn('slug', RolePermissions::forRole($role->slug)),
             ],
         ]);
