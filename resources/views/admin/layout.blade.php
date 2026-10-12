@@ -99,17 +99,17 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                         </a>
 
                         <a
-                            href="{{ route('admin.members.new') }}"
-                            class="{{ request()->routeIs('admin.members.new') ? 'active' : '' }}">
-                            <i class="bi bi-person-exclamation me-2"></i>
-                            New Members
-                        </a>
-
-                        <a
                             href="{{ route('admin.members.create') }}"
                             class="{{ request()->routeIs('admin.members.create') ? 'active' : '' }}">
                             <i class="bi bi-person-plus me-2"></i>
                             Add Member
+                        </a>
+
+                        <a
+                            href="{{ route('admin.members.new') }}"
+                            class="{{ request()->routeIs('admin.members.new') ? 'active' : '' }}">
+                            <i class="bi bi-person-exclamation me-2"></i>
+                            New Members
                         </a>
 
                         <a
@@ -382,23 +382,22 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                         </a>
 
                         <a
-                            href="{{ route('admin.members.new') }}"
-                            class="nav-dropdown-item {{ request()->routeIs('admin.members.new') ? 'active' : '' }}">
-
-                            <i class="bi bi-person-exclamation me-2"></i>
-
-                            New Members
-
-                        </a>
-
-                        {{-- Add Member --}}
-                        <a
                             href="{{ route('admin.members.create') }}"
                             class="nav-dropdown-item {{ request()->routeIs('admin.members.create') ? 'active' : '' }}">
 
                             <i class="bi bi-person-plus me-2"></i>
 
                             Add Member
+
+                        </a>
+
+                                                <a
+                            href="{{ route('admin.members.new') }}"
+                            class="nav-dropdown-item {{ request()->routeIs('admin.members.new') ? 'active' : '' }}">
+
+                            <i class="bi bi-person-exclamation me-2"></i>
+
+                            New Members
 
                         </a>
 

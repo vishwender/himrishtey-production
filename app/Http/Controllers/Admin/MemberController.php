@@ -892,6 +892,9 @@ class MemberController extends Controller
             ->orderBy('name')
             ->get();
 
+        $membershipTypes = MembershipType::query()->orderBy('plan_name')->get(['id', 'plan_name']);
+        $membershipPlans = MembershipPlan::query()->orderBy('plan_name')->get(['id', 'plan_name', 'membership_type']);
+
         return view('admin.members.create', compact(
             'occupations',
             'religions',
@@ -905,7 +908,9 @@ class MemberController extends Controller
             'annualIncomes',
             'employers',
             'relationshipManagers',
-            'defaultRelationshipManager'
+            'defaultRelationshipManager',
+            'membershipTypes',
+            'membershipPlans'
         ));
     }
 
@@ -971,7 +976,6 @@ class MemberController extends Controller
                 'about_my_partner',
                 'horoscope_needed',
                 'active',
-                'member_type',
                 'is_trusted',
                 'profile_hide',
                 'promoted',
@@ -1128,6 +1132,15 @@ class MemberController extends Controller
                 'image',
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
+            ],
+
+            'member_type' => ['nullable', 'required_with:plan_id', 'string', Rule::exists('site.membership_type', 'plan_name')],
+            'plan_id' => [
+                'nullable', 'required_with:member_type', 'integer',
+                Rule::exists('site.membership_plans', 'id')->where(fn ($query) => $query->whereIn(
+                    'membership_type',
+                    DB::connection('site')->table('membership_type')->select('id')->where('plan_name', $request->input('member_type'))
+                )),
             ],
 
             'profile_ranges' => ['nullable', 'array', 'max:20'],
@@ -1380,11 +1393,11 @@ class MemberController extends Controller
 
                 'active' => '',
 
-                'member_type' => 'free',
+                'member_type' => $validated['member_type'] ?? 'free',
 
                 'is_trusted' => 'No',
 
-                'plan_id' => '0',
+                'plan_id' => $validated['plan_id'] ?? '0',
 
                 'plan_activation_date' => now()->format('Y-m-d'),
 
@@ -1436,6 +1449,8 @@ class MemberController extends Controller
                 'id_proof',
                 'relationship_manager',
                 'profile_ranges',
+                'member_type',
+                'plan_id',
             ])->all();
 
             // The final fill must respect legacy NOT NULL columns too.

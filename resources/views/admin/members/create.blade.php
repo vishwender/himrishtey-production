@@ -2986,26 +2986,27 @@
                     </div>
 
 
-                    {{-- Member Type --}}
+                    {{-- Membership --}}
+                    <div class="col-md-4">
+                        <label for="member_type" class="form-label">Membership Type</label>
+                        <select name="member_type" id="member_type" class="form-select @error('member_type') is-invalid @enderror">
+                            <option value="">Select Membership Type</option>
+                            @foreach($membershipTypes as $type)
+                            <option value="{{ $type->plan_name }}" data-type-id="{{ $type->id }}" @selected((string) old('member_type') === (string) $type->plan_name)>{{ $type->plan_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('member_type')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
 
                     <div class="col-md-4">
-
-                        <label
-                            for="member_type"
-                            class="form-label">
-
-                            Member Type
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            name="member_type"
-                            id="member_type"
-                            class="form-control"
-                            value="{{ old('member_type', 'free') }}">
-
+                        <label for="plan_id" class="form-label">Membership Plan</label>
+                        <select name="plan_id" id="plan_id" class="form-select @error('plan_id') is-invalid @enderror">
+                            <option value="">Select Membership Plan</option>
+                            @foreach($membershipPlans as $plan)
+                            <option value="{{ $plan->id }}" data-type-id="{{ $plan->membership_type }}" @selected((string) old('plan_id') === (string) $plan->id)>{{ $plan->plan_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('plan_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
 
 

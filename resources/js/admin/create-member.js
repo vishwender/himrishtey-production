@@ -47,6 +47,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         form?.addEventListener('reset', clearPreview);
     }
+    const membershipType = document.getElementById('member_type');
+    const membershipPlan = document.getElementById('plan_id');
+    if (membershipType && membershipPlan) {
+        const plans = Array.from(membershipPlan.options).filter(option => option.value !== '');
+        const placeholder = membershipPlan.options[0];
+        const filterPlans = (preserveSelection = false) => {
+            const selectedPlan = preserveSelection ? membershipPlan.value : '';
+            const typeId = membershipType.options[membershipType.selectedIndex]?.dataset.typeId;
+            const matchingPlans = plans.filter(option => option.dataset.typeId === typeId);
+            placeholder.textContent = !typeId ? 'Select Membership Type first'
+                : matchingPlans.length ? 'Select Membership Plan' : 'No plans available for this type';
+            membershipPlan.replaceChildren(placeholder, ...matchingPlans);
+            membershipPlan.value = matchingPlans.some(option => option.value === selectedPlan) ? selectedPlan : '';
+            membershipPlan.disabled = !typeId || matchingPlans.length === 0;
+            membershipPlan.required = Boolean(typeId);
+        };
+        membershipType.addEventListener('change', () => filterPlans());
+        form?.addEventListener('reset', () => setTimeout(() => filterPlans(true), 0));
+        filterPlans(true);
+    }
+
     const countrySelect = document.getElementById('country_living_in');
     const stateSelect = document.getElementById('state_living_in');
     const citySelect = document.getElementById('city_living_in');
