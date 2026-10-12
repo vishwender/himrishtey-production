@@ -57,18 +57,11 @@
         <div class="mt-3 mt-md-0 d-flex flex-wrap gap-2">
 
             @php
-            $backUrl = route('admin.members.index');
-
-            if (!empty($returnUrl)) {
-            $parsedUrl = parse_url($returnUrl);
-
-            if (
-            !isset($parsedUrl['host']) ||
-            $parsedUrl['host'] === request()->getHost()
-            ) {
-            $backUrl = $returnUrl;
-            }
-            }
+            $backUrl = \App\Support\SafeReturnUrl::resolve(
+                $returnUrl ?? null,
+                request(),
+                route('admin.members.index')
+            );
             @endphp
 
             <button
