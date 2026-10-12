@@ -49,6 +49,26 @@
 .crm-profile .crm-empty { text-align: center; color: var(--crm-muted); padding: 40px 16px; }
 .crm-profile .crm-empty i { font-size: 30px; display: block; margin-bottom: 12px; }
 [data-bs-theme="dark"] .crm-profile { --crm-border: #343a49; --crm-muted: #a6afc0; --crm-icon-bg: #33284f; --crm-accent: #c2b0ff; }
+[data-bs-theme="dark"] .crm-profile .btn-primary {
+    color: #211733;
+    background: #c2b0ff;
+    border-color: #c2b0ff;
+}
+[data-bs-theme="dark"] .crm-profile .btn-primary:is(:hover, :focus, :focus-visible) {
+    color: #211733;
+    background: #d3c6ff;
+    border-color: #d3c6ff;
+}
+[data-bs-theme="dark"] .crm-profile .btn-primary:is(:active, .active, .show) {
+    color: #211733;
+    background: #b09af5;
+    border-color: #b09af5;
+}
+[data-bs-theme="dark"] .crm-profile .btn-primary:focus-visible {
+    outline: 3px solid #d3c6ff;
+    outline-offset: 3px;
+}
+
 
 @media (max-width: 1100px) { .crm-profile .crm-contact-header { flex-wrap: wrap; } .crm-profile .crm-header-completion { margin-left: 136px; width: 240px; } }
 @media (max-width: 767px) { .crm-profile .crm-contact-header { padding: 20px; gap: 16px; align-items: flex-start; } .crm-profile .crm-avatar { width: 72px; height: 104px; } .crm-profile .crm-contact-title h2 { font-size: 19px; } .crm-profile .crm-header-metrics { gap: 8px; } .crm-profile .crm-header-metric { padding: 7px; } .crm-profile .crm-header-completion { margin-left: 0; width: 100%; } .crm-profile .crm-tabs { gap: 4px; padding: 0 8px; } .crm-profile h1 { font-size: 21px; } .crm-profile h1 span { font-size: 16px; } .crm-profile .crm-details .card-body { padding: 18px; } }
