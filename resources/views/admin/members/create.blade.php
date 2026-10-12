@@ -1,9 +1,12 @@
 @extends('admin.layout')
 
-@vite([
-'resources/js/admin/create-member.js',
-'resources/css/admin/members/create-member.css'
-])
+@push('styles')
+@vite('resources/css/admin/members/create-member.css')
+@endpush
+
+@push('scripts')
+@vite('resources/js/admin/create-member.js')
+@endpush
 
 @section('content')
 

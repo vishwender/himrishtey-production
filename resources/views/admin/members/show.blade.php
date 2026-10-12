@@ -2859,7 +2859,6 @@ if ($membershipPlan && $membershipExpiryDate) {
     </div>
 </div>
 @endif
-@endsection
 
 {{-- =========================================================
     CHANGE MEMBERSHIP MODAL
@@ -3132,6 +3131,8 @@ if ($membershipPlan && $membershipExpiryDate) {
     </div>
 
 </div>
+
+@endsection
 
 @push('scripts')
 <script src="{{ asset('assets/js/admin-member-profile.js') }}" defer></script>
