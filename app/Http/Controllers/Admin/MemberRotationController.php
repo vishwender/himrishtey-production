@@ -364,7 +364,9 @@ class MemberRotationController extends Controller
     private function authorizeRotationOwner(MemberRotation $rotation): void
     {
         $admin = Auth::guard('admin')->user();
-        if ($admin?->isSiteAdmin()) {
+        abort_unless($admin, 403);
+
+        if (! $admin->hasPermission('view-all-rotations')) {
             abort_unless((int) $rotation->admin_id === (int) $admin->id, 403, 'You can only manage your own rotations.');
         }
     }
