@@ -172,8 +172,8 @@ if ($membershipPlan && $membershipExpiryDate) {
     </header>
     <div class="crm-details">
         <nav class="crm-tabs" aria-label="Profile sections" hidden>
-            @foreach(['overview' => 'Overview', 'family' => 'Family', 'preferences' => 'Preferences', 'photos' => 'Photos', 'activity' => 'Activity', 'membership' => 'Membership'] as $tabKey => $tabLabel)
-            <button type="button" class="crm-tab" data-profile-tab="{{ $tabKey }}" aria-pressed="{{ $tabKey === 'overview' ? 'true' : 'false' }}"><i class="bi bi-{{ ['overview' => 'person', 'family' => 'people', 'preferences' => 'heart', 'photos' => 'images', 'activity' => 'activity', 'membership' => 'credit-card'][$tabKey] }}" aria-hidden="true"></i><span>{{ $tabLabel }}</span></button>
+            @foreach(['overview' => 'Overview', 'family' => 'Family', 'preferences' => 'Preferences', 'photos' => 'Photos', 'activity' => 'Activity', 'membership' => 'Membership', 'member-logs' => 'Member Logs', 'rotations' => 'Rotations'] as $tabKey => $tabLabel)
+            <button type="button" class="crm-tab" data-profile-tab="{{ $tabKey }}" aria-pressed="{{ $tabKey === 'overview' ? 'true' : 'false' }}"><i class="bi bi-{{ ['overview' => 'person', 'family' => 'people', 'preferences' => 'heart', 'photos' => 'images', 'activity' => 'activity', 'membership' => 'credit-card', 'member-logs' => 'sticky', 'rotations' => 'clock-history'][$tabKey] }}" aria-hidden="true"></i><span>{{ $tabLabel }}</span></button>
             @endforeach
         </nav>
     <section class="card mb-4" data-crm-section="photos">
@@ -2425,7 +2425,7 @@ if ($membershipPlan && $membershipExpiryDate) {
         <form
             action="{{ route('admin.members.relationship-manager.update', [
                 'memberId' => $member->id
-            ]) }}"
+            ]) }}#member-logs"
             method="POST">
 
             @csrf
@@ -2516,7 +2516,7 @@ if ($membershipPlan && $membershipExpiryDate) {
     MEMBER LOGS
 ========================================================= --}}
 
-<div id="member-logs" class="card border-0 shadow-sm mb-4 member-logs-card" data-crm-section="activity">
+<div id="member-logs" class="card border-0 shadow-sm mb-4 member-logs-card" data-crm-section="member-logs">
 
     <div class="card-header bg-white py-3">
 
@@ -2537,7 +2537,7 @@ if ($membershipPlan && $membershipExpiryDate) {
                 </h5>
 
                 <small class="text-muted">
-                    Staff notes and remark history for this member
+                    Registration, assignments, remarks, membership and wallet history
                 </small>
 
             </div>
@@ -2549,10 +2549,27 @@ if ($membershipPlan && $membershipExpiryDate) {
 
     <div class="card-body">
 
+        <dl class="row mb-4">
+            <dt class="col-sm-4">Registration Through</dt>
+            <dd class="col-sm-8">{{ $member->register_through ?: 'Website' }}</dd>
+            <dt class="col-sm-4">Registration Date</dt>
+            <dd class="col-sm-8">{{ $member->registration_date ?: '-' }}</dd>
+            <dt class="col-sm-4">Assigned To</dt>
+            <dd class="col-sm-8">{{ $member->assigned_to ?: 'Unassigned' }}</dd>
+            <dt class="col-sm-4">Relationship Manager</dt>
+            <dd class="col-sm-8">{{ $member->relationship_manager ?: 'Unassigned' }}</dd>
+            <dt class="col-sm-4">Plan Activation Date</dt>
+            <dd class="col-sm-8">{{ $member->plan_activation_date ?: '-' }}</dd>
+            <dt class="col-sm-4">Plan Name</dt>
+            <dd class="col-sm-8">{{ $membershipPlan->plan_name ?? 'Free' }}</dd>
+            <dt class="col-sm-4">Plan Created By</dt>
+            <dd class="col-sm-8">{{ $membershipPayments->isNotEmpty() ? 'Self' : 'Admin' }}</dd>
+        </dl>
+
         <form
             action="{{ route('admin.members.remarks.update', [
                 'memberId' => $member->id
-            ]) }}"
+            ]) }}#member-logs"
             method="POST">
 
             @csrf
@@ -2607,33 +2624,41 @@ if ($membershipPlan && $membershipExpiryDate) {
 
         </form>
 
-        @if($remarkHistory->isNotEmpty())
         <hr class="my-4">
+        <h6 class="mb-3">Assignment and Remark History</h6>
+        @include('admin.members.partials.log-history', [
+            'entries' => $memberLogHistory->where('type', '!=', 'Rotation Added'),
+            'emptyMessage' => 'No assignment or remark history has been recorded yet.',
+        ])
 
-        <h6 class="mb-3">Remark History</h6>
-
+        <hr class="my-4">
+        <h6 class="mb-3">Wallet Coin Logs</h6>
         <div class="list-group list-group-flush">
-            @foreach($remarkHistory as $remarkEntry)
-            @php
-            $remarkMetadata = $remarkEntry->metadata ?? [];
-            @endphp
+            @forelse($walletCredits as $credit)
             <div class="list-group-item px-0">
-                <div class="d-flex justify-content-between gap-3">
-                    <span class="fw-semibold">
-                        {{ $remarkEntry->admin?->name ?? 'Staff member unavailable' }}
-                    </span>
-                    <small class="text-muted">
-                        {{ $remarkEntry->created_at?->format('d-m-Y H:i') ?? '-' }}
-                    </small>
-                </div>
-                <div class="small text-muted mb-1">
-                    {{ $remarkMetadata['remark_type'] ?? 'Remark' }}
-                </div>
-                <div>{{ $remarkMetadata['new_remarks'] ?? '-' }}</div>
+                <strong>Coins added: {{ $credit->amount_added }}</strong>
+                <div class="small text-muted">{{ $credit->created_at ?: 'Date unavailable' }} · {{ $credit->added_by ?: 'Self' }}</div>
             </div>
-            @endforeach
+            @empty
+            <p class="text-muted mb-0">No wallet credits have been recorded yet.</p>
+            @endforelse
         </div>
-        @endif
+
+
+    </div>
+
+</div>
+
+<div id="rotations" class="card border-0 shadow-sm mb-4" data-crm-section="rotations">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0"><i class="crm-icon bi bi-clock-history me-2"></i>Rotations</h5>
+        <small class="text-muted">Who added each rotation and when</small>
+    </div>
+    <div class="card-body">
+        @include('admin.members.partials.log-history', [
+            'entries' => $rotationLogHistory,
+            'emptyMessage' => 'No rotation history has been recorded yet.',
+        ])
 
     </div>
 

@@ -24,6 +24,7 @@ use App\Models\Religion;
 use App\Models\SiteMember;
 use App\Models\State;
 use App\Services\AdminActivityLogger;
+use App\Services\MemberLogs;
 use App\Services\MemberPhotoService;
 use App\Services\MemberProfileCompletion;
 use App\Services\RelationshipManagerAccess;
@@ -75,6 +76,8 @@ class MemberController extends Controller
 
             foreach ($members as $member) {
                 $member->update(['assigned_to' => $staff->name, 'relationship_manager' => $staff->name]);
+                app(MemberLogs::class)->record($member->id, 'assigned_to', $staff->name);
+                app(MemberLogs::class)->record($member->id, 'Relationship Manager', $staff->name);
             }
         });
 
@@ -787,6 +790,8 @@ class MemberController extends Controller
         |--------------------------------------------------------------------------
         */
 
+        $memberLogHistory = app(MemberLogs::class)->history($member->id, $remarkHistory);
+
         return view('admin.members.show', [
 
             'member' => $member,
@@ -810,7 +815,9 @@ class MemberController extends Controller
             'returnUrl' => $returnUrl,
             'shareUrl' => $shareUrl,
             'whatsappShareUrl' => $whatsappShareUrl,
-            'remarkHistory' => $remarkHistory,
+            'memberLogHistory' => $memberLogHistory,
+            'rotationLogHistory' => app(MemberLogs::class)->rotations($member->id, $memberLogHistory),
+            'walletCredits' => app(MemberLogs::class)->walletCredits($member->id),
         ]);
     }
 
@@ -3325,12 +3332,12 @@ class MemberController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        DB::connection('site')
-            ->table('members')
-            ->where('id', $memberId)
-            ->update([
+        DB::connection('site')->transaction(function () use ($memberId, $validated) {
+            DB::connection('site')->table('members')->where('id', $memberId)->update([
                 'relationship_manager' => $validated['relationship_manager'] ?? null,
             ]);
+            app(MemberLogs::class)->record((int) $memberId, 'Relationship Manager', $validated['relationship_manager'] ?? 'Unassigned');
+        });
 
         /*
     |--------------------------------------------------------------------------
@@ -3393,12 +3400,12 @@ class MemberController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        DB::connection('site')
-            ->table('members')
-            ->where('id', $memberId)
-            ->update([
-                'remarks' => $newRemarks,
-            ]);
+        $remarkType = $member->active === 'Yes' ? 'RM Remarks' : 'Assigned Remarks';
+        $memberLogId = DB::connection('site')->transaction(function () use ($memberId, $newRemarks, $remarkType) {
+            DB::connection('site')->table('members')->where('id', $memberId)->update(['remarks' => $newRemarks]);
+
+            return app(MemberLogs::class)->record((int) $memberId, $remarkType, $newRemarks);
+        });
 
         /*
     |--------------------------------------------------------------------------
@@ -3417,6 +3424,7 @@ class MemberController extends Controller
                 metadata: [
                     'profile_id' => $member->profile_id,
                     'full_name' => $member->full_name,
+                    'member_log_id' => $memberLogId,
                     'old_remarks' => $oldRemarks,
                     'new_remarks' => $newRemarks,
                     'remark_type' => $member->active === 'Yes'

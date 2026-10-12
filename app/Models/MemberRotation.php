@@ -27,6 +27,16 @@ class MemberRotation extends Model
         'time' => 'datetime',
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function (self $rotation) {
+            app(\App\Services\MemberLogs::class)->record(
+                (int) $rotation->member_id, 'Rotation Added', "Rotation #{$rotation->id} added",
+                $rotation->created_at?->format('Y-m-d H:i:s')
+            );
+        });
+    }
+
     public function member()
     {
         return $this->belongsTo(
