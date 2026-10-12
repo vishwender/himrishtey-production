@@ -808,18 +808,15 @@ $hideRelationshipManagerColumn = request()->routeIs('admin.members.index')
                         <th><input type="checkbox" id="select-new-members" aria-label="Select all members on this page"></th>
                         @endif
                         <th>Photo</th>
-                        @if($bannedMembersOnly)
-                        <th>Completed</th>
-                        @endif
 
                         <th>Profile ID</th>
-                        <th>{{ $newMembersOnly ? 'Name' : 'Member' }}</th>
+                        <th>Member</th>
 
                         <th>Gender</th>
 
                         <th>Registration</th>
 
-                        <th>{{ $newMembersOnly ? 'Plan' : 'Membership' }}</th>
+                        <th>Membership</th>
 
                         @if($newMembersOnly)
                         <th>Profile %</th>
@@ -863,9 +860,6 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
     @endif
     <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
 </div></td>
-                        @if($bannedMembersOnly)
-                        <td>{{ $member->profile_completed ?? 0 }}%</td>
-                        @endif
                         {{-- Profile ID --}}
                         <td>
 
@@ -1253,7 +1247,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
                     <tr>
 
                         <td
-                            colspan="{{ ($newMembersOnly ? 11 : ($bannedMembersOnly ? 10 : 9)) - ($hideRelationshipManagerColumn ? 1 : 0) }}"
+                            colspan="{{ $newMembersOnly ? 11 : (9 - ($hideRelationshipManagerColumn ? 1 : 0)) }}"
                             class="text-center py-5 text-muted">
                             No members found.
                         </td>

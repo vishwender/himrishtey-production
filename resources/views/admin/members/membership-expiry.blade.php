@@ -23,7 +23,7 @@
     </div></div>
     <div class="card"><div class="card-body p-0"><div class="table-responsive">
         <table class="table table-hover align-middle mb-0 members-table">
-            <thead class="table-light"><tr><th>Photo</th><th>Profile ID</th><th>Member</th><th>Membership type</th><th>Activation plan</th><th>Activated</th><th>Expires</th><th>Expiry status</th><th>Relationship manager</th><th class="members-actions text-end">Profile</th></tr></thead>
+            <thead class="table-light"><tr><th>Photo</th><th>Profile ID</th><th>Member</th><th>Membership type</th><th>Activation plan</th><th>Activated</th><th>Expires</th><th>Expiry status</th><th>Relationship Manager</th><th class="members-actions text-end">Action</th></tr></thead>
             <tbody>@forelse($members as $member)
                 @php
                 $expiry = \Carbon\CarbonImmutable::parse($member->expiry_date, 'Asia/Kolkata');
@@ -38,7 +38,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
     <img src="{{ $tablePhotoUrl }}" alt="{{ $member->full_name }}" width="56" height="64" style="object-fit:cover;" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.classList.remove('d-none');">
     @endif
     <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
-</div></td><td class="text-nowrap">{{ $member->profile_id }}</td><td><strong>{{ $member->full_name }}</strong>
+</div></td><td class="text-nowrap"><strong>{{ $member->profile_id }}</strong></td><td><strong>{{ $member->full_name }}</strong>
 <div class="small text-muted mt-1 d-flex align-items-center gap-2">
     <i class="bi bi-envelope" aria-hidden="true" title="Email"></i>
     <span>{{ $member->email ?: '—' }}</span>

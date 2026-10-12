@@ -8,9 +8,9 @@
 
         <div class="table-responsive">
 
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 members-table">
 
-                <thead>
+                <thead class="table-light">
                     <tr>
                         <th>Photo</th>
                         <th>Profile ID</th>
@@ -18,7 +18,7 @@
                         <th>Gender</th>
                         <th>Age</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="text-end members-actions">Action</th>
                     </tr>
                 </thead>
 
@@ -37,9 +37,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
     @endif
     <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
 </div></td>
-                        <td>
-                            {{ $member->profile_id }}
-                        </td>
+                        <td><strong>{{ $member->profile_id }}</strong></td>
 
                         <td><strong>{{ $member->full_name }}</strong>
 <div class="small text-muted mt-1 d-flex align-items-center gap-2">
@@ -64,11 +62,11 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
                             {{ $member->active }}
                         </td>
 
-                        <td>
+                        <td class="text-end members-actions">
                             <a
                                 href="{{ route('admin.members.show', $member->id) }}"
-                                class="btn btn-sm btn-primary">
-                                View
+                                class="btn btn-sm btn-outline-secondary">
+                                View Profile
                             </a>
                         </td>
 
