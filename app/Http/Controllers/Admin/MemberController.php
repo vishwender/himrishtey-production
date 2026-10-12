@@ -2196,90 +2196,35 @@ class MemberController extends Controller
 
     public function setProfilePhoto($memberId, $photoId)
     {
-        $db = DB::connection('site');
-
-        // Verify member exists
-        $member = $db->table('members')
-            ->where('id', $memberId)
-            ->first();
-
-        if (! $member) {
-            abort(404, 'Member not found.');
+        try {
+            app(MemberPhotoService::class)->setAsProfile((int) $memberId, (int) $photoId);
+        } catch (\RuntimeException $exception) {
+            abort(404, $exception->getMessage());
         }
 
-        // Get the gallery photo belonging to this member
-        $photo = $db->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->first();
-
-        if (! $photo) {
-            abort(404, 'Photo not found.');
-        }
-
-        // Set gallery photo as main profile photo
-        $db->table('members')
-            ->where('id', $memberId)
-            ->update([
-                'photo' => $photo->photo,
-            ]);
-
-        return back()->with(
-            'success',
-            'Profile photo updated successfully.'
-        );
+        return back()->with('success', 'Profile photo updated successfully.');
     }
 
     public function approvePhoto($memberId, $photoId)
     {
-        $db = DB::connection('site');
-
-        $photo = $db->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->first();
-
-        if (! $photo) {
-            abort(404, 'Photo not found.');
+        try {
+            app(MemberPhotoService::class)->approve((int) $memberId, (int) $photoId);
+        } catch (\RuntimeException $exception) {
+            abort(404, $exception->getMessage());
         }
 
-        $db->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->update([
-                'photo_approved' => 'Yes',
-            ]);
-
-        return back()->with(
-            'success',
-            'Photo approved successfully.'
-        );
+        return back()->with('success', 'Photo approved successfully.');
     }
 
     public function rejectPhoto($memberId, $photoId)
     {
-        $db = DB::connection('site');
-
-        $photo = $db->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->first();
-
-        if (! $photo) {
-            abort(404, 'Photo not found.');
+        try {
+            app(MemberPhotoService::class)->unapprove((int) $memberId, (int) $photoId);
+        } catch (\RuntimeException $exception) {
+            abort(404, $exception->getMessage());
         }
 
-        $db->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->update([
-                'photo_approved' => 'No',
-            ]);
-
-        return back()->with(
-            'success',
-            'Photo rejected successfully.'
-        );
+        return back()->with('success', 'Photo rejected successfully.');
     }
 
     public function deletePhoto($memberId, $photoId)

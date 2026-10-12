@@ -65,13 +65,7 @@ class MemberPhotoService
     */
 
         if ($setAsProfile) {
-
-            DB::connection('site')
-                ->table('members')
-                ->where('id', $memberId)
-                ->update([
-                    'photo' => $originalPath,
-                ]);
+            $this->setAsProfile($memberId, $photoId);
         }
 
         /*
@@ -105,64 +99,55 @@ class MemberPhotoService
         int $photoId
     ): void {
 
-        $photo = DB::connection('site')
-            ->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->first();
-
-        if (! $photo) {
-            throw new RuntimeException('Photo not found.');
-        }
-
-        DB::connection('site')
-            ->table('members')
-            ->where('id', $memberId)
-            ->update([
+        $db = DB::connection('site');
+        $db->transaction(function () use ($db, $memberId, $photoId) {
+            $member = $db->table('members')->where('id', $memberId)->lockForUpdate()->first();
+            if (! $member) {
+                throw new RuntimeException('Member not found.');
+            }
+            $photo = $db->table('member_photos')->where('id', $photoId)
+                ->where('member_id', $memberId)->lockForUpdate()->first();
+            if (! $photo) {
+                throw new RuntimeException('Photo not found.');
+            }
+            $db->table('members')->where('id', $memberId)->update([
                 'photo' => $photo->photo,
+                'photo_approved' => strtolower(trim((string) $photo->photo_approved)) === 'yes' ? 'Yes' : 'No',
             ]);
+        });
     }
 
-    /**
-     * Approve a gallery photo.
-     */
-    public function approve(
-        int $memberId,
-        int $photoId
-    ): void {
-
-        $updated = DB::connection('site')
-            ->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->update([
-                'photo_approved' => 'Yes',
-            ]);
-
-        if (! $updated) {
-            throw new RuntimeException('Photo not found.');
-        }
+    /** Approve a gallery photo and synchronize the current profile photo. */
+    public function approve(int $memberId, int $photoId): void
+    {
+        $this->updateApproval($memberId, $photoId, 'Yes');
     }
 
-    /**
-     * Reject / unapprove a gallery photo.
-     */
-    public function unapprove(
-        int $memberId,
-        int $photoId
-    ): void {
+    /** Reject a gallery photo and synchronize the current profile photo. */
+    public function unapprove(int $memberId, int $photoId): void
+    {
+        $this->updateApproval($memberId, $photoId, 'No');
+    }
 
-        $updated = DB::connection('site')
-            ->table('member_photos')
-            ->where('id', $photoId)
-            ->where('member_id', $memberId)
-            ->update([
-                'photo_approved' => 'No',
-            ]);
-
-        if (! $updated) {
-            throw new RuntimeException('Photo not found.');
-        }
+    private function updateApproval(int $memberId, int $photoId, string $approval): void
+    {
+        $db = DB::connection('site');
+        $db->transaction(function () use ($db, $memberId, $photoId, $approval) {
+            $member = $db->table('members')->where('id', $memberId)->lockForUpdate()->first();
+            if (! $member) {
+                throw new RuntimeException('Member not found.');
+            }
+            $photo = $db->table('member_photos')->where('id', $photoId)
+                ->where('member_id', $memberId)->lockForUpdate()->first();
+            if (! $photo) {
+                throw new RuntimeException('Photo not found.');
+            }
+            $db->table('member_photos')->where('id', $photoId)->where('member_id', $memberId)
+                ->update(['photo_approved' => $approval]);
+            if ($member->photo === $photo->photo) {
+                $db->table('members')->where('id', $memberId)->update(['photo_approved' => $approval]);
+            }
+        });
     }
 
     /**
