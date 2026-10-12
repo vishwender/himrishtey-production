@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Profile Ranges')
+@section('page-title', 'Profile Ranges')
 
 @section('content')
 
@@ -10,9 +11,9 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
 
         <div>
-            <h4 class="fw-bold mb-1">
+            <h1 class="h3 fw-bold mb-1">
                 Profile Ranges
-            </h4>
+            </h1>
 
             <p class="text-muted mb-0">
                 Manage profile ranges and their corresponding rates.

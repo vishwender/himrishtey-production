@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Member Profile')
+@section('page-title', 'Member Profile')
+
 @section('content')
 
 @push('styles')

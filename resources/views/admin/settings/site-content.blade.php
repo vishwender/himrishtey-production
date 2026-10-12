@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title', 'Site Content Settings')
-@section('page-title', 'Settings')
+@section('page-title', 'Site Content Settings')
 @push('styles')
 <style>
     #site-content-form { --settings-header-height: 90px; }

@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Member Rotations')
+@section('page-title', 'Member Rotations')
 
 @section('content')
 

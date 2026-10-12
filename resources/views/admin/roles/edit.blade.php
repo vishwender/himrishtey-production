@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Edit Role')
+@section('page-title', 'Edit Role')
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -12,7 +15,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <div>
-                    <h5 class="mb-1">Edit Role</h5>
+                    <h1 class="h3 mb-1">Edit Role</h1>
 
                     <div
                         class="border-bottom"

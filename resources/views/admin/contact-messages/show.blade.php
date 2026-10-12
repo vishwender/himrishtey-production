@@ -4,7 +4,7 @@
 @section('content')
 <a href="{{ route('admin.contact-messages.index') }}" class="btn btn-outline-secondary mb-3">Back to inbox</a>
 <div class="card shadow-sm"><div class="card-body">
-    <h4>{{ $message->subject }}</h4>
+    <h1 class="h3 mb-1">{{ $message->subject }}</h1>
     <dl class="row mt-3">
         <dt class="col-sm-2">From</dt><dd class="col-sm-10">{{ $message->name }}</dd>
         <dt class="col-sm-2">Email</dt><dd class="col-sm-10">{{ $message->email }}</dd>

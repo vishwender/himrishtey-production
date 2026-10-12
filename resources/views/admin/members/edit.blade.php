@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Edit Member')
+@section('page-title', 'Edit Member')
+
 @section('content')
 
 <div class="container-fluid members-page">
@@ -10,9 +13,9 @@
 
         <div>
 
-            <h4 class="mb-1">
+            <h1 class="h3 mb-1">
                 Edit Member
-            </h4>
+            </h1>
 
             <div class="text-muted">
 

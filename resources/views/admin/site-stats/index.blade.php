@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Site Stats')
+@section('page-title', 'Site Stats')
 
 @push('styles')
 <style>

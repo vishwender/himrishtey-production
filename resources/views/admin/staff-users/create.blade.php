@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Add Staff User')
+@section('page-title', 'Add Staff User')
 
 @section('content')
 
@@ -10,7 +11,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h1 class="mb-1">Add Staff User</h1>
+            <h1 class="h3 mb-1">Add Staff User</h1>
             <p class="text-muted mb-0">
                 Create a new {{ config('app.name') }} staff account and assign access.
             </p>

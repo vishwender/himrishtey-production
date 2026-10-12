@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Activate Member')
+@section('page-title', 'Activate Member')
 
 @section('content')
 <div class="container-fluid py-4">

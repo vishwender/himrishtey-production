@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Website Pages')
+@section('page-title', 'Website Pages')
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -10,9 +13,9 @@
 
         <div>
 
-            <h4 class="mb-1">
+            <h1 class="h3 mb-1">
                 Website Pages
-            </h4>
+            </h1>
 
             <p class="text-muted mb-0">
                 Manage website policies, terms and informational content.

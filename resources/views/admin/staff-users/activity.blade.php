@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Staff Activity')
+@section('page-title', 'Staff Activity')
 
 @section('content')
 
@@ -49,9 +50,7 @@
 
                 <div class="flex-grow-1">
 
-                    <h4 class="fw-bold mb-1">
-                        {{ $admin->name }}
-                    </h4>
+                    <h1 class="h3 fw-bold mb-1">Staff Activity — {{ $admin->name }}</h1>
 
                     <div class="text-muted">
 

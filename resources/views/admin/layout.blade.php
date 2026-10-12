@@ -723,7 +723,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                         </button>
 
                         <strong>
-                            @yield('page-title', 'Admin Dashboard')
+                            {{ trim($__env->yieldContent('page-title', $__env->yieldContent('title', 'Admin Panel'))) }}
                         </strong>
 
                     </div>

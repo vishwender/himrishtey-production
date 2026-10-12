@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Member Activity')
+@section('page-title', 'Member Activity')
+
 @section('content')
 
 <div class="container-fluid">
@@ -47,9 +50,7 @@
                 {{-- Member Information --}}
                 <div>
 
-                    <h4 class="mb-1">
-                        {{ $member->full_name }}
-                    </h4>
+                    <h1 class="h3 mb-1">Member Activity — {{ $member->full_name }}</h1>
 
                     <div class="text-muted">
 

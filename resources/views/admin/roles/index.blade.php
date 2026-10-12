@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Roles')
+@section('page-title', 'Roles')
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -8,7 +11,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h1 class="mb-1">Roles</h1>
+            <h1 class="h3 mb-1">Roles</h1>
 
             <p class="text-muted mb-0">
                 Four fixed roles. Edit their descriptions and permissions.

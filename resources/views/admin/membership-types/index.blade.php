@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Membership Types')
+@section('page-title', 'Membership Types')
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -13,9 +16,9 @@
 
                 <div>
 
-                    <h5 class="mb-1">
+                    <h1 class="h3 mb-1">
                         Membership Types
-                    </h5>
+                    </h1>
 
                     <div
                         style="

@@ -3,7 +3,7 @@
 @section('page-title', 'Contact Messages')
 @section('content')
 <div class="card shadow-sm">
-    <div class="card-header"><h5 class="mb-1">Contact Us inbox</h5><p class="text-muted mb-0">Messages received for the selected site.</p></div>
+    <div class="card-header"><h1 class="h3 mb-1">Contact Us inbox</h1><p class="text-muted mb-0">Messages received for the selected site.</p></div>
     <div class="card-body">
         <form method="GET" class="row g-2 mb-4">
             <div class="col-md-7"><label for="search" class="form-label">Search</label><input id="search" name="search" class="form-control" value="{{ request('search') }}" placeholder="Name, email or subject"></div>

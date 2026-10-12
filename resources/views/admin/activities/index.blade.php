@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Member Activity')
+@section('page-title', 'Member Activity')
+
 @section('content')
 
 <div class="container-fluid">
@@ -7,9 +10,9 @@
     {{-- Page Header --}}
     <div class="mb-4">
 
-        <h3 class="mb-1">
+        <h1 class="h3 mb-1">
             Member Activity
-        </h3>
+        </h1>
 
         <p class="text-muted mb-0">
             Search for a member to view their activity.

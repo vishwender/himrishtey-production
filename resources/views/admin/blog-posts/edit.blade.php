@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Edit Blog Post')
+@section('page-title', 'Edit Blog Post')
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -13,9 +16,9 @@
 
                 <div>
 
-                    <h5 class="mb-1">
+                    <h1 class="h3 mb-1">
                         Edit Blog Post
-                    </h5>
+                    </h1>
 
                     <div
                         class="border-bottom"

@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Wallet Offers')
+@section('page-title', 'Wallet Offers')
 
 @section('content')
 

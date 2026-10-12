@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Rating Details')
+@section('page-title', 'Rating Details')
 
 @push('styles')
 @vite('resources/css/admin/user-rating/user-rating.css')
@@ -13,7 +14,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="mb-1">Rating Details</h2>
+            <h1 class="h3 mb-1">Rating Details</h1>
 
             <p class="text-muted mb-0">
                 User feedback information

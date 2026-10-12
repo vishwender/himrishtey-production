@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', $newMembersOnly ? 'New Members' : ($bannedMembersOnly ? 'Banned Members' : 'Members'))
+@section('page-title', $newMembersOnly ? 'New Members' : ($bannedMembersOnly ? 'Banned Members' : 'Members'))
 
 @section('content')
 

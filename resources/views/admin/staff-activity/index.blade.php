@@ -1,8 +1,9 @@
 @extends('admin.layout')
 @section('title', 'Staff Activity')
+@section('page-title', 'Staff Activity')
 @section('content')
 <div class="container-fluid py-4">
-    <h1>Staff Activity</h1>
+    <h1 class="h3 mb-1">Staff Activity</h1>
     <p class="text-muted">Audit records across sites.</p>
     <form method="GET" class="row g-3 mb-4">
         <div class="col-md-3"><label for="activity-search" class="form-label">Search</label><input id="activity-search" class="form-control" name="search" value="{{ request('search') }}" placeholder="Action, description or member ID"></div>

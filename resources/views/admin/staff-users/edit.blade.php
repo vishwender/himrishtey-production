@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Edit Staff User')
+@section('page-title', 'Edit Staff User')
 
 @section('content')
 

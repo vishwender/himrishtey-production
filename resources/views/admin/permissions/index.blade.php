@@ -1,7 +1,10 @@
 @extends('admin.layout')
+
+@section('title', 'Permissions')
+@section('page-title', 'Permissions')
 @section('content')
 <div class="container-fluid py-4">
-    <h1>Permissions</h1>
+    <h1 class="h3 mb-1">Permissions</h1>
     <p class="text-muted">Permissions are fixed by role. Change Password is available to every signed-in staff user.</p>
     <form method="GET" class="mb-3">
         <input name="search" value="{{ $search }}" placeholder="Search permissions" class="form-control">

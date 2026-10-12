@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Offers')
+@section('page-title', 'Offers')
 
 @section('content')
 

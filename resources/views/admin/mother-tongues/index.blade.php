@@ -1,5 +1,8 @@
 @extends('admin.layout')
 
+@section('title', 'Mother Tongues')
+@section('page-title', 'Mother Tongues')
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -12,7 +15,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <div>
-                    <h5 class="mb-1">Mother Tongues</h5>
+                    <h1 class="h3 mb-1">Mother Tongues</h1>
 
                     <div
                         class="border-bottom"

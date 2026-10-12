@@ -1,12 +1,12 @@
 @extends('admin.layout')
 
 @section('title', 'Change Password')
-@section('page-title', 'Settings')
+@section('page-title', 'Change Password')
 
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-6">
-        <h1 class="mb-2">Change Password</h1>
+        <h1 class="h3 mb-2">Change Password</h1>
         <p class="text-muted mb-4">Update the password for your staff account.</p>
 
         @if(session('success'))

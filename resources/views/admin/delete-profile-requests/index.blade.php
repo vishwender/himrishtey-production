@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', $source === 'staff' ? 'Staff Delete Requests' : 'Member Delete Profile Requests')
+@section('page-title', $source === 'staff' ? 'Staff Delete Requests' : 'Member Delete Profile Requests')
 
 @section('content')
 
@@ -13,9 +14,9 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
 
         <div>
-            <h4 class="mb-1">
+            <h1 class="h3 mb-1">
                 {{ $source === 'staff' ? 'Staff Delete Requests' : 'Member Delete Profile Requests' }}
-            </h4>
+            </h1>
 
             <div class="text-muted">
                 {{ $source === 'staff' ? 'Review deletion requests raised by staff for members.' : 'Review deletion requests submitted by members themselves.' }}

@@ -1,12 +1,15 @@
 @extends('admin.layout')
 
+@section('title', 'Edit Success Story')
+@section('page-title', 'Edit Success Story')
+
 @section('content')
 
 <div class="container-fluid">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="mb-1">Edit Success Story</h2>
+            <h1 class="h3 mb-1">Edit Success Story</h1>
             <p class="text-muted mb-0">
                 Update this success story.
             </p>

@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('title', 'Create Rotation')
+@section('page-title', 'Create Rotation')
 
 @section('content')
 
