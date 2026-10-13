@@ -155,14 +155,13 @@ class AdvancedMemberSearch
                 'city_living_in',
                 'family_type',
                 'family_status',
-                'diet',
                 'is_drinking',
                 'is_smoking',
             ] as $field
         ) {
 
             if ($request->filled($field)) {
-                $query->where($field, $request->input($field));
+                $query->whereRaw("LOWER(TRIM(`$field`)) = ?", [mb_strtolower(trim($request->input($field)))]);
             }
         }
 
@@ -174,19 +173,46 @@ class AdvancedMemberSearch
 
         foreach (
             [
-                'active',
                 'member_type',
-                'is_trusted',
-                'promoted',
                 'plan_id',
                 'no_of_child',
-                'profile_hide',
                 'register_through',
             ] as $field
         ) {
 
             if ($request->filled($field)) {
-                $query->where($field, $request->input($field));
+                $query->whereRaw("LOWER(TRIM(`$field`)) = ?", [mb_strtolower(trim($request->input($field)))]);
+            }
+        }
+
+        foreach (['diet', 'partner_diet'] as $field) {
+            if (!$request->filled($field)) continue;
+            $aliases = match ($request->input($field)) {
+                'Veg' => ['veg', 'pure veg', 'vegetarian'],
+                'Non Veg' => ['non veg', 'non-veg', 'nonveg', 'non vegetarian'],
+                'Veg & Non Veg' => ['veg & non veg', 'veg & non-veg', 'veg & nonveg', 'veg/nonveg', 'veg/noonveg'],
+                default => [mb_strtolower(trim($request->input($field)))],
+            };
+            $query->whereRaw("LOWER(TRIM(`$field`)) IN (".implode(',', array_fill(0, count($aliases), '?')).")", $aliases);
+        }
+
+        $memberScopes = new \App\Models\SiteMember;
+        $memberScopes->scopeFilterStatus($query, match ($request->input('active')) {
+            'Yes' => 'active', 'No' => 'inactive', default => null,
+        });
+        if ($request->input('active') === 'Banned') {
+            $query->whereRaw('LOWER(TRIM(active)) = ?', ['banned']);
+        }
+        $memberScopes->scopeFilterVisibility($query, match ($request->input('profile_hide')) {
+            'Yes' => 'hidden', 'No' => 'visible', default => null,
+        });
+        foreach (['is_trusted' => ['yes', 'trusted', 'on', '1'], 'promoted' => ['yes', 'on', '1']] as $field => $truthy) {
+            if (!$request->filled($field)) continue;
+            $placeholders = implode(',', array_fill(0, count($truthy), '?'));
+            if (in_array(strtolower($request->input($field)), ['yes', '1'], true)) {
+                $query->whereRaw("LOWER(TRIM(`$field`)) IN ($placeholders)", $truthy);
+            } else {
+                $query->where(fn ($q) => $q->whereNull($field)->orWhereRaw("LOWER(TRIM(`$field`)) NOT IN ($placeholders)", $truthy));
             }
         }
 
@@ -220,7 +246,6 @@ class AdvancedMemberSearch
                 'partner_occupation',
                 'partner_state',
                 'partner_city',
-                'partner_diet',
                 'is_partner_smoking',
                 'is_partner_drinking',
                 'is_partner_manglik',
@@ -230,15 +255,17 @@ class AdvancedMemberSearch
             if ($request->filled($field)) {
                 $value = $request->input($field);
                 if (in_array($field, \App\Support\PartnerPreferenceValues::FIELDS, true)) {
+                    $value = mb_strtolower(trim($value));
+                    $expression = "LOWER(TRIM(REPLACE(REPLACE(`$field`, ', ', ','), ' ,', ',')))";
                     $escaped = str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $value);
-                    $query->where(function ($query) use ($field, $value, $escaped) {
-                        $query->where($field, $value)
-                            ->orWhereRaw("$field LIKE ? ESCAPE '!'", [$escaped.',%'])
-                            ->orWhereRaw("$field LIKE ? ESCAPE '!'", ['%,'.$escaped])
-                            ->orWhereRaw("$field LIKE ? ESCAPE '!'", ['%,'.$escaped.',%']);
+                    $query->where(function ($query) use ($expression, $value, $escaped) {
+                        $query->whereRaw("$expression = ?", [$value])
+                            ->orWhereRaw("$expression LIKE ? ESCAPE '!'", [$escaped.',%'])
+                            ->orWhereRaw("$expression LIKE ? ESCAPE '!'", ['%,'.$escaped])
+                            ->orWhereRaw("$expression LIKE ? ESCAPE '!'", ['%,'.$escaped.',%']);
                     });
                 } else {
-                    $query->where($field, $value);
+                    $query->whereRaw("LOWER(TRIM(`$field`)) = ?", [mb_strtolower(trim($value))]);
                 }
             }
         }
@@ -284,20 +311,12 @@ class AdvancedMemberSearch
 
         if ($request->filled('partner_age_from')) {
 
-            $query->where(
-                'partner_age_from',
-                '<=',
-                $request->partner_age_from
-            );
+            $query->whereRaw('CAST(partner_age_from AS DECIMAL(10,2)) >= 18')->whereRaw('CAST(partner_age_from AS DECIMAL(10,2)) <= ?', [(int) $request->partner_age_from]);
         }
 
         if ($request->filled('partner_age_to')) {
 
-            $query->where(
-                'partner_age_to',
-                '>=',
-                $request->partner_age_to
-            );
+            $query->whereRaw('CAST(partner_age_to AS DECIMAL(10,2)) >= ?', [(int) $request->partner_age_to]);
         }
 
         foreach (['partner_height_from' => '<=', 'partner_height_to' => '>='] as $field => $operator) {

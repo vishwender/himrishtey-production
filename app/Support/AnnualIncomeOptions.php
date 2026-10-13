@@ -35,6 +35,22 @@ final class AnnualIncomeOptions
 
         $lower = $lower === false ? 0 : $lower;
         $upper = $upper === false ? 50 : $upper;
-        $query->whereIn('annual_income', $lower <= $upper ? array_slice($labels, $lower, $upper - $lower + 1) : []);
+        $accepted = [];
+        if ($lower <= $upper) {
+            for ($position = $lower; $position <= $upper; $position++) {
+                $accepted[] = $labels[$position];
+                if ($position < 50) {
+                    $amount = $position + 1;
+                    array_push($accepted, "$amount lakh", "$amount lakhs");
+                } else {
+                    $accepted[] = 'more than 50 lakh';
+                }
+            }
+        }
+        if ($accepted === []) {
+            $query->whereRaw('1 = 0');
+            return;
+        }
+        $query->whereRaw('LOWER(TRIM(annual_income)) IN ('.implode(',', array_fill(0, count($accepted), '?')).')', $accepted);
     }
 }
