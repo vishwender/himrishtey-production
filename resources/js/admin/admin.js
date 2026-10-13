@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Keep action menus outside the horizontally scrolling table so they are
     // not clipped by its scroll container or sticky action cells.
-    document.querySelectorAll('.members-table .members-actions .dropdown').forEach(dropdown => {
+    document.querySelectorAll('.members-table .members-actions .dropdown, [data-table-action-dropdown]').forEach(dropdown => {
         const menu = dropdown.querySelector('.dropdown-menu');
         const toggle = dropdown.querySelector('[data-bs-toggle="dropdown"]');
         if (!menu || !toggle) return;
         let placeholder = null;
         toggle.addEventListener('show.bs.dropdown', () => {
-            placeholder = document.createComment('Member action menu');
+            placeholder = document.createComment('Table action menu');
             menu.replaceWith(placeholder);
             menu.classList.add('members-actions-flyout');
             document.body.appendChild(menu);

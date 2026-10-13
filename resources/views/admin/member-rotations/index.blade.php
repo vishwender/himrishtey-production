@@ -741,7 +741,7 @@ $canDeleteRotations = $currentAdmin
 
                             <td class="text-end">
 
-                                <div class="dropdown">
+                                <div class="dropdown" data-table-action-dropdown>
 
                                     <button
                                         type="button"
