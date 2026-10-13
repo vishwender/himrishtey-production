@@ -141,20 +141,7 @@ class MemberController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('status')) {
-
-            if ($request->status === 'active') {
-
-                $query->where('active', 'Yes');
-            } elseif ($request->status === 'inactive') {
-
-                $query->where(function ($q) {
-
-                    $q->where('active', 'No')
-                        ->orWhereNull('active');
-                });
-            }
-        }
+        $query->filterStatus($request->input('status'));
 
         /*
         |--------------------------------------------------------------------------

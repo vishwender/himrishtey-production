@@ -15,6 +15,18 @@ class SiteMember extends Model
 
     protected $guarded = [];
 
+    public function scopeFilterStatus($query, ?string $status): void
+    {
+        if ($status === 'active') {
+            $query->whereRaw('LOWER(TRIM(active)) = ?', ['yes']);
+        } elseif ($status === 'inactive') {
+            $query->where(function ($query) {
+                $query->whereNull('active')
+                    ->orWhereRaw('LOWER(TRIM(active)) IN (?, ?)', ['no', '']);
+            });
+        }
+    }
+
     public function scopeFilterVisibility($query, ?string $visibility): void
     {
         if ($visibility === 'hidden') {
