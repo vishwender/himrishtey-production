@@ -1802,7 +1802,7 @@
                         </label>
 
                         <select name="partner_annual_income_from" id="partner_annual_income_from" class="form-select @error('partner_annual_income_from') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_annual_income_from') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_annual_income_from') ? 'partner_annual_income_from_error' : '' }}">
-                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('partner_annual_income_from', $member->partner_annual_income_from)])
                         </select>
                         @error('partner_annual_income_from')
                         <div id="partner_annual_income_from_error" class="invalid-feedback" role="alert">{{ $message }}</div>
@@ -1819,7 +1819,7 @@
                         </label>
 
                         <select name="partner_annual_income_to" id="partner_annual_income_to" class="form-select @error('partner_annual_income_to') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_annual_income_to') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_annual_income_to') ? 'partner_annual_income_to_error' : '' }}">
-                            @include('partials.annual-income-options', ['selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => old('partner_annual_income_to', $member->partner_annual_income_to)])
                         </select>
                         @error('partner_annual_income_to')
                         <div id="partner_annual_income_to_error" class="invalid-feedback" role="alert">{{ $message }}</div>
