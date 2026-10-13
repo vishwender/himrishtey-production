@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="h3">Activate Member</h1>
-            <p class="text-muted mb-0">{{ $member->full_name }} · {{ $member->profile_id }}</p>
+            <p class="text-muted mb-0">{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} · {{ $member->profile_id }}</p>
         </div>
         <a href="{{ route('admin.members.show', $member->id) }}" class="btn btn-outline-secondary">Back to Profile</a>
     </div>

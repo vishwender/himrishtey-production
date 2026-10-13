@@ -857,7 +857,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
 @endphp
 <div class="rounded bg-body-secondary d-flex align-items-center justify-content-center overflow-hidden" style="width:56px;height:64px;">
     @if($tablePhotoUrl)
-    <img src="{{ $tablePhotoUrl }}" alt="{{ $member->full_name }}" width="56" height="64" style="object-fit:cover;" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.classList.remove('d-none');">
+    <img src="{{ $tablePhotoUrl }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}" width="56" height="64" style="object-fit:cover;" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.classList.remove('d-none');">
     @endif
     <span class="text-muted {{ $tablePhotoUrl ? 'd-none' : '' }}" role="img" aria-label="No member photo"><i class="bi bi-image fs-4" aria-hidden="true"></i></span>
 </div></td>
@@ -872,7 +872,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
 
 
                         {{-- Member contact details --}}
-                        <td><strong>{{ $member->full_name }}</strong>
+                        <td><strong>{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}</strong>
 <div class="small text-muted mt-1 d-flex align-items-center gap-2">
     <i class="bi bi-envelope" aria-hidden="true" title="Email"></i>
     <span>{{ $member->email ?: '—' }}</span>
@@ -1028,7 +1028,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
                                             data-bs-toggle="modal"
                                             data-bs-target="#remarkModal"
                                             data-remark-action="{{ route('admin.members.remarks.update', $member->id) }}"
-                                            data-member-name="{{ $member->full_name }}">
+                                            data-member-name="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}">
                                             <i class="bi bi-chat-left-text me-2 text-warning"></i>
                                             Remarks
                                         </button>
@@ -1043,7 +1043,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
                                             data-bs-toggle="modal"
                                             data-bs-target="#rotationModal"
                                             data-member-id="{{ $member->id }}"
-                                            data-member-name="{{ $member->full_name }}">
+                                            data-member-name="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}">
 
                                             <i class="bi bi-arrow-repeat me-2"></i>
                                             Add Rotation
@@ -1225,7 +1225,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
                                             data-bs-toggle="modal"
                                             data-bs-target="#deleteRequestModal"
                                             data-action="{{ route('admin.members.delete-request', $member->id) }}"
-                                            data-member-name="{{ $member->full_name }}"
+                                            data-member-name="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}"
                                             data-profile-id="{{ $member->profile_id }}"
                                             >
                                             <i class="bi bi-trash3 me-2"></i>

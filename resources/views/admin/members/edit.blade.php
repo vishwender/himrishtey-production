@@ -19,7 +19,7 @@
 
             <div class="text-muted">
 
-                {{ $member->full_name }}
+                {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}
 
                 <span class="mx-2">|</span>
 
@@ -146,7 +146,7 @@
                             type="text"
                             name="full_name" id="full_name"
                             class="form-control @error('full_name') is-invalid @enderror"
-                            value="{{ old('full_name', $member->full_name) }}"
+                            value="{{ \Illuminate\Support\Str::ucfirst((string) (old('full_name', $member->full_name))) }}"
                             required aria-invalid="{{ $errors->has('full_name') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('full_name') ? 'full_name_error' : '' }}">
                         @error('full_name')
                         <div id="full_name_error" class="invalid-feedback" role="alert">{{ $message }}</div>

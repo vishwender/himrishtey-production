@@ -365,7 +365,7 @@
                             name="full_name"
                             id="full_name"
                             class="form-control"
-                            value="{{ old('full_name') }}"
+                            value="{{ \Illuminate\Support\Str::ucfirst((string) (old('full_name'))) }}"
                             maxlength="255"
                             required>
 

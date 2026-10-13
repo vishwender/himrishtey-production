@@ -32,7 +32,7 @@
                     width="70"
                     height="70"
                     class="rounded-circle object-fit-cover me-3"
-                    alt="{{ $member->full_name }}">
+                    alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}">
 
                 @else
 
@@ -50,7 +50,7 @@
                 {{-- Member Information --}}
                 <div>
 
-                    <h1 class="h3 mb-1">Member Activity — {{ $member->full_name }}</h1>
+                    <h1 class="h3 mb-1">Member Activity — {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}</h1>
 
                     <div class="text-muted">
 
@@ -363,7 +363,7 @@
 
                             <td>
                                 <strong>
-                                    {{ $row->target_full_name ?? 'Unknown Member' }}
+                                    {{ \Illuminate\Support\Str::ucfirst((string) ($row->target_full_name ?? 'Unknown Member')) }}
                                 </strong>
                             </td>
 
@@ -392,7 +392,7 @@
 
                             <td>
                                 <strong>
-                                    {{ $row->target_full_name ?? 'Unknown Member' }}
+                                    {{ \Illuminate\Support\Str::ucfirst((string) ($row->target_full_name ?? 'Unknown Member')) }}
                                 </strong>
                             </td>
 
@@ -445,7 +445,7 @@
 
                             <td>
                                 <strong>
-                                    {{ $row->sender_full_name ?? 'Unknown Member' }}
+                                    {{ \Illuminate\Support\Str::ucfirst((string) ($row->sender_full_name ?? 'Unknown Member')) }}
                                 </strong>
                             </td>
 
@@ -499,7 +499,7 @@
                             <td>
 
                                 <strong>
-                                    {{ $row->viewed_full_name ?? 'Unknown Member' }}
+                                    {{ \Illuminate\Support\Str::ucfirst((string) ($row->viewed_full_name ?? 'Unknown Member')) }}
                                 </strong>
 
                             </td>
@@ -530,7 +530,7 @@
                             <td>
 
                                 <strong>
-                                    {{ $row->viewed_full_name ?? 'Unknown Member' }}
+                                    {{ \Illuminate\Support\Str::ucfirst((string) ($row->viewed_full_name ?? 'Unknown Member')) }}
                                 </strong>
 
                             </td>

@@ -475,7 +475,7 @@ $canDeleteRotations = $currentAdmin
 
                                         <div class="fw-semibold">
 
-                                            {{ $rotation->member->full_name }}
+                                            {{ \Illuminate\Support\Str::ucfirst((string) ($rotation->member->full_name)) }}
 
                                         </div>
 

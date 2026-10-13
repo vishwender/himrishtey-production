@@ -246,7 +246,7 @@
                         </td>
 
                         <td>
-                            ${escapeHtml(member.full_name ?? '')}
+                            ${escapeHtml((member.full_name ?? '').replace(/^\s*\S/u, letter => letter.toLocaleUpperCase()))}
                         </td>
 
                         <td>

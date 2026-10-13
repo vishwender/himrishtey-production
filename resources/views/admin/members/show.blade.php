@@ -116,8 +116,8 @@ if ($membershipPlan && $membershipExpiryDate) {
         <div class="crm-contact-header">
             <div class="crm-avatar">
                 @if($member->photo_url)
-                <button type="button" class="crm-photo-open" data-bs-toggle="modal" data-bs-target="#profileImageModal" aria-label="View full photo of {{ $member->full_name }}">
-                    <img src="{{ $member->photo_url }}" alt="{{ $member->full_name }}" loading="lazy">
+                <button type="button" class="crm-photo-open" data-bs-toggle="modal" data-bs-target="#profileImageModal" aria-label="View full photo of {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}">
+                    <img src="{{ $member->photo_url }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}" loading="lazy">
                     <span class="crm-photo-expand"><i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
                 </button>
                 @else
@@ -127,7 +127,7 @@ if ($membershipPlan && $membershipExpiryDate) {
             </div>
             <div class="crm-contact-info">
                 <div class="crm-contact-title">
-                    <h2>{{ $member->full_name ?: 'Member Name' }}</h2>
+                    <h2>{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name ?: 'Member Name')) }}</h2>
                     <span class="badge {{ strtolower(trim($member->active ?? '')) === 'yes' ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary' }}">{{ $member->active === 'Banned' ? 'Banned' : (strtolower(trim($member->active ?? '')) === 'yes' ? 'Active' : 'Inactive') }}</span>
                     <span class="crm-contact-id">{{ $member->profile_id }}</span>
                 </div>
@@ -174,10 +174,10 @@ if ($membershipPlan && $membershipExpiryDate) {
         <div class="card-body">
             <div class="crm-photo-grid">
                 @if($member->photo_url)
-                <figure><a href="{{ $member->photo_url }}" target="_blank" rel="noopener"><img src="{{ $member->photo_url }}" alt="{{ $member->full_name }} — profile photo" loading="lazy"></a><figcaption>Profile photo</figcaption></figure>
+                <figure><a href="{{ $member->photo_url }}" target="_blank" rel="noopener"><img src="{{ $member->photo_url }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} — profile photo" loading="lazy"></a><figcaption>Profile photo</figcaption></figure>
                 @endif
                 @foreach($galleryPhotos as $photo)
-                <figure><a href="{{ $photo->photo_url }}" target="_blank" rel="noopener"><img src="{{ $photo->photo_url }}" alt="{{ $member->full_name }} — gallery photo {{ $loop->iteration }}" loading="lazy"></a><figcaption>{{ $photo->photo_approved === 'Yes' ? 'Approved' : 'Pending approval' }}</figcaption></figure>
+                <figure><a href="{{ $photo->photo_url }}" target="_blank" rel="noopener"><img src="{{ $photo->photo_url }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} — gallery photo {{ $loop->iteration }}" loading="lazy"></a><figcaption>{{ $photo->photo_approved === 'Yes' ? 'Approved' : 'Pending approval' }}</figcaption></figure>
                 @endforeach
             </div>
             @if(!$member->photo_url && $galleryPhotos->isEmpty())
@@ -210,7 +210,7 @@ if ($membershipPlan && $membershipExpiryDate) {
                     </small>
 
                     <strong>
-                        {{ $member->full_name ?: '-' }}
+                        {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name ?: '-')) }}
                     </strong>
 
                 </div>
@@ -1630,7 +1630,7 @@ if ($membershipPlan && $membershipExpiryDate) {
         <div class="row g-3 align-items-start">
             <div class="col-md-5 col-lg-4">
                 <a href="{{ $proofUrl }}" target="_blank" rel="noopener">
-                    <img src="{{ $proofUrl }}" alt="{{ $member->full_name }} identity proof"
+                    <img src="{{ $proofUrl }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} identity proof"
                         class="img-fluid rounded border bg-light w-100"
                         style="max-height:360px;object-fit:contain;" loading="lazy">
                 </a>
@@ -2767,7 +2767,7 @@ if ($membershipPlan && $membershipExpiryDate) {
         data-bs-toggle="modal"
         data-bs-target="#deleteRequestModal"
         data-action="{{ route('admin.members.delete-request', $member->id) }}"
-        data-member-name="{{ $member->full_name }}"
+        data-member-name="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}"
         data-profile-id="{{ $member->profile_id }}">
         <i class="bi bi-trash3 me-1"></i>
         Raise Delete Request
@@ -2792,7 +2792,7 @@ if ($membershipPlan && $membershipExpiryDate) {
             <div class="modal-header">
                 <div>
                     <h5 class="modal-title" id="shareProfileModalLabel">
-                        Share {{ $member->full_name }}'s Profile
+                        Share {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}'s Profile
                     </h5>
                     <div class="small text-muted mt-1">
                         This secure link expires in 7 days and hides contact details.
@@ -2853,11 +2853,11 @@ if ($membershipPlan && $membershipExpiryDate) {
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="profileImageModalLabel">{{ $member->full_name ?: 'Member' }} — Profile Photo</h5>
+                <h5 class="modal-title" id="profileImageModalLabel">{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name ?: 'Member')) }} — Profile Photo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <img src="{{ $member->photo_url }}" alt="Full profile photo of {{ $member->full_name }}" class="crm-full-profile-image" loading="lazy">
+                <img src="{{ $member->photo_url }}" alt="Full profile photo of {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}" class="crm-full-profile-image" loading="lazy">
             </div>
         </div>
     </div>
@@ -2896,7 +2896,7 @@ if ($membershipPlan && $membershipExpiryDate) {
 
                     <small class="text-muted">
                         Select a membership plan for
-                        {{ $member->full_name }}
+                        {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}
                     </small>
 
                 </div>

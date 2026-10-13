@@ -18,7 +18,7 @@
             <div class="col-md-4 text-center">
                 <h6 class="text-muted mb-3">Current Profile Photo</h6>
                 @if(!empty($member->photo))
-                    <img src="{{ $member->photo_url }}" alt="{{ $member->full_name }}"
+                    <img src="{{ $member->photo_url }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}"
                         class="rounded object-fit-cover" style="width:180px;height:180px;" loading="lazy">
                 @else
                     <div class="mx-auto rounded bg-light d-flex align-items-center justify-content-center"
@@ -64,7 +64,7 @@
                     <div class="col-6 col-md-4 col-lg-3">
                         <div class="card border h-100">
                             <div class="position-relative">
-                                <img src="{{ $photo->photo_url }}" alt="{{ $member->full_name }} photo"
+                                <img src="{{ $photo->photo_url }}" alt="{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} photo"
                                     class="card-img-top" style="height:180px;object-fit:cover;" loading="lazy">
                                 @if($member->photo === $photo->photo)
                                     <span class="position-absolute top-0 end-0 m-2 badge bg-success">Profile</span>

@@ -321,7 +321,7 @@
                             @if($member)
 
                             <div class="fw-semibold">
-                                {{ $member->full_name }}
+                                {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}
                             </div>
 
                             @if(!empty($member->mobile_number))

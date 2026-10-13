@@ -92,7 +92,7 @@
                             type="text"
                             name="full_name"
                             class="form-control"
-                            value="{{ request('full_name') }}"
+                            value="{{ \Illuminate\Support\Str::ucfirst((string) (request('full_name'))) }}"
                             placeholder="Enter member name">
 
                     </div>

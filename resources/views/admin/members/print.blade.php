@@ -4,7 +4,7 @@
     @include('partials.favicon')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $member->profile_id }} — {{ $member->full_name }}</title>
+    <title>{{ $member->profile_id }} — {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}</title>
     <style>
         body { font-family: sans-serif; max-width: 850px; margin: 40px auto; color: #222; }
         table { width: 100%; border-collapse: collapse; }
@@ -15,7 +15,7 @@
 </head>
 <body>
     <button type="button" onclick="window.print()">Print Profile</button>
-    <h1>{{ $member->full_name }}</h1>
+    <h1>{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}</h1>
     <p>{{ $member->profile_id }}</p>
     <table>
         @foreach(['gender' => 'Gender', 'date_of_birth' => 'Date of birth', 'mobile_number' => 'Mobile', 'email' => 'Email', 'registration_date' => 'Registration date', 'marital_status' => 'Marital status', 'height' => 'Height', 'religion' => 'Religion', 'cast' => 'Caste', 'education' => 'Education', 'occupation' => 'Occupation', 'annual_income' => 'Annual income', 'city' => 'City', 'state' => 'State', 'country' => 'Country', 'about_me' => 'About me'] as $field => $label)

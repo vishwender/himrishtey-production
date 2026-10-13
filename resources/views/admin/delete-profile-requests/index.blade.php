@@ -460,7 +460,7 @@
                                 @if($member)
 
                                 <div class="fw-semibold">
-                                    {{ $member->full_name }}
+                                    {{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }}
                                 </div>
 
                                 <div class="small text-muted">
@@ -483,7 +483,7 @@
                             <td>
 
                                 @if($source === 'member')
-                                <div class="fw-semibold">{{ $member?->full_name ?? 'Member unavailable' }}</div>
+                                <div class="fw-semibold">{{ \Illuminate\Support\Str::ucfirst((string) ($member?->full_name ?? 'Member unavailable')) }}</div>
                                 <div class="small text-muted">Self-submitted</div>
                                 @elseif($requestedBy)
 

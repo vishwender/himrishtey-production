@@ -4,7 +4,7 @@
 @section('content')
 <div class="container-fluid py-4">
     <h1 class="h3 mb-1">Activity History</h1>
-    <p>{{ $member->full_name }} · {{ $member->profile_id }}</p>
+    <p>{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} · {{ $member->profile_id }}</p>
     @if($historyUnavailable ?? false)
     <div class="alert alert-warning" role="alert">Activity history is not enabled for this site yet. The site's database migrations must be applied before new events can be recorded.</div>
     @endif
