@@ -2438,6 +2438,8 @@ class MemberController extends Controller
 
         $validated = $request->validate([
 
+            'profile_created_for' => ['required', 'string', 'max:123'],
+
             'full_name' => [
                 'required',
                 'string',
@@ -2469,13 +2471,13 @@ class MemberController extends Controller
             ],
 
             'gender' => [
-                'nullable',
+                'required',
                 'string',
                 'max:50',
             ],
 
             'birth_date_time' => [
-                'nullable',
+                'required',
                 'date',
                 'before_or_equal:' . now()->subYears(18)->toDateTimeString(),
             ],

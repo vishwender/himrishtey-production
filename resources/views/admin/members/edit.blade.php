@@ -112,9 +112,34 @@
                 <div class="row g-3">
 
                     <div class="col-md-6">
+                        <label class="form-label" for="profile_created_for">
+                            Profile Created For <span class="text-danger">*</span>
+                        </label>
+                        @php
+                            $createdForOptions = ['Self', 'Son', 'Daughter', 'Brother', 'Sister', 'Relative', 'Friend'];
+                            $createdFor = old('profile_created_for', $member->profile_created_for ?? '');
+                        @endphp
+                        <select name="profile_created_for" id="profile_created_for" required
+                            class="form-select @error('profile_created_for') is-invalid @enderror"
+                            aria-invalid="{{ $errors->has('profile_created_for') ? 'true' : 'false' }}"
+                            aria-describedby="{{ $errors->has('profile_created_for') ? 'profile_created_for_error' : '' }}">
+                            <option value="">Select</option>
+                            @if($createdFor && !in_array($createdFor, $createdForOptions, true))
+                                <option value="{{ $createdFor }}" selected>{{ $createdFor }}</option>
+                            @endif
+                            @foreach($createdForOptions as $value)
+                                <option value="{{ $value }}" @selected($createdFor === $value)>{{ $value }}</option>
+                            @endforeach
+                        </select>
+                        @error('profile_created_for')
+                            <div id="profile_created_for_error" class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6">
 
                         <label class="form-label" for="full_name">
-                            Full Name
+                            Full Name <span class="text-danger">*</span>
                         </label>
 
                         <input
@@ -133,7 +158,7 @@
                     <div class="col-md-6">
 
                         <label class="form-label" for="email">
-                            Email
+                            Email <span class="text-danger">*</span>
                         </label>
 
                         <input
@@ -152,7 +177,7 @@
                     <div class="col-md-4">
 
                         <label class="form-label" for="mobile_number">
-                            Mobile Number
+                            Mobile Number <span class="text-danger">*</span>
                         </label>
 
                         <input
@@ -207,12 +232,12 @@
                     <div class="col-md-4">
 
                         <label class="form-label" for="gender">
-                            Gender
+                            Gender <span class="text-danger">*</span>
                         </label>
 
                         <input
                             type="text"
-                            name="gender" id="gender"
+                            name="gender" required id="gender"
                             class="form-control @error('gender') is-invalid @enderror"
                             value="{{ old('gender', $member->gender) }}" aria-invalid="{{ $errors->has('gender') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('gender') ? 'gender_error' : '' }}">
                         @error('gender')
@@ -225,13 +250,13 @@
                     <div class="col-md-4">
 
                         <label class="form-label" for="birth_date_time">
-                            Birth Date and Time
+                            Birth Date and Time <span class="text-danger">*</span>
                         </label>
 
                         <input
                             type="datetime-local"
                             id="birth_date_time"
-                            name="birth_date_time"
+                            name="birth_date_time" required
                             class="form-control @error('birth_date_time') is-invalid @enderror"
                             value="{{ old('birth_date_time', $member->birth_date_time ? \Carbon\Carbon::parse($member->birth_date_time)->format('Y-m-d\TH:i') : '') }}"
                             max="{{ today()->subYearsNoOverflow(18)->endOfDay()->format('Y-m-d\TH:i') }}" aria-invalid="{{ $errors->has('birth_date_time') ? 'true' : 'false' }}" aria-describedby="birth_date_time_help{{ $errors->has('birth_date_time') ? ' birth_date_time_error' : '' }}">
