@@ -225,20 +225,7 @@ class MemberController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('visibility')) {
-
-            if ($request->visibility === 'hidden') {
-
-                $query->where('profile_hide', 'Yes');
-            } elseif ($request->visibility === 'visible') {
-
-                $query->where(function ($q) {
-
-                    $q->where('profile_hide', 'No')
-                        ->orWhereNull('profile_hide');
-                });
-            }
-        }
+        $query->filterVisibility($request->input('visibility'));
 
         /*
         |--------------------------------------------------------------------------

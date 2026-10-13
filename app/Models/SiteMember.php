@@ -15,6 +15,19 @@ class SiteMember extends Model
 
     protected $guarded = [];
 
+    public function scopeFilterVisibility($query, ?string $visibility): void
+    {
+        if ($visibility === 'hidden') {
+            $query->whereRaw('LOWER(TRIM(profile_hide)) = ?', ['yes']);
+        } elseif ($visibility === 'visible') {
+            $query->where(function ($query) {
+                $query->whereNull('profile_hide')
+                    ->orWhereRaw('LOWER(TRIM(profile_hide)) != ?', ['yes']);
+            });
+        }
+    }
+
+
     /**
      * Format height.
      *

@@ -1764,7 +1764,7 @@ if ($membershipPlan && $membershipExpiryDate) {
                     Profile Visibility
                 </small>
 
-                @if((string) $member->profile_hide === '1')
+                @if(strtolower(trim((string) $member->profile_hide)) === 'yes')
 
                 <span class="badge bg-warning text-dark">
                     <i class="bi bi-eye-slash me-1"></i>
@@ -2728,8 +2728,7 @@ if ($membershipPlan && $membershipExpiryDate) {
 
         <button type="submit" class="btn btn-outline-secondary">
 
-            @if(!empty($member->profile_hide) &&
-            strtolower((string) $member->profile_hide) === 'yes')
+            @if(strtolower(trim((string) $member->profile_hide)) === 'yes')
 
             Show Profile
 
