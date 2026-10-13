@@ -9,6 +9,26 @@ use Illuminate\Support\Facades\DB;
 
 class MemberLogs
 {
+    public function attribution(Collection $actions, mixed $planId): array
+    {
+        $label = static function ($action): ?string {
+            if (!$action) {
+                return null;
+            }
+            $name = $action->metadata['admin_name'] ?? $action->admin?->name;
+
+            return filled($name) ? 'Admin '.$name : 'Admin (name unavailable)';
+        };
+
+        return [
+            'created_by' => $label($actions->where('action', 'member_created')->last()),
+            'activated_by' => $label($actions->firstWhere('action', 'member_activated')),
+            'plan_created_by' => $label($actions->first(fn ($action) =>
+                isset($action->metadata['plan_id']) && (string) $action->metadata['plan_id'] === (string) $planId
+            )),
+        ];
+    }
+
     public function record(int $memberId, string $type, string $text, ?string $date = null): ?int
     {
         $db = DB::connection('site');

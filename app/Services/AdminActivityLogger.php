@@ -29,7 +29,7 @@ class AdminActivityLogger
             'subject_id' => $subjectId,
             'member_id' => $memberId,
             'description' => $description,
-            'metadata' => array_merge($metadata, ['audit_event_id' => (string) Str::uuid()]),
+            'metadata' => array_merge($metadata, ['audit_event_id' => (string) Str::uuid(), 'admin_name' => $admin?->name]),
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
             'created_at' => now()->toDateTimeString(),

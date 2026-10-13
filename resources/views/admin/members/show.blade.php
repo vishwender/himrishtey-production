@@ -2545,6 +2545,10 @@ if ($membershipPlan && $membershipExpiryDate) {
         <dl class="row mb-4">
             <dt class="col-sm-4">Registration Through</dt>
             <dd class="col-sm-8">{{ $member->register_through ?: 'Website' }}</dd>
+            <dt class="col-sm-4">Profile Created By</dt>
+            <dd class="col-sm-8">{{ $profileAttribution['created_by'] ?? (strtolower((string) $member->register_through) === 'admin' ? 'Admin (name unavailable)' : 'Self') }}</dd>
+            <dt class="col-sm-4">Profile Activated By</dt>
+            <dd class="col-sm-8">{{ $profileAttribution['activated_by'] ?? 'Not recorded' }}</dd>
             <dt class="col-sm-4">Registration Date</dt>
             <dd class="col-sm-8">{{ $member->registration_date ?: '-' }}</dd>
             <dt class="col-sm-4">Assigned To</dt>
@@ -2556,7 +2560,7 @@ if ($membershipPlan && $membershipExpiryDate) {
             <dt class="col-sm-4">Plan Name</dt>
             <dd class="col-sm-8">{{ $membershipPlan->plan_name ?? 'Free' }}</dd>
             <dt class="col-sm-4">Plan Created By</dt>
-            <dd class="col-sm-8">{{ $membershipPayments->isNotEmpty() ? 'Self' : 'Admin' }}</dd>
+            <dd class="col-sm-8">{{ $profileAttribution['plan_created_by'] ?? ($membershipPayments->isNotEmpty() ? 'Self' : 'Admin (name unavailable)') }}</dd>
         </dl>
 
         <form

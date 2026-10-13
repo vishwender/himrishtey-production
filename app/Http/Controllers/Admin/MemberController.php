@@ -791,6 +791,14 @@ class MemberController extends Controller
         */
 
         $memberLogHistory = app(MemberLogs::class)->history($member->id, $remarkHistory);
+        $profileAdminActions = AdminActivityLog::query()
+            ->with('admin:id,name')
+            ->where('site_id', app(SiteManager::class)->id())
+            ->where('member_id', $member->id)
+            ->whereIn('action', ['member_created', 'member_activated', 'membership_changed'])
+            ->orderByDesc('created_at')->orderByDesc('id')->get();
+        $profileAttribution = app(MemberLogs::class)->attribution($profileAdminActions, $member->plan_id);
+
 
         return view('admin.members.show', [
 
@@ -816,6 +824,7 @@ class MemberController extends Controller
             'shareUrl' => $shareUrl,
             'whatsappShareUrl' => $whatsappShareUrl,
             'memberLogHistory' => $memberLogHistory,
+            'profileAttribution' => $profileAttribution,
             'rotationLogHistory' => app(MemberLogs::class)->rotations($member->id, $memberLogHistory),
             'walletCredits' => app(MemberLogs::class)->walletCredits($member->id),
         ]);
@@ -1489,6 +1498,14 @@ class MemberController extends Controller
         | Profile Photo
         |--------------------------------------------------------------------------
         */
+
+        app(AdminActivityLogger::class)->log(
+            action: 'member_created',
+            description: "Created member {$member->profile_id}.",
+            module: 'members', memberId: (int) $member->id,
+            subjectType: 'member', subjectId: (int) $member->id,
+            metadata: ['plan_id' => $member->plan_id],
+        );
 
         if ($request->hasFile('photo')) {
             $photoService->upload(
@@ -3073,6 +3090,14 @@ class MemberController extends Controller
     | Redirect
     |--------------------------------------------------------------------------
     */
+
+        app(AdminActivityLogger::class)->log(
+            action: 'membership_changed',
+            description: "Changed membership to {$plan->plan_name}.",
+            module: 'members', memberId: (int) $memberId,
+            subjectType: 'member', subjectId: (int) $memberId,
+            metadata: ['plan_id' => $plan->id],
+        );
 
         return redirect()
             ->route('admin.members.show', [
