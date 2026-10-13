@@ -144,7 +144,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                         </a>
 
                         @if(auth('admin')->user()?->hasRole('super-admin'))
-                        <a href="{{ route('admin.members.activation.requests') }}" class="nav-dropdown-item">Activation Requests</a>
+                        <a href="{{ route('admin.members.activation.requests') }}" class="nav-dropdown-item"><i class="bi bi-person-check me-2" aria-hidden="true"></i>Activation Requests</a>
                         @endif
                         @if(auth('admin')->user()?->hasPermission('view-delete-profile-request'))
 
@@ -442,7 +442,7 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                         </a>
 
                         @if(auth('admin')->user()?->hasRole('super-admin'))
-                        <a href="{{ route('admin.members.activation.requests') }}" class="nav-dropdown-item">Activation Requests</a>
+                        <a href="{{ route('admin.members.activation.requests') }}" class="nav-dropdown-item"><i class="bi bi-person-check me-2" aria-hidden="true"></i>Activation Requests</a>
                         @endif
                         @if(auth('admin')->user()?->hasPermission('view-delete-profile-request'))
 
