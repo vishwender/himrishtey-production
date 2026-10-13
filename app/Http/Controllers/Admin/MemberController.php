@@ -1737,7 +1737,7 @@ class MemberController extends Controller
         if ($validated['banned']) {
             $member->active = 'Banned';
         } elseif ($member->active === 'Banned') {
-            $member->active = 'Yes';
+            $member->active = auth('admin')->user()->hasRole('super-admin') ? 'Yes' : 'No';
         }
         $member->save();
 
@@ -1779,9 +1779,7 @@ class MemberController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $member->active = $member->active === 'Yes'
-            ? 'No'
-            : 'Yes';
+        $member->active = 'No';
 
         $member->save();
 

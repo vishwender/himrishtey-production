@@ -1,13 +1,16 @@
 @extends('admin.layout')
 
-@section('title', 'Activate Member')
-@section('page-title', 'Activate Member')
+@php
+    $activationTitle = auth('admin')->user()->hasRole('super-admin') ? 'Activate Member' : 'Request Profile Activation';
+@endphp
+@section('title', $activationTitle)
+@section('page-title', $activationTitle)
 
 @section('content')
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="h3">Activate Member</h1>
+            <h1 class="h3">{{ $activationTitle }}</h1>
             <p class="text-muted mb-0">{{ \Illuminate\Support\Str::ucfirst((string) ($member->full_name)) }} · {{ $member->profile_id }}</p>
         </div>
         <a href="{{ route('admin.members.show', $member->id) }}" class="btn btn-outline-secondary">Back to Profile</a>
@@ -19,6 +22,16 @@
     </div>
     @endif
 
+    @if($pendingRequest)
+    <div class="alert alert-info">An activation request is pending Super Admin approval. This profile remains inactive.
+        @if(auth('admin')->user()->hasRole('super-admin'))
+        <a href="{{ route('admin.members.activation.requests') }}">Review activation requests</a>
+        @endif
+    </div>
+    @else
+    @unless(auth('admin')->user()->hasRole('super-admin'))
+    <div class="alert alert-info">Submitting these settings requests activation. The profile and its settings will only change after Super Admin approval.</div>
+    @endunless
     <form method="POST" action="{{ route('admin.members.activation.store', $member->id) }}">
         @csrf
         <div class="card border-0 shadow-sm mb-4">
@@ -90,8 +103,9 @@
                 <button type="button" id="add-activation-range" class="btn btn-outline-secondary">Add Range</button>
             </div>
         </div>
-        <button class="btn btn-success" type="submit"><i class="bi bi-person-check me-2"></i>Activate Member</button>
+        <button class="btn btn-success" type="submit"><i class="bi bi-person-check me-2"></i>{{ $activationTitle }}</button>
     </form>
+    @endif
 </div>
 @endsection
 
@@ -99,7 +113,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('activation-ranges');
-    let nextIndex = {{ count($formRanges) }};
+    if (!container) return;
+    let nextIndex = {{ count($formRanges ?? []) }};
     document.getElementById('add-activation-range').addEventListener('click', () => {
         if (container.children.length >= 20) return;
         const row = container.querySelector('[data-rate-row]').cloneNode(true);

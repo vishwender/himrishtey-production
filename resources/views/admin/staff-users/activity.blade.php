@@ -348,6 +348,10 @@
                         */
 
                         $activityName = match($activity->action) {
+                        'member_activation_requested' => 'Requested Profile Activation',
+                        'member_activation_approved' => 'Approved Profile Activation',
+                        'member_activation_rejected' => 'Rejected Profile Activation',
+                        'member_activated' => 'Activated Profile',
 
                         'login' =>
                         'Logged In',
@@ -394,6 +398,9 @@
                         */
 
                         $activityIcon = match($activity->action) {
+                        'member_activation_requested' => 'bi-hourglass-split',
+                        'member_activation_approved', 'member_activated' => 'bi-person-check',
+                        'member_activation_rejected' => 'bi-x-circle',
 
                         'login' =>
                         'bi-box-arrow-in-right',

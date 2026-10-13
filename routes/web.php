@@ -224,6 +224,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/members/{id}/toggle-status', [MemberController::class, 'toggleStatus'])
                 ->middleware('permission.any:manage-member-status,edit-member,edit-members')->name('members.toggle-status');
 
+            Route::get('/activation-requests', [MemberActivationController::class, 'index'])->name('members.activation.requests');
+            Route::post('/activation-requests/{id}/approve', [MemberActivationController::class, 'approve'])->whereNumber('id')->name('members.activation.approve');
+            Route::post('/activation-requests/{id}/reject', [MemberActivationController::class, 'reject'])->whereNumber('id')->name('members.activation.reject');
+
             Route::get('/members/{id}/activate', [MemberActivationController::class, 'create'])
                 ->whereNumber('id')->middleware('permission.any:manage-member-status,edit-member,edit-members')->name('members.activation.create');
             Route::post('/members/{id}/activate', [MemberActivationController::class, 'store'])

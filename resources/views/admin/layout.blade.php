@@ -143,6 +143,9 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                             Banned Members
                         </a>
 
+                        @if(auth('admin')->user()?->hasRole('super-admin'))
+                        <a href="{{ route('admin.members.activation.requests') }}" class="nav-dropdown-item">Activation Requests</a>
+                        @endif
                         @if(auth('admin')->user()?->hasPermission('view-delete-profile-request'))
 
                         <a
@@ -438,6 +441,9 @@ $contentManagerRestricted = auth('admin')->user()?->hasRole('content-manager')
                             Banned Members
                         </a>
 
+                        @if(auth('admin')->user()?->hasRole('super-admin'))
+                        <a href="{{ route('admin.members.activation.requests') }}" class="nav-dropdown-item">Activation Requests</a>
+                        @endif
                         @if(auth('admin')->user()?->hasPermission('view-delete-profile-request'))
 
                         <a

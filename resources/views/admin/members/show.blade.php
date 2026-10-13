@@ -2672,7 +2672,7 @@ if ($membershipPlan && $membershipExpiryDate) {
     @if(auth('admin')->user()?->hasAnyPermission(['manage-member-status', 'edit-member', 'edit-members']))
     @if($member->active === 'Banned')
     @if(auth('admin')->user()?->hasAnyRole(['super-admin', 'admin']))
-    <form method="POST" action="{{ route('admin.members.ban.update', $member->id) }}" onsubmit="return confirm('Unban and activate this member?')">
+    <form method="POST" action="{{ route('admin.members.ban.update', $member->id) }}" onsubmit="return confirm('Unban this member?')">
         @csrf
         <input type="hidden" name="banned" value="0">
         <button type="submit" class="btn btn-success">Unban Member</button>
@@ -2696,7 +2696,7 @@ if ($membershipPlan && $membershipExpiryDate) {
         @csrf
 
         <button type="submit" class="btn btn-success">
-            Activate
+            {{ auth('admin')->user()->hasRole('super-admin') ? 'Activate' : 'Request Activation' }}
         </button>
     </form>
 

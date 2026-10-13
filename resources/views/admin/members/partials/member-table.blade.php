@@ -367,7 +367,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
                                         @if($member->active !== 'Yes')
                                         @if(auth('admin')->user()?->hasAnyPermission(['manage-member-status', 'edit-member', 'edit-members']))
                                         <a class="dropdown-item" href="{{ route('admin.members.activation.create', $member->id) }}">
-                                            <i class="bi bi-person-check me-2 text-success"></i>Activate Member
+                                            <i class="bi bi-person-check me-2 text-success"></i>{{ auth('admin')->user()->hasRole('super-admin') ? 'Activate Member' : 'Request Activation' }}
                                         </a>
                                         @endif
                                         @else
@@ -423,7 +423,7 @@ $tablePhotoUrl = app(\App\Services\MemberPhotoService::class)->url($member->phot
 
                                     @if(auth('admin')->user()?->hasAnyRole(['super-admin', 'admin']))
                                     <li>
-                                        <form method="POST" action="{{ route('admin.members.ban.update', $member->id) }}" class="member-action-form" data-confirm-title="Change Ban Status" data-confirm="{{ $member->active === 'Banned' ? 'Unban and activate this member?' : 'Ban this member?' }}">
+                                        <form method="POST" action="{{ route('admin.members.ban.update', $member->id) }}" class="member-action-form" data-confirm-title="Change Ban Status" data-confirm="{{ $member->active === 'Banned' ? 'Unban this member?' : 'Ban this member?' }}">
                                             @csrf
                                             <input type="hidden" name="banned" value="{{ $member->active === 'Banned' ? 0 : 1 }}">
                                             <button type="submit" class="dropdown-item text-danger">
