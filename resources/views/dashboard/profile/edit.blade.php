@@ -541,14 +541,16 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                     <div class="ep-field-group">
                         <label class="ep-label" for="no_of_brothers">Brothers</label>
                         <div class="ep-select-wrapper">
+                            @php
+                                $siblingSelection = (string) old('no_of_brothers', $member->no_of_brothers);
+                                $siblingSelection = $siblingSelection === '5+' ? '5' : $siblingSelection;
+                                $siblingMaximum = max(5, (int) old('no_of_brothers', $member->no_of_brothers), (int) $siblingSelection);
+                            @endphp
                             <select class="ep-select" id="no_of_brothers" name="no_of_brothers">
                                 <option value="">Select</option>
-                                <option value="0" {{ old('no_of_brothers', $member->no_of_brothers) == '0' ? 'selected' : '' }}>0</option>
-                                <option value="1" {{ old('no_of_brothers', $member->no_of_brothers) == '1' ? 'selected' : '' }}>1</option>
-                                <option value="2" {{ old('no_of_brothers', $member->no_of_brothers) == '2' ? 'selected' : '' }}>2</option>
-                                <option value="3" {{ old('no_of_brothers', $member->no_of_brothers) == '3' ? 'selected' : '' }}>3</option>
-                                <option value="4" {{ old('no_of_brothers', $member->no_of_brothers) == '4' ? 'selected' : '' }}>4</option>
-                                <option value="5+" {{ old('no_of_brothers', $member->no_of_brothers) == '5+' ? 'selected' : '' }}>5+</option>
+                                @foreach(range(0, $siblingMaximum) as $count)
+                                    <option value="{{ $count }}" @selected($siblingSelection === (string) $count)>{{ $count }}</option>
+                                @endforeach
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
                         </div>
@@ -558,14 +560,16 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <label class="ep-label" for="married_brothers">Married Brothers</label>
                         <div class="ep-select-wrapper">
                             <input type="hidden" id="married_brothers_zero" name="married_brothers" value="0" disabled>
+                            @php
+                                $siblingSelection = (string) old('married_brothers', $member->married_brothers);
+                                $siblingSelection = $siblingSelection === '5+' ? '5' : $siblingSelection;
+                                $siblingMaximum = max(5, (int) old('no_of_brothers', $member->no_of_brothers), (int) $siblingSelection);
+                            @endphp
                             <select class="ep-select" id="married_brothers" name="married_brothers">
                                 <option value="">Select</option>
-                                <option value="0" {{ old('married_brothers', $member->married_brothers) == '0' ? 'selected' : '' }}>0</option>
-                                <option value="1" {{ old('married_brothers', $member->married_brothers) == '1' ? 'selected' : '' }}>1</option>
-                                <option value="2" {{ old('married_brothers', $member->married_brothers) == '2' ? 'selected' : '' }}>2</option>
-                                <option value="3" {{ old('married_brothers', $member->married_brothers) == '3' ? 'selected' : '' }}>3</option>
-                                <option value="4" {{ old('married_brothers', $member->married_brothers) == '4' ? 'selected' : '' }}>4</option>
-                                <option value="5+" {{ old('married_brothers', $member->married_brothers) == '5+' ? 'selected' : '' }}>5+</option>
+                                @foreach(range(0, $siblingMaximum) as $count)
+                                    <option value="{{ $count }}" @selected($siblingSelection === (string) $count)>{{ $count }}</option>
+                                @endforeach
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
                         </div>
@@ -574,14 +578,16 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                     <div class="ep-field-group">
                         <label class="ep-label" for="no_of_sisters">Sisters</label>
                         <div class="ep-select-wrapper">
+                            @php
+                                $siblingSelection = (string) old('no_of_sisters', $member->no_of_sisters);
+                                $siblingSelection = $siblingSelection === '5+' ? '5' : $siblingSelection;
+                                $siblingMaximum = max(5, (int) old('no_of_sisters', $member->no_of_sisters), (int) $siblingSelection);
+                            @endphp
                             <select class="ep-select" id="no_of_sisters" name="no_of_sisters">
                                 <option value="">Select</option>
-                                <option value="0" {{ old('no_of_sisters', $member->no_of_sisters) == '0' ? 'selected' : '' }}>0</option>
-                                <option value="1" {{ old('no_of_sisters', $member->no_of_sisters) == '1' ? 'selected' : '' }}>1</option>
-                                <option value="2" {{ old('no_of_sisters', $member->no_of_sisters) == '2' ? 'selected' : '' }}>2</option>
-                                <option value="3" {{ old('no_of_sisters', $member->no_of_sisters) == '3' ? 'selected' : '' }}>3</option>
-                                <option value="4" {{ old('no_of_sisters', $member->no_of_sisters) == '4' ? 'selected' : '' }}>4</option>
-                                <option value="5+" {{ old('no_of_sisters', $member->no_of_sisters) == '5+' ? 'selected' : '' }}>5+</option>
+                                @foreach(range(0, $siblingMaximum) as $count)
+                                    <option value="{{ $count }}" @selected($siblingSelection === (string) $count)>{{ $count }}</option>
+                                @endforeach
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
                         </div>
@@ -591,14 +597,16 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         <label class="ep-label" for="married_sisters">Married Sisters</label>
                         <div class="ep-select-wrapper">
                             <input type="hidden" id="married_sisters_zero" name="married_sisters" value="0" disabled>
+                            @php
+                                $siblingSelection = (string) old('married_sisters', $member->married_sisters);
+                                $siblingSelection = $siblingSelection === '5+' ? '5' : $siblingSelection;
+                                $siblingMaximum = max(5, (int) old('no_of_sisters', $member->no_of_sisters), (int) $siblingSelection);
+                            @endphp
                             <select class="ep-select" id="married_sisters" name="married_sisters">
                                 <option value="">Select</option>
-                                <option value="0" {{ old('married_sisters', $member->married_sisters) == '0' ? 'selected' : '' }}>0</option>
-                                <option value="1" {{ old('married_sisters', $member->married_sisters) == '1' ? 'selected' : '' }}>1</option>
-                                <option value="2" {{ old('married_sisters', $member->married_sisters) == '2' ? 'selected' : '' }}>2</option>
-                                <option value="3" {{ old('married_sisters', $member->married_sisters) == '3' ? 'selected' : '' }}>3</option>
-                                <option value="4" {{ old('married_sisters', $member->married_sisters) == '4' ? 'selected' : '' }}>4</option>
-                                <option value="5+" {{ old('married_sisters', $member->married_sisters) == '5+' ? 'selected' : '' }}>5+</option>
+                                @foreach(range(0, $siblingMaximum) as $count)
+                                    <option value="{{ $count }}" @selected($siblingSelection === (string) $count)>{{ $count }}</option>
+                                @endforeach
                             </select>
                             <i data-lucide="chevron-down" width="16" height="16" class="ep-select-icon"></i>
                         </div>

@@ -1323,80 +1323,39 @@ const ConditionManager = {
         BROTHER / SISTER
     ========================================== */
 
-        initSiblings() {
+    initSiblings() {
+        const sync = (totalSelect, marriedSelect, zeroInput) => {
+            const total = Number.parseInt(totalSelect.value, 10);
+            const hasTotal = Number.isInteger(total);
+            const hasNoSiblings = hasTotal && total === 0;
 
-            const brother = document.getElementById("no_of_brothers");
-            const sister = document.getElementById("no_of_sisters");
+            marriedSelect.disabled = hasNoSiblings;
+            if (zeroInput) zeroInput.disabled = !hasNoSiblings;
 
-            const marriedBrother = document.getElementById("married_brothers");
-            const marriedSister = document.getElementById("married_sisters");
-            const marriedBrotherZero = document.getElementById("married_brothers_zero");
-            const marriedSisterZero = document.getElementById("married_sisters_zero");
+            Array.from(marriedSelect.options).forEach(option => {
+                if (option.value === "") return;
+                option.disabled = hasTotal && Number(option.value) > total;
+            });
 
-            if (!brother && !sister) {
-                return;
+            if (hasNoSiblings) {
+                marriedSelect.value = "0";
+            } else if (hasTotal && Number(marriedSelect.value) > total) {
+                marriedSelect.value = String(total);
             }
+        };
 
-            const updateBrother = () => {
-
-                if (!marriedBrother || !brother) {
-                    return;
-                }
-
-                const count = parseInt(brother.value, 10) || 0;
-
-                marriedBrother.disabled = count === 0;
-                if (marriedBrotherZero) {
-                    marriedBrotherZero.disabled = count !== 0;
-                }
-
-                if (count === 0) {
-                    marriedBrother.value = "0";
-                }
-
-            };
-
-            const updateSister = () => {
-
-                if (!marriedSister || !sister) {
-                    return;
-                }
-
-                const count = parseInt(sister.value, 10) || 0;
-
-                marriedSister.disabled = count === 0;
-                if (marriedSisterZero) {
-                    marriedSisterZero.disabled = count !== 0;
-                }
-
-                if (count === 0) {
-                    marriedSister.value = "0";
-                }
-
-            };
-
-            // Initial state
-            updateBrother();
-            updateSister();
-
-            // Update when user changes values
-            brother?.addEventListener("change", () => {
-
-                updateBrother();
-
-                this.markDirty(brother);
-
+        for (const sibling of ["brothers", "sisters"]) {
+            const total = document.getElementById(`no_of_${sibling}`);
+            const married = document.getElementById(`married_${sibling}`);
+            const zero = document.getElementById(`married_${sibling}_zero`);
+            if (!total || !married) continue;
+            sync(total, married, zero);
+            total.addEventListener("change", () => {
+                sync(total, married, zero);
+                this.markDirty(total);
             });
-
-            sister?.addEventListener("change", () => {
-
-                updateSister();
-
-                this.markDirty(sister);
-
-            });
-
-        },
+        }
+    },
 
     /* ==========================================
        DISABILITY
