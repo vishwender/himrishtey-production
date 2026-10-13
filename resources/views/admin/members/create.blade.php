@@ -2038,6 +2038,7 @@
                 <h6 class="fw-semibold mb-3">
                     Basic Preferences
                 </h6>
+                <p class="text-muted small">Hold Ctrl (Windows/Linux) or Command (Mac) to select multiple options in the partner preference lists.</p>
 
 
                 <div class="row g-3">
@@ -2051,15 +2052,14 @@
                             for="looking_for"
                             class="form-label">
 
-                            Looking For
+                            Partner Marital Status
 
                         </label>
 
 
-                        <select name="looking_for" id="looking_for" class="form-select">
-                            <option value="">Select Marital Status</option>
+                        <select name="looking_for[]" multiple size="5" id="looking_for" class="form-select">
                             @foreach($maritalStatuses as $status)
-                            <option value="{{ $status->marital_status }}" @selected(old('looking_for')==$status->marital_status)>{{ $status->marital_status }}</option>
+                            <option value="{{ $status->marital_status }}" @selected(in_array($status->marital_status, (array) old('looking_for', []), true))>{{ $status->marital_status }}</option>
                             @endforeach
                         </select>
 
@@ -2144,20 +2144,16 @@
 
 
                         <select
-                            name="partner_religion"
+                            name="partner_religion[]" multiple size="5"
                             id="partner_religion"
                             class="form-select">
-
-                            <option value="">
-                                Select Religion
-                            </option>
 
                             @foreach($religions as $religion)
 
                             <option
                                 value="{{ $religion->religion }}"
                                 @selected(
-                                old('partner_religion')==$religion->religion
+                                in_array($religion->religion, (array) old('partner_religion', []), true)
                                 )>
 
                                 {{ $religion->religion }}
@@ -2185,20 +2181,16 @@
 
 
                         <select
-                            name="partner_cast"
+                            name="partner_cast[]" multiple size="5"
                             id="partner_cast"
                             class="form-select">
-
-                            <option value="">
-                                Select Cast
-                            </option>
 
                             @foreach($casts as $cast)
 
                             <option
                                 value="{{ $cast->cast }}"
                                 @selected(
-                                old('partner_cast')==$cast->cast
+                                in_array($cast->cast, (array) old('partner_cast', []), true)
                                 )>
 
                                 {{ $cast->cast }}
@@ -2226,20 +2218,16 @@
 
 
                         <select
-                            name="partner_mothertongue"
+                            name="partner_mothertongue[]" multiple size="5"
                             id="partner_mothertongue"
                             class="form-select">
-
-                            <option value="">
-                                Select Mother Tongue
-                            </option>
 
                             @foreach($motherTongues as $motherTongue)
 
                             <option
                                 value="{{ $motherTongue->mother_tongue }}"
                                 @selected(
-                                old('partner_mothertongue')==$motherTongue->mother_tongue
+                                in_array($motherTongue->mother_tongue, (array) old('partner_mothertongue', []), true)
                                 )>
 
                                 {{ $motherTongue->mother_tongue }}
@@ -2425,20 +2413,16 @@
 
 
                         <select
-                            name="partner_education"
+                            name="partner_education[]" multiple size="5"
                             id="partner_education"
                             class="form-select">
-
-                            <option value="">
-                                Select Education
-                            </option>
 
                             @foreach($educations as $education)
 
                             <option
                                 value="{{ $education->education }}"
                                 @selected(
-                                old('partner_education')==$education->education
+                                in_array($education->education, (array) old('partner_education', []), true)
                                 )>
 
                                 {{ $education->education }}
@@ -2460,29 +2444,25 @@
                             for="partner_occupation"
                             class="form-label">
 
-                            Partner Occupation
+                            Partner Employed In
 
                         </label>
 
 
                         <select
-                            name="partner_occupation"
+                            name="partner_occupation[]" multiple size="5"
                             id="partner_occupation"
                             class="form-select">
 
-                            <option value="">
-                                Select Occupation
-                            </option>
-
-                            @foreach($occupations as $occupation)
+                            @foreach($employers as $employer)
 
                             <option
-                                value="{{ $occupation->occupation }}"
+                                value="{{ $employer->employer }}"
                                 @selected(
-                                old('partner_occupation')==$occupation->occupation
+                                in_array($employer->employer, (array) old('partner_occupation', []), true)
                                 )>
 
-                                {{ $occupation->occupation }}
+                                {{ $employer->employer }}
 
                             </option>
 

@@ -1383,14 +1383,21 @@
                     {{-- Looking For --}}
                     <div class="col-md-6">
 
+                        <p class="text-muted small">Hold Ctrl (Windows/Linux) or Command (Mac) to select multiple options.</p>
                         <label for="looking_for" class="form-label">
                             Looking For
                         </label>
 
-                        <select name="looking_for" id="looking_for" class="form-select @error('looking_for') is-invalid @enderror" aria-invalid="{{ $errors->has('looking_for') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('looking_for') ? 'looking_for_error' : '' }}">
-                            <option value="">Select Marital Status</option>
+                        @php
+                            $selectedPreferences = \App\Support\PartnerPreferenceValues::selection(old('looking_for', $member->looking_for));
+                        @endphp
+                        <input type="hidden" name="looking_for" value="">
+                        <select name="looking_for[]" multiple size="5" id="looking_for" class="form-select @error('looking_for') is-invalid @enderror" aria-invalid="{{ $errors->has('looking_for') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('looking_for') ? 'looking_for_error' : '' }}">
+                            @foreach(array_diff($selectedPreferences, $maritalStatuses->pluck('marital_status')->all()) as $savedPreference)
+                            <option value="{{ $savedPreference }}" selected>{{ $savedPreference }}</option>
+                            @endforeach
                             @foreach($maritalStatuses as $status)
-                            <option value="{{ $status->marital_status }}" @selected(old('looking_for', $member->looking_for) == $status->marital_status)>{{ $status->marital_status }}</option>
+                            <option value="{{ $status->marital_status }}" @selected(in_array($status->marital_status, $selectedPreferences, true))>{{ $status->marital_status }}</option>
                             @endforeach
                         </select>
                         @error('looking_for')
@@ -1586,10 +1593,16 @@
                             Religion
                         </label>
 
-                        <select name="partner_religion" id="partner_religion" class="form-select @error('partner_religion') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_religion') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_religion') ? 'partner_religion_error' : '' }}">
-                            <option value="">Select Religion</option>
+                        @php
+                            $selectedPreferences = \App\Support\PartnerPreferenceValues::selection(old('partner_religion', $member->partner_religion));
+                        @endphp
+                        <input type="hidden" name="partner_religion" value="">
+                        <select name="partner_religion[]" multiple size="5" id="partner_religion" class="form-select @error('partner_religion') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_religion') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_religion') ? 'partner_religion_error' : '' }}">
+                            @foreach(array_diff($selectedPreferences, $religions->pluck('religion')->all()) as $savedPreference)
+                            <option value="{{ $savedPreference }}" selected>{{ $savedPreference }}</option>
+                            @endforeach
                             @foreach($religions as $religion)
-                            <option value="{{ $religion->religion }}" @selected(old('partner_religion', $member->partner_religion) == $religion->religion)>{{ $religion->religion }}</option>
+                            <option value="{{ $religion->religion }}" @selected(in_array($religion->religion, $selectedPreferences, true))>{{ $religion->religion }}</option>
                             @endforeach
                         </select>
                         @error('partner_religion')
@@ -1606,10 +1619,16 @@
                             Caste
                         </label>
 
-                        <select name="partner_cast" id="partner_cast" class="form-select @error('partner_cast') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_cast') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_cast') ? 'partner_cast_error' : '' }}">
-                            <option value="">Select Caste</option>
+                        @php
+                            $selectedPreferences = \App\Support\PartnerPreferenceValues::selection(old('partner_cast', $member->partner_cast));
+                        @endphp
+                        <input type="hidden" name="partner_cast" value="">
+                        <select name="partner_cast[]" multiple size="5" id="partner_cast" class="form-select @error('partner_cast') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_cast') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_cast') ? 'partner_cast_error' : '' }}">
+                            @foreach(array_diff($selectedPreferences, $casts->pluck('cast')->all()) as $savedPreference)
+                            <option value="{{ $savedPreference }}" selected>{{ $savedPreference }}</option>
+                            @endforeach
                             @foreach($casts as $cast)
-                            <option value="{{ $cast->cast }}" @selected(old('partner_cast', $member->partner_cast) == $cast->cast)>{{ $cast->cast }}</option>
+                            <option value="{{ $cast->cast }}" @selected(in_array($cast->cast, $selectedPreferences, true))>{{ $cast->cast }}</option>
                             @endforeach
                         </select>
                         @error('partner_cast')
@@ -1626,13 +1645,16 @@
                             Mother Tongue
                         </label>
 
-                        <select name="partner_mothertongue" id="partner_mothertongue" class="form-select @error('partner_mothertongue') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_mothertongue') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_mothertongue') ? 'partner_mothertongue_error' : '' }}">
-                            <option value="">Select Mother Tongue</option>
-                            @if(old('partner_mothertongue', $member->partner_mothertongue) && ! $motherTongues->contains('mother_tongue', old('partner_mothertongue', $member->partner_mothertongue)))
-                                <option selected value="{{ old('partner_mothertongue', $member->partner_mothertongue) }}">{{ old('partner_mothertongue', $member->partner_mothertongue) }}</option>
-                            @endif
+                        @php
+                            $selectedPreferences = \App\Support\PartnerPreferenceValues::selection(old('partner_mothertongue', $member->partner_mothertongue));
+                        @endphp
+                        <input type="hidden" name="partner_mothertongue" value="">
+                        <select name="partner_mothertongue[]" multiple size="5" id="partner_mothertongue" class="form-select @error('partner_mothertongue') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_mothertongue') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_mothertongue') ? 'partner_mothertongue_error' : '' }}">
+                            @foreach(array_diff($selectedPreferences, $motherTongues->pluck('mother_tongue')->all()) as $savedPreference)
+                            <option value="{{ $savedPreference }}" selected>{{ $savedPreference }}</option>
+                            @endforeach
                             @foreach($motherTongues as $motherTongue)
-                            <option value="{{ $motherTongue->mother_tongue }}" @selected(old('partner_mothertongue', $member->partner_mothertongue) == $motherTongue->mother_tongue)>{{ $motherTongue->mother_tongue }}</option>
+                            <option value="{{ $motherTongue->mother_tongue }}" @selected(in_array($motherTongue->mother_tongue, $selectedPreferences, true))>{{ $motherTongue->mother_tongue }}</option>
                             @endforeach
                         </select>
                         @error('partner_mothertongue')
@@ -1702,13 +1724,16 @@
                             Education
                         </label>
 
-                        <select name="partner_education" id="partner_education" class="form-select @error('partner_education') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_education') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_education') ? 'partner_education_error' : '' }}">
-                            <option value="">Select Education</option>
-                            @if(old('partner_education', $member->partner_education) && ! $educations->contains('education', old('partner_education', $member->partner_education)))
-                                <option selected value="{{ old('partner_education', $member->partner_education) }}">{{ old('partner_education', $member->partner_education) }}</option>
-                            @endif
+                        @php
+                            $selectedPreferences = \App\Support\PartnerPreferenceValues::selection(old('partner_education', $member->partner_education));
+                        @endphp
+                        <input type="hidden" name="partner_education" value="">
+                        <select name="partner_education[]" multiple size="5" id="partner_education" class="form-select @error('partner_education') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_education') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_education') ? 'partner_education_error' : '' }}">
+                            @foreach(array_diff($selectedPreferences, $educations->pluck('education')->all()) as $savedPreference)
+                            <option value="{{ $savedPreference }}" selected>{{ $savedPreference }}</option>
+                            @endforeach
                             @foreach($educations as $education)
-                            <option value="{{ $education->education }}" @selected(old('partner_education', $member->partner_education) == $education->education)>{{ $education->education }}</option>
+                            <option value="{{ $education->education }}" @selected(in_array($education->education, $selectedPreferences, true))>{{ $education->education }}</option>
                             @endforeach
                         </select>
                         @error('partner_education')
@@ -1722,13 +1747,19 @@
                     <div class="col-md-6">
 
                         <label for="partner_occupation" class="form-label">
-                            Occupation
+                            Employed In
                         </label>
 
-                        <select name="partner_occupation" id="partner_occupation" class="form-select @error('partner_occupation') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_occupation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_occupation') ? 'partner_occupation_error' : '' }}">
-                            <option value="">Select Occupation</option>
-                            @foreach($occupations as $occupation)
-                            <option value="{{ $occupation->occupation }}" @selected(old('partner_occupation', $member->partner_occupation) == $occupation->occupation)>{{ $occupation->occupation }}</option>
+                        @php
+                            $selectedPreferences = \App\Support\PartnerPreferenceValues::selection(old('partner_occupation', $member->partner_occupation));
+                        @endphp
+                        <input type="hidden" name="partner_occupation" value="">
+                        <select name="partner_occupation[]" multiple size="5" id="partner_occupation" class="form-select @error('partner_occupation') is-invalid @enderror" aria-invalid="{{ $errors->has('partner_occupation') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('partner_occupation') ? 'partner_occupation_error' : '' }}">
+                            @foreach(array_diff($selectedPreferences, $employers->pluck('employer')->all()) as $savedPreference)
+                            <option value="{{ $savedPreference }}" selected>{{ $savedPreference }}</option>
+                            @endforeach
+                            @foreach($employers as $employer)
+                            <option value="{{ $employer->employer }}" @selected(in_array($employer->employer, $selectedPreferences, true))>{{ $employer->employer }}</option>
                             @endforeach
                         </select>
                         @error('partner_occupation')

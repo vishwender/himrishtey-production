@@ -1146,6 +1146,8 @@ class MemberController extends Controller
                     )),
             ],
 
+            ...\App\Support\PartnerPreferenceValues::rules(),
+
             'profile_ranges' => ['nullable', 'array', 'max:20'],
             'profile_ranges.*.range_from' => ['nullable', 'integer', 'min:1', 'max:2147483647'],
             'profile_ranges.*.range_to' => ['nullable', 'integer', 'min:1', 'max:2147483647'],
@@ -1154,6 +1156,8 @@ class MemberController extends Controller
             'birth_date_time.before_or_equal' => 'The member must be at least 18 years old.',
             'health_info.required_if' => 'Please describe the disability.',
         ]);
+
+        $validated = \App\Support\PartnerPreferenceValues::normalize($validated);
 
         $validated = \App\Support\DisabilityValue::normalize($validated);
 
@@ -2875,6 +2879,8 @@ class MemberController extends Controller
                 'max:255',
             ],
 
+            ...\App\Support\PartnerPreferenceValues::rules(),
+
             'profile_ranges' => ['nullable', 'array', 'max:20'],
             'profile_ranges.*.range_from' => ['nullable', 'integer', 'min:1', 'max:2147483647'],
             'profile_ranges.*.range_to' => ['nullable', 'integer', 'min:1', 'max:2147483647'],
@@ -2884,6 +2890,8 @@ class MemberController extends Controller
             'birth_date_time.before_or_equal' => 'The member must be at least 18 years old.',
             'health_info.required_if' => 'Please describe the disability.',
         ]);
+
+        $validated = \App\Support\PartnerPreferenceValues::normalize($validated);
 
         $validated = \App\Support\DisabilityValue::normalize($validated);
 
