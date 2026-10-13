@@ -621,7 +621,7 @@
                         </label>
 
                         <select name="annual_income_from" class="form-select">
-                            @include('partials.annual-income-options', ['selected' => request('annual_income_from'), 'placeholder' => 'Any income'])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => request('annual_income_from'), 'placeholder' => 'Any income'])
                         </select>
 
                     </div>
@@ -635,7 +635,7 @@
                         </label>
 
                         <select name="annual_income_to" class="form-select">
-                            @include('partials.annual-income-options', ['selected' => request('annual_income_to'), 'placeholder' => 'Any income'])
+                            @include('partials.annual-income-options', ['wholeLakhLabels' => true, 'selected' => request('annual_income_to'), 'placeholder' => 'Any income'])
                         </select>
 
                     </div>
@@ -681,13 +681,13 @@
                             @foreach($countries as $country)
 
                             <option
-                                value="{{ $country->country }}"
+                                value="{{ $country->name }}"
                                 data-id="{{ $country->id }}"
                                 @selected(
-                                request('country_living_in')==$country->country
+                                request('country_living_in')==$country->name
                                 )
                                 >
-                                {{ $country->country }}
+                                {{ $country->name }}
                             </option>
 
                             @endforeach
@@ -1083,41 +1083,6 @@
                     </div>
 
 
-                    {{-- Partner Country --}}
-                    <div class="col-md-6">
-
-                        <label class="form-label">
-                            Partner Country
-                        </label>
-
-                        <select
-                            name="partner_country"
-                            id="search_partner_country"
-                            class="form-select">
-
-                            <option value="">
-                                All Countries
-                            </option>
-
-                            @foreach($countries as $country)
-
-                            <option
-                                value="{{ $country->country }}"
-                                data-id="{{ $country->id }}"
-                                @selected(
-                                request('partner_country')==$country->country
-                                )
-                                >
-                                {{ $country->country }}
-                            </option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
-
                     {{-- Partner Religion --}}
                     <div class="col-md-4">
 
@@ -1274,6 +1239,41 @@
                                 )
                                 >
                                 {{ $occupation->occupation }}
+                            </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- Partner Country --}}
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+                            Partner Country
+                        </label>
+
+                        <select
+                            name="partner_country"
+                            id="search_partner_country"
+                            class="form-select">
+
+                            <option value="">
+                                All Countries
+                            </option>
+
+                            @foreach($countries as $country)
+
+                            <option
+                                value="{{ $country->name }}"
+                                data-id="{{ $country->id }}"
+                                @selected(
+                                request('partner_country')==$country->name
+                                )
+                                >
+                                {{ $country->name }}
                             </option>
 
                             @endforeach
@@ -1459,12 +1459,12 @@
                             Partner Height From
                         </label>
 
-                        <input
-                            type="text"
-                            name="partner_height_from"
-                            class="form-control"
-                            value="{{ request('partner_height_from') }}"
-                            placeholder="e.g. 5ft 4in">
+                        <select name="partner_height_from" id="search_partner_height_from" class="form-select">
+                            <option value="">Any height</option>
+                            @foreach($heights as $height)
+                                <option value="{{ $height->height_value ?? $height->height }}" @selected(request('partner_height_from') == ($height->height_value ?? $height->height))>{{ \App\Support\HeightFormatter::format($height->height) }}</option>
+                            @endforeach
+                        </select>
 
                     </div>
 
@@ -1476,12 +1476,12 @@
                             Partner Height To
                         </label>
 
-                        <input
-                            type="text"
-                            name="partner_height_to"
-                            class="form-control"
-                            value="{{ request('partner_height_to') }}"
-                            placeholder="e.g. 6ft">
+                        <select name="partner_height_to" id="search_partner_height_to" class="form-select">
+                            <option value="">Any height</option>
+                            @foreach($heights as $height)
+                                <option value="{{ $height->height_value ?? $height->height }}" @selected(request('partner_height_to') == ($height->height_value ?? $height->height))>{{ \App\Support\HeightFormatter::format($height->height) }}</option>
+                            @endforeach
+                        </select>
 
                     </div>
 

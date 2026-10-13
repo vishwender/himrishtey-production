@@ -1568,6 +1568,8 @@ class MemberController extends Controller
 
     public function advancedSearch()
     {
+        $heights = \App\Support\HeightOptions::sorted(Height::on('site')->get());
+
         $countries = Country::on('site')
             ->orderBy('name')
             ->get();
@@ -1620,6 +1622,7 @@ class MemberController extends Controller
             ->get();
 
         return view('admin.members.advanced-search', compact(
+            'heights',
             'countries',
             'religions',
             'casts',
@@ -1849,6 +1852,8 @@ class MemberController extends Controller
     |--------------------------------------------------------------------------
     */
 
+        $heights = \App\Support\HeightOptions::sorted(Height::on('site')->get());
+
         $countries = Country::on('site')
             ->orderBy('name')
             ->get();
@@ -1904,6 +1909,7 @@ class MemberController extends Controller
             'admin.members.advanced-search',
             compact(
                 'members',
+                'heights',
                 'countries',
                 'religions',
                 'casts',
