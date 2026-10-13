@@ -1633,6 +1633,10 @@ class MemberController extends Controller
     public function advancedSearchResults(Request $request)
     {
         $query = $this->withoutDeletionRequests(Member::query());
+        $query->addSelect([
+            'membership_plan_name' => DB::connection('site')->table('membership_plans')
+                ->select('plan_name')->whereColumn('membership_plans.id', 'members.plan_id')->limit(1),
+        ]);
         app(\App\Services\AdvancedMemberSearch::class)->apply($query, $request);
 
         $members = $query

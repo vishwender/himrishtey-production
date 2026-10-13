@@ -1819,7 +1819,7 @@
             'admin.members.partials.member-table',
             ['members' => $members]
             )
-            <div class="p-3">{{ $members->links() }}</div>
+
 
             @else
 
@@ -1848,6 +1848,8 @@
     @endif
 
 </div>
+
+@include('admin.members.partials.table-actions')
 
 @endsection
 
