@@ -52,9 +52,6 @@
             <div class="crm-eyebrow">MEMBER WORKSPACE</div>
             <h1 class="h3 mb-1">Member Profile <span class="text-muted">— {{ $member->profile_id }}</span></h1>
 
-            <div class="text-muted">
-                {{ app(\App\Services\SiteManager::class)->current()?->name }} / Members / View Profile
-            </div>
         </div>
 
         <div class="mt-3 mt-md-0 d-flex flex-wrap gap-2">
