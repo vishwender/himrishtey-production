@@ -5,6 +5,15 @@
 @section('content')
 
 <div class="container-fluid py-4">
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     {{-- =========================================================
         PAGE HEADER
@@ -36,7 +45,9 @@
     <form
         method="GET"
         action="{{ route('admin.members.advanced-search.results') }}"
-        id="advancedSearchForm">
+        id="advancedSearchForm"
+        data-states-url="{{ route('admin.members.location.states', '__ID__') }}"
+        data-cities-url="{{ route('admin.members.location.cities', '__ID__') }}">
 
         {{-- =====================================================
             BASIC INFORMATION
@@ -532,31 +543,10 @@
                         <select
                             name="employed_in"
                             class="form-select">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option value="Private"
-                                @selected(request('employed_in')==='Private' )>
-                                Private
-                            </option>
-
-                            <option value="Government"
-                                @selected(request('employed_in')==='Government' )>
-                                Government
-                            </option>
-
-                            <option value="Business"
-                                @selected(request('employed_in')==='Business' )>
-                                Business
-                            </option>
-
-                            <option value="Self Employed"
-                                @selected(request('employed_in')==='Self Employed' )>
-                                Self Employed
-                            </option>
-
+                            <option value="">All employment types</option>
+                            @foreach($employers as $employer)
+                                <option value="{{ $employer->employer }}" @selected(request('employed_in') === $employer->employer)>{{ $employer->employer }}</option>
+                            @endforeach
                         </select>
 
                     </div>
@@ -706,7 +696,7 @@
 
                         <select
                             name="state_living_in"
-                            id="search_state_living_in"
+                            id="search_state_living_in" data-current="{{ request('state_living_in') }}"
                             class="form-select"
                             disabled>
 
@@ -728,7 +718,7 @@
 
                         <select
                             name="city_living_in"
-                            id="search_city_living_in"
+                            id="search_city_living_in" data-current="{{ request('city_living_in') }}"
                             class="form-select"
                             disabled>
 
@@ -914,19 +904,19 @@
                                 All
                             </option>
 
-                            <option value="Vegetarian"
-                                @selected(request('diet')==='Vegetarian' )>
-                                Vegetarian
+                            <option value="Veg"
+                                @selected(request('diet')==='Veg' )>
+                                Veg
                             </option>
 
-                            <option value="Non Vegetarian"
-                                @selected(request('diet')==='Non Vegetarian' )>
-                                Non Vegetarian
+                            <option value="Non Veg"
+                                @selected(request('diet')==='Non Veg' )>
+                                Non Veg
                             </option>
 
-                            <option value="Eggetarian"
-                                @selected(request('diet')==='Eggetarian' )>
-                                Eggetarian
+                            <option value="Veg &amp; Non Veg"
+                                @selected(request('diet')==='Veg & Non Veg' )>
+                                Veg &amp; Non Veg
                             </option>
 
                         </select>
@@ -959,6 +949,7 @@
                                 No
                             </option>
 
+                        <option value="Occasionally" @selected(request('is_drinking') === 'Occasionally')>Occasionally</option>
                         </select>
 
                     </div>
@@ -989,6 +980,7 @@
                                 No
                             </option>
 
+                        <option value="Occasionally" @selected(request('is_smoking') === 'Occasionally')>Occasionally</option>
                         </select>
 
                     </div>
@@ -1219,30 +1211,16 @@
                     <div class="col-md-4">
 
                         <label class="form-label">
-                            Partner Occupation
+                            Partner Employed In
                         </label>
 
                         <select
                             name="partner_occupation"
                             class="form-select">
-
-                            <option value="">
-                                All Occupations
-                            </option>
-
-                            @foreach($occupations as $occupation)
-
-                            <option
-                                value="{{ $occupation->occupation }}"
-                                @selected(
-                                request('partner_occupation')==$occupation->occupation
-                                )
-                                >
-                                {{ $occupation->occupation }}
-                            </option>
-
+                            <option value="">All employment types</option>
+                            @foreach($employers as $employer)
+                                <option value="{{ $employer->employer }}" @selected(request('partner_occupation') === $employer->employer)>{{ $employer->employer }}</option>
                             @endforeach
-
                         </select>
 
                     </div>
@@ -1292,7 +1270,7 @@
 
                         <select
                             name="partner_state"
-                            id="search_partner_state"
+                            id="search_partner_state" data-current="{{ request('partner_state') }}"
                             class="form-select"
                             disabled>
 
@@ -1314,7 +1292,7 @@
 
                         <select
                             name="partner_city"
-                            id="search_partner_city"
+                            id="search_partner_city" data-current="{{ request('partner_city') }}"
                             class="form-select"
                             disabled>
 
@@ -1342,19 +1320,19 @@
                                 All
                             </option>
 
-                            <option value="Vegetarian"
-                                @selected(request('partner_diet')==='Vegetarian' )>
-                                Vegetarian
+                            <option value="Veg"
+                                @selected(request('partner_diet')==='Veg' )>
+                                Veg
                             </option>
 
-                            <option value="Non Vegetarian"
-                                @selected(request('partner_diet')==='Non Vegetarian' )>
-                                Non Vegetarian
+                            <option value="Non Veg"
+                                @selected(request('partner_diet')==='Non Veg' )>
+                                Non Veg
                             </option>
 
-                            <option value="Eggetarian"
-                                @selected(request('partner_diet')==='Eggetarian' )>
-                                Eggetarian
+                            <option value="Veg &amp; Non Veg"
+                                @selected(request('partner_diet')==='Veg & Non Veg' )>
+                                Veg &amp; Non Veg
                             </option>
 
                         </select>
@@ -1387,6 +1365,7 @@
                                 No
                             </option>
 
+                        <option value="Occasionally" @selected(request('is_partner_smoking') === 'Occasionally')>Occasionally</option>
                         </select>
 
                     </div>
@@ -1417,6 +1396,7 @@
                                 No
                             </option>
 
+                        <option value="Occasionally" @selected(request('is_partner_drinking') === 'Occasionally')>Occasionally</option>
                         </select>
 
                     </div>
@@ -1839,6 +1819,7 @@
             'admin.members.partials.member-table',
             ['members' => $members]
             )
+            <div class="p-3">{{ $members->links() }}</div>
 
             @else
 
@@ -1897,4 +1878,8 @@
     }
 </style>
 
+@endpush
+
+@push('scripts')
+<script src="{{ asset('assets/js/admin-advanced-search.js') }}" defer></script>
 @endpush

@@ -1568,6 +1568,8 @@ class MemberController extends Controller
 
     public function advancedSearch()
     {
+        $employers = Employer::on('site')->orderBy('employer')->get();
+
         $heights = \App\Support\HeightOptions::sorted(Height::on('site')->get());
 
         $countries = Country::on('site')
@@ -1622,6 +1624,7 @@ class MemberController extends Controller
             ->get();
 
         return view('admin.members.advanced-search', compact(
+            'employers',
             'heights',
             'countries',
             'religions',
@@ -1639,207 +1642,7 @@ class MemberController extends Controller
     public function advancedSearchResults(Request $request)
     {
         $query = $this->withoutDeletionRequests(Member::query());
-        \App\Support\AnnualIncomeOptions::filter($query, $request->input('annual_income_from'), $request->input('annual_income_to'));
-
-        /*
-    |--------------------------------------------------------------------------
-    | Basic Search
-    |--------------------------------------------------------------------------
-    */
-
-        if ($request->filled('profile_id')) {
-            $query->where(
-                'profile_id',
-                'like',
-                '%' . trim($request->profile_id) . '%'
-            );
-        }
-
-        if ($request->filled('full_name')) {
-            $query->where(
-                'full_name',
-                'like',
-                '%' . trim($request->full_name) . '%'
-            );
-        }
-
-        if ($request->filled('email')) {
-            $query->where(
-                'email',
-                'like',
-                '%' . trim($request->email) . '%'
-            );
-        }
-
-        if ($request->filled('mobile_number')) {
-            $query->where(
-                'mobile_number',
-                'like',
-                '%' . trim($request->mobile_number) . '%'
-            );
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Personal
-    |--------------------------------------------------------------------------
-    */
-
-        foreach (
-            [
-                'profile_created_for',
-                'gender',
-                'religion',
-                'mother_tongue',
-                'cast',
-                'marital_status',
-                'manglik',
-                'education',
-                'occupation',
-                'employed_in',
-                'country_living_in',
-                'state_living_in',
-                'city_living_in',
-                'family_type',
-                'family_status',
-                'diet',
-                'is_drinking',
-                'is_smoking',
-                'any_disability',
-            ] as $field
-        ) {
-
-            if ($request->filled($field)) {
-                $query->where($field, $request->input($field));
-            }
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Account
-    |--------------------------------------------------------------------------
-    */
-
-        foreach (
-            [
-                'active',
-                'member_type',
-                'is_trusted',
-                'promoted',
-                'profile_hide',
-                'register_through',
-            ] as $field
-        ) {
-
-            if ($request->filled($field)) {
-                $query->where($field, $request->input($field));
-            }
-        }
-
-        if ($request->filled('relationship_manager')) {
-            if ($request->relationship_manager === '__unassigned') {
-                $query->where(function ($query) {
-                    $query->whereNull('relationship_manager')
-                        ->orWhere('relationship_manager', '');
-                });
-            } else {
-                $query->where(
-                    'relationship_manager',
-                    trim((string) $request->relationship_manager)
-                );
-            }
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Partner Preferences
-    |--------------------------------------------------------------------------
-    */
-
-        foreach (
-            [
-                'partner_country',
-                'partner_religion',
-                'partner_cast',
-                'partner_education',
-                'partner_mothertongue',
-                'partner_occupation',
-                'partner_state',
-                'partner_city',
-                'partner_diet',
-                'is_partner_smoking',
-                'is_partner_drinking',
-                'is_partner_manglik',
-            ] as $field
-        ) {
-
-            if ($request->filled($field)) {
-                $query->where($field, $request->input($field));
-            }
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Age
-    |--------------------------------------------------------------------------
-    */
-
-        if ($request->filled('age_from')) {
-
-            $date = now()
-                ->subYears((int) $request->age_from)
-                ->endOfDay();
-
-            $query->where(
-                'birth_date_time',
-                '<=',
-                $date
-            );
-        }
-
-        if ($request->filled('age_to')) {
-
-            $date = now()
-                ->subYears((int) $request->age_to + 1)
-                ->addDay()
-                ->startOfDay();
-
-            $query->where(
-                'birth_date_time',
-                '>=',
-                $date
-            );
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Partner Age
-    |--------------------------------------------------------------------------
-    */
-
-        if ($request->filled('partner_age_from')) {
-
-            $query->where(
-                'partner_age_from',
-                '<=',
-                $request->partner_age_from
-            );
-        }
-
-        if ($request->filled('partner_age_to')) {
-
-            $query->where(
-                'partner_age_to',
-                '>=',
-                $request->partner_age_to
-            );
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Results
-    |--------------------------------------------------------------------------
-    */
+        app(\App\Services\AdvancedMemberSearch::class)->apply($query, $request);
 
         $members = $query
             ->latest('id')
@@ -1851,6 +1654,8 @@ class MemberController extends Controller
     | Master Data
     |--------------------------------------------------------------------------
     */
+
+        $employers = Employer::on('site')->orderBy('employer')->get();
 
         $heights = \App\Support\HeightOptions::sorted(Height::on('site')->get());
 
@@ -1909,6 +1714,7 @@ class MemberController extends Controller
             'admin.members.advanced-search',
             compact(
                 'members',
+                'employers',
                 'heights',
                 'countries',
                 'religions',
