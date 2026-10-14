@@ -8,6 +8,8 @@ use App\Models\MemberRotation;
 use App\Services\RelationshipManagerAccess;
 use App\Services\SiteDashboardService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
@@ -20,6 +22,14 @@ class DashboardController extends Controller
         $membershipExpiringCount = app(\App\Services\MembershipExpiry::class)->expiringCount(7);
 
         $pendingDeleteRequestCount = 0;
+        $pendingActivationRequestCount = 0;
+
+        if ($admin?->hasRole('super-admin') && Schema::connection('site')->hasTable('member_activation_requests')) {
+            $pendingActivationRequestCount = DB::connection('site')->table('member_activation_requests as requests')
+                ->join('members', 'members.id', '=', 'requests.member_id')
+                ->where('requests.status', 'pending')
+                ->count();
+        }
 
         if ($admin?->hasPermission('view-delete-profile-request')) {
             // Match Manage Members: only the latest staff request per member.
@@ -136,6 +146,7 @@ class DashboardController extends Controller
             'stats',
             'membershipExpiringCount',
             'pendingDeleteRequestCount',
+            'pendingActivationRequestCount',
             'rotationsOnly',
             'rotationNotifications',
             'rotationTodayCount',
