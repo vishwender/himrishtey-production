@@ -79,6 +79,12 @@
         </div>
         <div class="sidebar-user-info">
           <h2 class="sidebar-user-name">{{ $dashboardMember?->full_name ?? 'User' }}</h2>
+          @if(strtolower(trim((string) $dashboardMember?->member_type)) === 'verified')
+          <span class="account-verified-badge">
+            <i data-lucide="shield-check" width="14" height="14" aria-hidden="true"></i>
+            Account verified
+          </span>
+          @endif
         </div>
         <dl class="sidebar-user-details">
           <div class="sidebar-detail-row">
@@ -183,6 +189,12 @@
             <span class="pqv-profile-id">{{ $dashboardMember?->profile_id ?? 'N/A' }}</span>
           </div>
           <span class="pqv-email">{{ $dashboardMember?->email ?? 'email@example.com' }}</span>
+          @if(strtolower(trim((string) $dashboardMember?->member_type)) === 'verified')
+          <span class="account-verified-badge">
+            <i data-lucide="shield-check" width="14" height="14" aria-hidden="true"></i>
+            Account verified
+          </span>
+          @endif
           <a href="{{route('view-my-profile')}}" class="pqv-link-btn">View Your Profile <i data-lucide="arrow-up-right" width="14" height="14" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -267,6 +279,13 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   @vite('resources/js/public/toast-manager.js')
+  @if(session('account_verified'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.HimRishteyToast.success(@json(session('account_verified')));
+    });
+  </script>
+  @endif
   <!-- Custom JS -->
   <script src="{{ asset('assets/js/script.js') }}?v={{ filemtime(public_path('assets/js/script.js')) }}"></script>
   <script>

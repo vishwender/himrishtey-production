@@ -28,7 +28,14 @@
     </div>
 </div>
 
-@if($member->member_type !== 'Verified')
+@if(strtolower(trim((string) $member->member_type)) === 'verified')
+<div class="verify-banner verify-banner--verified container-xxl">
+    <div class="verify-banner-inner">
+        <i data-lucide="shield-check" width="20" height="20" aria-hidden="true"></i>
+        <span><strong>Your account is verified.</strong> Your registered mobile number has been confirmed.</span>
+    </div>
+</div>
+@else
 <!-- VERIFY BANNER (conditional) -->
 <div class="verify-banner container-xxl" id="verifyBanner">
     <div class="verify-banner-inner">

@@ -333,6 +333,7 @@ class OtpController extends Controller
         $member->forceFill(['member_type' => 'Verified'])->saveOrFail();
         Auth::guard('member')->setUser($member);
         Session::forget(['otp', 'otp_mobile', 'otp_expires', 'verify_phone']);
+        Session::flash('account_verified', 'Your account is verified successfully.');
 
         return response()->json([
             'message' => 'Account verified successfully.',

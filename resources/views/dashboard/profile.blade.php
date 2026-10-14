@@ -18,16 +18,18 @@
 </div>
 
 <!-- VERIFY BANNER (conditional) -->
+@if(strtolower(trim((string) $user->member_type)) !== 'verified')
 <div class="verify-banner container-xxl" id="verifyBanner">
   <div class="verify-banner-inner">
     <i data-lucide="shield-alert" width="20" height="20"></i>
     <span>Your profile is not verified. Verify now to get more matches and build trust.</span>
-    <a href="#" class="verify-banner-btn">Verify Now</a>
+    <a href="{{ route('verify-account') }}" class="verify-banner-btn">Verify Now</a>
   </div>
   <button class="verify-banner-dismiss" aria-label="Dismiss" onclick="document.getElementById('verifyBanner').remove()">
     <i data-lucide="x" width="16" height="16"></i>
   </button>
 </div>
+@endif
 
 <!-- PROFILE COMPLETION -->
 <section class="profile-completion-section container-xxl" aria-label="Profile completion">

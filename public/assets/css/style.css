@@ -681,6 +681,23 @@ a, button, [role="button"] {
   flex: 1;
 }
 .verify-banner { display: flex; align-items: stretch; gap: var(--space-2); }
+.verify-banner--verified .verify-banner-inner {
+  background: #ecfdf3;
+  border-color: #a6e4bd;
+}
+.verify-banner.verify-banner--verified svg { color: #166534; }
+.account-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #ecfdf3;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 600;
+}
 .verify-banner svg { color: var(--color-warning); flex-shrink: 0; }
 .verify-banner span { font-size: var(--text-sm); color: var(--color-text-medium); flex: 1; }
 .verify-banner-btn {
