@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Site;
 use App\Website\Models\SiteContentSetting;
+use App\Website\Support\SiteContentSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ class SiteContentSettingsController extends Controller
         $selected = Site::findOrFail(session('admin_site_id'));
         foreach (config('site.sites', []) as $key => $site) {
             if (($site['code'] ?? null) === $selected->code) {
-                return array_merge($site, ['key' => $key]);
+                return SiteContentSettings::withDefaults(array_merge($site, ['key' => $key]));
             }
         }
         abort(404, 'No website configuration exists for the selected site.');
