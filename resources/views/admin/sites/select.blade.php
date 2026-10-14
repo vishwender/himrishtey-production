@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
+        * { box-sizing: border-box; }
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: radial-gradient(circle at top right, #e6e0ff 0, transparent 32%), #f6f7fc;
@@ -27,9 +29,22 @@
         }
 
         .container {
+            width: 100%;
             max-width: 1040px;
             margin: auto;
         }
+
+        body.single-site {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: grid;
+            align-items: center;
+            padding: 32px 24px;
+        }
+
+        .single-site .container { max-width: 480px; }
+        .single-site h1 { font-size: clamp(2rem, 5vw, 2.5rem); }
+        .single-site .sites { grid-template-columns: minmax(0, 1fr); }
 
         .eyebrow { color: #6d4aff; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
         h1 { margin: 8px 0; font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 5vw, 3rem); }
@@ -38,7 +53,7 @@
         .sites {
             display: grid;
             grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
+                repeat(auto-fit, minmax(min(250px, 100%), 1fr));
 
             gap: 22px;
         }
@@ -61,6 +76,7 @@
 
         .site-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-bottom: 18px; border-radius: 13px; background: #eeeaff; color: #6d4aff; font-size: 1.2rem; }
         .site p { margin: 0 0 24px; color: #78809a; }
+        .site h3, .site p { overflow-wrap: anywhere; }
 
         button {
             width: 100%;
@@ -78,11 +94,12 @@
 
         .back-button { width: auto; margin-bottom: 24px; padding: 10px 16px; background: #fff; color: #6040ed; border: 1px solid #e2dcff; box-shadow: none; }
         .back-button:hover { background: #eeeaff; }
+        button:focus-visible { outline: 3px solid #6040ed; outline-offset: 3px; }
     </style>
 
 </head>
 
-<body>
+<body class="{{ count($sites) === 1 ? 'single-site' : '' }}">
 
     <div class="container">
 
