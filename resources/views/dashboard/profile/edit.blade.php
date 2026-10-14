@@ -1261,6 +1261,19 @@ $sectionStatus = fn (string $section): bool => $sectionCompletion[$section] ?? f
                         </div>
                     </div>
 
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="partner_country">Partner Country</label>
+                        <input class="ep-input" type="text" id="partner_country" name="partner_country" maxlength="255" placeholder="e.g. India" value="{{ old('partner_country', $member->partner_country) }}" />
+                    </div>
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="partner_state">Partner State</label>
+                        <input class="ep-input" type="text" id="partner_state" name="partner_state" maxlength="255" placeholder="e.g. Himachal Pradesh" value="{{ old('partner_state', $member->partner_state) }}" />
+                    </div>
+                    <div class="ep-field-group">
+                        <label class="ep-label" for="partner_city">Partner City</label>
+                        <input class="ep-input" type="text" id="partner_city" name="partner_city" maxlength="255" placeholder="e.g. Shimla" value="{{ old('partner_city', $member->partner_city) }}" />
+                    </div>
+
                     <div class="ep-form-footer">
                         <button type="submit" class="ep-save-btn">
                             <i data-lucide="save" width="16" height="16"></i> Save Preferences

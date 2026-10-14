@@ -457,6 +457,9 @@ class MyMemberController extends Controller
             'partner_age_to' => ['nullable', 'integer', 'min:0'],
             'partner_height_from' => ['nullable', 'numeric', 'min:0'],
             'partner_height_to' => ['nullable', 'numeric', 'min:0'],
+            'partner_country' => ['nullable', 'string', 'max:255'],
+            'partner_state' => ['nullable', 'string', 'max:255'],
+            'partner_city' => ['nullable', 'string', 'max:255'],
         ]);
 
         $member = Auth::guard('member')->user();
@@ -573,6 +576,12 @@ class MyMemberController extends Controller
                 $user->$dbField = is_array($value)
                     ? implode(',', $value)
                     : $value;
+            }
+        }
+
+        foreach (['partner_country', 'partner_state', 'partner_city'] as $field) {
+            if ($request->has($field)) {
+                $user->$field = trim((string) $request->input($field)) ?: null;
             }
         }
 

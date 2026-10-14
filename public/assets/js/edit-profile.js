@@ -25,7 +25,7 @@ const SECTION_FIELDS = {
     family: ["family_status", "native_place", "father_name", "father_occupation", "mother_name", "mother_occupation", "no_of_brothers", "no_of_sisters", "married_brothers", "married_sisters", "about_my_family"],
     lifestyle: ["diet", "is_smoking", "is_drinking", "any_disability"],
     religion: ["gotra", "sub_cast"],
-    preferences: ["looking_for", "partner_religion", "partner_cast", "partner_mothertongue", "partner_education", "partner_occupation", "partner_age_from", "partner_age_to", "partner_height_from", "partner_height_to", "partner_annual_income_from", "partner_annual_income_to", "is_partner_smoking", "is_partner_drinking", "partner_diet", "is_partner_manglik", "about_my_partner"],
+    preferences: ["partner_country", "partner_state", "partner_city", "looking_for", "partner_religion", "partner_cast", "partner_mothertongue", "partner_education", "partner_occupation", "partner_age_from", "partner_age_to", "partner_height_from", "partner_height_to", "partner_annual_income_from", "partner_annual_income_to", "is_partner_smoking", "is_partner_drinking", "partner_diet", "is_partner_manglik", "about_my_partner"],
     contact: ["mobile_number", "alternate_number", "whatsapp_number", "email"]
 };
 
