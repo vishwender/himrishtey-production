@@ -35,6 +35,9 @@
         .remember input { width: 16px; height: 16px; margin: 0; accent-color: #6d4aff; }
         button[type="submit"] { width: 100%; padding: 12px; border: 0; border-radius: 9px; background: linear-gradient(135deg, #8063ff, #6040ed); color: #fff; cursor: pointer; font: 600 .95rem 'DM Sans', sans-serif; box-shadow: 0 7px 16px rgba(96, 64, 237, .2); }
         .error { margin-bottom: 15px; padding: 11px 13px; border-radius: 9px; background: #fff2f3; color: #b42336; font-size: .9rem; }
+        .captcha-field { display: flex; align-items: center; gap: 12px; margin: 6px 0 18px; }
+        .captcha-question { flex-shrink: 0; padding: 12px 14px; border-radius: 9px; background: #eeeaff; color: #6040ed; font-weight: 700; }
+        #admin-captcha { width: 100%; min-width: 0; padding: 12px 13px; border: 1px solid #dfe2ec; border-radius: 9px; font: inherit; }
     </style>
 </head>
 
@@ -80,6 +83,12 @@
             <button type="button" class="password-toggle" id="toggle-admin-password" aria-label="Show password" aria-controls="admin-password" aria-pressed="false" hidden>
                 <i class="bi bi-eye" aria-hidden="true"></i>
             </button>
+            </div>
+
+            <label for="admin-captcha">Captcha: What is {{ $captcha }}?</label>
+            <div class="captcha-field">
+                <span class="captcha-question" aria-hidden="true">{{ $captcha }} =</span>
+                <input id="admin-captcha" name="captcha" type="text" inputmode="numeric" pattern="[0-9]+" autocomplete="off" placeholder="Answer" required @error('captcha') aria-invalid="true" @enderror>
             </div>
 
             <label class="remember">
