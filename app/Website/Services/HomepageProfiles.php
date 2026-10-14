@@ -34,12 +34,12 @@ class HomepageProfiles
                 ->whereNotNull('photo')
                 ->whereRaw("TRIM(photo) != ''")
                 ->latest('id')
-                ->limit($member ? 15 : ($gender === 'Male' ? 8 : 7))
+                ->limit($member ? 20 : 10)
                 ->get();
         }
 
         $profiles = collect();
-        for ($index = 0; $index < ($member ? 15 : 8); $index++) {
+        for ($index = 0; $index < ($member ? 20 : 10); $index++) {
             foreach ($genders as $gender) {
                 if (isset($groups[$gender][$index])) {
                     $profiles->push($groups[$gender][$index]);
