@@ -1,3 +1,13 @@
+ @php
+     // Use a compressed companion when available, preserving custom banner URLs.
+     $heroBackground = $siteHeroBackground;
+     if (is_string($heroBackground) && str_starts_with($heroBackground, 'assets/images/')) {
+         $webpBackground = preg_replace('/\.(png|jpe?g)$/i', '.webp', $heroBackground);
+         if ($webpBackground !== $heroBackground && is_file(public_path($webpBackground))) {
+             $heroBackground = $webpBackground;
+         }
+     }
+ @endphp
  <!doctype html>
  <html lang="en" data-site="{{ $siteKey }}">
 
@@ -5,6 +15,7 @@
      @include('partials.favicon')
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1">
+     <link rel="preload" as="image" href="{{ asset($heroBackground) }}" fetchpriority="high">
      <meta name="csrf-token" content="{{ csrf_token() }}">
      <script src="{{ asset('assets/js/csrf.js') }}?v={{ filemtime(public_path('assets/js/csrf.js')) }}"></script>
      <script>
@@ -61,8 +72,8 @@
      @endif
      @include('partials.public-header')
      <main>
-         <section class="hero" style="--hero-image: url('{{ asset($siteHeroBackground) }}');">
-             <img class="hero-mobile-image" src="{{ asset($siteHeroBackground) }}" alt="" fetchpriority="high">
+         <section class="hero" style="--hero-image: url('{{ asset($heroBackground) }}');">
+             <img class="hero-mobile-image" src="{{ asset($heroBackground) }}" alt="" fetchpriority="high" loading="eager">
              <div class="hero-copy">
                  <h1>{{ $siteHeroTitle }}<br><em>{{ $siteHeroTitleSecondary }}</em></h1>
                  <p>

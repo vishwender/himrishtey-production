@@ -5,6 +5,17 @@
 
 @section('content')
 
+@php
+    $shareUrl = $shareUrl ?? \Illuminate\Support\Facades\URL::temporarySignedRoute(
+        'shared-profile.show',
+        now()->addDays(7),
+        ['site' => app(\App\Services\SiteManager::class)->id(), 'member' => $member->id]
+    );
+    $whatsappShareUrl = $whatsappShareUrl ?? 'https://wa.me/?text='.rawurlencode(
+        "View {$member->full_name}'s profile: {$shareUrl}"
+    );
+@endphp
+
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/admin-member-profile.css') }}">
 <style>
