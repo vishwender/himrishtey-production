@@ -4,12 +4,9 @@
 |--------------------------------------------------------------------------
 */
 
-.public-footer > .wrap {
-    width: min(1160px, calc(100% - 40px));
-    margin-inline: auto;
-}
-
 .public-footer {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
     padding: 42px 0 14px;
 
     background:
@@ -45,6 +42,23 @@
 |--------------------------------------------------------------------------
 */
 
+.public-footer > .wrap {
+    width: min(1160px, calc(100% - 40px));
+    margin-inline: auto;
+}
+
+@media (min-width: 901px) {
+    .public-footer > .wrap {
+        width: min(1320px, calc(100% - 64px));
+    }
+}
+
+@media (max-width: 600px) {
+    .public-footer > .wrap {
+        width: calc(100% - 32px);
+    }
+}
+
 .public-footer .public-footer-grid {
     display: grid;
 
@@ -74,6 +88,8 @@
 
 .public-footer .public-footer-grid > div > b {
     margin-bottom: 6px;
+    letter-spacing: normal;
+    text-transform: none;
 
     color: #ffffff;
 
@@ -89,6 +105,7 @@
 */
 
 .public-footer .public-footer-grid a {
+    text-decoration: none;
     color:
         rgba(255, 255, 255, 0.80);
 
@@ -140,10 +157,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 34px;
-    min-height: 34px;
-    padding: 6px 10px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
     border: 1px solid rgba(255, 255, 255, 0.28);
+    background: #ffffff;
     border-radius: 9999px;
     color: rgba(255, 255, 255, 0.86);
     font-size: 12px;
@@ -159,36 +177,37 @@
 }
 
 .public-footer .footer-social svg {
-    width: 17px;
-    height: 17px;
+    width: 24px;
+    height: 24px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.8;
 }
 
 .public-footer .footer-social svg.social-facebook,
-.public-footer .footer-social svg.social-youtube {
+.public-footer .footer-social svg.social-youtube,
+.public-footer .footer-social svg.social-pinterest {
     fill: currentColor;
     stroke: none;
 }
 
-.public-footer .footer-social a:hover svg.social-facebook {
+.public-footer .footer-social svg.social-facebook {
     color: #1877f2;
 }
 
-.public-footer .footer-social a:hover svg.social-x {
+.public-footer .footer-social svg.social-x {
     color: #000000;
 }
 
-.public-footer .footer-social a:hover svg.social-instagram {
+.public-footer .footer-social svg.social-instagram {
     color: #e4405f;
 }
 
-.public-footer .footer-social a:hover svg.social-youtube {
+.public-footer .footer-social svg.social-youtube {
     color: #ff0000;
 }
 
-.public-footer .footer-social a:hover svg.social-youtube path:last-child {
+.public-footer .footer-social svg.social-youtube path:last-child {
     fill: #ffffff;
 }
 
@@ -199,6 +218,14 @@
 |--------------------------------------------------------------------------
 */
 
+.public-footer .footer-logo {
+    display: inline-flex;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .public-footer .public-logo,
 .public-footer .logo {
     color: #ffffff;
@@ -206,7 +233,8 @@
 
 .public-footer .public-logo img,
 .public-footer .logo img {
-    max-width: 220px;
+    width: 220px;
+    max-width: 100%;
     height: 58px;
 
     object-fit: contain;
@@ -412,4 +440,14 @@
         grid-column: auto;
     }
 
+}
+.public-footer .footer-social svg.social-pinterest { color: #e60023; }
+.public-footer .footer-social a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+html[data-theme="dark"] .public-footer {
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--brand) 78%, #000000) 0%,
+        color-mix(in srgb, var(--deep) 78%, #000000) 100%
+    );
 }
