@@ -32,6 +32,8 @@ class SuccessStoryController extends Controller
             'detail' => 'required|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'status' => 'nullable|boolean',
+        ], [
+            'photo.uploaded' => $request->file('photo')?->getErrorMessage() ?: 'The photo upload was interrupted. Please select the photo and try again.',
         ]);
 
         $story = new SuccessStory;
@@ -70,6 +72,8 @@ class SuccessStoryController extends Controller
             'detail' => 'required|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'status' => 'nullable|boolean',
+        ], [
+            'photo.uploaded' => $request->file('photo')?->getErrorMessage() ?: 'The photo upload was interrupted. Please select the photo and try again.',
         ]);
 
         $story = SuccessStory::findOrFail($id);
