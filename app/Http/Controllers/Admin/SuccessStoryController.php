@@ -111,7 +111,7 @@ class SuccessStoryController extends Controller
     private function uploadPhoto(UploadedFile $file): string
     {
         $filename = 'ss-photo-'.Str::uuid().'.'.$file->extension();
-        $file->move(public_path('uploads/success-stories'), $filename);
+        $file->move(SuccessStoryPhoto::directory(), $filename);
 
         return $filename;
     }
