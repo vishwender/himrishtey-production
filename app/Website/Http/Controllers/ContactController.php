@@ -37,6 +37,8 @@ class ContactController extends Controller
             'user_agent' => mb_substr((string) $request->userAgent(), 0, 1000),
         ]);
 
+        app(\App\Website\Services\ContactConfirmationService::class)->send($message);
+
         $supportEmail = config('site.current.support_email') ?: config('mail.from.address');
         try {
             Mail::to($supportEmail)->send(new ContactInquiry($message));

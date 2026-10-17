@@ -138,7 +138,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
         $this->generateCaptcha();
 
-        // $emailService->sendRegisterEmail($member);
+        $emailService->sendRegisterEmail($member);
         return response()->json(['success' => true, 'redirect' => 'complete-profile', 'message' => 'Registration successful!']);
         // return redirect()->route('home')->with('success', 'Registration successful!');
     }
@@ -172,6 +172,7 @@ class LoginController extends Controller
             $member->update([
                 'profile_id' => ProfileId::forSite(config('site.current.code'), $member->id),
             ]);
+            app(EmailService::class)->sendRegisterEmail($member);
         } else {
 
             // update google id if old account exists

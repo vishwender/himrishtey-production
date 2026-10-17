@@ -7,18 +7,40 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailService
 {
-    public function sendRegisterEmail($member)
+    public function sendRegisterEmail($member, ?string $siteCode = null)
     {
-        // test email.remove on live
-        $email = 'vishwender.baloria@gmail.com';
-        $details = [
-            'name' => $member->full_name,
+        if (! filter_var($member->email, FILTER_VALIDATE_EMAIL)) {
+            return;
+        }
 
-            'message' => 'Thank you for registering with '.config('site.current.display_name', config('app.name')).'. Complete your profile to find your perfect match.',
-        ];
+        $siteKey = $siteCode ?? config('site.current.code');
+        $code = null;
+        foreach (config('site.sites', []) as $host => $site) {
+            if ($siteKey === $host || $siteKey === $site['code']) {
+                $code = $site['code'];
+                break;
+            }
+        }
+        $settings = config('account_mail.sites.'.$code);
+        if (! $code || ! $settings || ! $settings['enabled']) {
+            return;
+        }
+        $smtp = config('mail.mailers.'.$settings['mailer']);
+        if (! $settings['address'] || ! $settings['url']
+            || empty($smtp['host']) || empty($smtp['username']) || empty($smtp['password'])) {
+            return;
+        }
 
-        // Mail::to($email)->send(new RegisterEmail($details));
-        // Mail::to($member->email)->send(new RegisterEmail($details));
+        try {
+            Mail::mailer($settings['mailer'])->to($member->email)->send(new RegisterEmail([
+                'memberName' => $member->full_name ?: 'Member',
+                'profileId' => $member->profile_id,
+                'profileUrl' => rtrim($settings['url'], '/').'/edit-profile',
+            ], $settings));
+        } catch (\Throwable $exception) {
+            // A mail outage must not undo a successfully created account.
+            report($exception);
+        }
     }
 
     public function interestEmail($member)
