@@ -45,4 +45,23 @@ class ContactMessageController extends Controller
     {
         return response()->json(['unread_count' => ContactMessage::query()->whereNull('read_at')->count()]);
     }
+
+    public function destroy(int $id)
+    {
+        ContactMessage::query()->findOrFail($id)->delete();
+
+        return redirect()->route('admin.contact-messages.index')->with('success', 'Contact message deleted.');
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $data = $request->validate([
+            'ids' => ['required', 'array', 'min:1', 'max:20'],
+            'ids.*' => ['required', 'integer', 'distinct', 'exists:site.contact_messages,id'],
+        ]);
+
+        $count = ContactMessage::query()->whereKey($data['ids'])->delete();
+
+        return redirect()->route('admin.contact-messages.index')->with('success', $count.' contact message(s) deleted.');
+    }
 }
