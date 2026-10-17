@@ -2153,7 +2153,7 @@ class HomeController extends Controller
             'detail' => 'required|string',
             'photo' => 'required|image|mimes:jpg,jpeg,png|max:5120',
         ]);
-        $data['photo'] = basename($request->file('photo')->store('success-stories', 'public'));
+        $data['photo'] = SuccessStoryPhoto::store($request->file('photo'), 'member');
         $data['user_id'] = Auth::guard('member')->id();
         $story = new SuccessStory($data);
         $story->status = 0;
@@ -2174,7 +2174,7 @@ class HomeController extends Controller
         unset($data['photo']);
         $oldPhoto = $story->photo;
         if ($request->hasFile('photo')) {
-            $data['photo'] = basename($request->file('photo')->store('success-stories', 'public'));
+            $data['photo'] = SuccessStoryPhoto::store($request->file('photo'), 'member');
         }
         $story->fill($data);
         $story->status = 0;

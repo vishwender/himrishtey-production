@@ -108,7 +108,7 @@ return [
         ],
         'gallpakki.com' => [
             'search_state' => 'Punjab',
-            'hosts' => [''],
+            'hosts' => ['production.ddev.site'],
             'name' => env('SITE3_NAME', 'Gallpakki'),
             'display_name' => env('SITE3_DISPLAY_NAME', 'Gallpakki'),
             'google_analytics_id' => env('SITE3_GOOGLE_ANALYTICS_ID'),

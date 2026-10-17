@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\SuccessStory;
+use App\Services\SuccessStoryPhoto;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -59,7 +60,7 @@ class SuccessStoryController extends Controller
                 'detail' => $story->detail,
 
                 'photo' => $story->photo
-                    ? asset('photos/ss/'.$story->photo)
+                    ? SuccessStoryPhoto::url($story->photo, 'api')
                     : null,
 
                 'status' => (int) $story->status,
@@ -142,7 +143,7 @@ class SuccessStoryController extends Controller
                 'detail' => $story->detail,
 
                 'photo' => $story->photo
-                    ? asset('photos/ss/'.$story->photo)
+                    ? SuccessStoryPhoto::url($story->photo, 'api')
                     : null,
 
                 'status' => (int) $story->status,
@@ -209,7 +210,7 @@ class SuccessStoryController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $photoDirectory = public_path('photos/ss');
+        $photoDirectory = SuccessStoryPhoto::directory('api');
 
         if (! File::exists($photoDirectory)) {
             File::makeDirectory(
@@ -329,7 +330,7 @@ class SuccessStoryController extends Controller
 
             'detail' => $story->detail,
 
-            'photo' => $story->photo_url,
+            'photo' => SuccessStoryPhoto::isHimrishtey() ? SuccessStoryPhoto::url($story->photo, 'api') : $story->photo_url,
         ];
 
         if ($includeStatus) {
@@ -468,15 +469,7 @@ class SuccessStoryController extends Controller
         |--------------------------------------------------------------------------
         */
 
-            if (! empty($story->photo)) {
-
-                $oldPhotoPath =
-                    public_path('photos/ss/'.$story->photo);
-
-                if (is_file($oldPhotoPath)) {
-                    @unlink($oldPhotoPath);
-                }
-            }
+            SuccessStoryPhoto::delete($story->photo, 'api');
 
             /*
         |--------------------------------------------------------------------------
@@ -502,7 +495,7 @@ class SuccessStoryController extends Controller
         |--------------------------------------------------------------------------
         */
 
-            $directory = public_path('photos/ss');
+            $directory = SuccessStoryPhoto::directory('api');
 
             if (! is_dir($directory)) {
                 mkdir($directory, 0755, true);
@@ -560,7 +553,7 @@ class SuccessStoryController extends Controller
                 'detail' => $story->detail,
 
                 'photo' => $story->photo
-                    ? asset('photos/ss/'.$story->photo)
+                    ? SuccessStoryPhoto::url($story->photo, 'api')
                     : null,
 
                 'status' => (int) $story->status,
@@ -631,16 +624,7 @@ class SuccessStoryController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        if (! empty($story->photo)) {
-
-            $photoPath = public_path(
-                'photos/ss/'.$story->photo
-            );
-
-            if (is_file($photoPath)) {
-                @unlink($photoPath);
-            }
-        }
+        SuccessStoryPhoto::delete($story->photo, 'api');
 
         /*
     |--------------------------------------------------------------------------

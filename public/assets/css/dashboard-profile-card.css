@@ -4,6 +4,12 @@
     border: 1px solid var(--color-border); border-radius: 20px;
     background: var(--color-surface); color: var(--color-text);
     box-shadow: var(--shadow-sm); overflow: hidden; text-align: left;
+    transition: transform var(--transition-base), border-color .2s ease, box-shadow .2s ease;
+}
+.profile-card.dashboard-profile-card:hover,
+.profile-card.dashboard-profile-card:focus-within {
+    border-color: var(--site-primary, var(--color-primary));
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--site-primary, var(--color-primary)) 8%, transparent);
 }
 .dashboard-profile-card .profile-card-img-wrap {
     width: 100%; height: auto; aspect-ratio: 5 / 6; border-radius: 15px;
