@@ -1473,7 +1473,7 @@ class MemberController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        app(\App\Website\Services\EmailService::class)->sendRegisterEmail($member);
+        // app(\App\Website\Services\EmailService::class)->sendRegisterEmail($member);
 
         app(AdminActivityLogger::class)->log(
             action: 'member_created',

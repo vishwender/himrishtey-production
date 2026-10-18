@@ -1871,10 +1871,10 @@ class HomeController extends Controller
 
             $profile_viewed_by_me->save();
 
-            $emailService->viewProfile(
-                $profilemain,
-                $usr
-            );
+            // $emailService->viewProfile(
+            //     $profilemain,
+            //     $usr
+            // );
         } else {
             app(\App\Services\MemberActivityHistory::class)->modelEvent($profile_viewed_check, 'viewed');
         }
@@ -2080,7 +2080,7 @@ class HomeController extends Controller
         if (empty($checkInterest)) {
             if (! empty($checkedInterest)) {
                 $checkedInterest->status = $status;
-                $emailservice->interestEmail($email);
+                // $emailservice->interestEmail($email);
                 if ($checkedInterest->save()) {
                     return response()->json([
                         'status' => 'success',
