@@ -1,12 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 @section('title', ($post->meta_title ?: $post->title) . ' - ' . $siteName)
 @section('description', $post->meta_description ?: \Illuminate\Support\Str::limit(strip_tags($post->excerpt ?: $post->content), 155))
 
-@section('styles')
+@push('head')
   <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}?v={{ filemtime(public_path('assets/css/blog.css')) }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/public-pages-v2.css') }}?v={{ filemtime(public_path('assets/css/public-pages-v2.css')) }}">
-@endsection
+@endpush
 
 @section('content')
 <div class="blog-page article-page">
