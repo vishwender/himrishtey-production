@@ -47,6 +47,7 @@
      @endif
      <title>{{ $siteMetaTitle }}</title>
      <meta name="description" content="{{ $siteMetaDescription }}">
+     @include('partials.homepage-schema')
      @if (trim($siteMetaKeywords) !== '')
          <meta name="keywords" content="{{ $siteMetaKeywords }}">
      @endif
