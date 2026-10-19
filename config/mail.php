@@ -1,5 +1,32 @@
 <?php
 
+$siteSupportMailers = [];
+foreach (['gallpakki', 'devbhoomi', 'dogririshtey'] as $siteCode) {
+    $prefix = strtoupper($siteCode).'_SUPPORT_MAIL_';
+    $siteSupportMailers['support_'.$siteCode] = [
+        'transport' => 'smtp',
+        'scheme' => env($prefix.'SCHEME', 'smtps'),
+        'host' => env($prefix.'HOST'),
+        'port' => env($prefix.'PORT', 465),
+        'username' => env($prefix.'USERNAME'),
+        'password' => env($prefix.'PASSWORD'),
+        'timeout' => 30,
+    ];
+}
+
+foreach (['gallpakki', 'devbhoomi', 'dogririshtey'] as $siteCode) {
+    $prefix = strtoupper($siteCode).'_ACCOUNT_MAIL_';
+    $siteSupportMailers['account_'.$siteCode] = [
+        'transport' => 'smtp',
+        'scheme' => env($prefix.'SCHEME', 'smtps'),
+        'host' => env($prefix.'HOST'),
+        'port' => env($prefix.'PORT', 465),
+        'username' => env($prefix.'USERNAME'),
+        'password' => env($prefix.'PASSWORD'),
+        'timeout' => 30,
+    ];
+}
+
 return [
 
     /*
@@ -35,7 +62,23 @@ return [
     |
     */
 
-    'mailers' => [
+    'support_from' => [
+        'address' => env('SUPPORT_MAIL_FROM_ADDRESS', 'support@himrishtey.com'),
+        'name' => env('SUPPORT_MAIL_FROM_NAME', 'Him Rishtey'),
+    ],
+
+    'mailers' => $siteSupportMailers + [
+
+        'support' => [
+            'transport' => 'smtp',
+            'scheme' => env('SUPPORT_MAIL_SCHEME', 'smtps'),
+            'host' => env('SUPPORT_MAIL_HOST', 'mail.himrishtey.com'),
+            'port' => env('SUPPORT_MAIL_PORT', 465),
+            'username' => env('SUPPORT_MAIL_USERNAME', 'support@himrishtey.com'),
+            'password' => env('SUPPORT_MAIL_PASSWORD'),
+            'timeout' => 30,
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+        ],
 
         'smtp' => [
             'transport' => 'smtp',
@@ -81,19 +124,13 @@ return [
 
         'failover' => [
             'transport' => 'failover',
-            'mailers' => [
-                'smtp',
-                'log',
-            ],
+            'mailers' => ['smtp', 'log'],
             'retry_after' => 60,
         ],
 
         'roundrobin' => [
             'transport' => 'roundrobin',
-            'mailers' => [
-                'ses',
-                'postmark',
-            ],
+            'mailers' => ['ses', 'postmark'],
             'retry_after' => 60,
         ],
 

@@ -3,11 +3,11 @@
 namespace App\Website\Http\Controllers;
 
 use App\Website\Http\Requests\ContactRequest;
-use App\Website\Mail\ContactInquiry;
+// use App\Website\Mail\ContactInquiry;
 use App\Website\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+// use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class ContactController extends Controller
@@ -37,14 +37,17 @@ class ContactController extends Controller
             'user_agent' => mb_substr((string) $request->userAgent(), 0, 1000),
         ]);
 
-        $supportEmail = config('site.current.support_email') ?: config('mail.from.address');
-        try {
-            Mail::to($supportEmail)->send(new ContactInquiry($message));
-        } catch (\Throwable $exception) {
-            // The inquiry is already saved; a mail outage must not lose it or
-            // prompt the visitor to submit a duplicate.
-            report($exception);
-        }
+        // Email sending is disabled.
+        // app(\App\Website\Services\ContactConfirmationService::class)->send($message);
+
+        // $supportEmail = config('site.current.support_email') ?: config('mail.from.address');
+        // try {
+        //     Mail::to($supportEmail)->send(new ContactInquiry($message));
+        // } catch (\Throwable $exception) {
+        //     // The inquiry is already saved; a mail outage must not lose it or
+        //     // prompt the visitor to submit a duplicate.
+        //     report($exception);
+        // }
 
         return redirect()->route('contact-us')->with(
             'contact_success',

@@ -172,6 +172,7 @@ class LoginController extends Controller
             $member->update([
                 'profile_id' => ProfileId::forSite(config('site.current.code'), $member->id),
             ]);
+            // app(EmailService::class)->sendRegisterEmail($member);
         } else {
 
             // update google id if old account exists

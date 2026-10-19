@@ -149,6 +149,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::prefix('contact-messages')->name('contact-messages.')->middleware('role:super-admin')->group(function () {
                 Route::get('/', [ContactMessageController::class, 'index'])->name('index');
                 Route::get('/notifications', [ContactMessageController::class, 'notifications'])->name('notifications');
+                Route::delete('/bulk', [ContactMessageController::class, 'bulkDestroy'])->name('bulk-destroy');
+                Route::delete('/{id}', [ContactMessageController::class, 'destroy'])->whereNumber('id')->name('destroy');
                 Route::get('/{id}', [ContactMessageController::class, 'show'])->whereNumber('id')->name('show');
                 Route::patch('/{id}/read', [ContactMessageController::class, 'read'])->whereNumber('id')->name('read');
             });

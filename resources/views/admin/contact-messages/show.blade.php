@@ -3,6 +3,11 @@
 @section('page-title', 'Contact Message')
 @section('content')
 <a href="{{ route('admin.contact-messages.index') }}" class="btn btn-outline-secondary mb-3">Back to inbox</a>
+<form method="POST" action="{{ route('admin.contact-messages.destroy', $message->id) }}" class="d-inline-block mb-3 ms-2" onsubmit="return confirm('Permanently delete this contact message? This cannot be undone.');">
+    @csrf
+    @method('DELETE')
+    <button class="btn btn-outline-danger">Delete message</button>
+</form>
 <div class="card shadow-sm"><div class="card-body">
     <h1 class="h3 mb-1">{{ $message->subject }}</h1>
     <dl class="row mt-3">

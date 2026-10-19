@@ -12,14 +12,20 @@ class RegisterEmail extends Mailable
 
     public $details;
 
-    public function __construct($details)
+    public function __construct($details, public array $siteSettings)
     {
         $this->details = $details;
     }
 
     public function build()
     {
-        return $this->subject('Welcome to '.config('site.current.display_name', config('app.name')))
-            ->view('emails.registeremail');
+        return $this->mailer($this->siteSettings['mailer'])
+            ->from($this->siteSettings['address'], $this->siteSettings['name'])
+            ->subject('Welcome to '.$this->siteSettings['brand'])
+            ->view('emails.registeremail')->with($this->details + [
+                'brand' => $this->siteSettings['brand'],
+                'supportAddress' => $this->siteSettings['support_address'],
+                'siteUrl' => $this->siteSettings['url'],
+            ]);
     }
 }
