@@ -313,6 +313,7 @@ class ApiDocumentationController extends Controller
             'PUT api/v1/interests/{id}/accept' => ['Accept an interest received by the authenticated member.', []],
             'PUT api/v1/interests/{id}/reject' => ['Reject an interest received by the authenticated member.', []],
             'DELETE api/v1/interests/{id}/cancel' => ['Cancel an interest previously sent by the authenticated member.', []],
+            'DELETE api/v1/interests/{id}' => ['Permanently delete an interest sent by the authenticated member in any status. Use the interest ID, not the profile ID. Returns 404 if the interest does not exist or belongs to another sender.', []],
             'GET api/v1/memberships' => ['List available membership types.', []],
             'GET api/v1/memberships/{membershipTypeId}/plans' => ['List purchasable plans for a membership type.', []],
             'GET api/v1/profile' => ['Get the authenticated member’s complete profile.', []],

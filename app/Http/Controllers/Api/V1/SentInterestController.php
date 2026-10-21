@@ -452,6 +452,46 @@ class SentInterestController extends Controller
     }
 
     /**
+     * Delete an interest sent by the authenticated member, in any status.
+     */
+    public function destroy(Request $request, int $id): JsonResponse
+    {
+        $member = $request->user();
+
+        if (! $member) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthenticated.',
+            ], 401);
+        }
+
+        $interest = SentInterest::query()
+            ->where('id', $id)
+            ->where('member_id', $member->id)
+            ->first();
+
+        if (! $interest) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Interest not found.',
+            ], 404);
+        }
+
+        $profileId = $interest->profile_id;
+        $interest->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Interest deleted successfully.',
+            'data' => [
+                'id' => $id,
+                'profile_id' => $profileId,
+                'deleted' => true,
+            ],
+        ]);
+    }
+
+    /**
      * Cancel a sent interest.
      */
     public function cancel(

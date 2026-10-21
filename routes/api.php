@@ -354,6 +354,11 @@ Route::prefix('v1')
                 );
 
                 Route::delete(
+                    '/interests/{id}',
+                    [SentInterestController::class, 'destroy']
+                )->whereNumber('id');
+
+                Route::delete(
                     '/interests/{id}/cancel',
                     [SentInterestController::class, 'cancel']
                 );
