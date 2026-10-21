@@ -142,6 +142,10 @@ class SentInterestController extends Controller
     /**
      * Get interests sent by the logged-in member.
      */
+
+    /**
+     * Get interests sent by the logged-in member.
+     */
     public function index(Request $request): JsonResponse
     {
         $member = $request->user();
@@ -154,8 +158,12 @@ class SentInterestController extends Controller
         }
 
         $interests = SentInterest::query()
+            ->with([
+                'recipient:id,profile_id,full_name,photo,birth_date_time,city_living_in,state_living_in',
+            ])
             ->where('member_id', $member->id)
             ->orderByDesc('id')
+            ->limit(20)
             ->get();
 
         return response()->json([
@@ -165,18 +173,36 @@ class SentInterestController extends Controller
                 'count' => $interests->count(),
 
                 'interests' => $interests->map(function ($interest) {
+                    $recipient = $interest->recipient;
+
                     return [
                         'id' => $interest->id,
                         'profile_id' => $interest->profile_id,
                         'status' => $interest->status,
+                        'status_label' => match ((string) $interest->status) {
+                            '0' => 'Pending',
+                            '1' => 'Accepted',
+                            '2' => 'Rejected',
+                            default => 'Unknown',
+                        },
                         'sent_at' => $interest->created_at
                             ? $interest->created_at->format('Y-m-d H:i:s')
                             : null,
+
+                        'member' => $recipient ? [
+                            'id' => $recipient->id,
+                            'profile_id' => $recipient->profile_id,
+                            'full_name' => $recipient->full_name,
+                            'photo' => $recipient->photo,
+                            'city_living_in' => $recipient->city_living_in,
+                            'state_living_in' => $recipient->state_living_in,
+                        ] : null,
                     ];
                 })->values(),
             ],
         ]);
     }
+
 
     /**
      * Check interest status for a profile.
@@ -220,6 +246,10 @@ class SentInterestController extends Controller
     /**
      * Get interests received by the logged-in member.
      */
+
+    /**
+     * Get interests received by the logged-in member.
+     */
     public function received(Request $request): JsonResponse
     {
         $member = $request->user();
@@ -232,8 +262,12 @@ class SentInterestController extends Controller
         }
 
         $interests = SentInterest::query()
+            ->with([
+                'sender:id,profile_id,full_name,photo,birth_date_time,city_living_in,state_living_in',
+            ])
             ->where('profile_id', $member->id)
             ->orderByDesc('id')
+            ->limit(20)
             ->get();
 
         return response()->json([
@@ -243,30 +277,37 @@ class SentInterestController extends Controller
                 'count' => $interests->count(),
 
                 'interests' => $interests->map(function ($interest) {
+                    $sender = $interest->sender;
+
                     return [
                         'id' => $interest->id,
-
                         'member_id' => $interest->member_id,
-
                         'profile_id' => $interest->profile_id,
-
                         'status' => $interest->status,
-
                         'status_label' => match ((string) $interest->status) {
                             '0' => 'Pending',
                             '1' => 'Accepted',
                             '2' => 'Rejected',
                             default => 'Unknown',
                         },
-
                         'received_at' => $interest->created_at
                             ? $interest->created_at->format('Y-m-d H:i:s')
                             : null,
+
+                        'member' => $sender ? [
+                            'id' => $sender->id,
+                            'profile_id' => $sender->profile_id,
+                            'full_name' => $sender->full_name,
+                            'photo' => $sender->photo,
+                            'city_living_in' => $sender->city_living_in,
+                            'state_living_in' => $sender->state_living_in,
+                        ] : null,
                     ];
                 })->values(),
             ],
         ]);
     }
+
 
     /**
      * Accept a received interest.
