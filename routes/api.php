@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\LegalController;
 use App\Http\Controllers\Api\V1\MembershipController;
 use App\Http\Controllers\Api\V1\MobileVerificationController;
+use App\Http\Controllers\Api\V1\OfferController;
 use App\Http\Controllers\Api\V1\ProfileContactController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\ProfileLikeController;
@@ -202,6 +203,8 @@ Route::prefix('v1')
                     HomeController::class,
                     'index',
                 ]);
+
+                Route::get('/offers', [OfferController::class, 'index']);
 
                 // Membership
                 Route::get('/memberships', [
