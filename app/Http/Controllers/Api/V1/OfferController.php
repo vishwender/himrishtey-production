@@ -3,26 +3,24 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Offer;
+use App\Models\WalletOffer;
 use Illuminate\Http\JsonResponse;
 
 class OfferController extends Controller
 {
     public function index(): JsonResponse
     {
-        $offers = Offer::query()
-            ->whereRaw('LOWER(TRIM(status)) = ?', ['active'])
-            ->orderByDesc('id')
-            ->get(['id', 'title', 'description', 'image', 'offer_date', 'offer_time', 'status'])
-            ->map(fn (Offer $offer): array => [
+        $offers = WalletOffer::query()
+            ->orderByRaw('CAST(amount AS DECIMAL(12,2)) ASC')
+            ->orderBy('id')
+            ->get(['id', 'title', 'description', 'amount', 'add_on_percentage', 'final_amount'])
+            ->map(fn (WalletOffer $offer): array => [
                 'id' => (int) $offer->id,
                 'title' => $offer->title,
                 'description' => $offer->description,
-                'image' => $offer->image,
-                'image_url' => filled($offer->image) ? asset('images/offers/'.$offer->image) : null,
-                'offer_date' => $offer->offer_date,
-                'offer_time' => $offer->offer_time,
-                'status' => $offer->status,
+                'amount' => $offer->amount,
+                'add_on_percentage' => $offer->add_on_percentage,
+                'final_amount' => $offer->final_amount,
             ])->values();
 
         return response()->json([

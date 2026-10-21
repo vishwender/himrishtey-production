@@ -282,6 +282,32 @@ class ApiDocumentationController extends Controller
                     'Interest creation remains successful if SMS delivery fails; check sms_notification_sent in the response.',
                 ],
             ],
+            'GET api/v1/offers' => [
+                'description' => 'List wallet offers for the resolved application, ordered by amount ascending.',
+                'request' => (object) [],
+                'response' => [
+                    'success' => true,
+                    'message' => 'Offers fetched successfully.',
+                    'data' => [
+                        'count' => 1,
+                        'offers' => [[
+                            'id' => 1,
+                            'title' => 'Wallet recharge offer',
+                            'description' => 'Get a 10% bonus on your recharge.',
+                            'amount' => '1000.00',
+                            'add_on_percentage' => '10.00',
+                            'final_amount' => '1100.00',
+                        ]],
+                    ],
+                ],
+                'notes' => [
+                    'Requires Accept: application/json, X-App-Code, and Authorization: Bearer <token>.',
+                    'No query parameters or request body are required.',
+                    'Reads wallet_offers, ordered numerically by amount ascending, then ID ascending.',
+                    'Returns stored amount, add_on_percentage, and final_amount; this table has no status filter.',
+                    'If no wallet offers exist, data.count is 0 and data.offers is an empty array.',
+                ],
+            ],
             default => $this->catalogDetails($method, $uri),
         };
     }
