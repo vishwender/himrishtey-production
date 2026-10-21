@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateBasicProfileRequest extends FormRequest
 {
@@ -14,6 +15,14 @@ class UpdateBasicProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'email' => [
+                'sometimes',
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('site.members', 'email')->ignore($this->user()->getKey()),
+            ],
+
             'profile_created_for' => [
                 'sometimes',
                 'nullable',

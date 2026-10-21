@@ -147,19 +147,6 @@ class ProfileController extends Controller
 
         $data = $request->validated();
 
-        $allowedFields = [
-            'profile_created_for',
-            'full_name',
-            'mobile_number',
-            'alternate_number',
-            'whatsapp_number',
-        ];
-
-        $data = array_intersect_key(
-            $data,
-            array_flip($allowedFields)
-        );
-
         $member->fill($data);
 
         $member->profile_completed =
@@ -190,7 +177,7 @@ class ProfileController extends Controller
             'birth_date_time' => [
                 'sometimes',
                 'nullable',
-                'date_format:Y-m-d h:i A',
+                'date_format:Y-m-d h:i A,Y-m-d H:i:s,Y-m-d',
             ],
 
             'birth_place' => [
@@ -210,7 +197,7 @@ class ProfileController extends Controller
             'height' => [
                 'sometimes',
                 'nullable',
-                'regex:/^\d+ft\s\d+in$/',
+                'regex:/^(?:\d+(?:\.\d+)?|\d+\s*ft\s*\d+\s*in)$/i',
             ],
 
             'blood_group' => [
@@ -697,7 +684,6 @@ class ProfileController extends Controller
                 'integer',
                 'min:18',
                 'max:100',
-                'gte:partner_age_from',
             ],
 
             'partner_country' => [
@@ -735,7 +721,6 @@ class ProfileController extends Controller
                 'numeric',
                 'min:3',
                 'max:8',
-                'gte:partner_height_from',
             ],
 
             'partner_education' => [
@@ -827,6 +812,26 @@ class ProfileController extends Controller
                 'string',
             ],
         ]);
+
+        // Compare partial range updates against the values already saved.
+        foreach (['partner_age', 'partner_height'] as $range) {
+            $from = $range.'_from';
+            $to = $range.'_to';
+
+            if (! array_key_exists($from, $validated) && ! array_key_exists($to, $validated)) {
+                continue;
+            }
+
+            $fromValue = array_key_exists($from, $validated) ? $validated[$from] : $member->{$from};
+            $toValue = array_key_exists($to, $validated) ? $validated[$to] : $member->{$to};
+
+            if ($fromValue !== null && $fromValue !== '' && $toValue !== null && $toValue !== '') {
+                validator([$from => $fromValue, $to => $toValue], [
+                    $from => ['numeric'],
+                    $to => ['numeric', 'gte:'.$from],
+                ])->validate();
+            }
+        }
 
         $member->fill($validated);
 
