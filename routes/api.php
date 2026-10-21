@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\ProfileContactController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\ProfileLikeController;
 use App\Http\Controllers\Api\V1\ProfilePhotoController;
+use App\Http\Controllers\Api\V1\ProfileVisibilityController;
 use App\Http\Controllers\Api\V1\RateUsController;
 use App\Http\Controllers\Api\V1\SearchController;
 use App\Http\Controllers\Api\V1\SentInterestController;
@@ -106,6 +107,9 @@ Route::prefix('v1')
                     ProfileController::class,
                     'show',
                 ]);
+
+                Route::get('/profile/visibility', [ProfileVisibilityController::class, 'show']);
+                Route::put('/profile/visibility', [ProfileVisibilityController::class, 'update']);
 
                 Route::put('/change-password', [
                     AuthController::class,
