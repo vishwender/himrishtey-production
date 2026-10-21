@@ -163,6 +163,11 @@ Route::prefix('v1')
                 ])->middleware('throttle:10,1');
 
                 Route::post(
+                    '/profile/photos/main',
+                    [ProfilePhotoController::class, 'uploadProfilePhoto']
+                );
+
+                Route::post(
                     '/profile/photos/gallery',
                     [ProfilePhotoController::class, 'uploadGalleryPhoto']
                 );
