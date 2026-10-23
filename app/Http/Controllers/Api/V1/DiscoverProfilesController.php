@@ -115,12 +115,21 @@ class DiscoverProfilesController extends Controller
             ->where('member_id', $member->id)
             ->whereIn('profile_id', $profiles->pluck('id'))
             ->distinct()->pluck('profile_id')->flip();
+        $latestInterestIds = $connection->table('sent_interests')
+            ->selectRaw('MAX(id)')->where('member_id', $member->id)
+            ->whereIn('profile_id', $profiles->pluck('id'))->groupBy('profile_id');
+        $interests = $profiles->isEmpty() ? collect() : $connection->table('sent_interests')
+            ->whereIn('id', $latestInterestIds)->get(['id', 'profile_id', 'status'])->keyBy('profile_id');
 
         return response()->json([
             'data' => [
                 'profiles' => $profiles->map(fn ($profile) => array_merge(
                     $matching->card($profile, $section === 'matches'),
-                    ['is_shortlisted' => $shortlistedIds->has($profile->id)],
+                    [
+                        'is_shortlisted' => $shortlistedIds->has($profile->id),
+                        'interest_status' => isset($interests[$profile->id]) ? (string) $interests[$profile->id]->status : null,
+                        'interest_id' => isset($interests[$profile->id]) ? (int) $interests[$profile->id]->id : null,
+                    ],
                 ))->values(),
                 'next_cursor' => $next ? Crypt::encryptString(json_encode($state, JSON_THROW_ON_ERROR)) : null,
             ],
