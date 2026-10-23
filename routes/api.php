@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\ContactMessageController;
 use App\Http\Controllers\Api\V1\DeleteProfileRequestController;
+use App\Http\Controllers\Api\V1\DiscoverProfilesController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\LegalController;
 use App\Http\Controllers\Api\V1\MembershipController;
@@ -181,6 +182,8 @@ Route::prefix('v1')
                     '/profiles/{profileId}/contact/unlock',
                     [ProfileContactController::class, 'unlock']
                 )->whereNumber('profileId');
+
+                Route::get('/discover/profiles', DiscoverProfilesController::class);
 
                 // Search
                 Route::get('/search/nearby', [SearchController::class, 'nearby']);

@@ -96,6 +96,35 @@ class ApiDocumentationController extends Controller
     private function endpointDetails(string $uri, string $method): array
     {
         return match ($method.' '.$uri) {
+            'GET api/v1/discover/profiles' => [
+                'description' => 'Discover profile cards using stable ranking and forward cursor pagination.',
+                'request_label' => 'Query parameters (GET)',
+                'request' => ['section' => 'matches', 'per_page' => 20],
+                'response' => ['data' => [
+                    'profiles' => [[
+                        'id' => 123, 'profile_id' => 'HIM123', 'full_name' => 'Example Member',
+                        'gender' => 'Female', 'height' => '5.5', 'religion' => 'Hindu',
+                        'mother_tongue' => 'Hindi', 'cast' => 'Brahmin', 'marital_status' => 'Never Married',
+                        'education' => 'Graduate', 'occupation' => 'Engineer', 'annual_income' => '10-15 LPA',
+                        'country_living_in' => 'India', 'state_living_in' => 'Delhi', 'city_living_in' => 'New Delhi',
+                        'photo' => 'example.jpg', 'profile_completed' => 85, 'age' => 27, 'match_percentage' => 80,
+                    ]],
+                    'next_cursor' => '<opaque cursor or null>',
+                ]],
+                'notes' => [
+                    'Section values: matches = Matches for You (default); recently_joined = Recently Joined; verified = Verified; shortlisted = Shortlisted; viewed_you = Viewed You.',
+                    'Required headers: Accept: application/json, X-App-Code: <application code>, Authorization: Bearer <token>.',
+                    'Send data.next_cursor as cursor for the next page; null means the end. per_page defaults to 20, maximum 100.',
+                    'First-page example: GET /api/v1/discover/profiles?section=matches&per_page=20. Next-page example: GET /api/v1/discover/profiles?section=matches&per_page=20&cursor=<URL-encoded data.next_cursor>. Treat the cursor as opaque and preserve the section and headers.',
+                    'The response contains only data.profiles and data.next_cursor. There are no totals, page numbers or previous-page links.',
+                    'Matches rank by raw score, promotion, then member ID; match_percentage is capped at 100 and appears only for matches.',
+                    'Recently joined ranks by registration date then ID; verified ranks by promotion then ID. Event lists rank by latest event ID then member ID.',
+                    'Only active, visible opposite-gender profiles are returned. Contact details and internal ranking fields are excluded.',
+                    'Cursors expire after one hour and are scoped to the application, member, section and preferences. Invalid cursors return 422.',
+                    'Missing authentication returns 401. Invalid section, per_page, cursor, or unsupported profile gender returns 422. Restart without a cursor after expiry or a preference change.',
+                    'New member and event inserts are excluded during traversal. Profile edits and visibility changes take effect immediately; ranking is not a frozen snapshot.',
+                ],
+            ],
             'POST api/v1/auth/forgot-password/otp/request' => [
                 'description' => 'Send a password-reset OTP to a registered mobile number.',
                 'request' => ['mobile_number' => '9876543210'],

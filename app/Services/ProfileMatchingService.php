@@ -4,404 +4,101 @@ namespace App\Services;
 
 use App\Models\Member;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProfileMatchingService
 {
-    /**
-     * Get best matching profiles for a member.
-     */
-    public function getMatches(
-        Member $member,
-        int $limit = 10
-    ): Collection {
+    public const CARD_FIELDS = [
+        'id', 'profile_id', 'full_name', 'birth_date_time', 'gender', 'height',
+        'religion', 'mother_tongue', 'cast', 'marital_status', 'education',
+        'occupation', 'annual_income', 'country_living_in', 'state_living_in',
+        'city_living_in', 'photo', 'profile_completed',
+    ];
 
-        /*
-        |--------------------------------------------------------------------------
-        | Determine opposite gender
-        |--------------------------------------------------------------------------
-        */
-
+    public function eligibleQuery(Member $member): Builder
+    {
         $gender = strtolower(trim((string) $member->gender));
 
-        if ($gender === 'male') {
+        return Member::query()
+            ->when(! in_array($gender, ['male', 'female'], true), fn ($q) => $q->whereRaw('1 = 0'))
+            ->where('id', '!=', $member->id)
+            ->whereRaw('LOWER(TRIM(gender)) = ?', [$gender === 'male' ? 'female' : 'male'])
+            ->whereRaw("LOWER(TRIM(active)) = 'yes'")
+            ->where(fn ($q) => $q->whereNull('profile_hide')->orWhere('profile_hide', '')
+                ->orWhereRaw("LOWER(TRIM(profile_hide)) = 'no'"));
+    }
 
-            $oppositeGender = 'female';
-        } elseif ($gender === 'female') {
+    /** Rank in SQL so only the requested cards are hydrated. */
+    public function rankedQuery(Member $member, ?Carbon $asOf = null): Builder
+    {
+        $asOf ??= Carbon::today();
+        $query = $this->eligibleQuery($member)->select(self::CARD_FIELDS);
+        $parts = ['0'];
+        $bindings = [];
+        foreach ([
+            'religion' => ['partner_religion', 15], 'cast' => ['partner_cast', 15],
+            'education' => ['partner_education', 10], 'mother_tongue' => ['partner_mothertongue', 10],
+            'occupation' => ['partner_occupation', 5], 'diet' => ['partner_diet', 5],
+            'manglik' => ['is_partner_manglik', 5], 'is_smoking' => ['is_partner_smoking', 5],
+            'is_drinking' => ['is_partner_drinking', 5], 'state_living_in' => ['partner_state', 5],
+        ] as $column => [$preference, $weight]) {
+            $values = array_values(array_filter(array_map(fn ($v) => strtolower(trim($v)),
+                explode(',', (string) $member->$preference)), fn ($v) => $v !== ''));
+            if ($values === []) {
+                continue;
+            }
+            $column = $query->getQuery()->getGrammar()->wrap($column);
+            $conditions = [];
+            foreach ($values as $value) {
+                // LOCATE/INSTR treat '%' and '_' literally, like PHP str_contains.
+                $conditions[] = "(INSTR(LOWER(TRIM($column)), ?) > 0 OR INSTR(?, LOWER(TRIM($column))) > 0)";
+                array_push($bindings, $value, $value);
+            }
+            $parts[] = "CASE WHEN TRIM(COALESCE($column, '')) <> '' AND (".implode(' OR ', $conditions).") THEN $weight ELSE 0 END";
+        }
+        if ($this->hasValue($member->partner_age_from) || $this->hasValue($member->partner_age_to)) {
+            $from = $this->hasValue($member->partner_age_from) ? (int) $member->partner_age_from : 18;
+            $to = $this->hasValue($member->partner_age_to) ? (int) $member->partner_age_to : 100;
+            $parts[] = 'CASE WHEN birth_date_time >= ? AND birth_date_time < ? THEN 20 ELSE 0 END';
+            $bindings[] = $asOf->copy()->subYears($to + 1)->addDay()->format('Y-m-d');
+            $bindings[] = $asOf->copy()->subYears($from)->addDay()->format('Y-m-d');
+        }
+        if ($this->hasValue($member->partner_height_from) || $this->hasValue($member->partner_height_to)) {
+            // Evaluate the small distinct legacy height domain, never full member records.
+            $heights = Member::query()->whereNotNull('height')->distinct()->pluck('height')
+                ->filter(fn ($height) => $this->matchesHeight($height, $member->partner_height_from, $member->partner_height_to))
+                ->values()->all();
+            if ($heights !== []) {
+                $parts[] = 'CASE WHEN height IN ('.implode(',', array_fill(0, count($heights), '?')).') THEN 10 ELSE 0 END';
+                array_push($bindings, ...$heights);
+            }
+        }
+        $query->selectRaw('('.implode(' + ', $parts).') AS match_score', $bindings)
+            ->selectRaw("CASE WHEN LOWER(TRIM(promoted)) = 'yes' THEN 1 ELSE 0 END AS promoted_rank");
 
-            $oppositeGender = 'male';
-        } else {
+        // A derived table makes parameterized score expressions cursor-compatible.
+        return Member::query()->fromSub($query->toBase(), 'ranked_profiles')
+            ->orderByDesc('match_score')->orderByDesc('promoted_rank')->orderByDesc('id');
+    }
 
-            return collect();
+    /** Preserve the existing Home response while limiting the database result. */
+    public function getMatches(Member $member, int $limit = 10): Collection
+    {
+        return $this->rankedQuery($member)->limit(max(0, $limit))->get()
+            ->map(fn ($candidate) => $this->card($candidate, true));
+    }
+
+    public function card(Member $member, bool $includeMatch = false): array
+    {
+        $data = $member->only(array_values(array_diff(self::CARD_FIELDS, ['birth_date_time'])));
+        $data['age'] = $this->calculateAge($member->birth_date_time);
+        $data['profile_completed'] = (int) $member->profile_completed;
+        if ($includeMatch) {
+            $data['match_percentage'] = min((int) $member->match_score, 100);
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Get candidate profiles
-        |--------------------------------------------------------------------------
-        |
-        | We only fetch profiles that can actually appear in search.
-        |
-        */
-
-        $candidates = Member::query()
-            ->where('id', '!=', $member->id)
-
-            ->whereRaw(
-                'LOWER(TRIM(gender)) = ?',
-                [$oppositeGender]
-            )
-
-            /*
-             * Active profiles only
-             */
-            ->where(function ($query) {
-                $query->whereRaw('LOWER(TRIM(active)) = ?', ['yes']);
-            })
-
-            /*
-             * Hidden profiles should not appear
-             */
-            ->where(function ($query) {
-                $query
-                    ->whereNull('profile_hide')
-                    ->orWhere('profile_hide', '')
-                    ->orWhereRaw(
-                        'LOWER(TRIM(profile_hide)) = ?',
-                        ['no']
-                    );
-            })
-
-            ->select([
-                'id',
-                'profile_id',
-                'full_name',
-                'gender',
-                'birth_date_time',
-                'height',
-                'religion',
-                'mother_tongue',
-                'cast',
-                'sub_cast',
-                'marital_status',
-                'education',
-                'occupation',
-                'annual_income',
-                'country_living_in',
-                'state_living_in',
-                'city_living_in',
-                'diet',
-                'is_smoking',
-                'is_drinking',
-                'manglik',
-                'photo',
-                'profile_completed',
-                'promoted',
-            ])
-            ->get();
-
-        /*
-        |--------------------------------------------------------------------------
-        | Calculate match score
-        |--------------------------------------------------------------------------
-        */
-
-        $matches = $candidates->map(function ($candidate) use ($member) {
-
-            $score = 0;
-
-            /*
-            |--------------------------------------------------------------------------
-            | Age
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->hasValue($member->partner_age_from) ||
-                $this->hasValue($member->partner_age_to)
-            ) {
-
-                $age = $this->calculateAge(
-                    $candidate->birth_date_time
-                );
-
-                if ($age !== null) {
-
-                    $from = $this->hasValue(
-                        $member->partner_age_from
-                    )
-                        ? (int) $member->partner_age_from
-                        : 18;
-
-                    $to = $this->hasValue(
-                        $member->partner_age_to
-                    )
-                        ? (int) $member->partner_age_to
-                        : 100;
-
-                    if ($age >= $from && $age <= $to) {
-                        $score += 20;
-                    }
-                }
-            } else {
-
-                /*
-                 * No preference specified.
-                 * Don't penalize the profile.
-                 */
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Religion
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->religion,
-                    $member->partner_religion
-                )
-            ) {
-                $score += 15;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Caste
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->cast,
-                    $member->partner_cast
-                )
-            ) {
-                $score += 15;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Height
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesHeight(
-                    $candidate->height,
-                    $member->partner_height_from,
-                    $member->partner_height_to
-                )
-            ) {
-                $score += 10;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Education
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->education,
-                    $member->partner_education
-                )
-            ) {
-                $score += 10;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Mother Tongue
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->mother_tongue,
-                    $member->partner_mothertongue
-                )
-            ) {
-                $score += 10;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Occupation
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->occupation,
-                    $member->partner_occupation
-                )
-            ) {
-                $score += 5;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Diet
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->diet,
-                    $member->partner_diet
-                )
-            ) {
-                $score += 5;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Manglik
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->manglik,
-                    $member->is_partner_manglik
-                )
-            ) {
-                $score += 5;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Smoking
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->is_smoking,
-                    $member->is_partner_smoking
-                )
-            ) {
-                $score += 5;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Drinking
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->matchesValue(
-                    $candidate->is_drinking,
-                    $member->is_partner_drinking
-                )
-            ) {
-                $score += 5;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Location
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                $this->hasValue($member->partner_state) &&
-                $this->matchesValue(
-                    $candidate->state_living_in,
-                    $member->partner_state
-                )
-            ) {
-                $score += 5;
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Return formatted result
-            |--------------------------------------------------------------------------
-            */
-
-            return [
-                'id' => $candidate->id,
-
-                'profile_id' => $candidate->profile_id,
-
-                'full_name' => $candidate->full_name,
-
-                'age' => $this->calculateAge(
-                    $candidate->birth_date_time
-                ),
-
-                'gender' => $candidate->gender,
-
-                'height' => $candidate->height,
-
-                'religion' => $candidate->religion,
-
-                'mother_tongue' => $candidate->mother_tongue,
-
-                'cast' => $candidate->cast,
-
-                'marital_status' => $candidate->marital_status,
-
-                'education' => $candidate->education,
-
-                'occupation' => $candidate->occupation,
-
-                'annual_income' => $candidate->annual_income,
-
-                'country_living_in' => $candidate->country_living_in,
-
-                'state_living_in' => $candidate->state_living_in,
-
-                'city_living_in' => $candidate->city_living_in,
-
-                'photo' => $candidate->photo,
-
-                'profile_completed' => (int) $candidate->profile_completed,
-
-                'match_percentage' => min($score, 100),
-
-                '_score' => $score,
-
-                '_promoted' => strtolower(trim((string) $candidate->promoted))
-                    === 'yes' ? 1 : 0,
-            ];
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | Sort
-        |--------------------------------------------------------------------------
-        |
-        | 1. Highest match first
-        | 2. Promoted profiles next
-        |
-        */
-
-        return $matches
-            ->sort(function ($a, $b) {
-
-                if ($a['_score'] === $b['_score']) {
-                    return $b['_promoted'] <=> $a['_promoted'];
-                }
-
-                return $b['_score'] <=> $a['_score'];
-            })
-            ->take($limit)
-            ->map(function ($member) {
-
-                unset(
-                    $member['_score'],
-                    $member['_promoted']
-                );
-
-                return $member;
-            })
-            ->values();
+        return $data;
     }
 
     /**
@@ -411,68 +108,6 @@ class ProfileMatchingService
     {
         return $value !== null &&
             trim((string) $value) !== '';
-    }
-
-    /**
-     * Compare stored value with preference.
-     *
-     * Supports comma-separated preference values.
-     */
-    private function matchesValue(
-        $candidateValue,
-        $preference
-    ): bool {
-
-        if (! $this->hasValue($preference)) {
-            return false;
-        }
-
-        if (! $this->hasValue($candidateValue)) {
-            return false;
-        }
-
-        $candidateValue = strtolower(
-            trim((string) $candidateValue)
-        );
-
-        $preferences = array_map(
-            fn ($value) => strtolower(trim($value)),
-            explode(',', (string) $preference)
-        );
-
-        foreach ($preferences as $preferred) {
-
-            if ($preferred === '') {
-                continue;
-            }
-
-            /*
-             * Exact match
-             */
-            if ($candidateValue === $preferred) {
-                return true;
-            }
-
-            /*
-             * Useful for values such as:
-             *
-             * "Brahmin, Rajput"
-             */
-            if (
-                str_contains(
-                    $candidateValue,
-                    $preferred
-                ) ||
-                str_contains(
-                    $preferred,
-                    $candidateValue
-                )
-            ) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
