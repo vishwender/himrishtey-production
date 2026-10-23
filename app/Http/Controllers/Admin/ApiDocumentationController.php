@@ -308,6 +308,7 @@ class ApiDocumentationController extends Controller
                 ],
                 'notes' => [
                     'The profileId path parameter is the target member’s numeric ID, not their displayed profile ID.',
+                    'Only active senders (active = Yes, ignoring case and surrounding whitespace) can send interests. Inactive senders receive HTTP 403 with success: false and message: Only active members can send interests. No interest is created and no SMS is sent.',
                     'The SMS is sent to the target member’s registered mobile number and contains the sender’s displayed profile ID.',
                     'SMS is sent only when a new interest is created; an existing interest does not trigger another notification.',
                     'Interest creation remains successful if SMS delivery fails; check sms_notification_sent in the response.',

@@ -31,6 +31,13 @@ class SentInterestController extends Controller
             ], 401);
         }
 
+        if (! $member->is_active) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Only active members can send interests.',
+            ], 403);
+        }
+
         /*
         |--------------------------------------------------------------------------
         | Cannot send interest to own profile
@@ -203,7 +210,6 @@ class SentInterestController extends Controller
         ]);
     }
 
-
     /**
      * Check interest status for a profile.
      */
@@ -307,7 +313,6 @@ class SentInterestController extends Controller
             ],
         ]);
     }
-
 
     /**
      * Accept a received interest.
