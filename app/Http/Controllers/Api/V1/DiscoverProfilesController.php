@@ -110,10 +110,18 @@ class DiscoverProfilesController extends Controller
         $page = $query->cursorPaginate($input['per_page'] ?? 20, ['*'], 'cursor', $cursor);
         $next = $page->nextCursor();
         $state['position'] = $next?->encode();
+        $profiles = collect($page->items());
+        $shortlistedIds = $profiles->isEmpty() ? collect() : $connection->table('short_listed')
+            ->where('member_id', $member->id)
+            ->whereIn('profile_id', $profiles->pluck('id'))
+            ->distinct()->pluck('profile_id')->flip();
 
         return response()->json([
             'data' => [
-                'profiles' => collect($page->items())->map(fn ($profile) => $matching->card($profile, $section === 'matches'))->values(),
+                'profiles' => $profiles->map(fn ($profile) => array_merge(
+                    $matching->card($profile, $section === 'matches'),
+                    ['is_shortlisted' => $shortlistedIds->has($profile->id)],
+                ))->values(),
                 'next_cursor' => $next ? Crypt::encryptString(json_encode($state, JSON_THROW_ON_ERROR)) : null,
             ],
         ]);
