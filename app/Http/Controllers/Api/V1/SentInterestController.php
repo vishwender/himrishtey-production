@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\SentInterest;
+use App\Services\Api\V1\InterestPagination;
 use App\Services\NimbusSmsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -153,7 +154,7 @@ class SentInterestController extends Controller
     /**
      * Get interests sent by the logged-in member.
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, InterestPagination $pagination): JsonResponse
     {
         $member = $request->user();
 
@@ -164,20 +165,14 @@ class SentInterestController extends Controller
             ], 401);
         }
 
-        $interests = SentInterest::query()
-            ->with([
-                'recipient:id,profile_id,full_name,photo,birth_date_time,city_living_in,state_living_in',
-            ])
-            ->where('member_id', $member->id)
-            ->orderByDesc('id')
-            ->limit(20)
-            ->get();
+        [$interests, $nextCursor] = $pagination->page($request);
 
         return response()->json([
             'success' => true,
             'message' => 'Sent interests fetched successfully.',
             'data' => [
                 'count' => $interests->count(),
+                'next_cursor' => $nextCursor,
 
                 'interests' => $interests->map(function ($interest) {
                     $recipient = $interest->recipient;
@@ -256,7 +251,7 @@ class SentInterestController extends Controller
     /**
      * Get interests received by the logged-in member.
      */
-    public function received(Request $request): JsonResponse
+    public function received(Request $request, InterestPagination $pagination): JsonResponse
     {
         $member = $request->user();
 
@@ -267,20 +262,14 @@ class SentInterestController extends Controller
             ], 401);
         }
 
-        $interests = SentInterest::query()
-            ->with([
-                'sender:id,profile_id,full_name,photo,birth_date_time,city_living_in,state_living_in',
-            ])
-            ->where('profile_id', $member->id)
-            ->orderByDesc('id')
-            ->limit(20)
-            ->get();
+        [$interests, $nextCursor] = $pagination->page($request, true);
 
         return response()->json([
             'success' => true,
             'message' => 'Received interests fetched successfully.',
             'data' => [
                 'count' => $interests->count(),
+                'next_cursor' => $nextCursor,
 
                 'interests' => $interests->map(function ($interest) {
                     $sender = $interest->sender;

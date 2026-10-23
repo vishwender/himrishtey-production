@@ -53,6 +53,39 @@ class ApiDocumentationController extends Controller
         ];
     }
 
+    private function interestListDetails(bool $received): array
+    {
+        $interest = [
+            'id' => 125, 'profile_id' => $received ? 10001 : 24766,
+            'status' => '0', 'status_label' => 'Pending',
+            $received ? 'received_at' : 'sent_at' => '2026-10-23 12:00:00',
+            'member' => [
+                'id' => 24766, 'profile_id' => 'HIM34766', 'full_name' => 'Sample Member',
+                'photo' => 'sample.jpg', 'city_living_in' => 'Jammu', 'state_living_in' => 'Jammu and Kashmir',
+            ],
+        ];
+        if ($received) {
+            $interest['member_id'] = 24766;
+        }
+
+        return [
+            'description' => 'List '.($received ? 'received' : 'sent').' interests using forward cursor pagination.',
+            'request_label' => 'Query parameters (GET)',
+            'request' => ['per_page' => 20],
+            'response' => [
+                'success' => true,
+                'message' => ($received ? 'Received' : 'Sent').' interests fetched successfully.',
+                'data' => ['count' => 1, 'interests' => [$interest], 'next_cursor' => '<opaque cursor or null>'],
+            ],
+            'notes' => [
+                'Append data.interests as the user scrolls; pass data.next_cursor as cursor for the next request and stop when null. URL-encode the cursor.',
+                'per_page defaults to 20, minimum 1, maximum 100. data.count is the current page size, not a total. Existing interest and member fields are retained; member may be null if the related profile was removed.',
+                'Ordered by interest ID descending. Cursors expire one hour after the first page and are scoped to the application, member and sent/received list. Invalid cursors return 422; missing authentication returns 401.',
+                'New interests appear after refreshing the list. Deletions do not shift subsequent pages. No offset, total-count query or previous-page cursor is used.',
+            ],
+        ];
+    }
+
     private function curlExample(string $uri, string $method, bool $authenticated, array $details): string
     {
         $quote = static fn (string $value): string => "'".str_replace("'", "'\"'\"'", $value)."'";
@@ -96,6 +129,7 @@ class ApiDocumentationController extends Controller
     private function endpointDetails(string $uri, string $method): array
     {
         return match ($method.' '.$uri) {
+            'GET api/v1/interests/sent', 'GET api/v1/interests/received' => $this->interestListDetails(str_ends_with($uri, '/received')),
             'GET api/v1/discover/profiles' => [
                 'description' => 'Discover profile cards using stable ranking and forward cursor pagination.',
                 'request_label' => 'Query parameters (GET)',
@@ -367,8 +401,6 @@ class ApiDocumentationController extends Controller
             'POST api/v1/auth/register/step-5/{memberId}' => ['Optionally upload a profile photo and finish registration.', ['photo' => '<jpg|jpeg|png|webp, max 5 MB>'], [], 'Multipart form data'],
             'PUT api/v1/change-password' => ['Change the authenticated member’s password.', ['current_password' => '<current-password>', 'new_password' => '<new-password>', 'new_password_confirmation' => '<new-password>']],
             'GET api/v1/home' => ['Get home-screen sections and profile recommendations for the authenticated member.', []],
-            'GET api/v1/interests/sent' => ['List interests sent by the authenticated member.', []],
-            'GET api/v1/interests/received' => ['List interests received by the authenticated member.', []],
             'GET api/v1/interests/{profileId}' => ['Check whether the authenticated member has sent an interest to a target member.', []],
             'PUT api/v1/interests/{id}/accept' => ['Accept an interest received by the authenticated member.', []],
             'PUT api/v1/interests/{id}/reject' => ['Reject an interest received by the authenticated member.', []],
