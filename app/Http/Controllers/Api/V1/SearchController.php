@@ -10,6 +10,73 @@ use Illuminate\Support\Carbon;
 
 class SearchController extends Controller
 {
+    /** Find active, visible profiles in the signed-in member's city and state. */
+    public function nearby(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
+            'page' => ['sometimes', 'integer', 'min:1'],
+        ]);
+
+        /** @var Member $member */
+        $member = $request->user();
+        $gender = strtolower(trim((string) $member->gender));
+        $city = trim((string) $member->city_living_in);
+        $state = trim((string) $member->state_living_in);
+        $country = trim((string) $member->country_living_in);
+
+        if ($city === '' || $state === '') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please update your profile city and state before searching nearby members.',
+            ], 422);
+        }
+
+        if (! in_array($gender, ['male', 'female'], true)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to determine your gender for this search.',
+            ], 422);
+        }
+
+        $members = Member::query()
+            ->where('id', '!=', $member->id)
+            ->whereRaw('LOWER(TRIM(gender)) = ?', [$gender === 'male' ? 'female' : 'male'])
+            ->whereRaw("LOWER(TRIM(active)) = 'yes'")
+            ->where(function ($query) {
+                $query->whereNull('profile_hide')
+                    ->orWhere('profile_hide', '')
+                    ->orWhereRaw("LOWER(TRIM(profile_hide)) = 'no'");
+            })
+            ->whereRaw('LOWER(TRIM(city_living_in)) = LOWER(?)', [$city])
+            ->whereRaw('LOWER(TRIM(state_living_in)) = LOWER(?)', [$state])
+            ->when($country !== '', fn ($query) => $query
+                ->whereRaw('LOWER(TRIM(country_living_in)) = LOWER(?)', [$country]))
+            ->select([
+                'id', 'profile_id', 'full_name', 'gender', 'height',
+                'religion', 'cast', 'marital_status', 'education', 'occupation',
+                'country_living_in', 'state_living_in', 'city_living_in',
+                'photo', 'profile_completed',
+            ])
+            ->orderByDesc('promoted')
+            ->orderByDesc('id')
+            ->paginate($validated['per_page'] ?? 20);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Nearby members fetched successfully.',
+            'data' => [
+                'members' => $members->items(),
+                'pagination' => [
+                    'current_page' => $members->currentPage(),
+                    'last_page' => $members->lastPage(),
+                    'per_page' => $members->perPage(),
+                    'total' => $members->total(),
+                ],
+            ],
+        ]);
+    }
+
     /**
      * Quick member search.
      *

@@ -183,6 +183,8 @@ Route::prefix('v1')
                 )->whereNumber('profileId');
 
                 // Search
+                Route::get('/search/nearby', [SearchController::class, 'nearby']);
+
                 Route::get('/search/quick', [
                     SearchController::class,
                     'quickSearch',
