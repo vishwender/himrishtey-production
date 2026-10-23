@@ -696,6 +696,7 @@ function profileEscape($value): string
 	$employed_in = $row['employed_in'];
 	$occupation = $row['occupation'];
 	$designation = $row['designation'];
+	$job_location = $row['job_location'] ?? '';
 	$annual_income = $row['annual_income'];
 	$country_living_in = $row['country_living_in'];
 	$state_living_in = $row['state_living_in'];
@@ -825,6 +826,7 @@ function profileEscape($value): string
 						<b>Employed In:</b> <?php echo profileEscape($employed_in); ?><br>
 						<b>Occupation:</b> <?php echo profileEscape($occupation); ?><br>
 						<b>Designation: </b><?php echo profileEscape($designation); ?><br>
+						<b>Job Location:</b> <?php echo profileEscape($job_location); ?><br>
 						<b>Annual Income:</b> <?php echo profileEscape($annual_income); ?><br>
 						<b>Other Qualification:</b><?= profileEscape($any_other_qualification); ?><br>
 						<b>About My Career:</b><?= profileEscape($about_my_career); ?>
