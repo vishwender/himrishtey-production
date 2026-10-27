@@ -776,6 +776,7 @@ function profileEscape($value): string
 						?><br>
 	<b>Password:</b> <?php //echo $password; 
 						?><br> -->
+				<b>Profile ID:</b> <?php echo profileEscape($profile_id); ?><br>
 				<b>Name : </b><?php echo profileEscape($full_name); ?><br>
 				<b>Height:</b> <?php echo profileEscape($height); ?><br>
 				<b>Gender:</b> <?php echo profileEscape($gender); ?><br>
