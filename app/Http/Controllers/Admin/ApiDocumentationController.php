@@ -130,6 +130,22 @@ class ApiDocumentationController extends Controller
     {
         return match ($method.' '.$uri) {
             'GET api/v1/interests/sent', 'GET api/v1/interests/received' => $this->interestListDetails(str_ends_with($uri, '/received')),
+            'GET api/v1/dashboard/stats' => [
+                'description' => 'Totals of unique active, visible members who viewed your profile, liked you, sent you interests, or unlocked your contact details. Self and deleted members are excluded. Likes include only active likes; interests include all statuses. Contact views are incoming, not contacts you unlocked.',
+                'request_label' => 'No query parameters',
+                'request' => [],
+                'response' => ['success' => true, 'data' => [
+                    'profile_views' => 12, 'likes_received' => 8,
+                    'interests_received' => 5, 'contact_views' => 3,
+                ]],
+                'notes' => [
+                    'Requires X-App-Code and Authorization: Bearer <token> headers. No request body or query parameters.',
+                    'profile_views: unique people who viewed your profile. likes_received: unique people whose like is still active.',
+                    'interests_received: unique people who sent you an interest, including pending, accepted and rejected interests.',
+                    'contact_views: unique people who unlocked your contact number, not the contacts you unlocked. This endpoint returns totals only, not viewer identities.',
+                    'All counts exclude your own profile and hidden, inactive or deleted members. Repeated actions by the same member count once. Empty totals return 0; unauthenticated requests return 401.',
+                ],
+            ],
             'GET api/v1/discover/profiles' => [
                 'description' => 'Discover profile cards using stable ranking and forward cursor pagination.',
                 'request_label' => 'Query parameters (GET)',
