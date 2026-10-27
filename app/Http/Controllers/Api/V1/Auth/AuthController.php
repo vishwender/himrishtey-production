@@ -598,7 +598,9 @@ class AuthController extends Controller
         |--------------------------------------------------------------------------
         */
 
-                $member->plan_activation_date = null;
+                // Match the existing admin-registration convention for the
+                // legacy NOT NULL date column. No plan/activation is granted.
+                $member->plan_activation_date = now()->format('Y-m-d');
 
                 /*
         |--------------------------------------------------------------------------
