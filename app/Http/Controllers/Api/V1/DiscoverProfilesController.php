@@ -18,7 +18,7 @@ class DiscoverProfilesController extends Controller
     public function __invoke(Request $request, ProfileMatchingService $matching): JsonResponse
     {
         $input = $request->validate([
-            'section' => ['sometimes', Rule::in(['matches', 'recently_joined', 'verified', 'shortlisted', 'viewed_you'])],
+            'section' => ['sometimes', Rule::in(['matches', 'recently_joined', 'verified', 'shortlisted', 'viewed_you', 'liked_profiles', 'liked_you'])],
             'per_page' => ['sometimes', 'integer', 'between:1,100'],
             'cursor' => ['sometimes', 'string', 'max:16384'],
         ]);
@@ -59,8 +59,8 @@ class DiscoverProfilesController extends Controller
                 'as_of' => Carbon::today()->format('Y-m-d'),
                 'max_id' => (int) Member::query()->max('id'), 'max_event_id' => 0,
             ];
-            if (in_array($section, ['shortlisted', 'viewed_you'], true)) {
-                $state['max_event_id'] = (int) $connection->table($section === 'shortlisted' ? 'short_listed' : 'profile_viewed')->max('id');
+            if (in_array($section, ['shortlisted', 'viewed_you', 'liked_profiles', 'liked_you'], true)) {
+                $state['max_event_id'] = (int) $connection->table(match ($section) { 'shortlisted' => 'short_listed', 'viewed_you' => 'profile_viewed', default => 'profile_like' })->max('id');
             }
         }
 
@@ -76,12 +76,15 @@ class DiscoverProfilesController extends Controller
         } elseif ($section === 'recently_joined') {
             $query->selectRaw("COALESCE(registration_date, '') AS joined_rank");
             $order = ['joined_rank', 'id'];
-        } elseif (in_array($section, ['shortlisted', 'viewed_you'], true)) {
-            $shortlisted = $section === 'shortlisted';
-            $table = $shortlisted ? 'short_listed' : 'profile_viewed';
-            $profileColumn = $shortlisted ? 'profile_id' : 'member_id';
-            $ownerColumn = $shortlisted ? 'member_id' : 'viewed_profile_id';
+        } elseif (in_array($section, ['shortlisted', 'viewed_you', 'liked_profiles', 'liked_you'], true)) {
+            [$table, $profileColumn, $ownerColumn] = match ($section) {
+                'shortlisted' => ['short_listed', 'profile_id', 'member_id'],
+                'viewed_you' => ['profile_viewed', 'member_id', 'viewed_profile_id'],
+                'liked_profiles' => ['profile_like', 'like_profile_id', 'user_id'],
+                'liked_you' => ['profile_like', 'user_id', 'like_profile_id'],
+            };
             $events = $connection->table($table)
+                ->when(in_array($section, ['liked_profiles', 'liked_you'], true), fn ($likes) => $likes->where('status', 1))
                 ->select($profileColumn)->selectRaw('MAX(id) AS latest_event_id')
                 ->where($ownerColumn, $member->id)->where('id', '<=', $state['max_event_id'])
                 ->groupBy($profileColumn);
