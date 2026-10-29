@@ -52,3 +52,4 @@ Homestead.yaml
 /apis/application/config/firebase-service-account.json
 /.well-known/
 /apis/
+/tests/
