@@ -18,6 +18,7 @@ class ProfileController extends Controller
         return [
             'id' => $member->id,
             'profile_id' => $member->profile_id,
+            'member_type' => $member->member_type,
 
             // Profile completion
             'profile_completed' => (int) $member->profile_completed,
