@@ -24,6 +24,9 @@ $details = [
             @endif
         </div>
         <div class="profile-card-body">
+            @if(isset($profile['match_percentage']))
+            <span class="dashboard-card-match"><i data-lucide="heart-handshake" aria-hidden="true"></i> {{ (int) $profile['match_percentage'] }}% match</span>
+            @endif
             <h3 class="profile-card-name"><a href="{{ $profileUrl }}">{{ $profileName }}@if($profileAge !== null), {{ $profileAge }}@endif</a></h3>
             <dl class="dashboard-card-details">
                 @foreach($details as [$icon, $label, $value])
