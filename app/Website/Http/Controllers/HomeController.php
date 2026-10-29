@@ -406,10 +406,7 @@ class HomeController extends Controller
             $id
         )->count();
 
-        $data['iviewed'] = ProfileViewed::where(
-            'viewed_profile_id',
-            $id
-        )->count();
+        $data['iviewed'] = ProfileViewed::viewersFor($id)->count();
 
         $data['interestsReceived'] = SentInterest::where(
             'profile_id',
@@ -527,22 +524,8 @@ class HomeController extends Controller
         |
         */
 
-        $viewedProfiles = Member::query()
+        $viewedProfiles = ProfileViewed::recentViewersFor($id)
             ->select($profileColumns)
-            ->join(
-                'profile_viewed',
-                'members.id',
-                '=',
-                'profile_viewed.member_id'
-            )
-            ->where(
-                'profile_viewed.viewed_profile_id',
-                $id
-            )
-            ->where('members.id', '!=', $id)
-            ->where('members.active', 'Yes')
-            ->where('members.profile_hide', '!=', 'yes')
-            ->orderByDesc('profile_viewed.id')
             ->limit(30)
             ->get();
 

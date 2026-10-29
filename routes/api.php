@@ -203,6 +203,8 @@ Route::prefix('v1')
                     'advancedSearch',
                 ]);
 
+                Route::get('/dashboard/stats', \App\Http\Controllers\Api\V1\DashboardStatsController::class);
+
                 // home section
                 Route::get('/home', [
                     HomeController::class,

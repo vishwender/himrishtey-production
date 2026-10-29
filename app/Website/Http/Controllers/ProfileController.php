@@ -292,13 +292,7 @@ class ProfileController extends Controller
         }
         $gender = $loggedInUser->gender;
         if ($profileFor == 'profile_viewed') {
-            $recents = Member::select('members.*', 'profile_viewed.viewed_profile_id')
-                ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
-                ->where('profile_viewed.viewed_profile_id', $id)
-                ->where('members.active', 'Yes')
-                ->where(fn($query) => $query->whereNull('members.profile_hide')
-                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
-                ->orderBy('profile_viewed.id', 'desc')
+            $recents = \App\Website\Models\ProfileViewed::recentViewersFor($id)
                 ->limit(30)
                 ->get();
         } elseif ($profileFor == 'likes') {
@@ -375,13 +369,7 @@ class ProfileController extends Controller
         $limit = 30;
 
         if ($profileFor == 'profile_viewed') {
-            $recents = Member::select('members.*', 'profile_viewed.viewed_profile_id')
-                ->join('profile_viewed', 'members.id', '=', 'profile_viewed.member_id')
-                ->where('profile_viewed.viewed_profile_id', $id)
-                ->where('members.active', 'Yes')
-                ->where(fn($query) => $query->whereNull('members.profile_hide')
-                    ->orWhereRaw('LOWER(members.profile_hide) != ?', ['yes']))
-                ->orderBy('profile_viewed.id', 'desc')
+            $recents = \App\Website\Models\ProfileViewed::recentViewersFor($id)
                 ->skip($offset)
                 ->limit($limit)
                 ->get();

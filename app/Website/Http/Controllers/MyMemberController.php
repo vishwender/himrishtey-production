@@ -191,7 +191,7 @@ class MyMemberController extends Controller
         $user['age_months'] = $diff->m;
 
         $profileStats = [
-            'profile_views' => ProfileViewed::where('viewed_profile_id', $user->id)->count(),
+            'profile_views' => ProfileViewed::viewersFor($user->id)->count(),
             'likes' => ProfileLike::where('like_profile_id', $user->id)->count(),
             'interests' => SentInterest::where('profile_id', $user->id)->count(),
             'contacts_viewed' => ProfileViewed::where('member_id', $user->id)->count(),

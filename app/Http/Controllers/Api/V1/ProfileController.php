@@ -20,6 +20,13 @@ class ProfileController extends Controller
             'profile_id' => $member->profile_id,
             'member_type' => $member->member_type,
 
+            // Read-only assigned plan metadata; this does not grant entitlement.
+            'plan_id' => $member->plan_id,
+            'plan_name' => $member->plan_id && (string) $member->plan_id !== '0'
+                ? $member->getConnection()->table('membership_plans')
+                    ->where('id', $member->plan_id)->value('plan_name')
+                : null,
+
             // Profile completion
             'profile_completed' => (int) $member->profile_completed,
 
