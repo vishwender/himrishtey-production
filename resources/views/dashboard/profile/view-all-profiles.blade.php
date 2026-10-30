@@ -44,8 +44,13 @@ $collection = match ($profileFor) {
         <div class="vc-empty" role="status">
             <span class="rp-empty-icon"><i data-lucide="{{ $collection[5] }}" aria-hidden="true"></i></span>
             <h2>{{ $profileFor === 'shortlist' ? 'Your shortlist starts here' : 'No profiles to show yet' }}</h2>
+            @if($profileFor === 'matching')
+            <p>No profiles currently have more than a 70% match. Update your partner preferences to find more matches.</p>
+            <a class="rp-search-link" href="{{ route('edit-profile') }}">Update Partner Preferences <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            @else
             <p>{{ $profileFor === 'shortlist' ? 'Tap the bookmark on a profile to save it to this collection.' : 'Check back later or explore more profiles with a quick search.' }}</p>
             <a class="rp-search-link" href="{{ route('quick-search') }}">Explore profiles <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+            @endif
         </div>
         @endforelse
     </div>

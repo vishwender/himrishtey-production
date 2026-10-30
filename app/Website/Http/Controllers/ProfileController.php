@@ -70,43 +70,10 @@ class ProfileController extends Controller
                 ->orderBy('activation_number', 'desc')
                 ->get();
         } else {
-            $partner_country = explode(',', $member->partner_country ?? '');
-            $partner_religion = explode(',', $member->partner_religion ?? '');
-            $partner_education = explode(',', $member->partner_education ?? '');
-            $partner_mothertongue = explode(',', $member->partner_mothertongue ?? '');
-
-            if ($member->partner_cast === 'Any') {
-                $partner_cast = Member::where('cast', '!=', '')->distinct()->pluck('cast')->toArray();
-            } else {
-                $partner_cast = explode(',', $member->partner_cast ?? '');
-            }
-
-            $today = Carbon::today();
-
-            $recents = Member::where('gender', '!=', $member->gender)
-                ->where('id', '!=', $id)
-                ->get()
-                ->filter(function ($profile) use (
-                    $member,
-                    $today,
-                    $partner_country,
-                    $partner_religion,
-                    $partner_cast,
-                    $partner_education,
-                    $partner_mothertongue
-                ) {
-                    $age = Carbon::parse($profile->birth_date_time)->diffInYears($today);
-
-                    return $age >= $member->partner_age_from &&
-                        $age <= $member->partner_age_to &&
-                        $profile->height >= $member->partner_height_from &&
-                        $profile->height <= $member->partner_height_to &&
-                        in_array($profile->religion, $partner_religion) &&
-                        in_array($profile->country_living_in, $partner_country) &&
-                        in_array($profile->cast, $partner_cast) &&
-                        in_array($profile->education, $partner_education) &&
-                        in_array($profile->mother_tongue, $partner_mothertongue);
-                });
+            $recents = app(\App\Website\Services\DashboardMatchingProfiles::class)
+                ->query($member)
+                ->limit(30)
+                ->get();
         }
 
         $users = [];
@@ -137,9 +104,9 @@ class ProfileController extends Controller
             $users[$key] = array_merge($recent->toArray(), $users[$key]);
         }
         $stats = '';
+        $hasMatchPreferences = app(\App\Website\Services\DashboardMatchingProfiles::class)->hasPreferences($member);
 
-        // dd($users);
-        return view('dashboard.profile.view-all-profiles', compact(['users', 'profileFor', 'stats']));
+        return view('dashboard.profile.view-all-profiles', compact(['users', 'profileFor', 'stats', 'hasMatchPreferences']));
     }
 
     public function all_recent_profiles(Request $request)
@@ -198,46 +165,11 @@ class ProfileController extends Controller
                 ->take($limit)
                 ->get();
         } else {
-            $member = $loggedInUser;
-            $partner_country = explode(',', $member->partner_country ?? '');
-            $partner_religion = explode(',', $member->partner_religion ?? '');
-            $partner_education = explode(',', $member->partner_education ?? '');
-            $partner_mothertongue = explode(',', $member->partner_mothertongue ?? '');
-
-            if ($member->partner_cast === 'Any') {
-                $partner_cast = Member::where('cast', '!=', '')->distinct()->pluck('cast')->toArray();
-            } else {
-                $partner_cast = explode(',', $member->partner_cast ?? '');
-            }
-
-            $today = Carbon::today();
-
-            $recents = Member::where('gender', '!=', $member->gender)
-                ->where('id', '!=', $id)
+            $recents = app(\App\Website\Services\DashboardMatchingProfiles::class)
+                ->query($loggedInUser)
                 ->skip($offset)
                 ->take($limit)
-                ->get()
-                ->filter(function ($profile) use (
-                    $member,
-                    $today,
-                    $partner_country,
-                    $partner_religion,
-                    $partner_cast,
-                    $partner_education,
-                    $partner_mothertongue
-                ) {
-                    $age = Carbon::parse($profile->birth_date_time)->diffInYears($today);
-
-                    return $age >= $member->partner_age_from &&
-                        $age <= $member->partner_age_to &&
-                        $profile->height >= $member->partner_height_from &&
-                        $profile->height <= $member->partner_height_to &&
-                        in_array($profile->religion, $partner_religion) &&
-                        in_array($profile->country_living_in, $partner_country) &&
-                        in_array($profile->cast, $partner_cast) &&
-                        in_array($profile->education, $partner_education) &&
-                        in_array($profile->mother_tongue, $partner_mothertongue);
-                });
+                ->get();
         }
 
         $users = [];
@@ -273,9 +205,11 @@ class ProfileController extends Controller
             $users[] = $profile;
         }
 
+        $hasMatchPreferences = app(\App\Website\Services\DashboardMatchingProfiles::class)->hasPreferences($loggedInUser);
+
         // 👉 If request is AJAX, return JSON
         if ($request->ajax() && $request->has('view')) {
-            return view('dashboard.profile.view-all-profiles', compact(['users', 'profileFor']));
+            return view('dashboard.profile.view-all-profiles', compact(['users', 'profileFor', 'hasMatchPreferences']));
         } else {
             return response()->json(['users' => $users]);
         }

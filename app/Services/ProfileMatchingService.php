@@ -30,10 +30,10 @@ class ProfileMatchingService
     }
 
     /** Rank in SQL so only the requested cards are hydrated. */
-    public function rankedQuery(Member $member, ?Carbon $asOf = null): Builder
+    public function rankedQuery(Member $member, ?Carbon $asOf = null, array $columns = self::CARD_FIELDS): Builder
     {
         $asOf ??= Carbon::today();
-        $query = $this->eligibleQuery($member)->select(self::CARD_FIELDS);
+        $query = $this->eligibleQuery($member)->select($columns);
         $parts = ['0'];
         $bindings = [];
         foreach ([

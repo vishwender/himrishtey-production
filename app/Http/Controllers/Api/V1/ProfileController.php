@@ -19,6 +19,7 @@ class ProfileController extends Controller
         return [
             'id' => $member->id,
             'profile_id' => $member->profile_id,
+            'member_type' => $member->member_type,
 
             // Read-only assigned plan metadata; this does not grant entitlement.
             'plan_id' => $member->plan_id,

@@ -539,14 +539,13 @@ class HomeController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $matchingQuery = app(\App\Website\Services\DashboardMatchingProfiles::class)
-            ->query($member)
-            ->select($profileColumns);
+        $matching = app(\App\Website\Services\DashboardMatchingProfiles::class);
+        $data['has_match_preferences'] = $matching->hasPreferences($member);
+        $matchingQuery = $matching->query($member, $profileColumns);
 
         $data['matching_profiles'] = $this
             ->formatDashboardProfiles(
                 $matchingQuery
-                    ->orderByDesc('activation_number')
                     ->limit(30)
                     ->get()
             );

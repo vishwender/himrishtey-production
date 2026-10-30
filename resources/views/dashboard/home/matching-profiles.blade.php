@@ -28,12 +28,12 @@
             <h3>No matching profiles yet</h3>
 
             <p>
-                No profiles match your criteria.
-                Try updating your preferences to see more matches.
+                No profiles currently have more than a 70% match.
+                Update your partner preferences to find more matches.
             </p>
 
             <a href="{{ route('edit-profile') }}" class="btn btn-primary">
-                Complete Profile
+                Update Partner Preferences
             </a>
 
         </div>

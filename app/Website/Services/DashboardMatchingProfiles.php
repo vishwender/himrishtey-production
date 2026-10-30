@@ -2,73 +2,66 @@
 
 namespace App\Website\Services;
 
+use App\Models\Member as ApiMember;
+use App\Services\ProfileMatchingService;
 use App\Support\HeightFormatter;
 use App\Website\Models\Member;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 final class DashboardMatchingProfiles
 {
-    public function query(Member $member): Builder
+    public function __construct(private ProfileMatchingService $matching) {}
+
+    public function query(Member $member, array $columns = ['members.*']): Builder
     {
-        $query = Member::query()
-            ->whereRaw('LOWER(TRIM(gender)) != ?', [strtolower(trim((string) $member->gender))])
-            ->where('id', '!=', $member->id)
-            ->whereRaw('LOWER(TRIM(active)) = ?', ['yes'])
-            ->where(function ($query) {
-                $query->whereNull('profile_hide')
-                    ->orWhereRaw('LOWER(TRIM(profile_hide)) != ?', ['yes']);
-            })
-            ->whereBetween('birth_date_time', [
-                Carbon::today()->subYears((int) $member->partner_age_to + 1)->addDay()->startOfDay(),
-                Carbon::today()->subYears((int) $member->partner_age_from)->endOfDay(),
-            ]);
+        $preferences = $this->preferences($member);
+        $percentage = $this->hasPreferences($member)
+            ? 'CASE WHEN match_score > 100 THEN 100 ELSE match_score END'
+            : 'NULL';
 
-        // Partner preferences store slider positions; member heights store feet and inches.
-        $from = $this->inches(HeightFormatter::formatPartnerRange($member->partner_height_from));
-        $to = $this->inches(HeightFormatter::formatPartnerRange($member->partner_height_to));
-        $heights = (clone $query)->select('height')->distinct()->pluck('height')
-            ->filter(function ($height) use ($from, $to) {
-                $inches = $this->inches(HeightFormatter::format($height));
-
-                return $from !== null && $to !== null && $inches !== null
-                    && $inches >= $from && $inches <= $to;
-            })->values()->all();
-        $query->whereIn('height', $heights);
-
-        foreach ([
-            'country_living_in' => 'partner_country',
-            'religion' => 'partner_religion',
-            'cast' => 'partner_cast',
-            'education' => 'partner_education',
-            'mother_tongue' => 'partner_mothertongue',
-        ] as $column => $preference) {
-            $values = array_values(array_filter(array_map('trim', explode(',', (string) $member->$preference)),
-                fn ($value) => $value !== ''));
-
-            if (collect($values)->contains(fn ($value) => strcasecmp($value, 'Any') === 0)) {
-                // Preserve the existing caste "Any" requirement for a populated caste.
-                if ($column === 'cast') {
-                    $query->whereNotNull('cast')->where('cast', '!=', '');
-                }
-
-                continue;
-            }
-
-            if ($values !== []) {
-                $query->whereIn($column, $values);
-            }
-        }
-
-        return $query;
+        return $this->matching->rankedQuery($preferences, columns: $columns)
+            ->where('match_score', '>', 70)
+            ->when(! $this->hasPreferences($member), fn ($query) => $query->whereRaw('1 = 0'))
+            ->select('ranked_profiles.*')
+            ->selectRaw($percentage.' AS match_percentage');
     }
 
-    private function inches(string $height): ?int
+    public function hasPreferences(Member $member): bool
     {
-        if (! preg_match('/^(\d+) ft (\d+) in$/', $height, $parts)) {
-            return null;
+        $preferences = $this->preferences($member);
+        foreach (['partner_age_from', 'partner_age_to', 'partner_height_from', 'partner_height_to',
+            'partner_religion', 'partner_cast', 'partner_education', 'partner_mothertongue',
+            'partner_occupation', 'partner_diet', 'is_partner_manglik', 'is_partner_smoking',
+            'is_partner_drinking', 'partner_state'] as $field) {
+            foreach (explode(',', (string) $preferences->$field) as $value) {
+                if (! in_array(strtolower(trim($value)), ['', 'any'], true)) {
+                    return true;
+                }
+            }
         }
 
-        return (int) $parts[1] * 12 + (int) $parts[2];
+        return false;
+    }
+
+    private function preferences(Member $member): ApiMember
+    {
+        $preferences = new ApiMember;
+        $preferences->setRawAttributes($member->getAttributes());
+
+        // Imported profiles use zero to mean that no age range was selected.
+        foreach (['partner_age_from', 'partner_age_to'] as $field) {
+            if (! is_numeric($preferences->$field) || (float) $preferences->$field <= 0) {
+                $preferences->$field = null;
+            }
+        }
+
+        // The website saves height slider positions; the API scorer expects heights.
+        foreach (['partner_height_from', 'partner_height_to'] as $field) {
+            $preferences->$field = is_numeric($member->$field) && (float) $member->$field > 0
+                ? HeightFormatter::formatPartnerRange($member->$field)
+                : null;
+        }
+
+        return $preferences;
     }
 }
