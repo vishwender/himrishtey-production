@@ -178,6 +178,8 @@ Route::prefix('v1')
                     [ProfilePhotoController::class, 'uploadGalleryPhoto']
                 );
 
+                Route::get('/profiles/{profileId}/contact/quote', [ProfileContactController::class, 'quote'])->whereNumber('profileId');
+
                 Route::post(
                     '/profiles/{profileId}/contact/unlock',
                     [ProfileContactController::class, 'unlock']

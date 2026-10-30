@@ -16,6 +16,17 @@ class ProfileContactController extends Controller
      */
     public function unlock(Request $request, int $profileId): JsonResponse
     {
+        return $this->respond($request, $profileId, false);
+    }
+
+    public function quote(Request $request, int $profileId): JsonResponse
+    {
+        return $this->respond($request, $profileId, true);
+    }
+
+    private function respond(Request $request, int $profileId, bool $quoteOnly): JsonResponse
+    {
+        $validated = $request->validate(['maximum_price' => ['sometimes', 'required', 'numeric', 'min:0']]);
         /** @var Member|null $member */
         $member = $request->user();
 
@@ -51,7 +62,17 @@ class ProfileContactController extends Controller
         }
 
         try {
-            $result = app(ProfileContactUnlock::class)->unlock((int) $member->id, (int) $profile->id, 'application');
+            $service = app(ProfileContactUnlock::class);
+            $result = $quoteOnly
+                ? $service->quote((int) $member->id, (int) $profile->id, 'application')
+                : $service->unlock((int) $member->id, (int) $profile->id, 'application', isset($validated['maximum_price']) ? (float) $validated['maximum_price'] : null);
+        } catch (\Illuminate\Database\QueryException $exception) {
+            report($exception);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to unlock contact details. Please try again later.',
+            ], 500);
         } catch (RuntimeException $exception) {
             return response()->json([
                 'success' => false,
@@ -68,6 +89,18 @@ class ProfileContactController extends Controller
 
         if ($result['inactive_membership'] ?? false) {
             return response()->json(['success' => false, 'message' => 'Active membership required to unlock contact details.'], 403);
+        }
+
+        if ($result['price_changed'] ?? false) {
+            return response()->json(['success' => false, 'message' => 'The profile view price changed. Please review the current price and try again.'], 409);
+        }
+
+        if ($quoteOnly) {
+            return response()->json(['success' => true, 'data' => [
+                'profile' => ['id' => $profile->id, 'full_name' => $profile->full_name],
+                'price' => $result['price'], 'wallet_balance' => $result['wallet_balance'],
+                'already_unlocked' => $result['already_unlocked'], 'can_afford' => $result['can_afford'],
+            ]]);
         }
 
         if ($result['insufficient_balance'] ?? false) {
