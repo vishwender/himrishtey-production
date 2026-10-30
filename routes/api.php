@@ -102,7 +102,7 @@ Route::prefix('v1')
             ])->middleware('throttle:5,1');
         });
 
-        Route::middleware('auth:sanctum')
+        Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureAdultMember::class])
             ->group(function () {
 
                 Route::get('/profile', [
