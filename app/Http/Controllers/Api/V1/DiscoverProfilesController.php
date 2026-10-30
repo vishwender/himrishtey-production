@@ -18,7 +18,7 @@ class DiscoverProfilesController extends Controller
     public function __invoke(Request $request, ProfileMatchingService $matching): JsonResponse
     {
         $input = $request->validate([
-            'section' => ['sometimes', Rule::in(['matches', 'recently_joined', 'verified', 'shortlisted', 'viewed_you', 'liked_profiles', 'liked_you'])],
+            'section' => ['sometimes', Rule::in(['matches', 'recently_joined', 'verified', 'shortlisted', 'viewed_you', 'liked_profiles', 'liked_you', 'contacts_viewed'])],
             'per_page' => ['sometimes', 'integer', 'between:1,100'],
             'cursor' => ['sometimes', 'string', 'max:16384'],
         ]);
@@ -59,8 +59,8 @@ class DiscoverProfilesController extends Controller
                 'as_of' => Carbon::today()->format('Y-m-d'),
                 'max_id' => (int) Member::query()->max('id'), 'max_event_id' => 0,
             ];
-            if (in_array($section, ['shortlisted', 'viewed_you', 'liked_profiles', 'liked_you'], true)) {
-                $state['max_event_id'] = (int) $connection->table(match ($section) { 'shortlisted' => 'short_listed', 'viewed_you' => 'profile_viewed', default => 'profile_like' })->max('id');
+            if (in_array($section, ['shortlisted', 'viewed_you', 'liked_profiles', 'liked_you', 'contacts_viewed'], true)) {
+                $state['max_event_id'] = (int) $connection->table(match ($section) { 'shortlisted' => 'short_listed', 'viewed_you' => 'profile_viewed', 'contacts_viewed' => 'viewed_contacts', default => 'profile_like' })->max('id');
             }
         }
 
@@ -76,9 +76,10 @@ class DiscoverProfilesController extends Controller
         } elseif ($section === 'recently_joined') {
             $query->selectRaw("COALESCE(registration_date, '') AS joined_rank");
             $order = ['joined_rank', 'id'];
-        } elseif (in_array($section, ['shortlisted', 'viewed_you', 'liked_profiles', 'liked_you'], true)) {
+        } elseif (in_array($section, ['shortlisted', 'viewed_you', 'liked_profiles', 'liked_you', 'contacts_viewed'], true)) {
             [$table, $profileColumn, $ownerColumn] = match ($section) {
                 'shortlisted' => ['short_listed', 'profile_id', 'member_id'],
+                'contacts_viewed' => ['viewed_contacts', 'profile_id', 'member_id'],
                 'viewed_you' => ['profile_viewed', 'member_id', 'viewed_profile_id'],
                 'liked_profiles' => ['profile_like', 'like_profile_id', 'user_id'],
                 'liked_you' => ['profile_like', 'user_id', 'like_profile_id'],
