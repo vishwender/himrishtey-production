@@ -8,6 +8,39 @@ use Illuminate\Support\Facades\DB;
 
 class MembershipExpiry
 {
+    /** Read-only expiry metadata for the authenticated member, using inclusive plan days. */
+    public function forMember(\App\Models\Member $member): array
+    {
+        $empty = ['membership_expires_on' => null, 'membership_days_remaining' => null];
+        if (! $member->plan_id || ! $member->plan_activation_date
+            || strtolower(trim((string) $member->active)) === 'deleted') {
+            return $empty;
+        }
+
+        $duration = (int) $member->getConnection()->table('membership_plans')
+            ->where('id', $member->plan_id)->value('duration_days');
+        if ($duration <= 0) {
+            return $empty;
+        }
+
+        $date = substr((string) $member->plan_activation_date, 0, 10);
+        try {
+            $activation = CarbonImmutable::createFromFormat('!Y-m-d', $date, 'Asia/Kolkata');
+        } catch (\Throwable) {
+            return $empty;
+        }
+        $today = CarbonImmutable::now('Asia/Kolkata')->startOfDay();
+        if (! $activation || $activation->format('Y-m-d') !== $date || $activation->greaterThan($today)) {
+            return $empty;
+        }
+        $expiry = $activation->addDays($duration - 1);
+
+        return [
+            'membership_expires_on' => $expiry->toDateString(),
+            'membership_days_remaining' => (int) $today->diffInDays($expiry, false),
+        ];
+    }
+
     public function query(int $days = 7, ?CarbonImmutable $today = null): Builder
     {
         $today ??= CarbonImmutable::now('Asia/Kolkata')->startOfDay();

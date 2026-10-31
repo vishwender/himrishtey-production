@@ -20,6 +20,7 @@ class ProfileController extends Controller
             'id' => $member->id,
             'profile_id' => $member->profile_id,
             'member_type' => $member->member_type,
+            ...app(\App\Services\MembershipExpiry::class)->forMember($member),
             'relationship_manager' => app(\App\Services\Api\V1\MemberRelationshipManager::class)->details($member),
 
             // Read-only assigned plan metadata; this does not grant entitlement.
