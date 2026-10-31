@@ -102,7 +102,7 @@ Route::prefix('v1')
             ])->middleware('throttle:5,1');
         });
 
-        Route::middleware('auth:sanctum')
+        Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureAdultMember::class])
             ->group(function () {
 
                 Route::get('/profile', [
@@ -177,6 +177,8 @@ Route::prefix('v1')
                     '/profile/photos/gallery',
                     [ProfilePhotoController::class, 'uploadGalleryPhoto']
                 );
+
+                Route::get('/profiles/{profileId}/contact/quote', [ProfileContactController::class, 'quote'])->whereNumber('profileId');
 
                 Route::post(
                     '/profiles/{profileId}/contact/unlock',

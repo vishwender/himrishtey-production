@@ -56,7 +56,7 @@ class SearchController extends Controller
                 'id', 'profile_id', 'full_name', 'gender', 'height',
                 'religion', 'cast', 'marital_status', 'education', 'occupation',
                 'country_living_in', 'state_living_in', 'city_living_in',
-                'photo', 'profile_completed',
+                'photo', 'profile_completed', 'member_type',
             ])
             ->orderByDesc('promoted')
             ->orderByDesc('id')
@@ -356,6 +356,7 @@ class SearchController extends Controller
                 'id',
                 'profile_id',
                 'full_name',
+                'member_type',
                 'birth_date_time',
                 'gender',
                 'height',
@@ -403,6 +404,7 @@ class SearchController extends Controller
                     'id' => $member->id,
                     'profile_id' => $member->profile_id,
                     'full_name' => $member->full_name,
+                    'member_type' => $member->member_type,
                     'age' => $age,
                     'gender' => $member->gender,
                     'height' => $member->height,
@@ -580,6 +582,7 @@ class SearchController extends Controller
                     'profile_id' => $member->profile_id,
 
                     'full_name' => $member->full_name,
+                    'member_type' => $member->member_type,
 
                     'gender' => $member->gender,
 
@@ -1048,6 +1051,7 @@ class SearchController extends Controller
                 'id',
                 'profile_id',
                 'full_name',
+                'member_type',
                 'birth_date_time',
                 'gender',
                 'height',
@@ -1118,6 +1122,7 @@ class SearchController extends Controller
                     'profile_id' => $member->profile_id,
 
                     'full_name' => $member->full_name,
+                    'member_type' => $member->member_type,
 
                     'age' => $age,
 

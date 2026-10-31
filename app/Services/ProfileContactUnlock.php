@@ -32,11 +32,25 @@ class ProfileContactUnlock
         ];
     }
 
-    public function unlock(int $memberId, int $profileId, string $connection = 'site'): array
+    public function quote(int $memberId, int $profileId, string $connection = 'site'): array
+    {
+        $db = DB::connection($connection);
+        $member = $db->table('members')->where('id', $memberId)->first();
+        if (! $member || strtolower(trim((string) $member->active)) !== 'yes') {
+            return ['inactive_membership' => true];
+        }
+        $wallet = $db->table('member_wallet')->where('member_id', $memberId)->orderByDesc('id')->first();
+        $balance = is_numeric($wallet?->wallet_balance) ? (float) $wallet->wallet_balance : 0.0;
+        $unlocked = $db->table('viewed_contacts')->where('member_id', $memberId)->where('profile_id', $profileId)->exists();
+        $pricing = $unlocked ? ['price' => 0.0, 'profile_view_number' => null, 'price_range' => null] : $this->price($memberId, $connection);
+        return ['already_unlocked' => $unlocked, 'wallet_balance' => $balance, 'can_afford' => $balance >= $pricing['price']] + $pricing;
+    }
+
+    public function unlock(int $memberId, int $profileId, string $connection = 'site', ?float $maximumPrice = null): array
     {
         $db = DB::connection($connection);
 
-        return $db->transaction(function () use ($db, $memberId, $profileId, $connection) {
+        return $db->transaction(function () use ($db, $memberId, $profileId, $connection, $maximumPrice) {
             // All clients lock the same member row before checking or charging.
             $member = $db->table('members')->where('id', $memberId)->lockForUpdate()->first();
             if (! $member || strtolower(trim((string) $member->active)) !== 'yes') {
@@ -51,6 +65,9 @@ class ProfileContactUnlock
 
             $pricing = $this->price($memberId, $connection);
             $price = $pricing['price'];
+            if ($maximumPrice !== null && $price > $maximumPrice) {
+                return ['price_changed' => true];
+            }
             if ($balance < $price) {
                 return ['insufficient_balance' => true, 'required_coins' => $price, 'wallet_balance' => $balance] + $pricing;
             }
@@ -59,7 +76,7 @@ class ProfileContactUnlock
             $db->table('member_wallet')->insert([
                 'member_id' => $memberId, 'wallet_balance' => $newBalance,
                 'amount_deducted' => $price, 'amount_added' => 0,
-                'created_at' => now(),
+                'created_at' => now(), 'update_at' => now(),
             ]);
             $db->table('viewed_contacts')->insert([
                 'member_id' => $memberId, 'profile_id' => $profileId, 'viewed_date' => now(),

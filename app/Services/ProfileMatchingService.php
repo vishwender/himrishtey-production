@@ -13,7 +13,7 @@ class ProfileMatchingService
         'id', 'profile_id', 'full_name', 'birth_date_time', 'gender', 'height',
         'religion', 'mother_tongue', 'cast', 'marital_status', 'education',
         'occupation', 'annual_income', 'country_living_in', 'state_living_in',
-        'city_living_in', 'photo', 'profile_completed',
+        'city_living_in', 'photo', 'profile_completed', 'member_type',
     ];
 
     public function eligibleQuery(Member $member): Builder

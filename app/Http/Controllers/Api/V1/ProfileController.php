@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Profile\UpdateBasicProfileRequest;
 use App\Models\Member;
+use App\Support\AdultAccess;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -184,8 +185,13 @@ class ProfileController extends Controller
 
             'birth_date_time' => [
                 'sometimes',
-                'nullable',
+                \Illuminate\Validation\Rule::when(AdultAccess::appliesTo($request), ['required'], ['nullable']),
                 'date_format:Y-m-d h:i A,Y-m-d H:i:s,Y-m-d',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (AdultAccess::appliesTo($request) && !AdultAccess::isAdult($value)) {
+                        $fail(AdultAccess::MESSAGE);
+                    }
+                },
             ],
 
             'birth_place' => [

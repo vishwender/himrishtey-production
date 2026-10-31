@@ -8,6 +8,7 @@ use App\Http\Requests\Api\V1\Auth\RequestLoginOtpRequest;
 use App\Http\Requests\Api\V1\Auth\VerifyLoginOtpRequest;
 use App\Models\Application;
 use App\Models\Member;
+use App\Support\AdultAccess;
 use App\Models\PersonalAccessToken;
 use App\Services\NimbusSmsService;
 use Illuminate\Http\JsonResponse;
@@ -312,6 +313,14 @@ class AuthController extends Controller
 
     private function respondWithAccessToken(Member $member, Application $application): JsonResponse
     {
+        if ($application->code === 'himrishtey' && !AdultAccess::isAdult($member->birth_date_time)) {
+            return response()->json([
+                'success' => false,
+                'code' => 'ADULT_ACCESS_REQUIRED',
+                'message' => AdultAccess::MESSAGE,
+            ], 403);
+        }
+
         $plainTextToken = Str::random(40);
         $personalAccessToken = new PersonalAccessToken;
 
@@ -430,6 +439,11 @@ class AuthController extends Controller
             'birth_date_time' => [
                 'required',
                 'date',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (AdultAccess::appliesTo($request) && !AdultAccess::isAdult($value)) {
+                        $fail(AdultAccess::MESSAGE);
+                    }
+                },
             ],
 
             'password' => [

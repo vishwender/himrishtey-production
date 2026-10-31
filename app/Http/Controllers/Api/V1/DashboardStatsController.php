@@ -34,6 +34,8 @@ class DashboardStatsController extends Controller
                 'profile_views' => ProfileViewed::viewersFor((int) $member->id)->count(),
                 'likes_received' => (clone $eligible)->whereIn('id', $likes)->count(),
                 'interests_received' => (clone $eligible)->whereIn('id', $interests)->count(),
+                'contacts_viewed' => app(\App\Services\ProfileMatchingService::class)->eligibleQuery($member)
+                    ->whereIn('id', $db->table('viewed_contacts')->select('profile_id')->where('member_id', $member->id))->count(),
                 'contact_views' => (clone $eligible)->whereIn('id', $contacts)->count(),
             ],
         ]);
