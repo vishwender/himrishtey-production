@@ -45,7 +45,7 @@ class InterestPagination
         $relation = $received ? 'sender' : 'recipient';
         $items = SentInterest::query()
             ->select(['id', 'member_id', 'profile_id', 'status', 'created_at'])
-            ->with([$relation.':id,profile_id,full_name,photo,birth_date_time,city_living_in,state_living_in'])
+            ->with([$relation.':id,profile_id,full_name,gender,photo,birth_date_time,city_living_in,state_living_in'])
             ->where($received ? 'profile_id' : 'member_id', $member->id)
             ->when($lastId !== null, fn ($query) => $query->where('id', '<', $lastId))
             ->orderByDesc('id')->limit($limit + 1)->get();
