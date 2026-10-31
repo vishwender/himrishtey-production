@@ -20,6 +20,7 @@
 @section('content')
 @php
     $labels = [
+        'google_site_verification' => 'Google site verification',
         'meta_title' => 'Meta title', 'meta_description' => 'Meta description', 'meta_keywords' => 'Meta keywords',
         'logo' => 'Logo image', 'hero_badge' => 'Hero badge text', 'hero_title' => 'Main headline',
         'hero_title_secondary' => 'Secondary headline', 'hero_subtitle' => 'Hero description',
@@ -36,6 +37,7 @@
         'instagram_access_token' => 'Instagram access token',
     ];
     $help = [
+        'google_site_verification' => 'Enter only the content value from your Google Search Console verification tag. Leave a custom value blank to remove the tag.',
         'meta_title' => 'The website title used in browser tabs and search results. Default uses this site’s configured meta title.',
         'meta_keywords' => 'Comma-separated keywords for this website. Default uses this site’s configured keywords. Leave a custom value blank to remove the keywords tag.',
         'meta_description' => 'A short description of your website for search results. Default uses this site’s configured meta description.',

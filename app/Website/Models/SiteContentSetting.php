@@ -30,7 +30,7 @@ class SiteContentSetting extends Model
             'Home page' => ['hero_badge', 'hero_title', 'hero_title_secondary', 'hero_subtitle', 'hero_background', 'hero_cta_primary', 'hero_cta_secondary', 'show_hero_stats', 'why_title', 'why_text', 'community_title', 'community_subtitle'],
             'About page' => ['about_intro_title', 'about_intro_title_secondary'],
             'Contact and apps' => ['support_phone', 'android_app_url', 'ios_app_url'],
-            'SEO' => ['meta_title', 'meta_description', 'meta_keywords'],
+            'SEO' => ['meta_title', 'meta_description', 'meta_keywords', 'google_site_verification'],
             'Analytics' => ['google_analytics_id', 'google_tag_manager_id'],
             'Social links' => ['social_facebook', 'social_x', 'social_instagram', 'social_youtube', 'social_pinterest'],
             'Instagram feed' => ['instagram_feed_enabled', 'instagram_api_base_url', 'instagram_api_version', 'instagram_cache_minutes', 'instagram_feed_limit', 'instagram_user_id', 'instagram_access_token'],

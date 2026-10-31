@@ -80,6 +80,7 @@ class SiteContentSettingsController extends Controller
                 $field === 'instagram_api_base_url' => ['url:https', Rule::in(['https://graph.instagram.com', 'https://graph.facebook.com'])],
                 in_array($field, ['meta_description', 'meta_keywords']) => ['string', 'max:2000'],
                 $field === 'instagram_api_version' => ['regex:/^v\d+\.\d+$/', 'max:50'],
+                $field === 'google_site_verification' => ['string', 'max:255', 'regex:/^[A-Za-z0-9_-]+$/'],
                 in_array($field, ['footer_text', 'hero_subtitle', 'why_text', 'community_subtitle', 'instagram_access_token']) => ['string', 'max:20000'],
                 in_array($field, ['logo', 'tagline', 'hero_background']) => ['string', 'max:500'],
                 in_array($field, ['support_phone', 'google_analytics_id', 'google_tag_manager_id']) => ['string', 'max:50'],

@@ -12,6 +12,7 @@
  <html lang="en" data-site="{{ $siteKey }}">
 
  <head>
+     @include('partials.google-site-verification')
     @include('partials.robots')
      @include('partials.canonical')
      @include('partials.favicon')
