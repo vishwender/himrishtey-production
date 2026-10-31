@@ -11,7 +11,7 @@ class CanonicalUrl
         $baseUrl = rtrim((string) config('site.current.app_url', config('app.url')), '/');
 
         return match (parse_url($baseUrl, PHP_URL_HOST)) {
-            'devbhoomirishtey.com', 'www.devbhoomirishtey.com' => 'https://www.devbhoomirishtey.com',
+            'devbhoomirishtey.com', 'www.devbhoomirishtey.com' => 'https://devbhoomirishtey.com',
             'dogririshtey.com', 'www.dogririshtey.com' => 'https://dogririshtey.com',
             default => $baseUrl,
         };
