@@ -2,6 +2,7 @@
 
 namespace App\Website\Http\Controllers;
 
+use App\Website\Support\CanonicalUrl;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -56,23 +57,6 @@ class SitemapController extends Controller
 
     private function baseUrl(): string
     {
-        $baseUrl = rtrim(
-            (string) config('site.current.app_url'),
-            '/'
-        );
-
-        $host = parse_url($baseUrl, PHP_URL_HOST);
-
-        return match ($host) {
-            'devbhoomirishtey.com',
-            'www.devbhoomirishtey.com'
-            => 'https://www.devbhoomirishtey.com',
-
-            'dogririshtey.com',
-            'www.dogririshtey.com'
-            => 'https://dogririshtey.com',
-
-            default => $baseUrl,
-        };
+        return CanonicalUrl::baseUrl();
     }
 }

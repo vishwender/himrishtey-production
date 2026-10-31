@@ -12,6 +12,7 @@
  <html lang="en" data-site="{{ $siteKey }}">
 
  <head>
+     @include('partials.canonical')
      @include('partials.favicon')
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1">
