@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->append(\App\Http\Middleware\SetRobotsHeader::class);
         $middleware->prependToGroup('web', ResolveWebsite::class);
         $middleware->trimStrings(except: ['new_password', 'new_password_confirmation']);
         $middleware->redirectGuestsTo(fn (Request $request) => route('login-form'));
