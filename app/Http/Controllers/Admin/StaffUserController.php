@@ -80,6 +80,8 @@ class StaffUserController extends Controller
                 'unique:admins,email',
             ],
 
+            'contact_number' => ['nullable', 'string', 'max:30', 'regex:/^\+?[0-9 ()-]{7,30}$/'],
+
             'password' => [
                 'required',
                 'string',
@@ -108,6 +110,7 @@ class StaffUserController extends Controller
             $admin = Admin::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'contact_number' => $validated['contact_number'] ?? null,
                 // The column is currently non-nullable, so use a unique
                 // temporary value until the auto-increment ID is available.
                 'profile_id' => 'pending-'.Str::uuid(),
@@ -181,6 +184,8 @@ class StaffUserController extends Controller
                     ->ignore($admin->id),
             ],
 
+            'contact_number' => ['nullable', 'string', 'max:30', 'regex:/^\+?[0-9 ()-]{7,30}$/'],
+
             'password' => [
                 'nullable',
                 'string',
@@ -208,6 +213,9 @@ class StaffUserController extends Controller
 
             $admin->name = $validated['name'];
             $admin->email = $validated['email'];
+            if (array_key_exists('contact_number', $validated)) {
+                $admin->contact_number = $validated['contact_number'];
+            }
 
             /*
              * Only change password if supplied.

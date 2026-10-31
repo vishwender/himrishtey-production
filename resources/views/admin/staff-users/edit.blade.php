@@ -68,6 +68,13 @@
 
                     <div class="row g-3">
 
+<div class="col-md-6">
+    <label for="contact_number" class="form-label">Contact Number</label>
+    <input type="tel" id="contact_number" name="contact_number" maxlength="30"
+        value="{{ old('contact_number', $admin->contact_number) }}" class="form-control @error('contact_number') is-invalid @enderror">
+    <small class="text-muted">Shown to members assigned to this relationship manager.</small>
+    @error('contact_number')<div class="invalid-feedback">{{ $message }}</div>@enderror
+</div>
                         <div class="col-md-6">
 
                             <label class="form-label">
